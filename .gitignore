@@ -1,0 +1,53 @@
+# Ignore Node.js specific files and directories
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ignore environment-specific files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Ignore logs and runtime data
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Ignore any local development files or settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Ignore dependencies
+*.bak
+*.bak.*
+*.swp
+*.swo
+*.swpl
+*.swm
+*.zip
+*.gz
+*.rar
+*.7z
+*.exe
+*.dll
+*.dmg
+*.iso
+*.to
+*.bak
+*.cache
+*.tmp
+*.db
+*.log.*
+*.sqlite
+*.sqlite3
+*.csv
+*.json.*
