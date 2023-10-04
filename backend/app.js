@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var revenueRouter = require("./routes/revenue.routes");
 var roleRouter=require("./routes/roles.routes")
-
+var courseRoutes = require("./routes/course.routes");
 var app = express();
 
 // view engine setup
@@ -25,7 +25,10 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/api/v1/revenue", revenueRouter);
 
-app.use("/api/v1/roles",roleRouter)
+app.use("/api/v1/roles", roleRouter);
+
+app.use("/api/v1/course", courseRoutes);
+// https://localhost:3000/api/v1/course/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
