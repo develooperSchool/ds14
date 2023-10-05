@@ -8,6 +8,10 @@ const getAllRoles=async()=>{
 
    return roles;
    
-}
+};
 
-module.exports={getAllRoles}
+
+
+module.exports={
+   getAllRoles,
+   }

@@ -17,5 +17,6 @@ const getAllRoles=async()=>{
         console.log(err)
     }
 }
+ 
 
 module.exports={getAllRoles}
