@@ -6,13 +6,22 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 
-var revenueRouter1 = require("./routes/revenue.routes");
 let revenueRouter=require("./routes/myrevenue.routes");
+var uroleRouter = require("./routes/urole.routes")
 
 
-var courseRoutes = require("./routes/course.routes");
-var uroleRouter = require("./routes/urole.routes")
-var uroleRouter = require("./routes/urole.routes")
+
+
+
+
+
+
+
+
+
+
+
+
 var app = express();
 
 // view engine setup
@@ -29,13 +38,15 @@ app.use("/", indexRouter);
 app.use("/api/v1/revenue", revenueRouter);
 
 
+
 app.use("/api/v1/urole",uroleRouter)
+
 
 app.use("/api/v1/course", courseRoutes);
 // https://localhost:3000/api/v1/course/
 
-
 // https://localhost:3000/api/v1/course/
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
