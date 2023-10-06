@@ -5,13 +5,21 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users.routes");
-var revenueRouter = require("./routes/revenue.routes");
-var courseRoutes = require("./routes/course.routes");
-var uroleRouter = require("./routes/urole.routes")
+
+let revenueRouter=require("./routes/myrevenue.routes");
 var uroleRouter = require("./routes/urole.routes")
 
-var courseRoutes = require("./routes/course.routes");
+
+
+
+
+
+
+
+
+
+
+
 
 
 var app = express();
@@ -28,14 +36,17 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/api/v1/revenue", revenueRouter);
-app.use("/api/v1/roles", roleRouter);
+
+
+
 app.use("/api/v1/urole",uroleRouter)
+
 
 app.use("/api/v1/course", courseRoutes);
 // https://localhost:3000/api/v1/course/
 
-
 // https://localhost:3000/api/v1/course/
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -53,4 +64,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-module.exports = app;
+module.exports = app; 

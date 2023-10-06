@@ -55,7 +55,7 @@ const saveIncomePaymentDetails = async (body) => {
     amount,
     totalFees,
     paidFees,
-    balanceFees,
+    balanceFees,    
   } = body;
 
   let query = "";
