@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const salaryInfoController = require('../controllers/salaryInfoController');
-// const salaryInfoValidation = require('../middlewares/validations/salaryInfo.validation')
 
 router.get('/',salaryInfoController.getAllSalaryInfo)
 router.get('/:salary_id',salaryInfoController.getSalaryInfoById);
