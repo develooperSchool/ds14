@@ -11,6 +11,9 @@ var revenueRouter = require("./routes/revenue.routes");
 var studentRouter=require("./routes/student.routes")
 
 var roleRouter=require("./routes/roles.routes")
+var adminRouter=require("./routes/admin.routes")
+var facultyRouter=require("./routes/faculty.routes")
+var guestRouter=require("./routes/guest.routes")
 
 
 var app = express();
@@ -31,6 +34,11 @@ app.use("/api/v1/revenue", revenueRouter);
 app.use("/api/v1/students",studentRouter)
 
 app.use("/api/v1/roles",roleRouter)
+app.use("/api/v1/admin",adminRouter)
+app.use("/api/v1/faculties",facultyRouter)
+app.use("/api/v1/guests",guestRouter)
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

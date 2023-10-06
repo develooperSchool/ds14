@@ -13,4 +13,8 @@ const getAllStudents = async () => {
 
   return rows;
 };
+
+
+
+
 module.exports={getAllStudents}

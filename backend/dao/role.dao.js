@@ -2,20 +2,14 @@ var pool=require('../config/db-config')
 
 const getAllRoles=async()=>{
 
-    let result=[]
-    try
-    {  
-    let sql="select * from roles";
-    let result=[]
-
-    const [rows] = await pool.query('SELECT * FROM roles');
-   return rows;
- 
+    let row = [];
+    try {
+      const [rows] = await pool.query("SELECT * FROM userRole");
+      row = rows;
+    } catch (err) {
+      console.error(err);
     }
-    catch(err)
-    {
-        console.log(err)
-    }
-}
+    return row;
+  };
 
 module.exports={getAllRoles}

@@ -10,4 +10,6 @@ const getAllStudents = (req, res) => {
     });
 };
 
-module.exports={getAllStudents}
+
+module.exports={getAllStudents,
+                }
