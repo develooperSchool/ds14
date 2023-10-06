@@ -9,7 +9,6 @@ var usersRouter = require("./routes/users.routes");
 var revenueRouter = require("./routes/revenue.routes");
 var courseRoutes = require("./routes/course.routes");
 var uroleRouter = require("./routes/urole.routes")
-var uroleRouter = require("./routes/urole.routes")
 
 var courseRoutes = require("./routes/course.routes");
 
@@ -36,11 +35,8 @@ app.use("/api/salary-info", salaryInfoRoutes);
 app.use("/api/attendance-records",attendanceRecordsRoutes);
 app.use("/api/payroll-processing",payrollProcessingRoutes);
 app.use("/api/v1/urole",uroleRouter)
-<<<<<<< .mine
-app.use("/api/payroll-processing",payrollProcessingRoutes);
-=======
 
->>>>>>> .theirs
+
 
 app.use("/api/v1/course", courseRoutes);
 // https://localhost:3000/api/v1/course/
