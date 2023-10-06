@@ -1,5 +1,5 @@
 var express = require("express");
-const validation = require("../middlewares/revenue.validation.middleware");
+
 const controller = require("../controllers/revenue.controller");
 
 var router = express.Router();
