@@ -4,6 +4,14 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+var indexRouter = require("./routes/index");
+var revenueRouter = require("./routes/revenue.routes");
+var courseRoutes = require("./routes/course.routes");
+var uroleRouter = require("./routes/urole.routes")
+
+
+
+var app = express();
 
 var usersRouter = require("./routes/users.routes");
 var studentRouter=require("./routes/student.routes")
@@ -11,10 +19,6 @@ let revenueRouter=require("./routes/myrevenue.routes");
 var adminRouter=require("./routes/admin.routes")
 var facultyRouter=require("./routes/faculty.routes")
 var guestRouter=require("./routes/guest.routes")
-var indexRouter = require("./routes/index");
-var courseRoutes = require("./routes/course.routes");
-var uroleRouter = require("./routes/urole.routes")
-
 const salaryInfoRoutes=require('./routes/salaryInfo');
 const attendanceRecordsRoutes = require('./routes/attendanceRecords');
 const payrollProcessingRoutes = require('./routes/payrollProcessing')
