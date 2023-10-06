@@ -14,4 +14,3 @@ const getAllRoles = async () => {
   return rows;
 };
 
-module.exports = { getAllRoles };
