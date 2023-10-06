@@ -5,12 +5,14 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var indexRouter = require('./routes/index');
-var indexRouter = require("./routes/index");
+
 var usersRouter = require("./routes/users.routes");
 var revenueRouter = require("./routes/revenue.routes");
 var studentRouter=require("./routes/student.routes")
+
+let revenueRouter=require("./routes/myrevenue.routes");
 var uroleRouter = require("./routes/urole.routes")
-var roleRouter=require("./routes/roles.routes")
+
 
 
 var roleRouter=require("./routes/roles.routes")
@@ -20,10 +22,6 @@ var facultyRouter=require("./routes/faculty.routes")
 var guestRouter=require("./routes/guest.routes")
 
 var courseRoutes = require("./routes/course.routes");
-
-
-
-
 
 
 var app = express();
@@ -44,7 +42,8 @@ app.use("/api/v1/revenue", revenueRouter);
 app.use("/api/v1/urole",uroleRouter)
 app.use("/api/v1/students",studentRouter)
 
-app.use("/api/v1/urole",uroleRouter)
+
+
 
 app.use("/api/v1/course", courseRoutes);
 // https://localhost:3000/api/v1/course/
@@ -78,4 +77,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-module.exports = app;
+module.exports = app; 
