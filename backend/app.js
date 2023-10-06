@@ -10,10 +10,14 @@ var revenueRouter = require("./routes/revenue.routes");
 var roleRouter=require("./routes/roles.routes")
 
 var app = express();
+const salaryInfoRoutes=require('./routes/salaryInfo');
+const attendanceRecordsRoutes = require('./routes/attendanceRecords');
+const payrollProcessingRoutes = require('./routes/payrollProcessing')
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
+
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -24,6 +28,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/api/v1/revenue", revenueRouter);
+app.use("/api/salary-info", salaryInfoRoutes);
+app.use("/api/attendance-records",attendanceRecordsRoutes);
+app.use("/api/payroll-processing",payrollProcessingRoutes);
 
 app.use("/api/v1/roles",roleRouter)
 
