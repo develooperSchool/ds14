@@ -74,6 +74,8 @@ return message
   
 }
 const updateUserById = async (id,body)=>{
+
+  
   let{username}=body;
   let message ="";
   try{
@@ -86,7 +88,24 @@ const updateUserById = async (id,body)=>{
   }
   return message
 }
-
+const userLogin = async (username,password)=>{
+  let message = "";
+try{
+  let sqlQuery = "SELECT * FROM user_master WHERE email =? AND password = ?";
+  const[result,feild]= await db.query(sqlQuery,[username,password])
+  
+  if(result.length>0){
+    message = "login user successfully"
+  }
+  else{
+    message="USER NOT FOUND"
+  }
+}
+catch(err){
+  console.log(err)
+}
+return message;
+}
 
 
 module.exports = {
@@ -95,6 +114,7 @@ module.exports = {
   deleteRoleById,
   addNewRole,
   updateRoleById,
-  updateUserById
+  updateUserById,
+  userLogin
   
 }

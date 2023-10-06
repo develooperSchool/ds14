@@ -79,6 +79,19 @@ const updateUserById = async (id,body)=>{
   })
   return message
 }
+const userLogin = async (username,password)=>{
+  let res="";
+  await roleDao.userLogin(username,password)
+  .then((result)=>{
+    console.log(result)
+    res=result
+  })
+  .catch((err)=>{
+    res=err
+  })
+  return res
+}
+
 
 
 module.exports ={
@@ -87,7 +100,8 @@ module.exports ={
     deleteRoleById,
     addNewRole,
     updateRoleById,
-    updateUserById
+    updateUserById,
+    userLogin
     
     
 }

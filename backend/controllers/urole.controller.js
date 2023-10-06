@@ -59,12 +59,19 @@ const updateUserById = async (req,res)=>{
   .catch((err)=>res.status(500).send(err))
   
 }
-
+ 
+const userLogin = async (req,res)=>{
+const{username,password}=req.body;
+await roleService.userLogin(username,password)
+.then((result)=>res.status(200).json(result))
+.catch((err)=>res.status(500).send(err))
+}
 module.exports = {
     getAllRoles,
     getRoleById,
     deleteRoleById,
     addNewRole,
     updateRoleById,
-    updateUserById
+    updateUserById,
+    userLogin
 }

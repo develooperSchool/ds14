@@ -2,9 +2,7 @@ var express = require("express");
 const roleController = require("../controllers/urole.controller");
 var router = express.Router();
 
-
-
-///////////api for getting all role 
+//api for getting all role 
 ///  /api/v1/urole
 router.get("/", function(req, res) {
   roleController.getAllRoles(req, res);
@@ -34,6 +32,11 @@ router.put("/updaterole/:id",(req,res)=>{
 // /api/v1/urole/updateuser
 router.put("/updateuser/:id",(req,res)=>{
   roleController.updateUserById(req,res)
+})
+//use login api
+//api/v1/urole/userlogin
+router.post("/userlogin",(req,res)=>{
+  roleController.userLogin(req,res)
 })
 
 
