@@ -1,13 +1,16 @@
-var roleDao=require("../dao/role.dao")
+var roleDao = require("../dao/role.dao");
 
-const getAllRoles=async()=>{
-   let roles= await roleDao.getAllRoles();
-         
+const getAllRoles = async () => {
+  let rows = [];
+  await roleDao
+    .getAllRoles()
+    .then((res) => {
+      rows = res;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-   console.log(roles);
+  return rows;
+};
 
-   return roles;
-   
-}
-
-module.exports={getAllRoles}
