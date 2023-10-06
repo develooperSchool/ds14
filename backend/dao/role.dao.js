@@ -11,42 +11,9 @@ const getAllRoles = async () => {
   return row;
 };
 
-let result=[]
-    try
-    {  
-    let sql="select * from roles";
-    let result=[]
 
-    const [rows] = await pool.query('SELECT * FROM roles');
-   return rows;
- 
-    }
-    catch(err)
-    {
-        console.log(err)
-    }
-}
- 
-
-module.exports={getAllRoles}<<<<<<< .mine
-    try
-    {  
-    let sql="select * from roles";
-    let result=[]
-
-    const [rows] = await pool.query('SELECT * FROM roles');
-   return rows;
- 
-    }
-    catch(err)
-    {
-        console.log(err)
-    }
-}
- 
 
 module.exports={getAllRoles}
-=======
 
 
 
@@ -64,4 +31,54 @@ module.exports={getAllRoles}
 
 
 
->>>>>>> .theirs
+
+
+
+//     try
+//     {  
+//     let sql="select * from roles";
+//     let result=[]
+
+//     const [rows] = await pool.query('SELECT * FROM roles');
+//    return rows;
+ 
+//     }
+//     catch(err)
+//     {
+//         console.log(err)
+//     }
+// }
+ 
+
+// module.exports={getAllRoles}
+//     try
+//     {  
+//     let sql="select * from roles";
+//     let result=[]
+
+//     const [rows] = await pool.query('SELECT * FROM roles');
+//    return rows;
+ 
+//     }
+//     return row;
+//   };
+ 
+
+// module.exports={getAllRoles}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
