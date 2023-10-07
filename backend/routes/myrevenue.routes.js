@@ -1,26 +1,30 @@
 const express=require("express");
 const revenueController=require("../controllers/myrevenue.controller");
+const revenueValidation=require("../middlewares/validations/app.validation")
 const router=express.Router();
 
-router.get("/getAllrevenueCatagory",(req,res)=>{
+router.get("/getAllrevenueCategory",(req,res)=>{
 revenueController.getAllRevenueCategory(req,res);
 });
 
+// router.get("/getRevenueCatById/:id",revenueValidation.getRevenuCategoryByIdValidation,
+//     revenueController.getRevenueCategoryById);
+
 router.get("/getRevenueCatById/:id",(req,res)=>{
-revenueController.getRevenueCategoryeById(req,res);
+revenueController.getRevenueCategoryById(req,res);
 });
 
 router.post("/addRevenueCategory",(req,res)=>{
-revenueController.addRevenueCatogary(req,res);
+revenueController.addRevenueCategory(req,res);
 });
 
-router.delete("/deleteRevenueCatogory/:id",(req,res)=>{
-revenueController.deleteRevenueCatogary(req,res);
+router.delete("/deleteRevenueCategory/:id",(req,res)=>{
+revenueController.deleteRevenueCategory(req,res);
 });
 
 
 router.put("/updateRevenueCatBy/:id",(req,res)=>{
-revenueController.updateRevenueCatogary(req,res);
+revenueController.updateRevenueCategory(req,res);
 });
 
 router.get("/incomeInfo",(req,res)=>{
