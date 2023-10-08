@@ -14,4 +14,8 @@ const isInvalidId = (input) => {
 // IsInvalidDob
 // IsInvalid....
 
-module.exports = { isInvalidId };
+
+
+module.exports = 
+{ isInvalidId,
+ };
