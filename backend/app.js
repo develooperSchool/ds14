@@ -15,13 +15,22 @@ var app = express();
 
 var usersRouter = require("./routes/users.routes");
 var studentRouter=require("./routes/student.routes")
-let revenueRouter=require("./routes/myrevenue.routes");
+var revenueRouter=require("./routes/myrevenue.routes");
 var adminRouter=require("./routes/admin.routes")
 var facultyRouter=require("./routes/faculty.routes")
 var guestRouter=require("./routes/guest.routes")
 const salaryInfoRoutes=require('./routes/salaryInfo');
 const attendanceRecordsRoutes = require('./routes/attendanceRecords');
 const payrollProcessingRoutes = require('./routes/payrollProcessing')
+var enrollmentRouter=require("./routes/enrollment.routes")
+
+//project routes............................
+//let enrollmentRouter=require('./router/enrollment.routes');
+let course2tRouter=require('./routes/course2.router');
+let faculty2tRouter=require('./routes/faculty2.router');
+let subjectstRouter=require('./routes/subjects.router');
+let TimeRouter=require('./routes/timetable.routes');
+
 
 var app = express();
 // view engine setup
@@ -48,6 +57,15 @@ app.use("/api/v1/course", courseRoutes);
 app.use("/api/v1/admin",adminRouter)
 app.use("/api/v1/faculties",facultyRouter)
 app.use("/api/v1/guests",guestRouter)
+app.use("/api/v1/enrollment",enrollmentRouter);
+
+//project....................................
+//app.use('/api/v1/enrollment',enrollmentRouter);
+app.use('/api/v1/course2',course2tRouter);
+app.use('/api/v1/faculty2',faculty2tRouter);
+app.use('/api/v1/subjects',subjectstRouter);
+app.use('/api/v1/timetable',TimeRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
