@@ -17,7 +17,7 @@ const getAllRevenueCategory = async () => {
     return result;
 }
 
-const addRevenueCatogary = async (user_Name) => {
+const addRevenueCategory = async (user_Name) => {
     let values = [user_Name];
     let result = [];
     try {
@@ -33,7 +33,7 @@ const addRevenueCatogary = async (user_Name) => {
     }
 
 
-const deleteRevenueCatogary = async (revenueCatId) => {
+const deleteRevenueCategory = async (revenueCatId) => {
     let values = [revenueCatId];
     let result = [];
     try {
@@ -49,7 +49,7 @@ const deleteRevenueCatogary = async (revenueCatId) => {
 
 
 
-const getRevenueCatogaryById = async (revenueCatId) => {
+const getRevenueCategoryById = async (revenueCatId) => {
     let values = [revenueCatId];
     let result = [];
     try {
@@ -63,7 +63,7 @@ const getRevenueCatogaryById = async (revenueCatId) => {
     return result;
 }
 
-const updateRevenueCatogary = async (revenueCatId, revenueCategoryName) => {
+const updateRevenueCategory = async (revenueCatId, revenueCategoryName) => {
     let values = [revenueCategoryName, revenueCatId];
     let result = [];
     try {
@@ -222,10 +222,10 @@ const deleteExpenseInfo=async(expenseId)=>{
 
 module.exports = {
     getAllRevenueCategory,
-    addRevenueCatogary,
-    deleteRevenueCatogary,
-    getRevenueCatogaryById,
-    updateRevenueCatogary,
+    addRevenueCategory,
+    deleteRevenueCategory,
+    getRevenueCategoryById,
+    updateRevenueCategory,
     getAllIncomeInfo,
     getIncomeInfoById,
     addIncomeInfo,

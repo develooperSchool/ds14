@@ -15,7 +15,7 @@ var app = express();
 
 var usersRouter = require("./routes/users.routes");
 var studentRouter=require("./routes/student.routes")
-let revenueRouter=require("./routes/myrevenue.routes");
+var revenueRouter=require("./routes/myrevenue.routes");
 var adminRouter=require("./routes/admin.routes")
 var facultyRouter=require("./routes/faculty.routes")
 var guestRouter=require("./routes/guest.routes")

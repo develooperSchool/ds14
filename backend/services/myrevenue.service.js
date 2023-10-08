@@ -13,9 +13,9 @@ const getAllRevenueCategory = async () => {
     return rows;
 }
 
-const addRevenueCatogary = async (user_Name) => {
+const addRevenueCategory = async (user_Name) => {
     let rows = [];
-    await revenueCategoryDao.addRevenueCat(user_Name).then((result) => {
+    await revenueCategoryDao.addRevenueCategory(user_Name).then((result) => {
     // console.log(result);
     rows = result;
     }).catch((err) => {
@@ -24,9 +24,9 @@ const addRevenueCatogary = async (user_Name) => {
     return rows;
 }
 
-const deleteRevenueCatogary = async (revenueCatId) => {
+const deleteRevenueCategory = async (revenueCatId) => {
     let rows = [];
-    await revenueCategoryDao.deleteRevenueCat(revenueCatId).then((result) => {
+    await revenueCategoryDao.deleteRevenueCategory(revenueCatId).then((result) => {
     rows = result;
     }).catch((err) => {
     console.log(err);
@@ -34,9 +34,9 @@ const deleteRevenueCatogary = async (revenueCatId) => {
     return rows;
 }
 
-const getRevenueCatogaryById = async (revenueCatId) => {
+const getRevenueCategoryById = async (revenueCatId) => {
     let rows = [];
-    await revenueCategoryDao.getRevenueCatById(revenueCatId).then((result) => {
+    await revenueCategoryDao.getRevenueCategoryById(revenueCatId).then((result) => {
     rows = result;
     }).catch((err) => {
     console.log(err);
@@ -44,9 +44,9 @@ const getRevenueCatogaryById = async (revenueCatId) => {
     return rows;
 }
 
-const updateRevenueCatogary = async (revenueCatId, revenueCategoryName) => {
+const updateRevenueCategory = async (revenueCatId, revenueCategoryName) => {
      let rows = [];
-    await revenueCategoryDao.updateRevenueCat(revenueCatId, revenueCategoryName).then((result) => {
+    await revenueCategoryDao.updateRevenueCategory(revenueCatId, revenueCategoryName).then((result) => {
     rows = result;
     }).catch((err) => {
     console.log(err);
@@ -157,10 +157,10 @@ const deleteExpenseInfo = async (expenseId) => {
 
 module.exports = {
     getAllRevenueCategory,
-    addRevenueCatogary,
-    deleteRevenueCatogary,
-    getRevenueCatogaryById,
-    updateRevenueCatogary,
+    addRevenueCategory,
+    deleteRevenueCategory,
+    getRevenueCategoryById,
+    updateRevenueCategory,
     getAllIncomeInfo,
     getIncomeInfoById,
     addIncomeInfo,
