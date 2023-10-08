@@ -1,70 +1,77 @@
 const express=require("express");
 const revenueController=require("../controllers/myrevenue.controller");
-const revenueValidation=require("../middlewares/validations/app.validation")
+const revenueValidation=require("../middlewares/validations/app.validation");
 const router=express.Router();
 
 router.get("/getAllrevenueCategory",(req,res)=>{
 revenueController.getAllRevenueCategory(req,res);
 });
 
-// router.get("/getRevenueCatById/:id",revenueValidation.getRevenuCategoryByIdValidation,
-//     revenueController.getRevenueCategoryById);
+router.get("/getRevenueCatById/:id",                //validation for id
+    revenueValidation.revenueByIdValidation,
+    revenueController.getRevenueCategoryById);
 
-router.get("/getRevenueCatById/:id",(req,res)=>{
-revenueController.getRevenueCategoryById(req,res);
-});
-
-router.post("/addRevenueCategory",(req,res)=>{
-revenueController.addRevenueCategory(req,res);
-});
-
-router.delete("/deleteRevenueCategory/:id",(req,res)=>{
-revenueController.deleteRevenueCategory(req,res);
-});
+// router.get("/getRevenueCatById/:id",(req,res)=>{
+// revenueController.getRevenueCategoryById(req,res);
+// });
 
 
-router.put("/updateRevenueCatBy/:id",(req,res)=>{
-revenueController.updateRevenueCategory(req,res);
-});
+router.post("/addRevenueCategory",
+revenueValidation.addRevenueValidation,             //validation for string
+revenueController.addRevenueCategory);
+
+router.delete("/deleteRevenueCategory/:id",          //validation for id
+revenueValidation.revenueByIdValidation,
+revenueController.deleteRevenueCategory)
+
+// router.delete("/deleteRevenueCategory/:id",(req,res)=>{
+// revenueController.deleteRevenueCategory(req,res);
+// });
+
+
+router.put("/updateRevenueCatBy/:id",
+revenueValidation.revenueByIdValidation,           //validation for id 
+revenueController.updateRevenueCategory);
 
 router.get("/incomeInfo",(req,res)=>{
 revenueController.getAllIncomeInfo(req,res);
 });
 
-router.get("/incomeInfoById/:id",(req,res)=>{
-revenueController.getIncomeInfoById(req,res);
-});
+router.get("/incomeInfoById/:id",
+revenueValidation.revenueByIdValidation,           //validation for id 
+revenueController.getIncomeInfoById);
 
 router.post("/addIncome",(req,res)=>{
 revenueController.addIncomeInfo(req,res);
 });
 
-router.put("/updateIncome/:id",(req,res)=>{
-revenueController.updateIncomeInfoById(req,res);
-});
+router.put("/updateIncome/:id",
+revenueValidation.revenueByIdValidation,            //validation for id
+revenueController.updateIncomeInfoById);
 
-router.delete("/deleteIncome/:id",(req,res)=>{
-revenueController.deleteIncomeInfoById(req,res);
-});
+router.delete("/deleteIncome/:id", 
+revenueValidation.revenueByIdValidation,             //validation for id
+revenueController.deleteIncomeInfoById);
 
 router.get("/getAllExpense",(req,res)=>{
 revenueController.getAllExpenseInfo(req,res);
 });
 
-router.get("/getExpenseById/:id",(req,res)=>{
-revenueController.getExpenseInfoById(req,res);
-});
+router.get("/getExpenseById/:id",
+revenueValidation.revenueByIdValidation,          //validation for id
+revenueController.getExpenseInfoById);
 
 router.post("/addExpenseInfo",(req,res)=>{
 revenueController.addExpenseInfo(req,res);
 });
 
-router.put("/updateExpense/:id",(req,res)=>{
-revenueController.updateExpenseInfo(req,res);
-});
-router.delete("/deleteExpense/:id",(req,res)=>{
-revenueController.deleteExpenseInfo(req,res);
-});
+router.put("/updateExpense/:id",
+revenueValidation.revenueByIdValidation,                //validation for id 
+revenueController.updateExpenseInfo);
+
+router.delete("/deleteExpense/:id",
+revenueValidation.revenueByIdValidation,           //validatio for id
+revenueController.deleteExpenseInfo);
 
 
 
