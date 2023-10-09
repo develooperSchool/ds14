@@ -32,9 +32,11 @@ roleValidation.getRoleByIdValidation,
 roleController.updateUserById
 )
 
-router.post("/userlogin",(req,res)=>{
-  roleController.userLogin(req,res)
-})
+router.post("/userlogin",
+roleValidation.userLoginValidation,
+roleController.userLogin
+)
+
 
 
 module.exports = router;

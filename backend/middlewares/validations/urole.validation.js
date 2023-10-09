@@ -11,6 +11,10 @@ const getRoleByIdValidation = (req, res, next) => {
     if(utils.invalidName(name)) res.status(500).send("PLEASE ENTER CORRECT NAME");
     else next();
   };
+  const userLoginValidation = (req ,res, next)=>{
+    if(utils.isInvalidEmail(req.body.username)) res.status(500).send("INVALID USERNAME")
+    if(utils.isInvalidPassword(req.body.password)) res.status(500).send("INVALID PASSWORD")
+  }
 
 
 
@@ -18,6 +22,7 @@ const getRoleByIdValidation = (req, res, next) => {
   
   module.exports ={
     getRoleByIdValidation,
-    addRoleValidation
+    addRoleValidation,
+    userLoginValidation
     
   }
