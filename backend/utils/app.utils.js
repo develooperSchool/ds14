@@ -2,7 +2,7 @@ const isInvalidId = (input) => {
   return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
 };
 
-const IsInvalidName = (input) => {
+const isInvalidName = (input) => {
   return (
     !/^[a-zA-Z\s\-']{2,20}$/.test(input) ||
     input.trim().length == 0 ||
@@ -61,8 +61,12 @@ module.exports = {
   isInvalidYear,
   isInValidContact,
   isInvalidGender,
+<<<<<<< HEAD
   IsInvalidName,
   IsInvalidNameNum,
+=======
+  isInvalidName,
+>>>>>>> 021cf6b4e61641dddc38f44ca87e159240f132d6
   isInvalidDate,
   IsInvalidN
 };
