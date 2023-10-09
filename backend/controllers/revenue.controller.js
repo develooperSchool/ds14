@@ -1,10 +1,11 @@
 const service = require("../services/revenue.service");
+const HttpStatusCode = require("../utils/HttpStatusCode");
 
 const getAllRevenueCategories = (req, res) => {
   service
     .getAllRevenueCategories()
     .then((resp) => {
-      res.status(200).send(resp);
+      res.status(HttpStatusCode.OK).send(resp);
     })
     .catch((err) => {
       console.log(err);
@@ -15,7 +16,7 @@ const addRevenueCategory = (req, res) => {
   service
     .addRevenueCategory(req.body.name)
     .then(() => {
-      res.status(200).send("ADDED SUCCESSFULLY");
+      res.status(HttpStatusCode.OK).send("ADDED SUCCESSFULLY");
     })
     .catch((err) => {
       console.log(err);
@@ -27,7 +28,7 @@ const deleteRevenueCategory = (req, res) => {
   service
     .deleteRevenueCategory(req.params.id)
     .then(() => {
-      res.status(200).send("DELETED SUCCESSFULLY");
+      res.status(HttpStatusCode.OK).send("DELETED SUCCESSFULLY");
     })
     .catch((err) => {
       console.log(err);
@@ -39,7 +40,7 @@ const udpateRevenueCategoryById = (req, res) => {
   service
     .udpateRevenueCategoryById(req.params.id, req.body.name)
     .then(() => {
-      res.status(200).send("UPDATE SUCCESSFULLY");
+      res.status(HttpStatusCode.OK).send("UPDATE SUCCESSFULLY");
     })
     .catch((err) => {
       console.log(err);
@@ -50,7 +51,7 @@ const saveIncomePaymentDetails = (req, res) => {
   service
     .saveIncomePaymentDetails(req.body)
     .then(() => {
-      res.status(200).send("INCOME PAYMENT SUCCESSFUL");
+      res.status(HttpStatusCode.OK).send("INCOME PAYMENT SUCCESSFUL");
     })
     .catch((err) => {
       console.log(err);
@@ -62,7 +63,7 @@ const saveExpensePaymentDetails = (req, res) => {
   service
     .saveExpensePaymentDetails(req.body)
     .then(() => {
-      res.status(200).send("EXPENSE PAYMENT SUCCESSFUL");
+      res.status(HttpStatusCode.OK).send("EXPENSE PAYMENT SUCCESSFUL");
     })
     .catch((err) => {
       console.log(err);
@@ -73,7 +74,7 @@ const getAllIncomeDetils = (req, res) => {
   service
     .getAllIncomeDetils()
     .then((resp) => {
-      res.status(200).send(resp);
+      res.status(HttpStatusCode.OK).send(resp);
     })
     .catch((err) => {
       console.log(err);
@@ -84,7 +85,7 @@ const getIncomeDetilsById = (req, res) => {
   service
     .getIncomeDetilsById(req.params.id)
     .then((resp) => {
-      res.status(200).send(resp);
+      res.status(HttpStatusCode.OK).send(resp);
     })
     .catch((err) => {
       console.log(err);
@@ -95,7 +96,7 @@ const getAllExpenseDetils = (req, res) => {
   service
     .getAllExpenseDetils()
     .then((resp) => {
-      res.status(200).send(resp);
+      res.status(HttpStatusCode.OK).send(resp);
     })
     .catch((err) => {
       console.log(err);
@@ -106,7 +107,7 @@ const getExpenseDetilsById = (req, res) => {
   service
     .getExpenseDetilsById(req.params.id)
     .then((resp) => {
-      res.status(200).send(resp);
+      res.status(HttpStatusCode.OK).send(resp);
     })
     .catch((err) => {
       console.log(err);
