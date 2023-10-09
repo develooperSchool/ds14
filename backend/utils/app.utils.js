@@ -4,7 +4,7 @@ const isInvalidId = (input) => {
 
 const isInvalidName = (input) => {
   return (
-    !/^[a-zA-Z\s\-']{2,20}$/.test(input) ||
+    !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
     input.trim().length == 0 ||
     /(.)\1\1+/.test(input)
   );
