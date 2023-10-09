@@ -10,6 +10,24 @@ const isInvalidName = (input) => {
   );
 };
 
+
+const IsInvalidN = (input) => {
+  return (
+    !/^[a-zA-Z\s\. -']{2,50}$/.test(input) ||
+    input.trim().length == 0 ||
+    /(.)\1\1+/.test(input)
+  );
+};
+
+
+const IsInvalidNameNum = (input) => {
+  return (
+    !/^[a-zA-Z0-9\s\-']{2,20}$/.test(input) ||
+    input.length == 0 ||
+    /(.)\1\1+/.test(input)
+  );
+};
+
 const isInvalidEmail = (input) => {
   return !/^[A-Za-z0-9._%+-]+@[A-Za-z.-]+[A-Za-z]{2,}$/.test(input);
 };
@@ -43,6 +61,12 @@ module.exports = {
   isInvalidYear,
   isInValidContact,
   isInvalidGender,
+<<<<<<< HEAD
+  IsInvalidName,
+  IsInvalidNameNum,
+=======
   isInvalidName,
+>>>>>>> 021cf6b4e61641dddc38f44ca87e159240f132d6
   isInvalidDate,
+  IsInvalidN
 };
