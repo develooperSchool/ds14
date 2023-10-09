@@ -8,8 +8,8 @@ const getAllRevenueCategory = async (req, res) => {
     });
 }
 
-const addRevenueCatogary = async (req, res) => {
-    await revenueService.addRevenueCat(req.body.user_Name).then(() => {
+const addRevenueCategory = async (req, res) => {
+    await revenueService.addRevenueCategory(req.body.user_Name).then(() => {
 
 
         // console.log(rows)
@@ -22,16 +22,16 @@ const addRevenueCatogary = async (req, res) => {
 }
 
 
-const deleteRevenueCatogary = async (req, res) => {
-    await revenueService.deleteRevenueCat(req.params.id).then(() => {
+const deleteRevenueCategory = async (req, res) => {
+    await revenueService.deleteRevenueCategory(req.params.id).then(() => {
     res.status(200).send("Given ID Details data deleted Successfully");
     }).catch((err) => {
     console.log(err);
     });
 }
 
-const getRevenueCatogaryById = async (req, res) => {
-    await revenueService.getRevenueCatogaryById(req.params.id).then((rows) => {
+const getRevenueCategoryById = async (req, res) => {
+    await revenueService.getRevenueCategoryById(req.params.id).then((rows) => {
     res.status(200).json(rows);
     }).catch((err) => {
     console.log(err);
@@ -39,8 +39,8 @@ const getRevenueCatogaryById = async (req, res) => {
 }
 
 
-const updateRevenueCatogary = async (req, res) => {
-    await revenueService.updateRevenueCat(req.params.id, req.body.revenueCategoryName).then((rows) => {
+const updateRevenueCategory = async (req, res) => {
+    await revenueService.updateRevenueCategory(req.params.id, req.body.revenueCategoryName).then((rows) => {
     console.log(rows)
     res.status(200).send("Data Updated Sucessfully");
     }).catch((err) => {
@@ -133,10 +133,10 @@ const deleteExpenseInfo= async (req, res) => {
 
 module.exports = {
     getAllRevenueCategory,
-    addRevenueCatogary,
-    deleteRevenueCatogary,
-    getRevenueCatogaryById,
-    updateRevenueCatogary,
+    addRevenueCategory,
+    deleteRevenueCategory,
+    getRevenueCategoryById,
+    updateRevenueCategory,
     getAllIncomeInfo,
     getIncomeInfoById,
     addIncomeInfo,
