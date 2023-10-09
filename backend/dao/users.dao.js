@@ -78,7 +78,7 @@ const deactivateUserById = async (id,body)=>{
 }
 
 const createUser = async(body) =>{
-    let message =""
+    let message = ""
     const { firstName,
     lastName,
     email,
@@ -97,9 +97,6 @@ const createUser = async(body) =>{
     isActive,
     roleId, password} = body
 
-    // let query = "";
-    // let row = [],
-    //   values = [];
     try {
         values= [firstName,
             lastName,
@@ -120,7 +117,7 @@ const createUser = async(body) =>{
             roleId, password]
             query= "INSERT INTO user_master(first_name, last_name,email,contact,address,qualification,passing_year,dob,gender,caste_category,subcaste,creation_ts,updation_ts,created_by,updated_by,is_active,role_id, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
             const [result,fields]=await db.query(query,values)
-            if(result.affectedRows>0)message = "New User Created successfully"
+            if(result.affectedRows>0 ) message = "New User Created successfully"
             else message = "Failed to create new user"
     }
     catch(error){
