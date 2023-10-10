@@ -1,13 +1,14 @@
+
 class GlobalErrorHandler extends Error {
-  constructor(name, httpCode, description, timeStamp, res) {
+  constructor(message, httpCode, description, timeStamp, res) {
     super(description);
 
     Error.captureStackTrace(this);
-    this.handlerError(name, httpCode, description, timeStamp, res);
+    this.handlerError(message, httpCode, description, timeStamp, res);
   }
 
-  handlerError = (name, httpCode, description, timeStamp, res) => {
-    res.send({ name, httpCode, description, timeStamp });
+  handlerError = (message, httpCode, description, timeStamp, res) => {
+    res.status(httpCode).send({ message, httpCode, description, timeStamp });
   };
 }
 

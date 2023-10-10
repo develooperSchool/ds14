@@ -13,7 +13,7 @@ let getEnrollment=async ()=>{
 //post func for Enrollment...........
 let postEnrollment=async (req,res)=>{
     let rows;
-     await dao.postEnrollment(req).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
+     await dao.postEnrollment(req,res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
      return rows;
 };
 
@@ -22,7 +22,7 @@ let postEnrollment=async (req,res)=>{
 //update func for Enrollment...........
 let putEnrollment=async (req,res)=>{
     let rows;
-     await dao.putEnrollment(req).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
+     await dao.putEnrollment(req,res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
      return rows;
 }
 
@@ -31,7 +31,7 @@ let putEnrollment=async (req,res)=>{
 //delete func for enrollment...........
 let deleteEnrollment=async (req,res)=>{
     let rows;
-     await dao.deleteEnrollment(req).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
+     await dao.deleteEnrollment(req,res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
      return rows;
 }
 

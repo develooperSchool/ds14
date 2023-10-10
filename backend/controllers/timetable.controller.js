@@ -2,7 +2,7 @@ var services=require("../services/timetable.services");
 
 //get function for courses...............
 let getTime=(req,res)=>{
-    services.getTime().then((resp)=>{ 
+    services.getTime(res).then((resp)=>{ 
         res.status(200).json({resp});
     }).catch((err)=>console.log(err));
 };

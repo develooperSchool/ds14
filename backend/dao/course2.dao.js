@@ -1,4 +1,5 @@
 let db=require('../config/db-config');
+let errr=require('../errors/invalidCourse2Error')
 
 // get query for Course2............
 let getCourse2=async()=>{
@@ -8,21 +9,21 @@ let getCourse2=async()=>{
         let [rows,fields]=await db.query(q,values)
         return rows;
     }
-    catch(err){console.log(err)}
+    catch(err){throw new errr.sqlErr(String(err.sqlMessage).toUpperCase(),res)}
 };
 
 
 
 // post query for Course2............
-let postCourse2=async(req)=>{
+let postCourse2=async(req,res)=>{
     try{
-        let q='insert into courses values (?,?,?,?)';
+        let q='insert into course values (?,?,?,?)';
         let {course_id,course_name,course_duration,course_fees} =req.body;
         let values = [course_id,course_name,course_duration,course_fees];    
         let [rows,fields]=await db.query(q,values)
         return rows;
     }
-    catch(err){console.log(err)}
+   catch(err){throw new errr.sqlErr(String(err.sqlMessage).toUpperCase(),res) }
 };
 
 
@@ -36,7 +37,7 @@ let putCourse2=async(req)=>{
         let [rows,fields]=await db.query(q,values)
         return rows;
     }
-    catch(err){console.log(err)}
+    catch(err){throw new errr.sqlErr(String(err.sqlMessage).toUpperCase(),res)}
 };
 
 
@@ -49,7 +50,7 @@ let deleteCourse2=async(req)=>{
         let [rows,fields]=await db.query(q,values)
         return rows;
     }
-    catch(err){console.log(err)}
+    catch(err){throw new errr.sqlErr(String(err.sqlMessage).toUpperCase(),res)}
 };
 
 
