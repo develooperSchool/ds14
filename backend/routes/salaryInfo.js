@@ -4,7 +4,7 @@ const salaryInfoController = require('../controllers/salaryInfoController');
 
 router.get('/',salaryInfoController.getAllSalaryInfo)
 router.get('/:salary_id',salaryInfoController.getSalaryInfoById);
-router.post('/', salaryInfoController.addSalaryInfo);
+router.post('/',salaryInfoController.addSalaryInfo);
 router.put('/:salary_id', salaryInfoController.updateSalaryInfo);
 router.delete('/:salary_id',salaryInfoController.deleteSalaryInfo)
 

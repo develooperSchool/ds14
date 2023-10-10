@@ -36,6 +36,7 @@ const isInValidContact = (input) => {
   return !/^(\+91|91)[789]\d{9}$/.test(input);
 };
 
+
 module.exports = {
   isInvalidId,
   isInvalidEmail,
