@@ -1,4 +1,0 @@
-const INVALID_NAME = "INVALID NAME";
-const INVALID_ID = "INVALID ID";
-
-module.exports = { INVALID_NAME, INVALID_ID };

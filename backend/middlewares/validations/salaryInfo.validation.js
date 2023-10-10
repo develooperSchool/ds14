@@ -31,7 +31,7 @@ const addAmountValidation = (req, res, next) => {
 
 const addAmountValidation1 = (req, res, next) => {
   if (utils.isInvalidId(req.body.other_components))
-    throw new INVALID_AMOUNT("PLEASE ENTER VALID AMOUNT", res);
+    throw new InvalidAmount("PLEASE ENTER VALID AMOUNT", res);
   // res.status(HttpStatusCode.BAD_REQUEST).send("PLEASE ENTER CORRECT AMOUNT");
   else next();
 };
