@@ -19,7 +19,7 @@ router.get(
 // });
 
 router.post(
-  "/addRevenueCategory",
+  "/addRevenueCategorydetails",
   revenueValidation.addRevenueValidation, //validation for string
   revenueController.addRevenueCategory
 );
@@ -87,13 +87,13 @@ router.post(
 router.put(
   "/updateExpense/:id",
   revenueValidation.revenueByIdValidation, //validation for id
-  revenueController.updateExpenseInfo
+  revenueController.updateExpenseInfoById
 );
 
 router.delete(
   "/deleteExpense/:id",
   revenueValidation.revenueByIdValidation, //validatio for id
-  revenueController.deleteExpenseInfo
+  revenueController.deleteExpenseInfoById
 );
 
 module.exports = router;
