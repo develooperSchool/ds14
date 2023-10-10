@@ -1,3 +1,5 @@
 const INVALID_NAME = "INVALID NAME";
+const INVALID_ID = "INVALID ID";
+const INVALID_AMOUNT = "INVALID AMOUNT";
 
-module.exports = { INVALID_NAME };
+module.exports = { INVALID_NAME, INVALID_ID, INVALID_AMOUNT };
