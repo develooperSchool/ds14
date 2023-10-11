@@ -9,6 +9,7 @@ const isInvalidName = (input) => {
     /(.)\1\1+/.test(input)
   );
 };
+
 const invalidName = (input) => {
   return (
     !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
