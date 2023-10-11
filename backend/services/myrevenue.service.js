@@ -2,10 +2,10 @@
 
 const revenueCategoryDao = require("../dao/myrevenue.dao");
 
-const getAllRevenueCategory = async (res) => {
+const getAllRevenueCategory = async (req, res) => {
   let rows = [];
   await revenueCategoryDao
-    .getAllRevenueCategory(res)
+    .getAllRevenueCategory(req, res)
     .then((result) => {
       rows = result; //console.log(result);
     })
