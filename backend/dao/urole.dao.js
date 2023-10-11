@@ -1,7 +1,8 @@
 const { result } = require("@hapi/joi/lib/base");
 const db = require("../config/db-config");
+const SqlError=require("../errors/SqlError");
 
-const getAllRoles = async () => {
+const getAllRoles = async (req,res) => {
   let result = [];
   let values = [];
   try {
@@ -9,35 +10,35 @@ const getAllRoles = async () => {
     const [rows, feild] = await db.query(sqlQuery, values);
     result = rows
   } catch (err) {
-    console.error(err);
+    throw new SqlError(String (err.sqlMessage).toUpperCase(),res)
   }
   return result;
 };
 
 ///get role by id
-const getRoleById = async (id)=>{
+const getRoleById = async (req,res)=>{
   let result = [];
-  let values = [id];
+  let values = [req.params.id];
   try {
-    let sqlQuery = "select * from user_role where role_id=?"
+    let sqlQuery = "select * from user_ro where role_id=?"
     const [rows] = await db.query(sqlQuery, values);
     result = rows
   } catch (err) {
-    console.error(err);
+    throw new SqlError(String (err.sqlMessage).toUpperCase(),res)
   }
   return result;
 
 }
 
-const deleteRoleById = async (id) => {
+const deleteRoleById = async (req,res) => {
   
   try {
-    let row =[id]
-    let query = 'DELETE FROM user_role WHERE role_id = ?';
+    let row =[req.params.id]
+    let sqlQuery = 'DELETE FROM user_role WHERE role_ = ?';
     const rows = db.execute(query, row);
     console.log("result", rows);
   } catch (err) {
-    console.error(err);
+    throw new SqlError(String (err.sqlMessage).toUpperCase(),res)
   }
   return row;
 };
@@ -53,7 +54,7 @@ const addNewRole = async (body)=>{
   console.log("result",result)
 
  }catch(error){
-  console.log(error)
+  throw new SqlError(String (error.sqlMessage).toUpperCase(),res)
  }
  return message;
 }
@@ -67,7 +68,7 @@ const updateRoleById = async (id,body)=>{
   console.log(result)
   }
   catch(err){
-    console.log(err)
+    throw new SqlError(String (err.sqlMessage).toUpperCase(),res)
   }
 
 return message
@@ -84,7 +85,7 @@ const updateUserById = async (id,body)=>{
     console.log(result)
   }
   catch(err){
-    console.log(err)
+    throw new SqlError(String (err.sqlMessage).toUpperCase(),res)
   }
   return message
 }

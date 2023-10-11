@@ -1,20 +1,21 @@
+const SqlError = require("../errors/SqlError");
 const revenueService = require("../services/myrevenue.service");
 const HttpStatusCode = require("../utils/HttpStatusCode");
 
 const getAllRevenueCategory = async (req, res) => {
   await revenueService
-    .getAllRevenueCategory()
+    .getAllRevenueCategory(res)
     .then((rows) => {
       res.status(HttpStatusCode.OK).json(rows);
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
 const addRevenueCategory = async (req, res) => {
   await revenueService
-    .addRevenueCategory(req.body.user_Name)
+    .addRevenueCategory(req, res)
     .then(() => {
       // console.log(rows)
 
@@ -27,9 +28,20 @@ const addRevenueCategory = async (req, res) => {
     });
 };
 
+const getRevenueCategoryById = async (req, res) => {
+  await revenueService
+    .getRevenueCategoryById(req, res)
+    .then((rows) => {
+      res.status(HttpStatusCode.OK).json(rows);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 const deleteRevenueCategory = async (req, res) => {
   await revenueService
-    .deleteRevenueCategory(req.params.id)
+    .deleteRevenueCategory(req, res)
     .then(() => {
       res
         .status(HttpStatusCode.OK)
@@ -40,20 +52,9 @@ const deleteRevenueCategory = async (req, res) => {
     });
 };
 
-const getRevenueCategoryById = async (req, res) => {
-  await revenueService
-    .getRevenueCategoryById(req.params.id)
-    .then((rows) => {
-      res.status(HttpStatusCode.OK).json(rows);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
 const updateRevenueCategory = async (req, res) => {
   await revenueService
-    .updateRevenueCategory(req.params.id, req.body.revenueCategoryName)
+    .updateRevenueCategory(req, res)
     .then((rows) => {
       console.log(rows);
       res
@@ -67,7 +68,7 @@ const updateRevenueCategory = async (req, res) => {
 
 const getAllIncomeInfo = async (req, res) => {
   await revenueService
-    .getAllIncomeInfo()
+    .getAllIncomeInfo(req, res)
     .then((rows) => {
       res.status(HttpStatusCode.OK).json(rows);
     })
@@ -78,7 +79,7 @@ const getAllIncomeInfo = async (req, res) => {
 
 const getIncomeInfoById = async (req, res) => {
   await revenueService
-    .getIncomeInfoById(req.params.id)
+    .getIncomeInfoById(req, res)
     .then((rows) => {
       res.status(HttpStatusCode.OK).json(rows);
     })
@@ -89,7 +90,7 @@ const getIncomeInfoById = async (req, res) => {
 
 const addIncomeInfo = async (req, res) => {
   await revenueService
-    .addIncomeInfo(req.body)
+    .addIncomeInfo(req, res)
     .then((rows) => {
       console.log(rows);
       res
@@ -100,21 +101,9 @@ const addIncomeInfo = async (req, res) => {
       console.log(err);
     });
 };
-
-const updateIncomeInfoById = async (req, res) => {
-  await revenueService
-    .updateIncomeInfoById(req.body.paidFees, req.params.id)
-    .then((rows) => {
-      console.log(rows);
-      res
-        .status(HttpStatusCode.OK)
-        .send("INCOME DETAILS IS UPDATED SUCCESSFULLY");
-    });
-};
-
 const deleteIncomeInfoById = async (req, res) => {
   await revenueService
-    .deleteIncomeInfoById(req.params.id)
+    .deleteIncomeInfoById(req, res)
     .then(() => {
       res
         .status(HttpStatusCode.OK)
@@ -124,10 +113,18 @@ const deleteIncomeInfoById = async (req, res) => {
       console.log(err);
     });
 };
+const updateIncomeInfoById = async (req, res) => {
+  await revenueService.updateIncomeInfoById(req, res).then((rows) => {
+    console.log(rows);
+    res
+      .status(HttpStatusCode.OK)
+      .send("INCOME DETAILS IS UPDATED SUCCESSFULLY");
+  });
+};
 
 const getAllExpenseInfo = async (req, res) => {
   await revenueService
-    .getAllExpenseInfo()
+    .getAllExpenseInfo(req, res)
     .then((rows) => {
       res.status(HttpStatusCode.OK).json(rows);
     })
@@ -138,7 +135,7 @@ const getAllExpenseInfo = async (req, res) => {
 
 const getExpenseInfoById = async (req, res) => {
   await revenueService
-    .getExpenseInfoById(req.params.id)
+    .getExpenseInfoById(req, res)
     .then((rows) => {
       res.status(HttpStatusCode.OK).json(rows);
     })
@@ -149,7 +146,7 @@ const getExpenseInfoById = async (req, res) => {
 
 const addExpenseInfo = async (req, res) => {
   await revenueService
-    .addExpenseInfo(req.body)
+    .addExpenseInfo(req, res)
     .then((rows) => {
       console.log(rows);
       res
@@ -161,9 +158,9 @@ const addExpenseInfo = async (req, res) => {
     });
 };
 
-const updateExpenseInfo = async (req, res) => {
+const updateExpenseInfoById = async (req, res) => {
   await revenueService
-    .updateExpenseInfo(req.body.amount, req.params.id)
+    .updateExpenseInfoById(req, res)
     .then((rows) => {
       console.log(rows);
       res
@@ -175,9 +172,9 @@ const updateExpenseInfo = async (req, res) => {
     });
 };
 
-const deleteExpenseInfo = async (req, res) => {
+const deleteExpenseInfoById = async (req, res) => {
   await revenueService
-    .deleteExpenseInfo(req.params.id)
+    .deleteExpenseInfoById(req, res)
     .then(() => {
       res
         .status(HttpStatusCode.OK)
@@ -202,6 +199,6 @@ module.exports = {
   getAllExpenseInfo,
   getExpenseInfoById,
   addExpenseInfo,
-  updateExpenseInfo,
-  deleteExpenseInfo,
+  updateExpenseInfoById,
+  deleteExpenseInfoById,
 };

@@ -1,12 +1,11 @@
 const GlobalErrorHandler = require("./GlobalErrorHandler");
-const { INVALID_ID } = require("../utils/app.constants");
 const HttpStatusCode = require("../utils/HttpStatusCode");
 
-class InvalidId extends GlobalErrorHandler {
+class SqlError extends GlobalErrorHandler {
   constructor(description, res) {
     super(
-      INVALID_ID,
-      HttpStatusCode.BAD_REQUEST,
+      "SQL ERROR",
+      HttpStatusCode.INTERNAL_SERVER_ERROR,
       description,
       new Date(Date.now()),
       res
@@ -14,4 +13,4 @@ class InvalidId extends GlobalErrorHandler {
   }
 }
 
-module.exports = InvalidId;
+module.exports = SqlError;

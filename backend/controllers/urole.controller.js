@@ -2,7 +2,7 @@ const roleService = require("../services/urole.service");
 
 const getAllRoles = async (req, res) => {
  await roleService
-    .getAllRoles()
+    .getAllRoles(req,res)
     .then((rows) => {
       res.status(200).send(rows);
     })
@@ -12,9 +12,9 @@ const getAllRoles = async (req, res) => {
 };
 //////////
 const getRoleById = (req, res) => {
-  console.log(req.params.id);
+  
   roleService
-    .getRoleById(req.params.id)
+    .getRoleById(req,res)
     .then((rows) => {
       res.status(200).send(rows);
     })
@@ -25,9 +25,9 @@ const getRoleById = (req, res) => {
 
 
 const deleteRoleById = (req, res) => {
-  console.log(req.params.id);
+  
   roleService
-    .deleteRoleById(req.params.id)
+    .deleteRoleById(req,res)
     .then(() => {
       res.status(200).send("ROLE ASSOCIATE WITH PERTIULAR ID IS DELETED");
     })

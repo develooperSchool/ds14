@@ -3,7 +3,7 @@ const roleController = require("../controllers/urole.controller");
 const roleValidation = require("../middlewares/validations/urole.validation")
 var router = express.Router();
 
-router.get("/", function(req, res) {
+router.get("/getAllRoles", function(req, res) {
   roleController.getAllRoles(req, res);
 });
 

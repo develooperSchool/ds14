@@ -4,7 +4,7 @@ const isInvalidId = (input) => {
 
 const isInvalidName = (input) => {
   return (
-    !/^[a-zA-Z\s\-']{2,20}$/.test(input) ||
+    !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
     input.trim().length == 0 ||
     /(.)\1\1+/.test(input)
   );
@@ -16,6 +16,16 @@ const invalidName = (input) => {
     /(.)\1\1+/.test(input)
   );
 };
+
+
+const IsInvalidNameNum = (input) => {
+  return (
+    !/^[a-zA-Z0-9\s\-']{2,20}$/.test(input) ||
+    input.length == 0 ||
+    /(.)\1\1+/.test(input)
+  );
+};
+
 const isInvalidEmail = (input) => {
   return !/^[A-Za-z0-9._%+-]+@[A-Za-z.-]+[A-Za-z]{2,}$/.test(input);
 };
@@ -51,6 +61,5 @@ module.exports = {
   isInvalidGender,
   isInvalidName,
   isInvalidDate,
-  invalidName
-  
+ 
 };

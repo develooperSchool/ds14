@@ -1,9 +1,9 @@
 const roleDao = require("../dao/urole.dao");
 
-const getAllRoles = async () => {
+const getAllRoles = async (req,res) => {
   let rows = [];
   await roleDao
-    .getAllRoles()
+    .getAllRoles(req,res)
     .then((res) => {
       rows = res;
     })
@@ -15,10 +15,10 @@ const getAllRoles = async () => {
 };
 ////////////
 
-const getRoleById = async (role_Id) => {
+const getRoleById = async (req,res) => {
   let rows = [];
   await roleDao
-    .getRoleById(role_Id)
+    .getRoleById(req,res)
     .then((result) => {
       rows = result;
     })
@@ -29,10 +29,10 @@ const getRoleById = async (role_Id) => {
   return rows;
 };
 //
-const deleteRoleById = async (id) => {
+const deleteRoleById = async (req,res) => {
   // let rows = [];
   await roleDao
-    .deleteRoleById(id)
+    .deleteRoleById(req,res)
     .then(() => {
       // rows = res;
     })
@@ -42,9 +42,9 @@ const deleteRoleById = async (id) => {
     
 };
 
-const addNewRole = async (body)=>{
-  let res="";
-await roleDao.addNewRole(body)
+const addNewRole = async (req, res)=>{
+  let message="";
+await roleDao.addNewRole(req,res)
 .then((result)=>{
   console.log(result);
 
@@ -52,13 +52,13 @@ await roleDao.addNewRole(body)
 .catch((err)=>{
   console.log(err)
 })
-return res;
+return message;
 };
 
-const updateRoleById = async (id,body)=>{
+const updateRoleById = async (req,res)=>{
   let message ="";
 
-  await roleDao.updateRoleById(id,body)
+  await roleDao.updateRoleById(req,res)
   .then((result)=>{
     res=result
   })
@@ -68,9 +68,9 @@ const updateRoleById = async (id,body)=>{
   return message
 } 
 
-const updateUserById = async (id,body)=>{
+const updateUserById = async (req,res)=>{
   let message = "";
-  await roleDao.updateUserById(id,body)
+  await roleDao.updateUserById(req,res)
   .then((result)=>{
     res=result
   })
