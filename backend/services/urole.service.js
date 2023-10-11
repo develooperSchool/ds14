@@ -13,7 +13,7 @@ const getAllRoles = async (req,res) => {
 
   return rows;
 };
-////////////
+
 
 const getRoleById = async (req,res) => {
   let rows = [];
@@ -79,17 +79,17 @@ const updateUserById = async (req,res)=>{
   })
   return message
 }
-const userLogin = async (username,password)=>{
-  let res="";
-  await roleDao.userLogin(username,password)
+const userLogin = async (req,res)=>{
+  let message="";
+  await roleDao.userLogin(req,res)
   .then((result)=>{
     console.log(result)
-    res=result
+    message=result
   })
   .catch((err)=>{
-    res=err
+    message=err
   })
-  return res
+  return message
 }
 
 

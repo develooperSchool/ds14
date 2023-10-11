@@ -26,6 +26,7 @@ const userLoginValidation = (req, res, next) => {
   if (utils.isInvalidEmail(req.body.username))
   throw new InvalidEmailError("INVALID USERNAME,PLEASE ENTERD VALID USERNAME",res)
     // res.status(500).send("INVALID USERNAME");
+    
   if (utils.isInvalidPassword(req.body.password))
 throw new InvalidPasswordError("INVALID PASSWORD,PLEASE ENTER CORRECT PASSWORD",res)
     // res.status(500).send("INVALID PASSWORD");
