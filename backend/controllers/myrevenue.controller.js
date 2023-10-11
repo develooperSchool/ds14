@@ -21,7 +21,7 @@ const addRevenueCategory = async (req, res) => {
 
       res
         .status(HttpStatusCode.OK)
-        .send("REVENUE CATEGORY IS ADDED SUCCESSFULLY");
+        .json("REVENUE CATEGORY IS ADDED SUCCESSFULLY");
     })
     .catch((err) => {
       console.log(err);
