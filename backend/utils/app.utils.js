@@ -17,7 +17,6 @@ const invalidName = (input) => {
   );
 };
 
-
 const IsInvalidNameNum = (input) => {
   return (
     !/^[a-zA-Z0-9\s\-']{2,20}$/.test(input) ||
@@ -60,6 +59,7 @@ module.exports = {
   isInValidContact,
   isInvalidGender,
   isInvalidName,
+  IsInvalidNameNum,
   isInvalidDate,
- 
+  invalidName,
 };
