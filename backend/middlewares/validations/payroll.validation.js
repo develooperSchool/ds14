@@ -1,8 +1,8 @@
 const utils = require("../../utils/app.utils");
 const HttpStatusCode = require("../../utils/HttpStatusCode");
 const InvalidId = require("../../errors/InvalidIdError");
-const InvalidDate = require("../../errors/InvalidDate");
-const InvalidAmount = require("../../errors/InvalidAmount");
+const InvalidDate = require("../../errors/InvalidDateError");
+const InvalidAmount = require("../../errors/InvalidAmountError");
 
 const payrollValidationById = (req, res, next) => {
   if (utils.isInvalidId(req.params.payroll_id))

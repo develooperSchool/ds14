@@ -2,7 +2,7 @@ const attendanceRecordsService = require("../services/attendanceRecordsService")
 
 async function getAllAttendanceRecords(req, res, next) {
   try {
-    const records = await attendanceRecordsService.getAllAttendanceRecords();
+    const records = await attendanceRecordsService.getAllAttendanceRecords(res);
     res.json(records);
   } catch (error) {
     next(error);
@@ -13,7 +13,8 @@ async function getAttendanceRecordById(req, res, next) {
   try {
     const attendanceId = req.params.attendance_id;
     const record = await attendanceRecordsService.getAttendanceRecordById(
-      attendanceId
+      attendanceId,
+      res
     );
     res.json(record);
   } catch (error) {
@@ -25,14 +26,13 @@ async function addAttendanceRecord(req, res, next) {
   try {
     const newAttendanceRecord = req.body;
     const insertedId = await attendanceRecordsService.addAttendanceRecord(
-      newAttendanceRecord
+      newAttendanceRecord,
+      res
     );
-    res
-      .status(201)
-      .json({
-        message: "Attendance record added successfully",
-        id: insertedId,
-      });
+    res.status(201).json({
+      message: "Attendance record added successfully",
+      id: insertedId,
+    });
   } catch (error) {
     next(error);
   }
@@ -44,7 +44,8 @@ async function updateAttendanceRecord(req, res, next) {
     const updatedAttendanceRecord = req.body;
     await attendanceRecordsService.updateAttendanceRecord(
       attendanceId,
-      updatedAttendanceRecord
+      updatedAttendanceRecord,
+      res
     );
     res.json({ message: "Attendance record updated successfully" });
   } catch (error) {
@@ -55,7 +56,7 @@ async function updateAttendanceRecord(req, res, next) {
 async function deleteAttendanceRecord(req, res, next) {
   try {
     const attendanceId = req.params.attendance_id;
-    await attendanceRecordsService.deleteAttendanceRecord(attendanceId);
+    await attendanceRecordsService.deleteAttendanceRecord(attendanceId, res);
     res.json({ message: "Attendance record deleted successfully" });
   } catch (error) {
     next(error);
