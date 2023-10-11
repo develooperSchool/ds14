@@ -1,9 +1,10 @@
 const payrollProcessingService = require("../services/payrollProcessingService");
+const HttpStatusCode = require("../utils/HttpStatusCode");
 
 async function getAllPayrollProcessing(req, res, next) {
   try {
     const records = await payrollProcessingService.getAllPayrollProcessing(res);
-    res.json(records);
+    res.status(HttpStatusCode.OK).json(records);
   } catch (error) {
     next(error);
   }
@@ -16,7 +17,7 @@ async function getPayrollProcessingById(req, res, next) {
       payrollId,
       res
     );
-    res.json(record);
+    res.status(HttpStatusCode.OK).json(record);
   } catch (error) {
     next(error);
   }
@@ -29,12 +30,10 @@ async function addPayrollProcessing(req, res, next) {
       newPayrollRecord,
       res
     );
-    res
-      .status(201)
-      .json({
-        message: "Payroll processing record added successfully",
-        id: insertedId,
-      });
+    res.status(HttpStatusCode.CREATED).json({
+      message: "Payroll processing record added successfully",
+      id: insertedId,
+    });
   } catch (error) {
     next(error);
   }
@@ -49,7 +48,9 @@ async function updatePayrollProcessing(req, res, next) {
       updatedPayrollRecord,
       res
     );
-    res.json({ message: "Payroll processing record updated successfully" });
+    res
+      .status(HttpStatusCode.OK)
+      .json({ message: "Payroll processing record updated successfully" });
   } catch (error) {
     next(error);
   }
@@ -59,7 +60,9 @@ async function deletePayrollProcessing(req, res, next) {
   try {
     const payrollId = req.params.payroll_id;
     await payrollProcessingService.deletePayrollProcessing(payrollId, res);
-    res.json({ message: "Payroll processing record deleted" });
+    res
+      .status(HttpStatusCode.OK)
+      .json({ message: "Payroll processing record deleted" });
   } catch (error) {
     next(error);
   }

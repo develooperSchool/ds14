@@ -1,9 +1,10 @@
 const attendanceRecordsService = require("../services/attendanceRecordsService");
+const HttpStatusCode = require("../utils/HttpStatusCode");
 
 async function getAllAttendanceRecords(req, res, next) {
   try {
     const records = await attendanceRecordsService.getAllAttendanceRecords(res);
-    res.json(records);
+    res.status(HttpStatusCode.OK).json(records);
   } catch (error) {
     next(error);
   }
@@ -16,7 +17,7 @@ async function getAttendanceRecordById(req, res, next) {
       attendanceId,
       res
     );
-    res.json(record);
+    res.status(HttpStatusCode.OK).json(record);
   } catch (error) {
     next(error);
   }
@@ -29,7 +30,7 @@ async function addAttendanceRecord(req, res, next) {
       newAttendanceRecord,
       res
     );
-    res.status(201).json({
+    res.status(HttpStatusCode.CREATED).json({
       message: "Attendance record added successfully",
       id: insertedId,
     });
@@ -47,7 +48,9 @@ async function updateAttendanceRecord(req, res, next) {
       updatedAttendanceRecord,
       res
     );
-    res.json({ message: "Attendance record updated successfully" });
+    res
+      .status(HttpStatusCode.OK)
+      .json({ message: "Attendance record updated successfully" });
   } catch (error) {
     next(error);
   }
@@ -57,7 +60,9 @@ async function deleteAttendanceRecord(req, res, next) {
   try {
     const attendanceId = req.params.attendance_id;
     await attendanceRecordsService.deleteAttendanceRecord(attendanceId, res);
-    res.json({ message: "Attendance record deleted successfully" });
+    res
+      .status(HttpStatusCode.OK)
+      .json({ message: "Attendance record deleted successfully" });
   } catch (error) {
     next(error);
   }
