@@ -1,33 +1,24 @@
 var express=require('express');
 var router=express.Router();
 var controller=require("../controllers/subjects.controller");
+const validation=require('../middlewares/validations/subjects.Validation');
 
 
 
 //Get req for courses.......................................
-router.get(`/get`,(req,res)=>{
-    controller.getSubjects(req,res);
-});
+router.get(`/get`,(req,res)=>{controller.getSubjects(req,res);});
 
 
 //post req for course.......................................
-router.post(`/post`,(req,res)=>{
-    controller.postSubjects(req,res);
-});
+router.post(`/post`,validation.postSubjectsValidation,controller.postSubjects);
 
 
- 
 //Update req for courses......................................
-router.put(`/update/:id`,(req,res)=>{
-    controller.putSubjects(req,res);    
-});
-
+router.put(`/update/:id`,validation.putSubjectsValidation,controller.putSubjects);
 
 
 //delete req for courses.......................................
-router.delete(`/delete/:id`,(req,res)=>{
-    controller.deleteSubjects(req,res);    
-});
+router.delete(`/delete/:id`,validation.deleteSubjectsValidation,controller.deleteSubjects);
 
 
 

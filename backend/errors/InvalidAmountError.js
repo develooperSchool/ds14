@@ -1,12 +1,11 @@
-const { INVALID_USER_ID } = require("../utils/app.constants");
 const GlobalErrorHandler = require("./GlobalErrorHandler");
-const { INVALID_ID } = require("../utils/app.constants");
+const { INVALID_AMOUNT } = require("../utils/app.constants");
 const HttpStatusCode = require("../utils/HttpStatusCode");
 
-class InvalidId extends GlobalErrorHandler {
+class InvalidAmountError extends GlobalErrorHandler {
   constructor(description, res) {
     super(
-      INVALID_USER_ID,
+      INVALID_AMOUNT,
       HttpStatusCode.BAD_REQUEST,
       description,
       new Date(Date.now()),
@@ -14,5 +13,4 @@ class InvalidId extends GlobalErrorHandler {
     );
   }
 }
-
-module.exports = InvalidId;
+module.exports = InvalidAmountError;

@@ -1,6 +1,7 @@
 var express=require('express');
 var router=express.Router();
 var controller=require("../controllers/faculty2.controller");
+const validation=require('../middlewares/validations/faculty2.Validation');
 
 
 
@@ -11,23 +12,17 @@ router.get(`/get`,(req,res)=>{
 
 
 //post req for Faculty.......................................
-router.post(`/post`,(req,res)=>{
-    controller.postFaculty2(req,res);
-});
+router.post(`/post`,validation.postFaculty2Validation,controller.postFaculty2);
 
 
  
 //Update req for Facultys......................................
-router.put(`/update/:id`,(req,res)=>{
-    controller.putFaculty2(req,res);    
-});
+router.put(`/update/:id`,validation.putFaculty2Validation,controller.putFaculty2);
 
 
 
 //delete req for Facultys.......................................
-router.delete(`/delete/:id`,(req,res)=>{
-    controller.deleteFaculty2(req,res);    
-});
+router.delete(`/delete/:id`,validation.deleteFaculty2Validation,controller.deleteFaculty2);
 
 
 

@@ -1,7 +1,7 @@
-var guestService = require("../services/guest.service")
+const guestService = require("../services/guest.service")
 
 const getAllGuests= async (req,res) =>{
-    await guestService.getAllGuests()
+    await guestService.getAllGuests(req,res)
     .then((result)=>{
         console.log(result)
         res.status(200).json(result)

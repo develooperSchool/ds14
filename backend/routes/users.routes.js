@@ -1,34 +1,38 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const usercontroller=require("../controllers/users.controller")
-const userValidation = require("../middlewares/validations/users.validation")
+const usercontroller = require("../controllers/users.controller");
+const userValidation = require("../middlewares/validations/users.validation");
 
-router.get('/', (req, res)=> {
-  usercontroller.getAllUsers(req,res)
+router.get("/", (req, res) => {
+  usercontroller.getAllUsers(req, res);
 });
 
-router.post("/add",
+router.post(
+  "/add",
   userValidation.createUserValidation,
   usercontroller.createUser
-)
+);
 
-router.get("/:id", 
+router.get(
+  "/:id",
   userValidation.getUserValidationByID,
   usercontroller.getUserById
-)
+);
 
-router.get("/byEmail",(req,res)=>{
-  usercontroller.getUserByEmail(req,res)
-})
+router.get("/byEmail", (req, res) => {
+  usercontroller.getUserByEmail(req, res);
+});
 
-router.put("/:id",
+router.put(
+  "/updateRole/:id",
   userValidation.updatetUserRoleValidationByID,
   usercontroller.updateUserRoleById
-)
+);
 
-router.put("/deactivate/:id",
+router.put(
+  "/deactivate/:id",
   userValidation.deactivateUserValidationByID,
   usercontroller.deactivateUserById
-)
+);
 
 module.exports = router;

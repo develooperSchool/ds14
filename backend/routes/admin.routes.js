@@ -1,10 +1,10 @@
-var express = require("express")
-var router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-var adminController = require("../controllers/admin.controller")
+const adminController = require("../controllers/admin.controller");
 
-router.get("/",(req,res) =>{
-    adminController.getAllAdmin(req,res)
-})
+router.get("/", (req, res) => {
+  adminController.getAllAdmin(req, res);
+});
 
-module.exports=router
+module.exports = router;
