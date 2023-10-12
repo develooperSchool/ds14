@@ -14,7 +14,7 @@ const postCourse2Validation = (req, res, next) => {
   const putCourse2Validation=(req,res,next)=>{
     const { course_name,course_duration,course_fees}=req.body;
   if(utils.isInvalidId(req.params.id)) { throw new err.InvalidCourseId("ENTER CORRECT ID",res)  };
-  if(utils.IsInvalidN(course_name)) { throw new err.InvalidCourseName("ENTER CORRECT COURSE NAME",res,"invalid course name") };
+  if(utils.IsInvalidN(course_name)) { throw new err.InvalidCourseName("ENTER CORRECT COURSE NAME",res) };
   if(utils.IsInvalidNameNum(course_duration)){ throw new err.InvalidCourseDuration("ENTER CORRECT COURSE DURATION ",res)  };
   if(utils.isInvalidId(course_fees)){ throw new err.InvalidCourseFees("ENTER CORRECT COURSE_FEES",res)  };
    next();
