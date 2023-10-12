@@ -5,7 +5,7 @@ const HttpStatusCode = require("../utils/HttpStatusCode");
 class InvalidId extends GlobalErrorHandler {
   constructor(description, res) {
     super(
-      constant.id5,
+      constant.INVALID_ID,
       HttpStatusCode.BAD_REQUEST,
       description,
       new Date(Date.now()),
@@ -18,7 +18,7 @@ class InvalidId extends GlobalErrorHandler {
 class InvalidSubId extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.sub_id5,
+        constant.INVALID_SUBJECT_ID,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -31,7 +31,7 @@ class InvalidSubId extends GlobalErrorHandler {
 class InvalidTime extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.time5,
+        constant.INVALID_TIME_FIELD,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -44,7 +44,7 @@ class InvalidTime extends GlobalErrorHandler {
 class InvalidFacId extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.faculty_id5,
+        constant.INVALID_FACULTY_ID,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),

@@ -1,5 +1,5 @@
 const utils = require("../../utils/app.utils");
-const err=require('../../errors/invalidCourse2Error')
+const err=require('../../errors/InvalidCourse2Error');
 
 
 const postCourse2Validation = (req, res, next) => {

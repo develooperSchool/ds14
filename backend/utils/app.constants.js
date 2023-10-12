@@ -12,33 +12,33 @@ const INVALID_QUALIFICATION = "INVALID QUALIFICATION";
 const INVALID_DATE = "INVALID DATE";
 const INVALID_PASSWORD = "INVALID PASSWORD";
 //constants for course module.......................
-const COURSE_ID1 = "INVALID COURSE ID";
-const COURSE_NAME1 = "INVALID COURSE NAME";
-const COURSE_DURATION1 = "INVALID COURSE DURATION";
-const COURSE_FEES1 = "INVALID COURSE FEES";
+const INVALID_COURSE_ID="INVALID_COURSE_ID";
+const INVALID_COURSE_NAME='INVALID_COURSE_NAME';
+const INVALID_COURSE_DURATION='INVALID_COURSE_DURATION';
+const INVALID_COURSE_FEES ='INVALID_COURSE_FEES';
 
 //enrollment constants.....................
-const UNIQUE_ID2 = "INVALID UNIQUE ID";
-const USER_ID2 = "INVALID USER ID";
-const COURSE_ID2 = "INVALID COURSE ID";
+const INVALID_UNIQUE_ID ='INVALID_UNIQUE_ID'
+const INVALID_USER_ID="INVALID_USER_ID"
 
-//faculty2 constants...................
-const sub_id3 = " INVALID SUBJECT ID";
-const user_id3 = "INVALID USER ID";
-const faculty_id3 = "INVALID FACULTY ID";
 
 //subjects constants...................
-const sub_id4 = "INVALID SUBJECT ID";
-const subject4 = " INVALID SUBJECT NAME";
-const duration4 = " INVALID DURATION";
-const faculty_id4 = " INVALID FACULTY ID";
-const syllabus4 = "INVALID SYLLABUS LINK";
+const INVALID_SUBJECT_ID = "INVALID_SUBJECT_ID";
+const INVALID_SUBJECT_NAME = " INVALID_SUBJECT_NAME";
+const INVALID_DURATION_FIELD = "INVALID_DURATION_FIELD";
+const  INVALID_FACULTY_ID = "INVALID_FACULTY_ID";
+const INVALID_SYLLABUS_LINK = "INVALID_SYLLABUS_LINK";
+
+
+
 
 //timetable constants.....................
-const id5 = " INVALID ID";
-const sub_id5 = " INVALID SUBJECT ID";
-const time5 = " INVALID TIME FIELD";
-const faculty_id5 = " INVALID FACULTY ID";
+
+
+const INVALID_TIME_FIELD = " INVALID_TIME_FIELD";
+
+
+
 module.exports = {
   INVALID_NAME,
   INVALID_ID,
@@ -52,54 +52,17 @@ module.exports = {
   INVALID_DATE,
   INVALID_PASSWORD,
   INVALID_QUALIFICATION,
-  COURSE_DURATION1,
-  COURSE_FEES1,
-  COURSE_ID1,
-  COURSE_NAME1,
+ 
+  //coures module exports............................
+  INVALID_COURSE_DURATION,INVALID_COURSE_FEES,INVALID_COURSE_ID,INVALID_COURSE_NAME,
   //enrollment module constants...................
-  UNIQUE_ID2,
-  USER_ID2,
-  COURSE_ID2,
-  //facullty2 constants...................
-  sub_id3,
-  user_id3,
-  faculty_id3,
+  INVALID_UNIQUE_ID,INVALID_USER_ID,
+  
+  
   //subjects constants.......................
-  sub_id4,
-  subject4,
-  duration4,
-  faculty_id4,
-  syllabus4,
+  INVALID_FACULTY_ID,INVALID_DURATION_FIELD,INVALID_SUBJECT_ID,INVALID_SUBJECT_NAME,INVALID_SYLLABUS_LINK,
+  
   //timetableconstants.....................
-  id5,
-  sub_id5,
-  time5,
-  faculty_id5,
+  INVALID_TIME_FIELD,
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
