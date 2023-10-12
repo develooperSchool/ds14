@@ -1,9 +1,9 @@
 var dao=require('../dao/timetable.dao');
 
 //get func for Time...........
-let getTime=async ()=>{
+let getTime=async (res)=>{
     let rows;
-     await dao.getTime().then((res)=>{rows=res;}).catch((err)=>{console.log(err)});
+     await dao.getTime(res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
      return rows;
 };
 
@@ -13,7 +13,7 @@ let getTime=async ()=>{
 //post func for Time...........
 let postTime=async (req,res)=>{
     let rows;
-     await dao.postTime(req).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
+     await dao.postTime(req,res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
      return rows;
 };
 
@@ -22,7 +22,7 @@ let postTime=async (req,res)=>{
 //update func for Time...........
 let putTime=async (req,res)=>{
     let rows;
-     await dao.putTime(req).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
+     await dao.putTime(req,res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
      return rows;
 }
 
@@ -31,7 +31,7 @@ let putTime=async (req,res)=>{
 //delete func for Time...........
 let deleteTime=async (req,res)=>{
     let rows;
-     await dao.deleteTime(req).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
+     await dao.deleteTime(req,res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
      return rows;
 }
 

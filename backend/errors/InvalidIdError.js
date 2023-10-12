@@ -3,7 +3,7 @@ const GlobalErrorHandler = require("./GlobalErrorHandler");
 const { INVALID_ID } = require("../utils/app.constants");
 const HttpStatusCode = require("../utils/HttpStatusCode");
 
-class InvalidId extends GlobalErrorHandler {
+class InvalidIdError extends GlobalErrorHandler {
   constructor(description, res) {
     super(
       INVALID_USER_ID,
@@ -15,4 +15,4 @@ class InvalidId extends GlobalErrorHandler {
   }
 }
 
-module.exports = InvalidId;
+module.exports = InvalidIdError;

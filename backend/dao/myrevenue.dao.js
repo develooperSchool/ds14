@@ -1,6 +1,6 @@
 const db = require("../config/db-config");
 const SqlError = require("../errors/SqlError");
-const getAllRevenueCategory = async (res) => {
+const getAllRevenueCategory = async (req, res) => {
   let values = [];
   let result = [];
   try {

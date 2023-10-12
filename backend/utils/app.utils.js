@@ -10,15 +10,13 @@ const isInvalidName = (input) => {
   );
 };
 
-
 const IsInvalidN = (input) => {
   return (
-    !/^[a-zA-Z\s\. -']{2,50}$/.test(input) ||
+    !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
     input.trim().length == 0 ||
     /(.)\1\1+/.test(input)
   );
 };
-
 
 const IsInvalidNameNum = (input) => {
   return (
@@ -66,5 +64,5 @@ module.exports = {
   IsInvalidNameNum,
   isInvalidName,
   isInvalidDate,
-  IsInvalidN
+  IsInvalidN,
 };

@@ -1,3 +1,4 @@
+
 const HttpStatusCode = require("../utils/HttpStatusCode");
 
 class GlobalErrorHandler extends Error {
@@ -15,6 +16,7 @@ class GlobalErrorHandler extends Error {
  res
       .status(statusCode)
       .send({ message, statusCode, description, timeStamp });
+
   };
 }
 
