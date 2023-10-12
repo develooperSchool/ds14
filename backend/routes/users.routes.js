@@ -1,30 +1,38 @@
-var express = require('express');
-var router = express.Router();
-var usercontroller=require("../controllers/users.controller")
+const express = require("express");
+const router = express.Router();
+const usercontroller = require("../controllers/users.controller");
+const userValidation = require("../middlewares/validations/users.validation");
 
-/* GET users listing. */
-router.get('/', function(req, res) {
-  usercontroller.getAllUsers(req,res)
+router.get("/", (req, res) => {
+  usercontroller.getAllUsers(req, res);
 });
 
-router.get("/:id", (req,res)=>{
-  usercontroller.getUserById(req,res)
-})
+router.post(
+  "/add",
+  userValidation.createUserValidation,
+  usercontroller.createUser
+);
 
-router.get("/byEmail",(req,res)=>{
-  usercontroller.getUserByEmail(req,res)
-})
+router.get(
+  "/:id",
+  userValidation.getUserValidationByID,
+  usercontroller.getUserById
+);
 
-router.put("/:id",(req,res)=>{
-  usercontroller.updateUserRoleById(req,res)
-})
+router.get("/byEmail", (req, res) => {
+  usercontroller.getUserByEmail(req, res);
+});
 
-router.put("/deactivate/:id",(req,res)=>{
-  usercontroller.deactivateUserById(req,res)
-})
+router.put(
+  "/updateRole/:id",
+  userValidation.updatetUserRoleValidationByID,
+  usercontroller.updateUserRoleById
+);
 
-router.post("/add",(req,res)=>{
-  usercontroller.createUser(req,res)
-})
+router.put(
+  "/deactivate/:id",
+  userValidation.deactivateUserValidationByID,
+  usercontroller.deactivateUserById
+);
 
 module.exports = router;

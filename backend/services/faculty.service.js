@@ -1,15 +1,16 @@
-var facultyDao = require("../dao/faculty.dao")
+var facultyDao = require("../dao/faculty.dao");
 
-const getAllFaculties = async()=>{
-    let rows = []
-    await facultyDao.getAllFaculties()
-    .then((res)=>{
-        rows=res
+const getAllFaculties = async (req, res) => {
+  let result = [];
+  await facultyDao
+    .getAllFaculties(req, res)
+    .then((rows) => {
+      result = rows;
     })
-    .catch((err)=>{
-        console.log(err)
-    })
-    return rows
-}
+    .catch((error) => {
+      console.log(error);
+    });
+  return result;
+};
 
-module.exports = {getAllFaculties}
+module.exports = { getAllFaculties };

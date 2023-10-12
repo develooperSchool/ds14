@@ -1,5 +1,5 @@
 const isInvalidId = (input) => {
-  return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
+    return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
 };
 
 const isInvalidName = (input) => {
@@ -51,6 +51,7 @@ const isInvalidGender = (input) => {
 const isInValidContact = (input) => {
   return !/^(\+91|91)[789]\d{9}$/.test(input);
 };
+
 
 module.exports = {
   isInvalidId,

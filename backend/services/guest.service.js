@@ -1,10 +1,10 @@
-var guestDao = require("../dao/guest.dao")
+const guestDao = require("../dao/guest.dao")
 
-const getAllGuests = async ()=>{
+const getAllGuests = async (req,res)=>{
     let rows = []
-    await guestDao.getAllGuests()
-    .then((res)=>{
-        rows=res
+    await guestDao.getAllGuests(req,res)
+    .then((result)=>{
+        rows=result
     })
     .catch((err)=>{
         console.error(err)

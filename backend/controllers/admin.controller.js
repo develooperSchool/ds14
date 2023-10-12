@@ -1,8 +1,8 @@
-var adminService = require("../services/admin.service");
+const adminService = require("../services/admin.service");
 
 const getAllAdmin = async (req, res) => {
   await adminService
-    .getAllAdmin()
+    .getAllAdmin(req, res)
     .then((rows) => {
       console.log(rows);
       res.status(200).json(rows);

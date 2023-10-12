@@ -1,11 +1,11 @@
 const sdao = require("../dao/student.dao");
 
-const getAllStudents = async () => {
+const getAllStudents = async (req, res) => {
   let rows = [];
   await sdao
-    .getAllStudents()
-    .then((res) => {
-      rows = res;
+    .getAllStudents(req, res)
+    .then((resp) => {
+      rows = resp;
     })
     .catch((err) => {
       console.log(err);
@@ -14,7 +14,4 @@ const getAllStudents = async () => {
   return rows;
 };
 
-
-
-
-module.exports={getAllStudents}
+module.exports = { getAllStudents };

@@ -1,6 +1,7 @@
-var db = require("../config/db-config")
+const db = require("../config/db-config")
+const SqlError = require("../errors/SqlError")
 
-const getAllGuests = async()=>{
+const getAllGuests = async(req,res)=>{
     let result=[]
     let values=[]
     try{
@@ -9,7 +10,7 @@ const getAllGuests = async()=>{
         result=rows
     }
     catch(error){
-        console.log(error)
+        throw new SqlError(String(error.sqlMessage).toUpperCase(), res)
     }
     return result
 }
