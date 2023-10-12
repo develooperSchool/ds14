@@ -1,11 +1,11 @@
-const constant= require("../utils/course2.Constants");
+const constant= require("../utils/app.constants");
 const GlobalErrorHandler = require("./GlobalErrorHandler");
 const HttpStatusCode = require("../utils/HttpStatusCode");
 
 class InvalidCourseId extends GlobalErrorHandler {
   constructor(description, res) {
     super(
-      constant.COURSE_ID,
+      constant.COURSE_ID1,
       HttpStatusCode.BAD_REQUEST,
       description,
       new Date(Date.now()),
@@ -18,7 +18,7 @@ class InvalidCourseId extends GlobalErrorHandler {
 class InvalidCourseName extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-         constant.COURSE_NAME,
+         constant.COURSE_NAME1,
 
         HttpStatusCode.BAD_REQUEST,
         description,
@@ -32,7 +32,7 @@ class InvalidCourseName extends GlobalErrorHandler {
 class InvalidCourseDuration extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.COURSE_DURATION,
+        constant.COURSE_DURATION1,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -45,7 +45,7 @@ class InvalidCourseDuration extends GlobalErrorHandler {
 class InvalidCourseFees extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.COURSE_FEES,
+        constant.COURSE_FEES1,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),

@@ -1,11 +1,11 @@
-const constant= require("../utils/timetable.constants");
+const constant= require("../utils/app.constants");
 const GlobalErrorHandler = require("./GlobalErrorHandler");
 const HttpStatusCode = require("../utils/HttpStatusCode");
 
 class InvalidId extends GlobalErrorHandler {
   constructor(description, res) {
     super(
-      constant.id,
+      constant.id5,
       HttpStatusCode.BAD_REQUEST,
       description,
       new Date(Date.now()),
@@ -18,7 +18,7 @@ class InvalidId extends GlobalErrorHandler {
 class InvalidSubId extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.sub_id,
+        constant.sub_id5,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -31,7 +31,7 @@ class InvalidSubId extends GlobalErrorHandler {
 class InvalidTime extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.time,
+        constant.time5,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -44,7 +44,7 @@ class InvalidTime extends GlobalErrorHandler {
 class InvalidFacId extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.faculty_id,
+        constant.faculty_id5,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),

@@ -17,7 +17,7 @@ let getCourse2=async()=>{
 // post query for Course2............
 let postCourse2=async(req,res)=>{
     try{
-        let q='insert into course values (?,?,?,?)';
+        let q='insert into courses values (?,?,?,?)';
         let {course_id,course_name,course_duration,course_fees} =req.body;
         let values = [course_id,course_name,course_duration,course_fees];    
         let [rows,fields]=await db.query(q,values)
