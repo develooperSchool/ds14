@@ -1,15 +1,15 @@
 const service = require("../services/student.service");
+const httpStatusCode = require("../utils/HttpStatusCode");
 
 const getAllStudents = (req, res) => {
-  service.getAllStudents()
+  service
+    .getAllStudents(req, res)
     .then((resp) => {
-      res.status(200).send(resp);
+      res.status(httpStatusCode.OK).json(resp);
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-
-module.exports={getAllStudents,
-                }
+module.exports = { getAllStudents };

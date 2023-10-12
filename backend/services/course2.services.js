@@ -13,7 +13,7 @@ let getCourse2=async ()=>{
 //post func for Course2...........
 let postCourse2=async (req,res)=>{
     let rows;
-     await dao.postCourse2(req).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
+     await dao.postCourse2(req,res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
      return rows;
 };
 

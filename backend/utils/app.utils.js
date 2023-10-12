@@ -1,5 +1,5 @@
 const isInvalidId = (input) => {
-  return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
+    return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
 };
 
 const isInvalidName = (input) => {
@@ -9,7 +9,8 @@ const isInvalidName = (input) => {
     /(.)\1\1+/.test(input)
   );
 };
-const invalidName = (input) => {
+
+const IsInvalidN = (input) => {
   return (
     !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
     input.trim().length == 0 ||
@@ -51,6 +52,7 @@ const isInValidContact = (input) => {
   return !/^(\+91|91)[789]\d{9}$/.test(input);
 };
 
+
 module.exports = {
   isInvalidId,
   isInvalidEmail,
@@ -60,8 +62,9 @@ module.exports = {
   isInvalidGender,
   isInvalidName,
   IsInvalidNameNum,
+  isInvalidName,
   isInvalidDate,
-  invalidName,
+  IsInvalidN,
 };
 
 // 1. camelCase --> variableName, functionName, etc    getStudentByEmail
