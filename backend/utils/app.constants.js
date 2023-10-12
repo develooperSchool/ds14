@@ -1,13 +1,13 @@
 //constants for course module.......................
-const COURSE_ID1="INVALID COURSE ID";
-const COURSE_NAME1='INVALID COURSE NAME';
-const COURSE_DURATION1='INVALID COURSE DURATION';
-const COURSE_FEES1='INVALID COURSE FEES';
+const INVALID_COURSE_ID="INVALID_COURSE_ID";
+const INVALID_COURSE_NAME='INVALID_COURSE_NAME';
+const INVALID_COURSE_DURATION='INVALID_COURSE_DURATION';
+const INVALID_COURSE_FEES ='INVALID_COURSE_FEES';
 
 //enrollment constants.....................
-const UNIQUE_ID2='INVALID UNIQUE ID'
-const USER_ID2="INVALID USER ID"
-const COURSE_ID2='INVALID COURSE ID'
+const INVALID_UNIQUE_ID ='INVALID_UNIQUE_ID'
+const INVALID_USER_ID="INVALID_USER_ID"
+
 
 //faculty2 constants...................
 const sub_id3=" INVALID SUBJECT ID";
@@ -30,9 +30,9 @@ const faculty_id5=" INVALID FACULTY ID";
 
 module.exports={
     //coures module exports............................
-    COURSE_DURATION1,COURSE_FEES1,COURSE_ID1,COURSE_NAME1,
+   INVALID_COURSE_DURATION,INVALID_COURSE_FEES,INVALID_COURSE_ID,INVALID_COURSE_NAME,
     //enrollment module constants...................
-    UNIQUE_ID2,USER_ID2,COURSE_ID2,
+    INVALID_UNIQUE_ID,INVALID_USER_ID,
     //facullty2 constants...................
     sub_id3,user_id3,faculty_id3,
     //subjects constants.......................
