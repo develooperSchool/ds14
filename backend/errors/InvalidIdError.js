@@ -1,3 +1,4 @@
+const { INVALID_USER_ID } = require("../utils/app.constants");
 const GlobalErrorHandler = require("./GlobalErrorHandler");
 const { INVALID_ID } = require("../utils/app.constants");
 const HttpStatusCode = require("../utils/HttpStatusCode");
@@ -5,7 +6,7 @@ const HttpStatusCode = require("../utils/HttpStatusCode");
 class InvalidIdError extends GlobalErrorHandler {
   constructor(description, res) {
     super(
-      INVALID_ID,
+      INVALID_USER_ID,
       HttpStatusCode.BAD_REQUEST,
       description,
       new Date(Date.now()),

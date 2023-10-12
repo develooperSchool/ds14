@@ -6,7 +6,7 @@ const HttpStatusCode = require("../utils/HttpStatusCode");
 class InvalidSubjectId extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.sub_id4,
+        constant.INVALID_SUBJECT_ID,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -16,10 +16,10 @@ class InvalidSubjectId extends GlobalErrorHandler {
   };
 
   
-class Invalidsubject extends GlobalErrorHandler {
+class InvalidSubject extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.subject4,
+        constant.INVALID_COURSE_NAME,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -32,7 +32,7 @@ class Invalidsubject extends GlobalErrorHandler {
 class InvalidDuration extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.duration4,
+        constant.INVALID_DURATION_FIELD,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -45,7 +45,7 @@ class InvalidDuration extends GlobalErrorHandler {
 class InvalidFacultyId extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.faculty_id4,
+        constant.INVALID_FACULTY_ID,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -58,7 +58,7 @@ class InvalidFacultyId extends GlobalErrorHandler {
 class InvalidSyllabus extends GlobalErrorHandler {
     constructor(description, res) {
       super(
-        constant.syllabus4,
+        constant.INVALID_SYLLABUS_LINK,
         HttpStatusCode.BAD_REQUEST,
         description,
         new Date(Date.now()),
@@ -68,7 +68,7 @@ class InvalidSyllabus extends GlobalErrorHandler {
   };
   
   
-  module.exports={InvalidDuration,InvalidFacultyId,InvalidSubjectId,Invalidsubject,InvalidSyllabus}
+  module.exports={InvalidDuration,InvalidFacultyId,InvalidSubjectId,InvalidSubject,InvalidSyllabus}
   
   
   

@@ -1,3 +1,16 @@
+
+const INVALID_NAME = "INVALID NAME";
+const INVALID_ID = "INVALID ID";
+const INVALID_AMOUNT = "INVALID AMOUNT";
+const INVALID_CONTACT = "INVALID CONTACT";
+const INVALID_EMAIL = "INVALID EMAIL";
+const INVALID_GENDER = "INVALID GENDER";
+const INVALID_YEAR = "INVALID PASSING YEAR";
+const INVALID_CASTE_CATEGORY = "INVALID CASTE CATEGORY";
+const INVALID_SUBCASTE = "INVALID SUBCASTE";
+const INVALID_QUALIFICATION = "INVALID QUALIFICATION";
+const INVALID_DATE = "INVALID DATE";
+const INVALID_PASSWORD = "INVALID PASSWORD";
 //constants for course module.......................
 const INVALID_COURSE_ID="INVALID_COURSE_ID";
 const INVALID_COURSE_NAME='INVALID_COURSE_NAME';
@@ -9,34 +22,47 @@ const INVALID_UNIQUE_ID ='INVALID_UNIQUE_ID'
 const INVALID_USER_ID="INVALID_USER_ID"
 
 
-//faculty2 constants...................
-const sub_id3=" INVALID SUBJECT ID";
-const user_id3="INVALID USER ID";
-const faculty_id3="INVALID FACULTY ID";
-
 //subjects constants...................
-const sub_id4="INVALID SUBJECT ID";
-const subject4=" INVALID SUBJECT NAME";
-const duration4=" INVALID DURATION";
-const faculty_id4=" INVALID FACULTY ID";
-const syllabus4="INVALID SYLLABUS LINK";
+const INVALID_SUBJECT_ID = "INVALID_SUBJECT_ID";
+const INVALID_SUBJECT_NAME = " INVALID_SUBJECT_NAME";
+const INVALID_DURATION_FIELD = "INVALID_DURATION_FIELD";
+const  INVALID_FACULTY_ID = "INVALID_FACULTY_ID";
+const INVALID_SYLLABUS_LINK = "INVALID_SYLLABUS_LINK";
+
+
+
 
 //timetable constants.....................
-const id5=" INVALID ID";
-const sub_id5=" INVALID SUBJECT ID";
-const time5=" INVALID TIME FIELD";
-const faculty_id5=" INVALID FACULTY ID";
 
 
-module.exports={
-    //coures module exports............................
-   INVALID_COURSE_DURATION,INVALID_COURSE_FEES,INVALID_COURSE_ID,INVALID_COURSE_NAME,
-    //enrollment module constants...................
-    INVALID_UNIQUE_ID,INVALID_USER_ID,
-    //facullty2 constants...................
-    sub_id3,user_id3,faculty_id3,
-    //subjects constants.......................
-    sub_id4,subject4,duration4,faculty_id4,syllabus4,
-    //timetableconstants.....................
-    id5,sub_id5,time5,faculty_id5,
-}
+const INVALID_TIME_FIELD = " INVALID_TIME_FIELD";
+
+
+
+module.exports = {
+  INVALID_NAME,
+  INVALID_ID,
+  INVALID_AMOUNT,
+  INVALID_EMAIL,
+  INVALID_CONTACT,
+  INVALID_GENDER,
+  INVALID_YEAR,
+  INVALID_CASTE_CATEGORY,
+  INVALID_SUBCASTE,
+  INVALID_DATE,
+  INVALID_PASSWORD,
+  INVALID_QUALIFICATION,
+ 
+  //coures module exports............................
+  INVALID_COURSE_DURATION,INVALID_COURSE_FEES,INVALID_COURSE_ID,INVALID_COURSE_NAME,
+  //enrollment module constants...................
+  INVALID_UNIQUE_ID,INVALID_USER_ID,
+  
+  
+  //subjects constants.......................
+  INVALID_FACULTY_ID,INVALID_DURATION_FIELD,INVALID_SUBJECT_ID,INVALID_SUBJECT_NAME,INVALID_SYLLABUS_LINK,
+  
+  //timetableconstants.....................
+  INVALID_TIME_FIELD,
+};
+

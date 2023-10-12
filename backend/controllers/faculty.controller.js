@@ -1,14 +1,15 @@
-var facultyService = require("../services/faculty.service")
+var facultyService = require("../services/faculty.service");
 
-const getAllFaculties = async (req,res)=>{
-    await facultyService.getAllFaculties()
-    .then((rows) =>{
-        console.log(rows)
-        res.status(200).json(rows)
+const getAllFaculties = async (req, res) => {
+  await facultyService
+    .getAllFaculties(req, res)
+    .then((rows) => {
+      console.log(rows);
+      res.status(200).json(rows);
     })
-    .catch((err)=>{
-        console.error(err)
-    })
-}
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
-module.exports = {getAllFaculties}
+module.exports = { getAllFaculties };

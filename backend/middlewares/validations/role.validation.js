@@ -7,7 +7,7 @@ module.exports={
         if(value.error)
         {
              res.json({
-                status:400,
+                status:httpStatusCode.BAD_REQUEST,
                 descripation:'bad request'
              })
         }

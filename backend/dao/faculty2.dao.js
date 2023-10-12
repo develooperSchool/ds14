@@ -1,5 +1,5 @@
 let db=require('../config/db-config');
-let errr=require('../errors/invalidCourse2Error')
+let errr=require('../errors/SqlError')
 // get query for Faculty2............
 let getFaculty2=async(res)=>{
     try{
