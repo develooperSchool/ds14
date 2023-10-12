@@ -68,4 +68,18 @@ class sqlErr extends GlobalErrorHandler {
     }
   }
 
-  module.exports={InvalidCourseId,InvalidCourseDuration,InvalidCourseFees,InvalidCourseName,sqlErr}
+  
+  
+class serverErr extends GlobalErrorHandler {
+  constructor(description, res) {
+    super(
+      "SERVEICE ERROR",
+      HttpStatusCode.INTERNAL_SERVER_ERROR,
+      description,
+      new Date(Date.now()),
+      res
+    );
+  }
+}
+
+  module.exports={InvalidCourseId,InvalidCourseDuration,InvalidCourseFees,InvalidCourseName,sqlErr,serverErr}
