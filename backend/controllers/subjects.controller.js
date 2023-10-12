@@ -2,7 +2,7 @@ var services=require("../services/subjects.services");
 
 //get function for courses...............
 let getSubjects=(req,res)=>{
-    services.getSubjects().then((resp)=>{ 
+    services.getSubjects(req,res).then((resp)=>{ 
         res.status(200).json({resp});
     }).catch((err)=>console.log(err));
 };

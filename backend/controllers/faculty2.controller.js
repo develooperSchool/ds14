@@ -1,8 +1,8 @@
 var services=require("../services/faculty2.services");
 
-//get function for courses...............
+//get function for faculty...............
 let getFaculty2=(req,res)=>{
-    services.getFaculty2().then((resp)=>{ 
+    services.getFaculty2(res).then((resp)=>{ 
         res.status(200).json({resp});
     }).catch((err)=>console.log(err));
 };
