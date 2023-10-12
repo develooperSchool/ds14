@@ -1,10 +1,8 @@
-const { error } = require("@hapi/joi/lib/base");
-const SqlError = require("../errors/SqlError");
-const userservice = require("../services/users.service");
+const userService = require("../services/users.service");
 const HttpStatusCode = require("../utils/HttpStatusCode");
 
 const getAllUsers = async (req, res) => {
-  await userservice
+  await userService
     .getAllUsers(res)
     .then((rows) => {
       console.log(rows);
@@ -16,7 +14,7 @@ const getAllUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  await userservice
+  await userService
     .getUserById(req, res)
     .then((rows) => {
       console.log(rows);
@@ -28,7 +26,7 @@ const getUserById = async (req, res) => {
 };
 
 const getUserByEmail = async (req, res) => {
-  await userservice
+  await userService
     .getUserByEmail(req.query.email)
     .then((rows) => {
       console.log(rows);
@@ -40,7 +38,7 @@ const getUserByEmail = async (req, res) => {
 };
 
 const updateUserRoleById = async (req, res) => {
-  await userservice
+  await userService
     .updateUserRoleById(req, res)
     .then((rows) => res.status(HttpStatusCode.OK).json("Updated user role"))
     .catch((error) => {
@@ -49,7 +47,7 @@ const updateUserRoleById = async (req, res) => {
 };
 
 const deactivateUserById = async (req, res) => {
-  await userservice
+  await userService
     .deactivateUserById(req, res)
     .then((result) => {
       res.status(HttpStatusCode.OK).json("User Deactivated successfully");
@@ -60,14 +58,16 @@ const deactivateUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  await userservice
+  await userService
     .createUser(req, res)
-    .then((result) => {
+    .then((rows) => {
+      console.log(rows)
       res.status(HttpStatusCode.CREATED).json("New User Created successfully");
     })
     .catch((error) =>
       res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error)
     );
+    
 };
 
 module.exports = {

@@ -1,4 +1,3 @@
-const { error } = require("@hapi/joi/lib/base");
 const db = require("../config/db-config");
 const SqlError = require("../errors/SqlError");
 const getAllUsers = async (res) => {

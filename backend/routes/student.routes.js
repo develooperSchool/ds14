@@ -1,11 +1,11 @@
-var express = require('express');
+const express = require('express');
 
-var router = express.Router();
-var studentcontroller=require("../controllers/student.controller")
+const router = express.Router();
+const studentController=require("../controllers/student.controller")
 
 /* GET users listing. */
 router.get("/", (req, res) => {
-    studentcontroller.getAllStudents(req, res);
+    studentController.getAllStudents(req, res);
   });
 
 

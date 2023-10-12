@@ -1,9 +1,9 @@
 const { error } = require("@hapi/joi/lib/annotate");
-var userdao = require("../dao/users.dao");
+const userDao = require("../dao/users.dao");
 
 const getAllUsers = async (res) => {
   let rows = [];
-  await userdao
+  await userDao
     .getAllUsers(res)
     .then((result) => {
       rows = result;
@@ -16,7 +16,7 @@ const getAllUsers = async (res) => {
 
 const getUserById = async (req, res) => {
   let rows = [];
-  await userdao
+  await userDao
     .getUserById(req, res)
     .then((res) => {
       rows = res;
@@ -29,7 +29,7 @@ const getUserById = async (req, res) => {
 
 const getUserByEmail = async (req, res) => {
   let rows = [];
-  await userdao
+  await userDao
     .getUserByEmail(req, res)
     .then((res) => {
       rows = res;
@@ -41,7 +41,7 @@ const getUserByEmail = async (req, res) => {
 
 const updateUserRoleById = async (req, res) => {
   let rows = "";
-  await userdao
+  await userDao
     .updateUserRoleById(req, res)
     .then((result) => (rows = result))
     .catch((error) => console.log(error));
@@ -50,7 +50,7 @@ const updateUserRoleById = async (req, res) => {
 
 const deactivateUserById = async (req, res) => {
   let rows = "";
-  await userdao
+  await userDao
     .deactivateUserById(req, res)
     .then((result) => (rows = result))
     .catch((error) => console.log(error));
@@ -59,7 +59,7 @@ const deactivateUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
   let rows = "";
-  await userdao
+  await userDao
     .createUser(req, res)
     .then((result) => {
       console.log(result);

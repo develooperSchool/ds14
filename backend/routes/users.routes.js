@@ -1,38 +1,38 @@
 const express = require("express");
 const router = express.Router();
-const usercontroller = require("../controllers/users.controller");
+const userController = require("../controllers/users.controller");
 const userValidation = require("../middlewares/validations/users.validation");
 
 router.get("/", (req, res) => {
-  usercontroller.getAllUsers(req, res);
+  userController.getAllUsers(req, res);
 });
 
 router.post(
   "/add",
   userValidation.createUserValidation,
-  usercontroller.createUser
+  userController.createUser
 );
 
 router.get(
   "/:id",
   userValidation.getUserValidationByID,
-  usercontroller.getUserById
+  userController.getUserById
 );
 
 router.get("/byEmail", (req, res) => {
-  usercontroller.getUserByEmail(req, res);
+  userController.getUserByEmail(req, res);
 });
 
 router.put(
   "/updateRole/:id",
   userValidation.updatetUserRoleValidationByID,
-  usercontroller.updateUserRoleById
+  userController.updateUserRoleById
 );
 
 router.put(
   "/deactivate/:id",
   userValidation.deactivateUserValidationByID,
-  usercontroller.deactivateUserById
+  userController.deactivateUserById
 );
 
 module.exports = router;
