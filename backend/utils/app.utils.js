@@ -4,21 +4,19 @@ const isInvalidId = (input) => {
 
 const isInvalidName = (input) => {
   return (
-    !/^[a-zA-Z\s\-']{2,20}$/.test(input) ||
+    !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
     input.trim().length == 0 ||
     /(.)\1\1+/.test(input)
   );
 };
 
-
-const IsInvalidN = (input) => {
+const invalidName = (input) => {
   return (
-    !/^[a-zA-Z\s\. -']{2,50}$/.test(input) ||
+    !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
     input.trim().length == 0 ||
     /(.)\1\1+/.test(input)
   );
 };
-
 
 const IsInvalidNameNum = (input) => {
   return (
@@ -63,7 +61,10 @@ module.exports = {
   isInvalidGender,
   isInvalidName,
   IsInvalidNameNum,
+<<<<<<< HEAD
   isInvalidName,
+=======
+>>>>>>> 885994ed6c619b0fec8d519751a3ede50b0313a6
   isInvalidDate,
-  IsInvalidN
+  invalidName,
 };

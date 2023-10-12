@@ -2,9 +2,9 @@ const roleService = require("../services/urole.service");
 
 const getAllRoles = async (req, res) => {
  await roleService
-    .getAllRoles()
+    .getAllRoles(req,res)
     .then((rows) => {
-      res.status(200).send(rows);
+      res.status(200).json(rows);
     })
     .catch((err) => {
       console.log(err);
@@ -12,11 +12,11 @@ const getAllRoles = async (req, res) => {
 };
 //////////
 const getRoleById = (req, res) => {
-  console.log(req.params.id);
+  
   roleService
-    .getRoleById(req.params.id)
+    .getRoleById(req,res)
     .then((rows) => {
-      res.status(200).send(rows);
+      res.status(200).json(rows);
     })
     .catch((err) => {
       console.log(err);
@@ -25,11 +25,11 @@ const getRoleById = (req, res) => {
 
 
 const deleteRoleById = (req, res) => {
-  console.log(req.params.id);
+  
   roleService
-    .deleteRoleById(req.params.id)
+    .deleteRoleById(req,res)
     .then(() => {
-      res.status(200).send("ROLE ASSOCIATE WITH PERTIULAR ID IS DELETED");
+      res.status(200).json("ROLE ASSOCIATE WITH PERTIULAR ID IS DELETED");
     })
     .catch((err) => {
       console.log(err);
@@ -39,7 +39,7 @@ const deleteRoleById = (req, res) => {
 const addNewRole = async (req ,res)=>{
   await roleService.addNewRole(req.body)
   .then((result)=>{
-    res.status(200).send("role added successfully!")
+    res.status(200).json("role added successfully!")
   })
   .catch((err)=>
     console.log(err)
@@ -50,12 +50,12 @@ const addNewRole = async (req ,res)=>{
 const updateRoleById = async (req,res)=>{
 
  await roleService.updateRoleById(req.params.id,req.body)
- .then((result)=>res.status(200).send("role updated successfully!"))
+ .then((result)=>res.status(200).json("role updated successfully!"))
  .catch((err)=>res.status(500).send(err))
 }
 const updateUserById = async (req,res)=>{
   await roleService.updateUserById(req.params.id,req.body)
-  .then((result)=>res.status(200).send("username updated successfully"))
+  .then((result)=>res.status(200).json("username updated successfully"))
   .catch((err)=>res.status(500).send(err))
   
 }
