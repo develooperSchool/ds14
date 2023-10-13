@@ -7,7 +7,7 @@ router.get("/getAllRoles", function(req, res) {
   roleController.getAllRoles(req, res);
 });
 
-router.get("/:id",
+router.get("/getRoleBy/:id",
 roleValidation.getRoleByIdValidation,
 roleController.getRoleById
 );
@@ -37,7 +37,9 @@ roleValidation.userLoginValidation,
 roleController.userLogin
 )
 
-
+router.all('*', (req, res) => {
+  res.status(404).json({ error: 'Not Found' });
+});
 
 module.exports = router;
 
