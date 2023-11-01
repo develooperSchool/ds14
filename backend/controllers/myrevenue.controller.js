@@ -9,7 +9,7 @@ const getAllRevenueCategory = async (req, res) => {
       res.status(HttpStatusCode.OK).json(rows);
     })
     .catch((err) => {
-      console.error(err);
+      console.error(err.message);
     });
 };
 
@@ -20,7 +20,7 @@ const addRevenueCategory = async (req, res) => {
       // console.log(rows)
 
       res
-        .status(HttpStatusCode.OK)
+        .status(HttpStatusCode.CREATED)
         .json("REVENUE CATEGORY IS ADDED SUCCESSFULLY");
     })
     .catch((err) => {
@@ -58,7 +58,7 @@ const updateRevenueCategory = async (req, res) => {
     .then((rows) => {
       console.log(rows);
       res
-        .status(HttpStatusCode.OK)
+        .status(HttpStatusCode.CREATED)
         .json("REVENUE CATEGORY IS UPDATED SUCCESSFULLY");
     })
     .catch((err) => {
@@ -94,7 +94,7 @@ const addIncomeInfo = async (req, res) => {
     .then((rows) => {
       console.log(rows);
       res
-        .status(HttpStatusCode.OK)
+        .status(HttpStatusCode.CREATED)
         .json("INCOME DETAILS IS ADDED SUCCESSFULLY");
     })
     .catch((err) => {
@@ -117,7 +117,7 @@ const updateIncomeInfoById = async (req, res) => {
   await revenueService.updateIncomeInfoById(req, res).then((rows) => {
     console.log(rows);
     res
-      .status(HttpStatusCode.OK)
+      .status(HttpStatusCode.CREATED)
       .json("INCOME DETAILS IS UPDATED SUCCESSFULLY");
   });
 };
@@ -150,7 +150,7 @@ const addExpenseInfo = async (req, res) => {
     .then((rows) => {
       console.log(rows);
       res
-        .status(HttpStatusCode.OK)
+        .status(HttpStatusCode.CREATED)
         .json("EXPENSE DETAILS IS ADDED SUCCESSFULLY");
     })
     .catch((err) => {
@@ -164,7 +164,7 @@ const updateExpenseInfoById = async (req, res) => {
     .then((rows) => {
       console.log(rows);
       res
-        .status(HttpStatusCode.OK)
+        .status(HttpStatusCode.CREATED)
         .json("EXPENSE DETAILS IS UPDATED SUCCESSFULLY");
     })
     .catch((err) => {
