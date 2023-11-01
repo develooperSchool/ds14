@@ -1,11 +1,27 @@
 const isInvalidId = (input) => {
-  return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
+    return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
 };
 
-const IsInvalidName = (input) => {
+const isInvalidName = (input) => {
   return (
-    !/^[a-zA-Z\s\-']{2,20}$/.test(input) ||
+    !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
     input.trim().length == 0 ||
+    /(.)\1\1+/.test(input)
+  );
+};
+
+const IsInvalidN = (input) => {
+  return (
+    !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
+    input.trim().length == 0 ||
+    /(.)\1\1+/.test(input)
+  );
+};
+
+const IsInvalidNameNum = (input) => {
+  return (
+    !/^[a-zA-Z0-9\s\-']{2,20}$/.test(input) ||
+    input.length == 0 ||
     /(.)\1\1+/.test(input)
   );
 };
@@ -36,6 +52,7 @@ const isInValidContact = (input) => {
   return !/^(\+91|91)[789]\d{9}$/.test(input);
 };
 
+
 module.exports = {
   isInvalidId,
   isInvalidEmail,
@@ -43,6 +60,9 @@ module.exports = {
   isInvalidYear,
   isInValidContact,
   isInvalidGender,
-  IsInvalidName,
+  isInvalidName,
+  IsInvalidNameNum,
+  isInvalidName,
   isInvalidDate,
+  IsInvalidN,
 };
