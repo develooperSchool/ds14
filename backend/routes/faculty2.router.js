@@ -3,27 +3,12 @@ var router=express.Router();
 var controller=require("../controllers/faculty2.controller");
 const validation=require('../middlewares/validations/faculty2.Validation');
 
+router.get(`/get`,(req,res)=>{ controller.getFaculty2(req,res);});
 
-
-//Get req for Facultys.......................................
-router.get(`/get`,(req,res)=>{
-    controller.getFaculty2(req,res);
-});
-
-
-//post req for Faculty.......................................
 router.post(`/post`,validation.postFaculty2Validation,controller.postFaculty2);
 
-
- 
-//Update req for Facultys......................................
 router.put(`/update/:id`,validation.putFaculty2Validation,controller.putFaculty2);
 
-
-
-//delete req for Facultys.......................................
 router.delete(`/delete/:id`,validation.deleteFaculty2Validation,controller.deleteFaculty2);
-
-
 
 module.exports = router;

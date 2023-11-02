@@ -49,7 +49,7 @@ const deleteRevenueCategory = async (req, res) => {
     let sqlQuery =
       "DELETE FROM revenue_category WHERE revenue_category_id = ? ";
     let [rows] = await db.query(sqlQuery, values);
-    result = rows; // console.log(result)
+    result = rows;
   } catch (err) {
     throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }
