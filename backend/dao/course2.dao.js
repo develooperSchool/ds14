@@ -5,7 +5,7 @@ let getCourse2=async(req,res)=>{
     try{
         let q='select * from courses';
         let values = [];    
-        let [rows,fields]=await db.query(q,values)
+        let [rows,fields]=await db.query(q,values);
         return rows;
     }
     catch(err){throw new SqlError(String(err.sqlMessage).toUpperCase(),res)}
