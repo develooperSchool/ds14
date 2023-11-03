@@ -7,7 +7,8 @@ export class RevenueService {
   public static getAllRevenueCategory = (): Promise<{
     data: IRevenueCategory[];
   }> => {
-    const dataurl = `${this.serverUrl}/`;
+    const dataurl = `${this.serverUrl}/getAllrevenueCategory`;
+
     return axios.get(dataurl);
   };
 
