@@ -1,4 +1,5 @@
 import React from "react";
+<link rel="stylesheet" href="style.css" />;
 
 const PieChart = () => {
   return (
