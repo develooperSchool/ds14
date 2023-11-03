@@ -6,35 +6,42 @@ import Card from "./Card";
 import GetAllCourse from "../Course/GetAllCourse";
 import PieChart from "./PieChart";
 import PieChartCircle from "./PieChartCircle";
+import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
 
 const AdminDashboard = () => {
   return (
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-2">{<Sidebar />}</div>
+          <div className="col-lg-2">
+            <Sidebar />
+          </div>
 
           <div className="col-lg-10">
-            {<Topbar />}
+            <Topbar />
             <Routes>
               <Route path="/" element={<Card />}></Route>
             </Routes>
             <Routes>
               <Route path="/course" element={<GetAllCourse />}></Route>
             </Routes>
-          </div>
+            <Routes>
+              <Route path="/revenue" element={<GetAllRevenue />}></Route>
+            </Routes>
 
-          <div className="container mt-5">
-            <div className="row">
-              <div className="col-lg-6">
-                <Routes>
-                  <Route path="/" element={<PieChart />}></Route>
-                </Routes>
-              </div>
-              <div className="col-lg-6">
-                <Routes>
-                  <Route path="/" element={<PieChartCircle />}></Route>
-                </Routes>
+            <div className="container mt-5">
+              <div className="row">
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/" element={<PieChart />}></Route>
+                  </Routes>
+                </div>
+
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/" element={<PieChartCircle />}></Route>
+                  </Routes>
+                </div>
               </div>
             </div>
           </div>
