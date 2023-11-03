@@ -6,6 +6,8 @@ import Card from "./Card";
 import GetAllCourse from "../Course/GetAllCourse";
 import PieChart from "./PieChart";
 import PieChartCircle from "./PieChartCircle";
+import Login from "../User/Login";
+import ForgotPwd from "../User/ForgotPwd";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
 
 const AdminDashboard = () => {
@@ -25,9 +27,7 @@ const AdminDashboard = () => {
             <Routes>
               <Route path="/course" element={<GetAllCourse />}></Route>
             </Routes>
-            <Routes>
-              <Route path="/revenue" element={<GetAllRevenue />}></Route>
-            </Routes>
+          </div>
 
             <div className="container mt-5">
               <div className="row">
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-      </div>
+      
     </>
   );
 };
