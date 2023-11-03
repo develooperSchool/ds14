@@ -1,0 +1,16 @@
+.navsidebar {
+  min-height: 100vh;
+  text-align: justify;
+  background-color: lightgray;
+}
+li {
+  list-style: none;
+}
+.sidebarlist {
+  margin-left: 2rem;
+  padding: 5px;
+}
+.Link {
+  text-decoration: none;
+  color: rgb(43, 37, 37);
+}
