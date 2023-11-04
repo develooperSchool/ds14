@@ -6,6 +6,7 @@ import Card from "./Card";
 import GetAllCourse from "../Course/GetAllCourse";
 import PieChart from "./PieChart";
 import PieChartCircle from "./PieChartCircle";
+import GetAllCourses from "../Courses/GetAllCourses";
 
 const AdminDashboard = () => {
   return (
@@ -20,7 +21,7 @@ const AdminDashboard = () => {
               <Route path="/" element={<Card />}></Route>
             </Routes>
             <Routes>
-              <Route path="/course" element={<GetAllCourse />}></Route>
+              <Route path="/courses" element={<GetAllCourses />}></Route>
             </Routes>
           </div>
 

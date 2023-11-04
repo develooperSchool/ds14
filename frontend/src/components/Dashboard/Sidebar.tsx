@@ -22,7 +22,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mt-3">
-            <Link to={"/course"}>
+            <Link to={"/courses"}>
               <i className=" bi bi-book-half text-dark">Cource</i>
             </Link>
           </li>
