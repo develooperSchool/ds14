@@ -21,3 +21,22 @@ export const getAllRevenueCategoryAction: any = createAsyncThunk(
     }
   }
 );
+
+export const deleteRevenueCategoryAction: any = createAsyncThunk(
+  "RevenueRedux/deleteRevenueCategoryAction",
+  async (
+    payload: { Id: string },
+    { rejectWithValue }
+  ): Promise<IRevenueCategory | any> => {
+    try {
+      const { Id } = payload;
+      let res = await RevenueService.deleteRevenueCategory(Id);
+      return res.data;
+    } catch (error: any) {
+      if (!error.res) {
+        throw error;
+      }
+      return rejectWithValue(error.res.data);
+    }
+  }
+);
