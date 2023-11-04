@@ -21,6 +21,17 @@ const GetAllRevenue: React.FC = () => {
   const dataFromserver = () => {
     dispatach(RevenueAction.getAllRevenueCategoryAction());
   };
+  const deleteRevenueCategory = (Id: string) => {
+    if (Id) {
+      dispatach(RevenueAction.deleteRevenueCategoryAction({ Id: Id })).then(
+        (res: any) => {
+          if (res && !res.error) {
+            dataFromserver();
+          }
+        }
+      );
+    }
+  };
 
   return (
     <>
@@ -64,7 +75,14 @@ const GetAllRevenue: React.FC = () => {
                         >
                           Update
                         </Link>
-                        <button className="btn btn-outline-danger">
+                        <button
+                          className="btn btn-outline-danger"
+                          onClick={() =>
+                            deleteRevenueCategory(
+                              String(categories.revenue_category_id)
+                            )
+                          }
+                        >
                           Delete
                         </button>
                       </td>

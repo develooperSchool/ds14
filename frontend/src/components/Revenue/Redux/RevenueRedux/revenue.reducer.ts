@@ -24,5 +24,12 @@ export const revenueSlice = createSlice({
         state.Rcategories = action.payload;
       }
     );
+
+    builder.addCase(
+      RevenueAction.deleteRevenueCategoryAction.fulfilled,
+      (state, action) => {
+        state.Rcategory = {} as IRevenueCategory;
+      }
+    );
   },
 });

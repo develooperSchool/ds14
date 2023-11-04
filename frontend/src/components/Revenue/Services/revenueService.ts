@@ -35,7 +35,10 @@ export class RevenueService {
   };
 
   public static deleteRevenueCategory = (Id: string): Promise<{ data: {} }> => {
-    const dataurl = `${this.serverUrl}/${Id}`;
-    return axios.delete(dataurl);
+    const dataurl = `${this.serverUrl}/deleteRevenueCategory/id/${Id}`;
+    let res = axios.delete(dataurl);
+
+    console.log(res);
+    return res;
   };
 }
