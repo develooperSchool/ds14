@@ -1,8 +1,8 @@
 //Get all revenue action
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IRevenueCategory } from "../../Model/IRevenue";
-import { RevenueService } from "../../Services/revenueService";
+import { IRevenueCategory } from "../../../src/components/Revenue/Model/IRevenue";
+import { RevenueService } from "../../components/Revenue/Services/revenueService";
 
 export const getAllRevenueCategoryAction: any = createAsyncThunk(
   "RevenueRedux/getAllRevenueCategoryAction",
