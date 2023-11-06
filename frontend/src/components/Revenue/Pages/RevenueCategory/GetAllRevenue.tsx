@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import * as RevenueReducer from "../../Redux/RevenueRedux/revenue.reducer";
-import * as RevenueAction from "../../Redux/RevenueRedux/revenue.action";
+import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
+import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../Redux/store";
+import { AppDispatch, RootState } from "../../../../Redux/store";
 import { Link } from "react-router-dom";
 
 const GetAllRevenue: React.FC = () => {
@@ -63,7 +63,7 @@ const GetAllRevenue: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {revenueReduxState.Rcategories.map((categories, index) => {
+                {revenueReduxState.Rcategories.map((categories) => {
                   return (
                     <tr>
                       <td>{categories.revenue_category_id}</td>
