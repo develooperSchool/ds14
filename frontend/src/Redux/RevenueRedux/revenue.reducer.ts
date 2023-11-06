@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IRevenueCategory } from "../../Model/IRevenue";
+import { IRevenueCategory } from "../../../src/components/Revenue/Model/IRevenue";
 import * as RevenueAction from "../RevenueRedux/revenue.action";
 
 export const revenueFeatureKey = "revenueFeature";

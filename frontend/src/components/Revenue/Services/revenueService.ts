@@ -34,7 +34,7 @@ export class RevenueService {
     return axios.put(dataurl, updatrevcategory);
   };
 
-  public static deleteRevenueCategory = (Id: string): Promise<any> => {
+  public static deleteRevenueCategory = (Id: string): Promise<{ data: {} }> => {
     const dataurl = `${this.serverUrl}/deleteRevenueCategory/${Id}`;
     let res = axios.delete(dataurl);
 
