@@ -92,7 +92,7 @@ const updateUserById = async (id,body)=>{
 const userLogin = async (username,password)=>{
   let message = "";
 try{
-  let sqlQuery = "SELECT * FROM user_master WHERE emai =? AND password = ?";
+  let sqlQuery = "SELECT * FROM user_master WHERE email =? AND password = ?";
   const[result,feild]= await db.query(sqlQuery,[username,password])
   
   if(result.length>0){

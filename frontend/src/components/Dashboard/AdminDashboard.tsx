@@ -9,6 +9,7 @@ import PieChartCircle from "./PieChartCircle";
 import Login from "../User/Login";
 import ForgotPwd from "../User/ForgotPwd";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
+import Registration from "../User/Registration";
 
 const AdminDashboard = () => {
   return (
@@ -26,6 +27,15 @@ const AdminDashboard = () => {
             </Routes>
             <Routes>
               <Route path="/course" element={<GetAllCourse />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/login" element={<Login />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/forgot" element={<ForgotPwd />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/register" element={<Registration />}></Route>
             </Routes>
           </div>
 
