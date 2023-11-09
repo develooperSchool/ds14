@@ -27,13 +27,13 @@ const Registration: React.FC = () => {
     passing_year: 0,
     dob: "",
     gender: "",
-    caste: "",
+    caste_category: "",
     subcaste: "",
     password: "",
   });
 
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(create);
+    console.log(event.target.name);
     setCreate({
       ...create,
       [event.target.name]: event.target.value,
@@ -69,7 +69,7 @@ const Registration: React.FC = () => {
                       <input
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
-                        name="firstName"
+                        name="first_name"
                         value={create.first_name}
                         className="form-control"
                       />
@@ -81,7 +81,7 @@ const Registration: React.FC = () => {
                       <input
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
-                        name="lastName"
+                        name="last_name"
                         value={create.last_name}
                         className="form-control"
                       />
@@ -140,7 +140,7 @@ const Registration: React.FC = () => {
                       <input
                         onChange={(e) => changeInputEvent(e)}
                         type="number"
-                        name="passingYear"
+                        name="passing_year"
                         value={create.passing_year}
                         className="form-control"
                       />
@@ -185,8 +185,8 @@ const Registration: React.FC = () => {
                         type="text"
                         className="form-control"
                         onChange={(e) => changeInputEvent(e)}
-                        value={create.caste}
-                        name="caste"
+                        value={create.caste_category}
+                        name="caste_category"
                       />
                       {/* <select name="caste" id="" className="form-control">
                                         <option value="select">Select</option>

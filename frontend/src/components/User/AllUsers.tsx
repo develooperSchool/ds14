@@ -80,7 +80,7 @@ const AllUsers: React.FC = () => {
                       <td>{user.passing_year}</td>
                       <td>{user.dob}</td>
                       <td>{user.gender}</td>
-                      <td>{user.caste}</td>
+                      <td>{user.caste_category}</td>
                       <td>{user.subcaste}</td>
                       <td>
                         <Link

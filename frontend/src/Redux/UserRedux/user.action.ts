@@ -46,7 +46,7 @@ export const createUserAction: any = createAsyncThunk(
       let { user } = payload;
       user = {
         ...user,
-        isActive: 1,
+        is_active: 1,
         roleId: 4,
       };
       console.log("user", user);

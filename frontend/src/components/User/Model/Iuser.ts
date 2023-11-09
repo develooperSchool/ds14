@@ -14,11 +14,11 @@ export interface Iregister {
   passing_year: number;
   dob: string;
   gender: string;
-  caste: string;
+  caste_category: string;
   subcaste: string;
   createdBy?: string;
   updatedBy?: string;
-  isActive?: number;
+  is_active?: number;
   roleId?: number;
   password: string;
 }
