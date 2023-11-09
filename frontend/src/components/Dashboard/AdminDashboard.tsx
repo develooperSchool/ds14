@@ -7,6 +7,8 @@ import GetAllCourse from "../Course/GetAllCourse";
 import PieChart from "./PieChart";
 import PieChartCircle from "./PieChartCircle";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
+import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenueById";
+import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
 
 const AdminDashboard = () => {
   return (
@@ -27,8 +29,16 @@ const AdminDashboard = () => {
             </Routes>
             <Routes>
               <Route path="/revenue" element={<GetAllRevenue />}></Route>
+              <Route
+                path="/revenue/update/:id"
+                element={<UpdateRevenue />}
+              ></Route>
+              <Route
+                path="/revenue/addCategory"
+                element={<AddRevenueCategory />}
+              ></Route>
             </Routes>
-
+            {/* */}
             <div className="container mt-5">
               <div className="row">
                 <div className="col-lg-6">
