@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "./Redux/store";
 import { Iregister } from "./Model/Iuser";
-import * as UserAction from "./Redux/UserRedux/user.action";
-import * as UserReducer from "./Redux/UserRedux/user.reducer";
+import * as UserAction from "../../Redux/UserRedux/user.action";
+import * as UserReducer from "../../Redux/UserRedux/user.reducer";
 
 const Registration: React.FC = () => {
   const Navigate = useNavigate();
@@ -18,13 +18,13 @@ const Registration: React.FC = () => {
   );
 
   const [create, setCreate] = useState<Iregister>({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     contact: "",
     address: "",
     qualification: "",
-    passingYear: 0,
+    passing_year: 0,
     dob: "",
     gender: "",
     caste: "",
@@ -33,6 +33,7 @@ const Registration: React.FC = () => {
   });
 
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(create);
     setCreate({
       ...create,
       [event.target.name]: event.target.value,
@@ -41,12 +42,11 @@ const Registration: React.FC = () => {
 
   const submitData = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(create.firstName, create.address);
 
     dispatch(UserAction.createUserAction({ user: create }))
       .then((res: any) => {
         if (res && !res.data) {
-          // Navigate("/")
+          // Navigate("/");
           alert("Done");
         }
       })
@@ -65,24 +65,24 @@ const Registration: React.FC = () => {
                 <div className="row">
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
-                      <label>FirstName</label>
+                      <label>First Name</label>
                       <input
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="firstName"
-                        value={create.firstName}
+                        value={create.first_name}
                         className="form-control"
                       />
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
-                      <label>LastName</label>
+                      <label>Last Name</label>
                       <input
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="lastName"
-                        value={create.lastName}
+                        value={create.last_name}
                         className="form-control"
                       />
                     </div>
@@ -141,7 +141,7 @@ const Registration: React.FC = () => {
                         onChange={(e) => changeInputEvent(e)}
                         type="number"
                         name="passingYear"
-                        value={create.passingYear}
+                        value={create.passing_year}
                         className="form-control"
                       />
                     </div>

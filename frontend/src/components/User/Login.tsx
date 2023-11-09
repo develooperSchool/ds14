@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import * as UserReducer from "../../components/User/Redux/UserRedux/user.reducer";
-import * as UserAction from "./Redux/UserRedux/user.action";
+import * as UserReducer from "../../Redux/UserRedux/user.reducer";
+import * as UserAction from "../../Redux/UserRedux/user.action";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./Redux/store";
 import { Link, useNavigate } from "react-router-dom";

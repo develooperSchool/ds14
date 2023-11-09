@@ -1,18 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IUser, Iregister } from "../../Model/Iuser";
-import { UserService } from "../../Services/userServices";
+import { IUser, Iregister } from "../../components/User/Model/Iuser";
+import { UserService } from "../../components/User/Services/userServices";
 
 export const getAllUserAction: any = createAsyncThunk(
   "UserRedux/getAllUserAction",
   async (payload: {}, { rejectWithValue }): Promise<Iregister[] | any> => {
     try {
-      let res = await UserService.getAllUsers();
-      return res.data;
+      let result = await UserService.getAllUsers();
+      return result.data;
     } catch (error: any) {
       if (!error.res) {
         throw error;
       }
-
       return rejectWithValue(error.res.data);
     }
   }

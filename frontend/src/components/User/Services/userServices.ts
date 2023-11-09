@@ -5,7 +5,7 @@ export class UserService {
   private static serverUrl: string = "http://localhost:4444/api/v1/urole";
   private static DataUrl: string = "http://localhost:4444/api/v1/users";
 
-  public static getAllUsers = (): Promise<{ data: Iregister[] }> => {
+  public static getAllUsers = async (): Promise<{ data: Iregister[] }> => {
     const data = `${this.DataUrl}/`;
     return axios.get(data);
   };
