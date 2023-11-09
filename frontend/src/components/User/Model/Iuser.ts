@@ -19,7 +19,7 @@ export interface IUser {
     createdBy?:string,
     updatedBy?:string,
     isActive?:number,
-    roleId?:string,
+    roleId?:number,
     password:string
 
 

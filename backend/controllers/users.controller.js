@@ -58,6 +58,8 @@ const deactivateUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+  console.log("url", req.url)
+  console.log("body",req.body)
   await userService
     .createUser(req, res)
     .then((rows) => {

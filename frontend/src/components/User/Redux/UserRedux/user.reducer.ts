@@ -5,8 +5,8 @@ import * as UserAction from "../UserRedux/user.action";
 export const userFeatureKey = "userFeature";
 
 export interface InitialState {
-  Users: IUser[];
-  user: IUser;
+  Users: Iregister[];
+  user: Iregister;
 }
 
 const initialState: InitialState = {
@@ -18,11 +18,18 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(UserAction.getAllUserAction.fulfilled,(state,action)=>{
+      state.Users = action.payload
+  })
     builder.addCase(
       UserAction.userLoginAction.fulfilled,
       (state, action) => {
         state.user = action.payload;
       }
     );
-  },
+  
+  builder.addCase(UserAction.createUserAction.fulfilled,(state,action)=>{
+    state.user=action.payload
+})
+}
 });

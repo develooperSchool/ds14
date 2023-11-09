@@ -10,6 +10,7 @@ import Login from "../User/Login";
 import ForgotPwd from "../User/ForgotPwd";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
 import Registration from "../User/Registration";
+import AllUsers from "../User/AllUsers";
 
 const AdminDashboard = () => {
   return (
@@ -36,6 +37,9 @@ const AdminDashboard = () => {
             </Routes>
             <Routes>
               <Route path="/register" element={<Registration />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/users" element={<AllUsers />}></Route>
             </Routes>
           </div>
 
