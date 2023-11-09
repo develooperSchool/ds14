@@ -21,9 +21,9 @@ const GetAllRevenue: React.FC = () => {
   const dataFromserver = () => {
     dispatach(RevenueAction.getAllRevenueCategoryAction());
   };
-  const deleteRevenueCategory = (Id: string) => {
-    if (Id) {
-      dispatach(RevenueAction.deleteRevenueCategoryAction({ Id: Id })).then(
+  const deleteRevenueCategory = (id: string) => {
+    if (id) {
+      dispatach(RevenueAction.deleteRevenueCategoryAction({ id })).then(
         (res: any) => {
           if (res && !res.error) {
             dataFromserver();
@@ -65,7 +65,7 @@ const GetAllRevenue: React.FC = () => {
               <tbody>
                 {revenueReduxState.Rcategories.map((categories) => {
                   return (
-                    <tr>
+                    <tr key={categories.revenue_category_id}>
                       <td>{categories.revenue_category_id}</td>
                       <td>{categories.revenue_category_name}</td>
                       <td>

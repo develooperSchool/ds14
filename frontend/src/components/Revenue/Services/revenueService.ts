@@ -28,14 +28,15 @@ export class RevenueService {
 
   public static updateRevenueCategory = (
     updatrevcategory: IRevenueCategory,
-    Id: string
+    id: string
   ): Promise<{ data: IRevenueCategory[] }> => {
-    const dataurl = `${this.serverUrl}/${Id}`;
+    const dataurl = `${this.serverUrl}/${id}`;
     return axios.put(dataurl, updatrevcategory);
   };
 
-  public static deleteRevenueCategory = (Id: string): Promise<{ data: {} }> => {
-    const dataurl = `${this.serverUrl}/deleteRevenueCategory/${Id}`;
+  public static deleteRevenueCategory = (id: string): Promise<{ data: {} }> => {
+    const dataurl = `${this.serverUrl}/deleteRevenueCategory/${id}`;
+    console.log(dataurl);
     let res = axios.delete(dataurl);
 
     console.log(res);
