@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "./Redux/store";
-import { Iregister } from "./Model/Iuser";
+import { IRegister, IRegisterData } from "./Model/Iuser";
 import * as UserAction from "../../Redux/UserRedux/user.action";
 import * as UserReducer from "../../Redux/UserRedux/user.reducer";
 
@@ -17,7 +17,7 @@ const Registration: React.FC = () => {
     }
   );
 
-  const [create, setCreate] = useState<Iregister>({
+  const [create, setCreate] = useState<IRegisterData>({
     first_name: "",
     last_name: "",
     email: "",
@@ -40,10 +40,40 @@ const Registration: React.FC = () => {
     });
   };
 
+  const setDefaults = () => {
+    setCreate({
+      first_name: "John",
+      last_name: "Doe",
+      email: "doe@example.com",
+      contact: "9988776655",
+      address: "123 Main Street",
+      qualification: "Test",
+      passing_year: 2013,
+      dob: "05/05/2013",
+      gender: "male",
+      caste_category: "TEST01",
+      subcaste: "TEST02",
+      password: "password",
+    });
+  };
+
   const submitData = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    dispatch(UserAction.createUserAction({ user: create }))
+    const data: IRegister = {
+      firstName: create.first_name,
+      lastName: create.last_name,
+      email: create.email,
+      contact: create.contact,
+      address: create.address,
+      qualification: create.qualification,
+      passingYear: create.passing_year,
+      dob: create.dob.replaceAll("-", "/"),
+      gender: create.gender,
+      casteCategory: create.caste_category,
+      subcaste: create.subcaste,
+      password: create.password,
+    };
+    dispatch(UserAction.createUserAction({ user: data }))
       .then((res: any) => {
         if (res && !res.data) {
           // Navigate("/");
@@ -243,6 +273,13 @@ const Registration: React.FC = () => {
                 </button>
                 <button type="reset" className="btn btn-success">
                   Reset
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDefaults()}
+                  className="btn btn-success"
+                >
+                  Set Defaults
                 </button>
               </div>
             </form>

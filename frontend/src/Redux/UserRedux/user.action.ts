@@ -1,10 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IUser, Iregister } from "../../components/User/Model/Iuser";
+import {
+  IUser,
+  IRegisterData,
+  IRegister,
+} from "../../components/User/Model/Iuser";
 import { UserService } from "../../components/User/Services/userServices";
 
 export const getAllUserAction: any = createAsyncThunk(
   "UserRedux/getAllUserAction",
-  async (payload: {}, { rejectWithValue }): Promise<Iregister[] | any> => {
+  async (payload: {}, { rejectWithValue }): Promise<IRegisterData[] | any> => {
     try {
       let result = await UserService.getAllUsers();
       return result.data;
@@ -39,14 +43,14 @@ export const userLoginAction: any = createAsyncThunk(
 export const createUserAction: any = createAsyncThunk(
   "UserRedux/createUserAction",
   async (
-    payload: { user: Iregister },
+    payload: { user: IRegister },
     { rejectWithValue }
-  ): Promise<Iregister | any> => {
+  ): Promise<IRegisterData | any> => {
     try {
       let { user } = payload;
       user = {
         ...user,
-        is_active: 1,
+        isActive: 1,
         roleId: 4,
       };
       console.log("user", user);

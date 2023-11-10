@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUser, Iregister } from "../../components/User/Model/Iuser";
+import { IRegisterData } from "../../components/User/Model/Iuser";
 import * as UserAction from "./user.action";
 
 export const userFeatureKey = "userFeature";
 
 export interface InitialState {
-  users: Iregister[];
-  user: Iregister;
+  users: IRegisterData[];
+  user: IRegisterData;
 }
 
 const initialState: InitialState = {
-  users: [] as Iregister[],
-  user: {} as Iregister,
+  users: [] as IRegisterData[],
+  user: {} as IRegisterData,
 };
 export const userSlice = createSlice({
   name: "userSlice",

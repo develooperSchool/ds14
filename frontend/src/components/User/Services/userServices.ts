@@ -1,11 +1,11 @@
 import axios from "axios";
-import { IUser, Iregister } from "../Model/Iuser";
+import { IUser, IRegisterData, IRegister } from "../Model/Iuser";
 
 export class UserService {
   private static serverUrl: string = "http://localhost:4444/api/v1/urole";
   private static DataUrl: string = "http://localhost:4444/api/v1/users";
 
-  public static getAllUsers = async (): Promise<{ data: Iregister[] }> => {
+  public static getAllUsers = async (): Promise<{ data: IRegisterData[] }> => {
     const data = `${this.DataUrl}/`;
     return axios.get(data);
   };
@@ -20,11 +20,16 @@ export class UserService {
   };
 
   public static createUser = async (
-    body: Iregister
-  ): Promise<{ data: Iregister | any }> => {
+    body: IRegister
+  ): Promise<{ data: IRegisterData | any }> => {
     console.log("body", body);
-    let res: Iregister | any = {};
     const url = `${this.DataUrl}/add`;
+
+    axios
+      .post(url, body)
+      .then((res) => console.log("result", res))
+      .catch((err) => console.log("err", err));
+
     return axios.post(url, body);
   };
 }
