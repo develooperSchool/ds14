@@ -40,7 +40,7 @@ const getRevenueCategoryById = async (req, res) => {
 };
 
 const deleteRevenueCategory = async (req, res) => {
-  await revenueService
+    .log(req.params.id)
     .deleteRevenueCategory(req, res)
     .then(() => {
       res
