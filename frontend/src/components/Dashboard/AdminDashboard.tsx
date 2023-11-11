@@ -9,6 +9,8 @@ import PieChartCircle from "./PieChartCircle";
 import Login from "../User/Login";
 import ForgotPwd from "../User/ForgotPwd";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
+import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
+import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
 
 const AdminDashboard = () => {
   return (
@@ -27,26 +29,44 @@ const AdminDashboard = () => {
             <Routes>
               <Route path="/course" element={<GetAllCourse />}></Route>
             </Routes>
+            <Routes>
+              <Route path="/getrevenue" element={<GetAllRevenue />}></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/updaterevenue/:id"
+                element={<UpdateRevenue />}
+              ></Route>
+            </Routes>
+
+            <Routes>
+              <Route
+                path="/addrevenuecategory"
+                element={<AddRevenueCategory />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route path="/login" element={<Login />}></Route>
+            </Routes>
           </div>
 
-            <div className="container mt-5">
-              <div className="row">
-                <div className="col-lg-6">
-                  <Routes>
-                    <Route path="/" element={<PieChart />}></Route>
-                  </Routes>
-                </div>
+          <div className="container mt-5">
+            <div className="row">
+              <div className="col-lg-6">
+                <Routes>
+                  <Route path="/" element={<PieChart />}></Route>
+                </Routes>
+              </div>
 
-                <div className="col-lg-6">
-                  <Routes>
-                    <Route path="/" element={<PieChartCircle />}></Route>
-                  </Routes>
-                </div>
+              <div className="col-lg-6">
+                <Routes>
+                  <Route path="/" element={<PieChartCircle />}></Route>
+                </Routes>
               </div>
             </div>
           </div>
         </div>
-      
+      </div>
     </>
   );
 };
