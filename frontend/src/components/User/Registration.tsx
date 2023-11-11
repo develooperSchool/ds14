@@ -5,6 +5,9 @@ import { AppDispatch, RootState } from "./Redux/store";
 import { IRegister, IRegisterData } from "./Model/Iuser";
 import * as UserAction from "../../Redux/UserRedux/user.action";
 import * as UserReducer from "../../Redux/UserRedux/user.reducer";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { start } from "repl";
 
 const Registration: React.FC = () => {
   const Navigate = useNavigate();
@@ -16,6 +19,8 @@ const Registration: React.FC = () => {
       return state[UserReducer.userFeatureKey];
     }
   );
+
+  const [startDate, setStartDate] = useState<Date | null>(null);
 
   const [create, setCreate] = useState<IRegisterData>({
     first_name: "",
@@ -32,8 +37,14 @@ const Registration: React.FC = () => {
     password: "",
   });
 
+  const changeDate = (date: Date | null) => {
+    setStartDate(date);
+    setCreate({
+      ...create,
+      dob: String(startDate),
+    });
+  };
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.name);
     setCreate({
       ...create,
       [event.target.name]: event.target.value,
@@ -49,7 +60,7 @@ const Registration: React.FC = () => {
       address: "123 Main Street",
       qualification: "Test",
       passing_year: 2013,
-      dob: "05/05/2013",
+      dob: "05-05-2013",
       gender: "male",
       caste_category: "TEST01",
       subcaste: "TEST02",
@@ -67,17 +78,18 @@ const Registration: React.FC = () => {
       address: create.address,
       qualification: create.qualification,
       passingYear: create.passing_year,
-      dob: create.dob.replaceAll("-", "/"),
+      dob: create.dob,
       gender: create.gender,
       casteCategory: create.caste_category,
       subcaste: create.subcaste,
       password: create.password,
     };
+    alert(data.dob);
     dispatch(UserAction.createUserAction({ user: data }))
       .then((res: any) => {
         if (res && !res.data) {
-          // Navigate("/");
-          alert("Done");
+          Navigate("/");
+          // alert("Done");
         }
       })
       .catch((error: any) => console.log(error));
@@ -179,11 +191,17 @@ const Registration: React.FC = () => {
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
                       <label>Date of Birth</label>
-                      <input
+                      {/* <input
                         onChange={(e) => changeInputEvent(e)}
                         type="Date"
                         name="dob"
                         value={create.dob}
+                        className="form-control"
+                      /> */}
+                      <DatePicker
+                        dateFormat="dd-MM-yyyy"
+                        selected={startDate}
+                        onChange={(date) => changeDate(date)}
                         className="form-control"
                       />
                     </div>

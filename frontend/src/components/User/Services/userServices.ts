@@ -28,7 +28,7 @@ export class UserService {
     axios
       .post(url, body)
       .then((res) => console.log("result", res))
-      .catch((err) => console.log("err", err));
+      .catch((err) => console.log("err", err.response.data));
 
     return axios.post(url, body);
   };
