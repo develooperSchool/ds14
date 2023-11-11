@@ -9,6 +9,8 @@ import PieChartCircle from "./PieChartCircle";
 import Login from "../User/Login";
 import ForgotPwd from "../User/ForgotPwd";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
+import GetAllUrole from "../Urole/Pages/GetAllUrole";
+import UserProfile from "../Urole/Pages/UserProfile";
 
 const AdminDashboard = () => {
   return (
@@ -26,6 +28,12 @@ const AdminDashboard = () => {
             </Routes>
             <Routes>
               <Route path="/course" element={<GetAllCourse />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/urole" element={<GetAllUrole />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/UserProfile" element={<UserProfile />}></Route>
             </Routes>
           </div>
 

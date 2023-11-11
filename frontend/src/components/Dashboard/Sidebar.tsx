@@ -36,6 +36,11 @@ const Sidebar = () => {
               <i className="bi bi-graph-up-arrow"> </i>Revenue
             </Link>
           </li>
+          <li className="mt-3">
+            <Link to={"/urole"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>User Roles
+            </Link>
+          </li>
         </ul>
       </div>
     </>
