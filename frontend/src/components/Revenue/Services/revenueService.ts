@@ -19,10 +19,11 @@ export class RevenueService {
     return axios.get(dataurl);
   };
 
-  public static addRevenueCategory = (
+  public static addRevenueCategory = async (
     body: IRevenueCategory
   ): Promise<{ data: IRevenueCategory }> => {
     const dataurl = `${this.serverUrl}/addRevenueCategorydetails`;
+
     return axios.post(dataurl, body);
   };
 

@@ -3,7 +3,7 @@ import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer"
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
 import { AppDispatch, RootState } from "../../../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { IRevenueCategory } from "../../Model/IRevenue";
+import { IAddRevenueCategory, IRevenueCategory } from "../../Model/IRevenue";
 import { Link, useNavigate } from "react-router-dom";
 
 const AddRevenueCategory = () => {
@@ -16,9 +16,8 @@ const AddRevenueCategory = () => {
   );
   const dispatch: AppDispatch = useDispatch();
 
-  const [createcategory, setcreatecatogiry] = useState<IRevenueCategory>({
-    revenue_category_id: "",
-    revenue_category_name: "",
+  const [createcategory, setcreatecatogiry] = useState<IAddRevenueCategory>({
+    revenueCategoryName: "",
   });
 
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,13 +31,15 @@ const AddRevenueCategory = () => {
     event.preventDefault();
     // alert("Revenue Added Successfully");
 
-    dispatch(
-      RevenueAction.addRevenueCategoryAction({ body: createcategory })
-    ).then((res: any) => {
-      if (res && !res.error) {
-        Navigate("/updaterevenue");
-      }
-    });
+    dispatch(RevenueAction.addRevenueCategoryAction({ body: createcategory }))
+      .then((res: any) => {
+        if (res && !res.error) {
+          Navigate("/getrevenue");
+        }
+      })
+      .catch((err: any) => {
+        console.log("err", err);
+      });
   };
 
   return (
@@ -77,8 +78,8 @@ const AddRevenueCategory = () => {
                   </label>
                   <input
                     type="text"
-                    name="revenue_category_name"
-                    value={createcategory.revenue_category_name}
+                    name="revenueCategoryName"
+                    value={createcategory.revenueCategoryName}
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}

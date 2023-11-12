@@ -13,7 +13,7 @@ const revenueByIdValidation = (req, res, next) => {
 };
 
 const addRevenueValidation = (req, res, next) => {
-  if (utils.isInvalidName(req.body.name))
+  if (utils.isInvalidName(req.body.revenueCategoryName))
     throw new InvalidNameError("PLEASE ENTER CORRECT NAME", res);
   // res.status(HttpStatusCode.BAD_REQUEST).send("PLEASE ENTER CORRECT NAME");
   else next();
