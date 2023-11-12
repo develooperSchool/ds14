@@ -20,14 +20,7 @@ const GetAllRevenue: React.FC = () => {
 
   const dataFromserver = () => {
     dispatach(RevenueAction.getAllRevenueCategoryAction());
-
-    (res: any) => {
-      if (res && !res.error) {
-        dataFromserver();
-      }
-    };
   };
-
   const deleteRevenueCategory = (id: string) => {
     if (id) {
       dispatach(RevenueAction.deleteRevenueCategoryAction({ id: id })).then(
