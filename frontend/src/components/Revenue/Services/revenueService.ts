@@ -13,16 +13,16 @@ export class RevenueService {
   };
 
   public static getRevenueCategoryById = (
-    Id: string
+    id: string
   ): Promise<{ data: IRevenueCategory }> => {
-    const dataurl = `${this.serverUrl}/${Id}`;
+    const dataurl = `${this.serverUrl}/getRevenueCatById/${id}`;
     return axios.get(dataurl);
   };
 
   public static addRevenueCategory = (
     body: IRevenueCategory
   ): Promise<{ data: IRevenueCategory }> => {
-    const dataurl = `${this.serverUrl}/`;
+    const dataurl = `${this.serverUrl}/addRevenueCategorydetails`;
     return axios.post(dataurl, body);
   };
 
@@ -34,9 +34,8 @@ export class RevenueService {
     return axios.put(dataurl, updatrevcategory);
   };
 
-  public static deleteRevenueCategory = (id: string): Promise<{ data: {} }> => {
-    const dataurl = `${this.serverUrl}/deleteRevenueCategory/${id}`;
-    console.log(dataurl);
+  public static deleteRevenueCategory = (Id: string): Promise<{ data: {} }> => {
+    const dataurl = `${this.serverUrl}/deleteRevenueCategory/${Id}`;
     let res = axios.delete(dataurl);
 
     console.log(res);

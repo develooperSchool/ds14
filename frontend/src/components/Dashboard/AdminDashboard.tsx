@@ -9,7 +9,7 @@ import PieChartCircle from "./PieChartCircle";
 import Login from "../User/Login";
 import ForgotPwd from "../User/ForgotPwd";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
-import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenueById";
+import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
 import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
 
 const AdminDashboard = () => {
@@ -30,15 +30,23 @@ const AdminDashboard = () => {
               <Route path="/course" element={<GetAllCourse />}></Route>
             </Routes>
             <Routes>
-              <Route path="/revenue" element={<GetAllRevenue />}></Route>
+              <Route path="/getrevenue" element={<GetAllRevenue />}></Route>
+            </Routes>
+            <Routes>
               <Route
-                path="/revenue/update/:id"
+                path="/updaterevenue/:id"
                 element={<UpdateRevenue />}
               ></Route>
+            </Routes>
+
+            <Routes>
               <Route
-                path="/revenue/addCategory"
+                path="/addrevenuecategory"
                 element={<AddRevenueCategory />}
               ></Route>
+            </Routes>
+            <Routes>
+              <Route path="/login" element={<Login />}></Route>
             </Routes>
           </div>
           <div className="container mt-5">
@@ -46,12 +54,6 @@ const AdminDashboard = () => {
               <div className="col-lg-6">
                 <Routes>
                   <Route path="/" element={<PieChart />}></Route>
-                </Routes>
-              </div>
-
-              <div className="col-lg-6">
-                <Routes>
-                  <Route path="/" element={<PieChartCircle />}></Route>
                 </Routes>
               </div>
             </div>
