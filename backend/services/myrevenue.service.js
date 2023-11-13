@@ -20,7 +20,6 @@ const addRevenueCategory = async (req, res) => {
   await revenueCategoryDao
     .addRevenueCategory(req, res)
     .then((result) => {
-      // console.log(result);
       rows = result;
     })
     .catch((err) => {

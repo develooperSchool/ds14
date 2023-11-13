@@ -1,45 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { AppDispatch, RootState } from "../../../../Redux/store";
 import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
-import { AppDispatch, RootState } from "../../../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { IAddRevenueCategory, IRevenueCategory } from "../../Model/IRevenue";
-import { Link, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { IRevenueCategory } from "../../Model/IRevenue";
 
-const AddRevenueCategory = () => {
-  const Navigate = useNavigate();
-  //data from redux store
+const UpdateRevenue: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
+
   const revenueReduxState: RevenueReducer.InitialState = useSelector(
     (state: RootState) => {
       return state[RevenueReducer.revenueFeatureKey];
     }
   );
-  const dispatch: AppDispatch = useDispatch();
+  const { Rcategory } = revenueReduxState;
+  const { id } = useParams();
 
-  const [createcategory, setcreatecatogiry] = useState<IAddRevenueCategory>({
-    revenueCategoryName: "",
+  const [createrev, setcreaterev] = useState<IRevenueCategory>({
+    revenue_category_id: "",
+    revenue_category_name: "",
   });
 
-  const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setcreatecatogiry({
-      ...createcategory,
+  useEffect(() => {
+    if (id) {
+      dataFromServer(id);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (Rcategory && Object.keys(Rcategory).length > 0) {
+      setcreaterev({
+        ...createrev,
+        revenue_category_id: Rcategory.revenue_category_id,
+        revenue_category_name: Rcategory.revenue_category_name,
+      });
+    }
+  }, [Rcategory]);
+
+  const dataFromServer = (id: string) => {
+    dispatch(RevenueAction.getRevenueCategoryByIdAction({ id: id }));
+  };
+  const Navigate = useNavigate();
+
+  const changeInputEvent = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setcreaterev({
+      ...createrev,
       [event.target.name]: event.target.value,
     });
   };
 
-  const submitData = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitData = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     // alert("Revenue Added Successfully");
 
-    dispatch(RevenueAction.addRevenueCategoryAction({ body: createcategory }))
-      .then((res: any) => {
-        if (res && !res.error) {
-          Navigate("/getrevenue");
-        }
+    dispatch(
+      RevenueAction.updateRevenueCategoryAction({
+        updaterevenue: createrev,
+        id: id,
       })
-      .catch((err: any) => {
-        console.log("err", err);
-      });
+    ).then((res: any) => {
+      if (res && !res.error) {
+        Navigate("/getrevenue");
+      }
+    });
   };
 
   return (
@@ -47,7 +73,7 @@ const AddRevenueCategory = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col">
-            <div className="h3 text-success">Add Revenue Category</div>
+            <div className="h3 text-success">Update Revenue Category</div>
             <div className="p fst-italic">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
               nostrum amet facilis reiciendis aperiam ducimus consequuntur,
@@ -69,7 +95,7 @@ const AddRevenueCategory = () => {
           <div className="col-lg-6">
             <div className="card p-3">
               <div className="card-header bg-warning ">
-                <h3>Add Revenue Category</h3>
+                <h3>Update Revenue Category</h3>
               </div>
               <form onSubmit={(e) => submitData(e)}>
                 <div className="mb-2">
@@ -78,8 +104,8 @@ const AddRevenueCategory = () => {
                   </label>
                   <input
                     type="text"
-                    name="revenueCategoryName"
-                    value={createcategory.revenueCategoryName}
+                    name="revenue_category_name"
+                    value={createrev.revenue_category_name}
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}
@@ -106,4 +132,4 @@ const AddRevenueCategory = () => {
   );
 };
 
-export default AddRevenueCategory;
+export default UpdateRevenue;

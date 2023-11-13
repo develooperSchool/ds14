@@ -21,9 +21,9 @@ const GetAllRevenue: React.FC = () => {
   const dataFromserver = () => {
     dispatach(RevenueAction.getAllRevenueCategoryAction());
   };
-  const deleteRevenueCategory = (Id: string) => {
-    if (Id) {
-      dispatach(RevenueAction.deleteRevenueCategoryAction({ Id: Id })).then(
+  const deleteRevenueCategory = (id: string) => {
+    if (id) {
+      dispatach(RevenueAction.deleteRevenueCategoryAction({ id: id })).then(
         (res: any) => {
           if (res && !res.error) {
             dataFromserver();
@@ -50,7 +50,9 @@ const GetAllRevenue: React.FC = () => {
           </div>
         </div>
       </div>
-
+      <Link to="/addrevenuecategory" className="btn btn-outline-info">
+        Add Category Here
+      </Link>
       <div className="container">
         <div className="row">
           <div className="col">
@@ -63,14 +65,14 @@ const GetAllRevenue: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {revenueReduxState.Rcategories.map((categories) => {
+                {revenueReduxState.Rcategories.map((categories, index) => {
                   return (
-                    <tr>
+                    <tr key={categories.revenue_category_id}>
                       <td>{categories.revenue_category_id}</td>
                       <td>{categories.revenue_category_name}</td>
                       <td>
                         <Link
-                          to={`/update/${categories.revenue_category_id}`}
+                          to={`/updaterevenue/${categories.revenue_category_id}`}
                           className="btn btn-outline-success"
                         >
                           Update
@@ -79,7 +81,7 @@ const GetAllRevenue: React.FC = () => {
                           className="btn btn-outline-danger"
                           onClick={() =>
                             deleteRevenueCategory(
-                              String(categories.revenue_category_id)
+                              categories.revenue_category_id
                             )
                           }
                         >
@@ -97,5 +99,4 @@ const GetAllRevenue: React.FC = () => {
     </>
   );
 };
-
 export default GetAllRevenue;

@@ -40,6 +40,9 @@ const GetUrole: React.FC = () => {
           </div>
         </div>
       </div>
+      <div>
+        <Link to={'/create'} className="btn btn-outline-info">+New</Link>
+      </div>
 
       <div className="container">
         <div className="row">

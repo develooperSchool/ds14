@@ -13,32 +13,32 @@ export class RevenueService {
   };
 
   public static getRevenueCategoryById = (
-    Id: string
+    id: string
   ): Promise<{ data: IRevenueCategory }> => {
-    const dataurl = `${this.serverUrl}/${Id}`;
+    const dataurl = `${this.serverUrl}/getRevenueCatById/${id}`;
     return axios.get(dataurl);
   };
 
-  public static addRevenueCategory = (
+  public static addRevenueCategory = async (
     body: IRevenueCategory
   ): Promise<{ data: IRevenueCategory }> => {
-    const dataurl = `${this.serverUrl}/`;
+    const dataurl = `${this.serverUrl}/addRevenueCategorydetails`;
+
     return axios.post(dataurl, body);
   };
 
   public static updateRevenueCategory = (
     updatrevcategory: IRevenueCategory,
-    Id: string
+    id: string
   ): Promise<{ data: IRevenueCategory[] }> => {
-    const dataurl = `${this.serverUrl}/${Id}`;
+    const dataurl = `${this.serverUrl}/updateRevenueCatBy/${id}`;
+    console.log(dataurl);
     return axios.put(dataurl, updatrevcategory);
   };
 
-  public static deleteRevenueCategory = (Id: string): Promise<{ data: {} }> => {
-    const dataurl = `${this.serverUrl}/deleteRevenueCategory/${Id}`;
-    let res = axios.delete(dataurl);
+  public static deleteRevenueCategory = (id: string): Promise<{ data: {} }> => {
+    const dataurl = `${this.serverUrl}/deleteRevenueCategory/${id}`;
 
-    console.log(res);
-    return res;
+    return axios.delete(dataurl);
   };
 }

@@ -32,7 +32,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mt-3">
-            <Link to={"/revenue"} className="Link">
+            <Link to={"/getrevenue"} className="Link">
               <i className="bi bi-graph-up-arrow"> </i>Revenue
             </Link>
           </li>
