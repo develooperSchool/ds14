@@ -37,11 +37,12 @@ const Registration: React.FC = () => {
     password: "",
   });
 
-  const changeDate = (date: Date | null) => {
+  const changeDate = (date: Date| null) => {
     setStartDate(date);
+    const formattedDate = `${startDate?.getDate()}-${startDate?.getMonth()!=null?startDate?.getMonth()+1:"00"}-${startDate?.getFullYear()}`;
     setCreate({
       ...create,
-      dob: String(startDate),
+      dob: formattedDate,
     });
   };
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,12 +85,12 @@ const Registration: React.FC = () => {
       subcaste: create.subcaste,
       password: create.password,
     };
-    alert(data.dob);
+    alert("dob: "+create.dob);
     dispatch(UserAction.createUserAction({ user: data }))
       .then((res: any) => {
         if (res && !res.data) {
-          Navigate("/");
-          // alert("Done");
+        //   Navigate("/");
+          alert("Done");
         }
       })
       .catch((error: any) => console.log(error));
