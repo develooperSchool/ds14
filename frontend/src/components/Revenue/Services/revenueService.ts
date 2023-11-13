@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IRevenueCategory } from "../Model/IRevenue";
+import { IAddRevenueCategory, IRevenueCategory } from "../Model/IRevenue";
 
 export class RevenueService {
   private static serverUrl: string = "http://localhost:4444/api/v1/revenue";
@@ -28,12 +28,11 @@ export class RevenueService {
   };
 
   public static updateRevenueCategory = (
-    updatrevcategory: IRevenueCategory,
+    data: IAddRevenueCategory,
     id: string
-  ): Promise<{ data: IRevenueCategory[] }> => {
+  ): Promise<{ data: IAddRevenueCategory[] }> => {
     const dataurl = `${this.serverUrl}/updateRevenueCatBy/${id}`;
-    console.log(dataurl);
-    return axios.put(dataurl, updatrevcategory);
+    return axios.put(dataurl, data);
   };
 
   public static deleteRevenueCategory = (id: string): Promise<{ data: {} }> => {

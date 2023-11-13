@@ -4,7 +4,7 @@ import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer"
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { IRevenueCategory } from "../../Model/IRevenue";
+import { IAddRevenueCategory, IRevenueCategory } from "../../Model/IRevenue";
 
 const UpdateRevenue: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -56,10 +56,14 @@ const UpdateRevenue: React.FC = () => {
     event.preventDefault();
     // alert("Revenue Added Successfully");
 
+    let data: IAddRevenueCategory = {
+      revenueCategoryName: createrev.revenue_category_name,
+    };
+
     dispatch(
       RevenueAction.updateRevenueCategoryAction({
-        updaterevenue: createrev,
-        id: id,
+        data,
+        id,
       })
     ).then((res: any) => {
       if (res && !res.error) {
