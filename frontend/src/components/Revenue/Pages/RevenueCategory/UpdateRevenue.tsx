@@ -56,13 +56,13 @@ const UpdateRevenue: React.FC = () => {
     event.preventDefault();
     // alert("Revenue Added Successfully");
 
-    let data: IAddRevenueCategory = {
+    let updateData: IAddRevenueCategory = {
       revenueCategoryName: createrev.revenue_category_name,
     };
 
     dispatch(
       RevenueAction.updateRevenueCategoryAction({
-        data,
+        updateData,
         id,
       })
     ).then((res: any) => {

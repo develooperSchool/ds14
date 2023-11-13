@@ -65,12 +65,12 @@ export const addRevenueCategoryAction: any = createAsyncThunk(
 export const updateRevenueCategoryAction: any = createAsyncThunk(
   "RevenueRedux/updateRevenueCategoryAction",
   async (
-    payload: { data: IAddRevenueCategory; id: string },
+    payload: { updateData: IAddRevenueCategory; id: string },
     { rejectWithValue }
   ): Promise<IRevenueCategory[] | any> => {
     try {
-      const { data, id } = payload;
-      let res = await RevenueService.updateRevenueCategory(data, id);
+      const { updateData, id } = payload;
+      let res = await RevenueService.updateRevenueCategory(updateData, id);
       return res.data;
     } catch (error: any) {
       if (!error.res) {

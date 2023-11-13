@@ -28,11 +28,11 @@ export class RevenueService {
   };
 
   public static updateRevenueCategory = (
-    data: IAddRevenueCategory,
+    updateData: IAddRevenueCategory,
     id: string
   ): Promise<{ data: IAddRevenueCategory[] }> => {
     const dataurl = `${this.serverUrl}/updateRevenueCatBy/${id}`;
-    return axios.put(dataurl, data);
+    return axios.put(dataurl, updateData);
   };
 
   public static deleteRevenueCategory = (id: string): Promise<{ data: {} }> => {
