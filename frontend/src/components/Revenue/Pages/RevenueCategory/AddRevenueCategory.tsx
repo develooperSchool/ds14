@@ -29,7 +29,6 @@ const AddRevenueCategory = () => {
 
   const submitData = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // alert("Revenue Added Successfully");
 
     dispatch(RevenueAction.addRevenueCategoryAction({ body: createcategory }))
       .then((res: any) => {

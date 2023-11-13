@@ -1,7 +1,10 @@
 //Get all revenue action
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IRevenueCategory } from "../../../src/components/Revenue/Model/IRevenue";
+import {
+  IAddRevenueCategory,
+  IRevenueCategory,
+} from "../../../src/components/Revenue/Model/IRevenue";
 import { RevenueService } from "../../components/Revenue/Services/revenueService";
 
 export const getAllRevenueCategoryAction: any = createAsyncThunk(
@@ -30,8 +33,8 @@ export const getRevenueCategoryByIdAction: any = createAsyncThunk(
   ): Promise<IRevenueCategory | any> => {
     try {
       const { id } = payload;
-      let res = await RevenueService.getRevenueCategoryById(id);
-      return res.data;
+      let res: any = await RevenueService.getRevenueCategoryById(id);
+      return res.data[0];
     } catch (error: any) {
       if (!error.res) {
         throw error;
@@ -62,15 +65,12 @@ export const addRevenueCategoryAction: any = createAsyncThunk(
 export const updateRevenueCategoryAction: any = createAsyncThunk(
   "RevenueRedux/updateRevenueCategoryAction",
   async (
-    payload: { updaterevenuecategory: IRevenueCategory; id: string },
+    payload: { updateData: IAddRevenueCategory; id: string },
     { rejectWithValue }
   ): Promise<IRevenueCategory[] | any> => {
     try {
-      const { updaterevenuecategory, id } = payload;
-      let res = await RevenueService.updateRevenueCategory(
-        updaterevenuecategory,
-        id
-      );
+      const { updateData, id } = payload;
+      let res = await RevenueService.updateRevenueCategory(updateData, id);
       return res.data;
     } catch (error: any) {
       if (!error.res) {
