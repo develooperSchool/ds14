@@ -14,8 +14,9 @@ export const getAllRevenueCategoryAction: any = createAsyncThunk(
     { rejectWithValue }
   ): Promise<IRevenueCategory[] | any> => {
     try {
-      let res = await RevenueService.getAllRevenueCategory();
-      return res.data;
+      let res: any = await RevenueService.getAllRevenueCategory();
+      // console.log("getall", res.data.body);
+      return res.data.body;
     } catch (error: any) {
       if (!error.res) {
         throw error;
@@ -34,7 +35,7 @@ export const getRevenueCategoryByIdAction: any = createAsyncThunk(
     try {
       const { id } = payload;
       let res: any = await RevenueService.getRevenueCategoryById(id);
-      return res.data[0];
+      return res.data.body[0];
     } catch (error: any) {
       if (!error.res) {
         throw error;
@@ -51,8 +52,8 @@ export const addRevenueCategoryAction: any = createAsyncThunk(
   ): Promise<IRevenueCategory | any> => {
     try {
       const { body } = payload;
-      let res = await RevenueService.addRevenueCategory(body);
-      return res.data;
+      let res: any = await RevenueService.addRevenueCategory(body);
+      return res.data.description;
     } catch (error: any) {
       if (!error.res) {
         throw error;
