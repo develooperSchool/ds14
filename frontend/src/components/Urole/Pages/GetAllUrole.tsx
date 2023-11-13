@@ -22,6 +22,17 @@ const GetUrole: React.FC = () => {
   const dataFromserver = () => {
     dispatach(UroleAction.getAllRolesAction());
   };
+  const deleteRole = (id: string) => {
+    if (id) {
+      dispatach(UroleAction.deleteRoleAction({ id: id })).then(
+        (res: any) => {
+          if (res && !res.error) {
+            dataFromserver();
+          }
+        }
+      );
+    }
+  };
 
   return (
     <>
@@ -40,9 +51,9 @@ const GetUrole: React.FC = () => {
           </div>
         </div>
       </div>
-      <div>
-        <Link to={'/create'} className="btn btn-outline-info">+New</Link>
-      </div>
+      <Link to="/addurole" className="btn btn-outline-info">
+        Add New Role Here
+      </Link>
 
       <div className="container">
         <div className="row">
@@ -63,14 +74,18 @@ const GetUrole: React.FC = () => {
                       <td>{urole.role_name}</td>
                       <td>
                         <Link
-                          to={`/update/${urole.role_id}`}
+                          to={`/updateurole/${urole.role_id}`}
                           className="btn btn-outline-success"
                         >
                           Update
                         </Link>
                         <button
                           className="btn btn-outline-danger"
-                         
+                          onClick={() =>
+                            deleteRole(
+                              urole.role_id
+                            )
+                          }
                         >
                           Delete
                         </button>

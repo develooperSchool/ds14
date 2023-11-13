@@ -23,6 +23,31 @@ const State:InitialState = {
           state.uroles = action.payload;
         }
       );
+      builder.addCase(
+        UroleAction.addNewRoleAction.fulfilled,
+        (state, action) => {
+          state.urole = action.payload;
+        }
+      );
+      builder.addCase(
+        UroleAction.getRoleByIdAction.fulfilled,
+        (state, action) => {
+          state.urole = action.payload;
+        }
+      );
+  
+      builder.addCase(
+        UroleAction.updateRoleAction.fulfilled,
+        (state, action) => {
+          state.urole = action.payload;
+        }
+      );
+      builder.addCase(
+        UroleAction.deleteRoleAction.fulfilled,
+        (state, action) => {
+          state.urole = {} as Iurole;
+        }
+      );
   
       
     },

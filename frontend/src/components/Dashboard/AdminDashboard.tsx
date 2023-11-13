@@ -13,6 +13,8 @@ import GetAllUrole from "../Urole/Pages/GetAllUrole";
 import UserProfile from "../Urole/Pages/UserProfile";
 import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
 import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
+import AddRole from "../Urole/Pages/AddRole";
+import UpdateRole from "../Urole/Pages/UpdateRole";
 
 const AdminDashboard = () => {
   return (
@@ -32,7 +34,14 @@ const AdminDashboard = () => {
               <Route path="/course" element={<GetAllCourse />}></Route>
             </Routes>
             <Routes>
+              <Route path="/updateurole/:id" element={<UpdateRole />}></Route>
+            </Routes>
+            <Routes>
               <Route path="/urole" element={<GetAllUrole />}></Route>
+
+            </Routes>
+            <Routes>
+              <Route path="/addurole" element={<AddRole />}></Route>
             </Routes>
             <Routes>
               <Route path="/UserProfile" element={<UserProfile />}></Route>
