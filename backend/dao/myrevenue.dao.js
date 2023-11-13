@@ -16,7 +16,7 @@ const getAllRevenueCategory = async (req, res) => {
 };
 
 const addRevenueCategory = async (req, res) => {
-  let values = [req.body.name];
+  let values = [req.body.revenueCategoryName];
   let result = [];
   try {
     let sqlQuery =
@@ -58,6 +58,7 @@ const deleteRevenueCategory = async (req, res) => {
 
 const updateRevenueCategory = async (req, res) => {
   let values = [req.body.revenueCategoryName, req.params.id];
+  console.log("update request :", req.body);
   let result = [];
   try {
     let sqlQuery =

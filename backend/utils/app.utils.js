@@ -1,5 +1,5 @@
 const isInvalidId = (input) => {
-    return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
+  return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
 };
 
 const isInvalidName = (input) => {
@@ -53,6 +53,16 @@ const isInValidContact = (input) => {
   return !/^[789]\d{9}$/.test(input);
 };
 
+const respond = (message, statusCode, description, timeStamp, res) => {
+  const fieldName = typeof description === "string" ? "description" : "body";
+  const response = {
+    message,
+    statusCode,
+    [fieldName]: description,
+    timeStamp,
+  };
+  res.status(statusCode).send(response);
+};
 
 module.exports = {
   isInvalidId,

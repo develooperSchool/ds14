@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IRevenueCategory } from "../Model/IRevenue";
+import { IAddRevenueCategory, IRevenueCategory } from "../Model/IRevenue";
 
 export class RevenueService {
   private static serverUrl: string = "http://localhost:4444/api/v1/revenue";
@@ -13,33 +13,31 @@ export class RevenueService {
   };
 
   public static getRevenueCategoryById = (
-    Id: string
+    id: string
   ): Promise<{ data: IRevenueCategory }> => {
-    const dataurl = `${this.serverUrl}/${Id}`;
+    const dataurl = `${this.serverUrl}/getRevenueCatById/${id}`;
     return axios.get(dataurl);
   };
 
-  public static addRevenueCategory = (
+  public static addRevenueCategory = async (
     body: IRevenueCategory
   ): Promise<{ data: IRevenueCategory }> => {
-    const dataurl = `${this.serverUrl}/`;
+    const dataurl = `${this.serverUrl}/addRevenueCategorydetails`;
+
     return axios.post(dataurl, body);
   };
 
   public static updateRevenueCategory = (
-    updatrevcategory: IRevenueCategory,
+    updateData: IAddRevenueCategory,
     id: string
-  ): Promise<{ data: IRevenueCategory[] }> => {
-    const dataurl = `${this.serverUrl}/${id}`;
-    return axios.put(dataurl, updatrevcategory);
+  ): Promise<{ data: IAddRevenueCategory[] }> => {
+    const dataurl = `${this.serverUrl}/updateRevenueCatBy/${id}`;
+    return axios.put(dataurl, updateData);
   };
 
   public static deleteRevenueCategory = (id: string): Promise<{ data: {} }> => {
     const dataurl = `${this.serverUrl}/deleteRevenueCategory/${id}`;
-    console.log(dataurl);
-    let res = axios.delete(dataurl);
 
-    console.log(res);
-    return res;
+    return axios.delete(dataurl);
   };
 }

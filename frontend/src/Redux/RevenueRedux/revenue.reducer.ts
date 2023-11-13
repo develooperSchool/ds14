@@ -26,6 +26,25 @@ export const revenueSlice = createSlice({
     );
 
     builder.addCase(
+      RevenueAction.addRevenueCategoryAction.fulfilled,
+      (state, action) => {
+        state.Rcategory = action.payload;
+      }
+    );
+    builder.addCase(
+      RevenueAction.getRevenueCategoryByIdAction.fulfilled,
+      (state, action) => {
+        state.Rcategory = action.payload;
+      }
+    );
+
+    builder.addCase(
+      RevenueAction.updateRevenueCategoryAction.fulfilled,
+      (state, action) => {
+        state.Rcategory = action.payload;
+      }
+    );
+    builder.addCase(
       RevenueAction.deleteRevenueCategoryAction.fulfilled,
       (state, action) => {
         state.Rcategory = {} as IRevenueCategory;

@@ -29,7 +29,12 @@ const Topbar = () => {
                       <Link className="nav-link active text-light" to="/">
                         Home
                       </Link>
-                      <Link className="nav-link active text-light" to={"/login"}>
+                    </li>
+                    <li>
+                      <Link
+                        className="nav-link active text-light"
+                        to={"/login"}
+                      >
                         Login
                       </Link>
                     </li>
