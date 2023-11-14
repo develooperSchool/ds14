@@ -20,7 +20,6 @@ const AdminDashboard = () => {
           <div className="col-lg-2">
             <Sidebar />
           </div>
-
           <div className="col-lg-10">
             <Topbar />
             <Routes>
