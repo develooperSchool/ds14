@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { AppDispatch, RootState } from "../../../Redux/store";
 import * as UroleReducer from "../../../Redux/UroleRedux/urole.reducer";
 import * as UroleAction from "../../../Redux/UroleRedux/urole.action";
-import { AppDispatch, RootState } from "../../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { Iurole } from "../Model/Iurole";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Iaddurole, Iurole } from "../Model/Iurole";
 
 const UpdateRole: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -17,9 +17,8 @@ const UpdateRole: React.FC = () => {
   const { urole } = uroleReduxState;
   const { id } = useParams();
 
-  const [updateRole, setUpdateRole] = useState<Iurole>({
-    role_id: "",
-    role_name: "",
+  const [createurole, setUrole] = useState<Iaddurole>({
+    name: "",
   });
 
   useEffect(() => {
@@ -30,10 +29,9 @@ const UpdateRole: React.FC = () => {
 
   useEffect(() => {
     if (urole && Object.keys(urole).length > 0) {
-      setUpdateRole({
-        ...updateRole,
-        role_id: urole.role_id,
-        role_name: urole.role_name,
+      setUrole({
+        ...createurole,
+        name: urole.role_name,
       });
     }
   }, [urole]);
@@ -46,20 +44,23 @@ const UpdateRole: React.FC = () => {
   const changeInputEvent = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setUpdateRole({
-      ...updateRole,
+    setUrole({
+      ...createurole,
       [event.target.name]: event.target.value,
     });
   };
 
   const submitData = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    // alert("Revenue Added Successfully");
+
+    let updateData: Iaddurole = {
+      name: createurole.name,
+    };
 
     dispatch(
       UroleAction.updateRoleAction({
-        updateNewRole: updateRole,
-        id: id,
+        updateData,
+        id,
       })
     ).then((res: any) => {
       if (res && !res.error) {
@@ -73,7 +74,7 @@ const UpdateRole: React.FC = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col">
-            <div className="h3 text-success">Update Revenue Category</div>
+            <div className="h3 text-success">Update New Role</div>
             <div className="p fst-italic">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
               nostrum amet facilis reiciendis aperiam ducimus consequuntur,
@@ -95,22 +96,22 @@ const UpdateRole: React.FC = () => {
           <div className="col-lg-6">
             <div className="card p-3">
               <div className="card-header bg-warning ">
-                <h3>Update Revenue Category</h3>
+                <h3>Update New Role</h3>
               </div>
               <form onSubmit={(e) => submitData(e)}>
                 <div className="mb-2">
                   <label className="form-label">
-                    Enter Revenue Category Name
+                   Enter Role Name
                   </label>
                   <input
                     type="text"
-                    name="role_name"
-                    value={updateRole.role_name}
+                    name="name"
+                    value={createurole.name}
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}
                     className="form-control"
-                    placeholder="Enter Revenue Category"
+                    placeholder="Enter Role Name"
                   />
                 </div>
 

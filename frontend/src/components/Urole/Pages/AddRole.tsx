@@ -10,11 +10,11 @@ import { Iaddurole, Iurole } from "../Model/Iurole";
 const AddRole = () => {
   const Navigate = useNavigate();
   //data from redux store
-  const uroleReduxState: UroleReducer.InitialState = useSelector(
-    (state: RootState) => {
-      return state[UroleReducer.uroleFeatureKey];
-    }
-  );
+  // const uroleReduxState: UroleReducer.InitialState = useSelector(
+  //   (state: RootState) => {
+  //     return state[UroleReducer.uroleFeatureKey];
+  //   }
+  // );
   const dispatch: AppDispatch = useDispatch();
 
   const [addRole, setAddRole] = useState<Iaddurole>({

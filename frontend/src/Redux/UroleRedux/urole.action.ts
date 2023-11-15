@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Iurole } from "../../components/Urole/Model/Iurole";
+import { Iaddurole, Iurole } from "../../components/Urole/Model/Iurole";
 import { UroleService } from "../../components/Urole/Services/uroleService";
 
 export const getAllRolesAction: any = createAsyncThunk(
@@ -27,8 +27,9 @@ export const getAllRolesAction: any = createAsyncThunk(
     ): Promise<Iurole | any> => {
       try {
         const { id } = payload;
-        let res = await UroleService.getRoleById(id);
-        return res.data;
+        console.log(id)
+        let res: any = await UroleService.getRoleById(id);
+        return res.data[0];
       } catch (error: any) {
         if (!error.res) {
           throw error;
@@ -40,7 +41,7 @@ export const getAllRolesAction: any = createAsyncThunk(
   export const addNewRoleAction: any = createAsyncThunk(
     "UroleRedux/addNewRoleAction",
     async (
-      payload: { body: Iurole },
+      payload: { body: Iaddurole },
       { rejectWithValue }
     ): Promise<Iurole | any> => {
       try {
@@ -59,16 +60,13 @@ export const getAllRolesAction: any = createAsyncThunk(
   export const updateRoleAction: any = createAsyncThunk(
     "UroleRedux/updateRoleAction",
     async (
-      payload: { updaterole: Iurole; id: string },
+      payload: { updateData: Iaddurole; id: string },
       { rejectWithValue }
     ): Promise<Iurole[] | any> => {
       try {
-        const { updaterole, id } = payload;
-        let res = await UroleService.updateRole(
-          updaterole,
-          id
-        );
-        return res.data;
+        const { updateData, id } = payload;
+        let res: any = await UroleService.updateRole(updateData, id);
+        return res.data[0];
       } catch (error: any) {
         if (!error.res) {
           throw error;

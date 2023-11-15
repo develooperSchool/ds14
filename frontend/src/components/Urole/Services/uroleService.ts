@@ -1,4 +1,4 @@
-import { Iurole } from "../Model/Iurole";
+import { Iaddurole, Iurole } from "../Model/Iurole";
 import axios from "axios";
 
 
@@ -16,25 +16,24 @@ export class UroleService{
       public static getRoleById = (
         id: string
       ): Promise<{ data: Iurole }> => {
-        const dataurl = `${this.serverUrl}/getRoleById/${id}`;
+        const dataurl = `${this.serverUrl}/getRoleBy/${id}`;
         return axios.get(dataurl);
       };
     
       public static addNewRole = async (
-        body: Iurole
+        body: Iaddurole
       ): Promise<{ data: Iurole }> => {
-        const dataurl = `${this.serverUrl}/`;
+        const dataurl = `${this.serverUrl}/addrole`;
     
         return axios.post(dataurl, body);
       };
     
-      public static updateRole= (
-        updatrevcategory: Iurole,
+      public static updateRole = (
+        updateData: Iaddurole,
         id: string
-      ): Promise<{ data: Iurole[] }> => {
-        const dataurl = `${this.serverUrl}/updateRoleBy/${id}`;
-        console.log(dataurl);
-        return axios.put(dataurl, updatrevcategory);
+      ): Promise<{ data: Iaddurole[] }> => {
+        const dataurl = `${this.serverUrl}/updaterole/${id}`;
+        return axios.put(dataurl, updateData);
       };
     
       public static deleteRole = (id: string): Promise<{ data: {} }> => {
