@@ -67,6 +67,7 @@ const deactivateUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+  let message = "";
   const {
     firstName,
     lastName,
@@ -110,13 +111,13 @@ const createUser = async (req, res) => {
       password,
     ];
     query =
-      "INSERT INTO user_master(first_name, last_name,email,contact,address,qualification,passing_year,dob,gender,caste_category,subcaste,creation_ts,updation_ts,created_by,updated_by,is_active,role_id, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      "INSERT INTO user_master(first_name, last_name,email,contact,address,qualification,passing_year,dob,gender,caste_category,subcaste,is_active,role_id, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     const [result, fields] = await db.query(query, values);
     if (result.affectedRows > 0) message = "New User Created successfully";
   } catch (error) {
     throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
   }
-  return result;
+  return message;
 };
 
 module.exports = {

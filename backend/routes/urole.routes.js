@@ -6,7 +6,10 @@ var router = express.Router();
 router.get("/getAllRoles", function(req, res) {
   roleController.getAllRoles(req, res);
 });
-
+router.post("/userlogin",
+roleValidation.userLoginValidation,
+roleController.userLogin
+)
 router.get("/:id",
 roleValidation.getRoleByIdValidation,
 roleController.getRoleById
@@ -32,10 +35,7 @@ roleValidation.getRoleByIdValidation,
 roleController.updateUserById
 )
 
-router.post("/userlogin",
-roleValidation.userLoginValidation,
-roleController.userLogin
-)
+
 
 
 

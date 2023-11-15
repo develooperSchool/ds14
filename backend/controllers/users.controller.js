@@ -1,12 +1,14 @@
 const userService = require("../services/users.service");
 const HttpStatusCode = require("../utils/HttpStatusCode");
-
+const { respond } = require("../utils/app.utils");
+const { NEW_USER_CREATED_SUCCESSFULLY, SUCCESS , USER_ROLE_UPDATED, USER_DEACTIVATED_SUCCESSFULLY} = require("../utils/app.constants")
 const getAllUsers = async (req, res) => {
   await userService
     .getAllUsers(res)
     .then((rows) => {
-      console.log(rows);
-      res.status(HttpStatusCode.OK).json(rows);
+      // console.log(rows);
+      // res.status(HttpStatusCode.OK).json(rows);
+      respond(SUCCESS, HttpStatusCode.OK, rows, new Date(Date.now()), res);
     })
     .catch((err) => {
       console.error(err);
@@ -17,8 +19,9 @@ const getUserById = async (req, res) => {
   await userService
     .getUserById(req, res)
     .then((rows) => {
-      console.log(rows);
-      res.status(HttpStatusCode.OK).json(rows);
+      // console.log(rows);
+      // res.status(HttpStatusCode.OK).json(rows);
+      respond(SUCCESS, HttpStatusCode.OK, rows, new Date(Date.now()), res);
     })
     .catch((error) => {
       console.error(error);
@@ -29,8 +32,9 @@ const getUserByEmail = async (req, res) => {
   await userService
     .getUserByEmail(req.query.email)
     .then((rows) => {
-      console.log(rows);
-      res.status(HttpStatusCode.OK).json(rows);
+      // console.log(rows);
+      // res.status(HttpStatusCode.OK).json(rows);
+      respond(SUCCESS, HttpStatusCode.OK, rows, new Date(Date.now()), res);
     })
     .catch((error) => {
       console.error(error);
@@ -40,7 +44,16 @@ const getUserByEmail = async (req, res) => {
 const updateUserRoleById = async (req, res) => {
   await userService
     .updateUserRoleById(req, res)
-    .then((rows) => res.status(HttpStatusCode.OK).json("Updated user role"))
+    .then((rows) => {
+      // res.status(HttpStatusCode.OK).json("Updated user role")
+      respond(
+        USER_ROLE_UPDATED,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
     .catch((error) => {
       res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error);
     });
@@ -50,7 +63,14 @@ const deactivateUserById = async (req, res) => {
   await userService
     .deactivateUserById(req, res)
     .then((result) => {
-      res.status(HttpStatusCode.OK).json("User Deactivated successfully");
+      // res.status(HttpStatusCode.OK).json("User Deactivated successfully");
+      respond(
+        USER_DEACTIVATED_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
     })
     .catch((error) => {
       res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error);
@@ -58,16 +78,24 @@ const deactivateUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+  console.log("url", req.url);
+  console.log("body", req.body);
   await userService
     .createUser(req, res)
-    .then((rows) => {
-      console.log(rows)
-      res.status(HttpStatusCode.CREATED).json("New User Created successfully");
+    .then((description) => {
+      // console.log(description)
+      // res.status(HttpStatusCode.CREATED).json("New User Created successfully");
+      respond(
+        NEW_USER_CREATED_SUCCESSFULLY,
+        HttpStatusCode.CREATED,
+        description,
+        new Date(Date.now()),
+        res
+      );
     })
     .catch((error) =>
       res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error)
     );
-    
 };
 
 module.exports = {

@@ -1,6 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
 import * as RevenueReducer from "./RevenueRedux/revenue.reducer";
+import * as UserReducer from "./UserRedux/user.reducer";
 
 import * as SalaryAnnexureReducer from "./PayrollRedux/salaryReducer";
 
@@ -10,6 +11,7 @@ import * as PayrollProcessingReducer from "./PayrollProcessingRedux/payrollproce
 
 const rootReducer: any = combineReducers({
   [RevenueReducer.revenueFeatureKey]: RevenueReducer.revenueSlice.reducer,
+  [UserReducer.userFeatureKey]: UserReducer.userSlice.reducer,
   [SalaryAnnexureReducer.payrollFeatureKey]:
     SalaryAnnexureReducer.payrollSlice.reducer,
   [AttendanceReducer.attendanceFeatureKey]:

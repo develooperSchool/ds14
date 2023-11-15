@@ -49,7 +49,8 @@ const isInvalidGender = (input) => {
 };
 
 const isInValidContact = (input) => {
-  return !/^(\+91|91)[789]\d{9}$/.test(input);
+  // return !/^(\+91|91)[789]\d{9}$/.test(input);
+  return !/^[789]\d{9}$/.test(input);
 };
 
 const respond = (message, statusCode, description, timeStamp, res) => {
