@@ -38,7 +38,22 @@ const Sidebar = () => {
           </li>
           <li className="mt-3">
             <Link to={"/users"} className="Link">
-              <i className="bi bi-graph-up-arrow"> </i>Users
+              <i className="bi bi-graph-up-arrow"> </i>Users{" "}
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/payroll"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Salary Annexure
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/attendance"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Attendance Records
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/payroll-processing"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Payroll Processing
             </Link>
           </li>
         </ul>

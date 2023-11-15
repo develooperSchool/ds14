@@ -19,6 +19,7 @@ var guestRouter = require("./routes/guest.routes");
 const salaryInfoRoutes = require("./routes/salaryInfo");
 const attendanceRecordsRoutes = require("./routes/attendanceRecords");
 const payrollProcessingRoutes = require("./routes/payrollProcessing");
+const salaryRoutes = require("./routes/salary.routes");
 var enrollmentRouter = require("./routes/enrollment.routes");
 
 //project routes............................
@@ -36,7 +37,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  
+
   if (req.method === "OPTIONS") {
     // Handle preflight requests (sent by browsers before making actual requests)
     res.status(200).end();
@@ -64,6 +65,8 @@ app.use("/api/v1/revenue", revenueRouter);
 app.use("/api/salary-info", salaryInfoRoutes);
 app.use("/api/attendance-records", attendanceRecordsRoutes);
 app.use("/api/payroll-processing", payrollProcessingRoutes);
+app.use("/api/salary", salaryRoutes);
+
 app.use("/api/v1/urole", uroleRouter);
 app.use("/api/v1/students", studentRouter);
 app.use("/api/v1/course", courseRoutes);

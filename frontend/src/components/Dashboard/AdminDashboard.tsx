@@ -11,6 +11,15 @@ import ForgotPwd from "../User/ForgotPwd";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
 import Registration from "../User/Registration";
 import AllUsers from "../User/AllUsers";
+import CreateSalaryAnnexure from "../Payroll/Pages/PostSalaryAnnexure";
+import GetAllSalaryAnnexure from "../Payroll/Pages/GetAllSalaryAnnexure";
+import UpdateSalaryAnnexure from "../Payroll/Pages/UpdateSalaryAnnexure";
+import GetAllAttendance from "../Attendance Records/Pages/AttendanceRecords/GetAllAttendance";
+import PostAttendance from "../Attendance Records/Pages/AttendanceRecords/PostAttendance";
+import UpdateAttendance from "../Attendance Records/Pages/AttendanceRecords/UpdateAttendance";
+import GetAllPayrollProcessing from "../Payroll Processing/Pages/GetPayrollProcessing";
+import PostPayrollProcessing from "../Payroll Processing/Pages/PostPayrollProcessing";
+import UpdatePayrollProcessing from "../Payroll Processing/Pages/UpdatePayrollProcessing";
 import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
 import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
 
@@ -22,7 +31,6 @@ const AdminDashboard = () => {
           <div className="col-lg-2">
             <Sidebar />
           </div>
-
           <div className="col-lg-10">
             <Topbar />
             <Routes>
@@ -32,7 +40,7 @@ const AdminDashboard = () => {
               <Route path="/course" element={<GetAllCourse />}></Route>
             </Routes>
             <Routes>
-            <Route path="/login" element={<Login />}></Route>
+              <Route path="/login" element={<Login />}></Route>
             </Routes>
             <Routes>
               <Route path="/forgot" element={<ForgotPwd />}></Route>
@@ -45,6 +53,54 @@ const AdminDashboard = () => {
               <Route path="/revenue" element={<GetAllRevenue />}></Route>
             </Routes>
             <Routes>
+              <Route path="/attendance" element={<GetAllAttendance />}></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/postattendance"
+                element={<PostAttendance />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/updateattendance/:attendance_id"
+                element={<UpdateAttendance />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route path="/payroll" element={<GetAllSalaryAnnexure />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/create" element={<CreateSalaryAnnexure />}></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/put/:annexureId"
+                element={<UpdateSalaryAnnexure />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/payroll-processing"
+                element={<GetAllPayrollProcessing />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/postpayroll-processing"
+                element={<PostPayrollProcessing />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/updatepayroll-processing/:annexureId"
+                element={<UpdatePayrollProcessing />}
+              ></Route>
+            </Routes>
+
+            {/* Revenue Code Below */}
+            <Routes>
+              <Route path="/getrevenue" element={<GetAllRevenue />}></Route>
               <Route
                 path="/updaterevenue/:id"
                 element={<UpdateRevenue />}
@@ -57,7 +113,12 @@ const AdminDashboard = () => {
                 element={<AddRevenueCategory />}
               ></Route>
             </Routes>
+
+            <Routes>
+              <Route path="/login" element={<Login />}></Route>
+            </Routes>
           </div>
+
           <div className="container mt-5">
             <div className="row">
               <div className="col-lg-6">
@@ -65,7 +126,7 @@ const AdminDashboard = () => {
                   <Route path="/" element={<PieChart />}></Route>
                 </Routes>
               </div>
-			 </div>
+            </div>
             <div className="container mt-5">
               <div className="row">
                 <div className="col-lg-6">

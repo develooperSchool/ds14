@@ -76,5 +76,5 @@ module.exports = {
   isInvalidName,
   isInvalidDate,
   IsInvalidN,
-  respond
+  respond,
 };
