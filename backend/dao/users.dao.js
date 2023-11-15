@@ -67,6 +67,7 @@ const deactivateUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+  let message = "";
   const {
     firstName,
     lastName,
@@ -116,7 +117,7 @@ const createUser = async (req, res) => {
   } catch (error) {
     throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
   }
-  return result;
+  return message;
 };
 
 module.exports = {

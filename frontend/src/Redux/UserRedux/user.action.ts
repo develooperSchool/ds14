@@ -10,8 +10,8 @@ export const getAllUserAction: any = createAsyncThunk(
   "UserRedux/getAllUserAction",
   async (payload: {}, { rejectWithValue }): Promise<IRegisterData[] | any> => {
     try {
-      let result = await UserService.getAllUsers();
-      return result.data;
+      let result: any = await UserService.getAllUsers();
+      return result.data.body;
     } catch (error: any) {
       if (!error.res) {
         throw error;
@@ -29,6 +29,8 @@ export const userLoginAction: any = createAsyncThunk(
   ): Promise<IUser | any> => {
     try {
       const { user } = payload;
+      console.log(user)
+      await UserService.userLogin(user).then(res => console.log("then",res)).catch(err => console.log("err", err.response.data));
       let res = await UserService.userLogin(user);
       return res.data;
     } catch (error: any) {

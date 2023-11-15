@@ -11,7 +11,8 @@ import ForgotPwd from "../User/ForgotPwd";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
 import Registration from "../User/Registration";
 import AllUsers from "../User/AllUsers";
-import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenueById";import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
+import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
+import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
 
 const AdminDashboard = () => {
   return (
@@ -31,17 +32,8 @@ const AdminDashboard = () => {
               <Route path="/course" element={<GetAllCourse />}></Route>
             </Routes>
             <Routes>
- <Route path="/login" element={<Login />}></Route>
-</Routes>
-            <Routes>
-              <Route path="/forgot" element={<ForgotPwd />}></Route>
+            <Route path="/login" element={<Login />}></Route>
             </Routes>
-            <Routes>
-              <Route path="/register" element={<Registration />}></Route>
-            </Routes>
-            <Routes>
-              <Route path="/users" element={<AllUsers />}></Route>
-              <Route path="/revenue" element={<GetAllRevenue />}></Route><<<<<<< .mine
             <Routes>
               <Route path="/forgot" element={<ForgotPwd />}></Route>
             </Routes>
@@ -51,17 +43,8 @@ const AdminDashboard = () => {
             <Routes>
               <Route path="/users" element={<AllUsers />}></Route>
               <Route path="/revenue" element={<GetAllRevenue />}></Route>
-=======
+            </Routes>
             <Routes>
-
-
-
-
-
-
-
-
->>>>>>> .theirs
               <Route
                 path="/updaterevenue/:id"
                 element={<UpdateRevenue />}
@@ -73,9 +56,6 @@ const AdminDashboard = () => {
                 path="/addrevenuecategory"
                 element={<AddRevenueCategory />}
               ></Route>
-            </Routes>
-            <Routes>
-              <Route path="/login" element={<Login />}></Route>
             </Routes>
           </div>
           <div className="container mt-5">
@@ -93,14 +73,12 @@ const AdminDashboard = () => {
                     <Route path="/" element={<PieChart />}></Route>
                   </Routes>
                 </div>
-
                 <div className="col-lg-6">
                   <Routes>
                     <Route path="/" element={<PieChartCircle />}></Route>
                   </Routes>
                 </div>
               </div>
-<<<<<<< .mine
             </div>
             <div className="container mt-5">
               <div className="row">
@@ -109,30 +87,12 @@ const AdminDashboard = () => {
                     <Route path="/" element={<PieChart />}></Route>
                   </Routes>
                 </div>
-
                 <div className="col-lg-6">
                   <Routes>
                     <Route path="/" element={<PieChartCircle />}></Route>
                   </Routes>
                 </div>
               </div>
-=======
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
             </div>
           </div>
         </div>

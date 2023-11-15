@@ -80,7 +80,7 @@ const createUserValidation = (req, res, next) => {
   // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid Passing Year")
 
   if (userUtil.isInvalidDate(req.body.dob))
-    throw new InvalidDateError("DATE OF BIRTH OF NEW USER IS INVALID", res);
+    throw new InvalidDateError("DATE OF BIRTH OF NEW USER IS INVALID"+req.body.dob, res);
   // res.status(httpStatusCode.BAD_REQUEST).send("Date of Birth cannot be null or undefined")
 
   if (userUtil.isInvalidGender(req.body.gender))

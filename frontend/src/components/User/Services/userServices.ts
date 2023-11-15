@@ -16,20 +16,13 @@ export class UserService {
     data: IUser;
   }> => {
     const dataurl = `${this.serverUrl}/userlogin`;
-    return axios.post(dataurl);
+    return axios.post(dataurl, body);
   };
 
   public static createUser = async (
     body: IRegister
   ): Promise<{ data: IRegisterData | any }> => {
-    console.log("body", body);
     const url = `${this.DataUrl}/add`;
-
-    axios
-      .post(url, body)
-      .then((res) => console.log("result", res))
-      .catch((err) => console.log("err", err.response.data));
-
     return axios.post(url, body);
   };
 }

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "./Redux/store";
 import { IRegister, IRegisterData } from "./Model/Iuser";
 import * as UserAction from "../../Redux/UserRedux/user.action";
@@ -8,6 +8,7 @@ import * as UserReducer from "../../Redux/UserRedux/user.reducer";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { start } from "repl";
+import { create } from "domain";
 
 const Registration: React.FC = () => {
   const Navigate = useNavigate();
@@ -20,7 +21,7 @@ const Registration: React.FC = () => {
     }
   );
 
-  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   const [create, setCreate] = useState<IRegisterData>({
     first_name: "",
@@ -37,14 +38,33 @@ const Registration: React.FC = () => {
     password: "",
   });
 
-  const changeDate = (date: Date| null) => {
+  useEffect(() => {
+    reflectDate();
+  }, [startDate])
+  
+
+  const changeDate = (date: Date | null) => {
     setStartDate(date);
-    const formattedDate = `${startDate?.getDate()}-${startDate?.getMonth()!=null?startDate?.getMonth()+1:"00"}-${startDate?.getFullYear()}`;
+  };
+
+  const reflectDate = () => {
+    let day = startDate?.getDate();
+    let month: string | number =
+      startDate?.getMonth() != undefined ? startDate?.getMonth() + 1 : "";
+    let year = startDate?.getFullYear();
+    let fullDay: string | number = "";
+    let fullMonth: string | number = "";
+    if (day != undefined && month != undefined) {
+      fullDay = day?.toString().length < 2 ? `0${day}` : day;
+      fullMonth = month?.toString().length < 2 ? `0${month}` : month;
+    }
+    const formattedDate = `${fullDay}-${fullMonth}-${year}`;
     setCreate({
       ...create,
       dob: formattedDate,
     });
-  };
+
+  }
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCreate({
       ...create,
@@ -85,12 +105,11 @@ const Registration: React.FC = () => {
       subcaste: create.subcaste,
       password: create.password,
     };
-    alert("dob: "+create.dob);
     dispatch(UserAction.createUserAction({ user: data }))
       .then((res: any) => {
         if (res && !res.data) {
-        //   Navigate("/");
-          alert("Done");
+          alert(res.payload.data.description);
+          Navigate("/users");
         }
       })
       .catch((error: any) => console.log(error));
@@ -215,14 +234,14 @@ const Registration: React.FC = () => {
                         onChange={(e) => changeInputEvent(e)}
                         type="radio"
                         name="gender"
-                        value={create.gender}
+                        value="male"
                       />
                       <label className="me-5">Male</label>
                       <input
                         onChange={(e) => changeInputEvent(e)}
                         type="radio"
                         name="gender"
-                        value={create.gender}
+                        value="female"
                       />
                       <label>Female</label>
                     </div>
@@ -293,13 +312,13 @@ const Registration: React.FC = () => {
                 <button type="reset" className="btn btn-success">
                   Reset
                 </button>
-                <button
+                {/* <button
                   type="button"
                   onClick={() => setDefaults()}
                   className="btn btn-success"
                 >
                   Set Defaults
-                </button>
+                </button> */}
               </div>
             </form>
           </div>

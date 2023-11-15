@@ -8,7 +8,7 @@ const InvalidPasswordError = require("../../errors/InvalidPasswordError")
 const { INVALID_ID, INVALID_NAME } = require("../../utils/app.constants");
 
 const userLoginValidation = (req, res, next) => {
-  if (utils.isInvalidEmail(req.body.username))
+  if (utils.isInvalidEmail(req.body.email))
   throw new InvalidEmailError("INVALID USERNAME,PLEASE ENTERD VALID USERNAME",res)
     // res.status(500).send("INVALID USERNAME");
     
