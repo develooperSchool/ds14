@@ -37,7 +37,7 @@ const isInvalidDate = (input) => {
 };
 
 const isInvalidPassword = (input) => {
-  return !/^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z\d]{8,20}$/.test(input);
+ return !/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/.test(input);
 };
 
 const isInvalidYear = (input) => {
@@ -78,3 +78,8 @@ module.exports = {
   IsInvalidN,
   respond,
 };
+
+// 1. camelCase --> variableName, functionName, etc    getStudentByEmail
+// 2. PascleCase --> React, ClassName, ComponentName.. ArrayIndexOutOfBoundsException
+// 3. snake_case --> python_language, database_level, database_name, table_name, column_name
+//                   revenue_category_table, revenue_category_id

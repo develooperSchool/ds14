@@ -20,7 +20,7 @@ const getRoleById = async (req, res) => {
   let result = [];
   let values = [req.params.id];
   try {
-    let sqlQuery = "select * from user_ro where role_id=?";
+    let sqlQuery = "select * from user_role where role_id=?";
     const [rows] = await db.query(sqlQuery, values);
     result = rows;
   } catch (err) {
@@ -32,13 +32,12 @@ const getRoleById = async (req, res) => {
 const deleteRoleById = async (req, res) => {
   try {
     let row = [req.params.id];
-    let sqlQuery = "DELETE FROM user_role WHERE role_ = ?";
-    const rows = db.execute(query, row);
-    console.log("result", rows);
+    let sqlQuery = "DELETE FROM user_role WHERE role_id = ?";
+    const rows = db.execute(sqlQuery, row);
   } catch (err) {
     throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }
-  return row;
+  return rows;
 };
 
 //

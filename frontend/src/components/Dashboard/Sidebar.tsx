@@ -37,8 +37,13 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mt-3">
+            <Link to={"/urole"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>User Roles
+            </Link>
+          </li>
+          <li className="mt-3">
             <Link to={"/users"} className="Link">
-              <i className="bi bi-graph-up-arrow"> </i>Users{" "}
+              <i className="bi bi-graph-up-arrow"> </i>Users
             </Link>
           </li>
           <li className="mt-3">

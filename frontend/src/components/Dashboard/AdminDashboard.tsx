@@ -9,6 +9,8 @@ import PieChartCircle from "./PieChartCircle";
 import Login from "../User/Login";
 import ForgotPwd from "../User/ForgotPwd";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
+import GetAllUrole from "../Urole/Pages/GetAllUrole";
+import UserProfile from "../Urole/Pages/UserProfile";
 import Registration from "../User/Registration";
 import AllUsers from "../User/AllUsers";
 import CreateSalaryAnnexure from "../Payroll/Pages/PostSalaryAnnexure";
@@ -22,6 +24,8 @@ import PostPayrollProcessing from "../Payroll Processing/Pages/PostPayrollProces
 import UpdatePayrollProcessing from "../Payroll Processing/Pages/UpdatePayrollProcessing";
 import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
 import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
+import AddRole from "../Urole/Pages/AddRole";
+import UpdateRole from "../Urole/Pages/UpdateRole";
 
 const AdminDashboard = () => {
   return (
@@ -40,6 +44,17 @@ const AdminDashboard = () => {
               <Route path="/course" element={<GetAllCourse />}></Route>
             </Routes>
             <Routes>
+              <Route path="/updateurole/:id" element={<UpdateRole />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/urole" element={<GetAllUrole />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/addurole" element={<AddRole />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/UserProfile" element={<UserProfile />}></Route>
+              {/* <Route path="/getrevenue" element={<GetAllRevenue />}></Route> */}
               <Route path="/login" element={<Login />}></Route>
             </Routes>
             <Routes>
