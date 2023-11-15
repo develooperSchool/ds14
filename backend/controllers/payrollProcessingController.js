@@ -1,5 +1,12 @@
 const payrollProcessingService = require("../services/payrollProcessingService");
 const HttpStatusCode = require("../utils/HttpStatusCode");
+const {
+  PAYROLL_PROCESSING_GET_BY_ID,
+  PAYROLL_PROCESSING_ADD,
+  PAYROLL_PROCESSING_UPDATE,
+  PAYROLL_PROCESSING_DELETE,
+} = require("../utils/app.constants");
+const { respond } = require("../utils/app.utils");
 
 async function getAllPayrollProcessing(req, res, next) {
   try {
@@ -18,6 +25,13 @@ async function getPayrollProcessingById(req, res, next) {
       res
     );
     res.status(HttpStatusCode.OK).json(record);
+    // respond(
+    //   PAYROLL_PROCESSING_GET_BY_ID,
+    //   HttpStatusCode.OK,
+    //   record,
+    //   new Date(date.now()),
+    //   res
+    // );
   } catch (error) {
     next(error);
   }
@@ -34,6 +48,13 @@ async function addPayrollProcessing(req, res, next) {
       message: "Payroll processing record added successfully",
       id: insertedId,
     });
+    // respond(
+    //   PAYROLL_PROCESSING_ADD,
+    //   HttpStatusCode.CREATED,
+    //   message,
+    //   new Date(date.now()),
+    //   res
+    // );
   } catch (error) {
     next(error);
   }
@@ -51,6 +72,13 @@ async function updatePayrollProcessing(req, res, next) {
     res
       .status(HttpStatusCode.OK)
       .json({ message: "Payroll processing record updated successfully" });
+    // respond(
+    //   PAYROLL_PROCESSING_UPDATE,
+    //   HttpStatusCode.OK,
+    //   message,
+    //   new Date(date.now()),
+    //   res
+    // );
   } catch (error) {
     next(error);
   }
@@ -63,6 +91,13 @@ async function deletePayrollProcessing(req, res, next) {
     res
       .status(HttpStatusCode.OK)
       .json({ message: "Payroll processing record deleted" });
+    // respond(
+    //   PAYROLL_PROCESSING_DELETE,
+    //   HttpStatusCode.OK,
+    //   message,
+    //   new Date(date.now()),
+    //   res
+    // );
   } catch (error) {
     next(error);
   }

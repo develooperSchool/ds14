@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import * as AttendanceReducer from "../../../../Redux/AttendanceRedux/attendance.reducer"
 import * as AttendanceAction from "../../../../Redux/AttendanceRedux/attendance.action";
 import { IAttendance } from "../../Model/IAttendance";
 
@@ -12,9 +11,9 @@ const PostAttendance = () => {
     const [localattendance, setlocalattendance] = useState<IAttendance>({
         user_id: 0,
         attendance_date: "",
-        in_time: 0,
-        out_time: 0,
-        total_hours_work: 0
+        in_time: "",
+        out_time: "",
+        total_hours_work: ""
     });
 
     const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,27 +23,25 @@ const PostAttendance = () => {
         })
     }
 
-    const formattedDate = (date: Date) => {
-        if (!date) {
-            return "";
+    const formattedDate = (date: Date | string | null): string => {
+        if (date === null) {
+            throw new Error("Date cannot be null");
         }
 
-        const dd = String(date.getDate()).padStart(2, '0');
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const yyyy = date.getFullYear();
-        return `${dd}-${mm}-${yyyy}`;
+        const dateObject = typeof date === 'string' ? new Date(date) : date;
+
+        const yyyy = dateObject.getFullYear();
+        const mm = String(dateObject.getMonth() + 1).padStart(2, '0');
+        const dd = String(dateObject.getDate()).padStart(2, '0');
+
+        return `${yyyy}-${mm}-${dd}`;
     };
 
     const submitData = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-
-        const dateObject = localattendance.attendance_date ? new Date(localattendance.attendance_date) : null;
-
-
-        if (dateObject === null || (dateObject instanceof Date && !isNaN(dateObject.getTime()))) {
-
-            const formattedAttendanceDate = dateObject ? formattedDate(dateObject) : null;
+        try {
+            const formattedAttendanceDate = formattedDate(localattendance.attendance_date);
 
             const updatedAttendance = { ...localattendance, attendance_date: formattedAttendanceDate };
             dispatch(AttendanceAction.createAttendanceAction({ body: updatedAttendance })).then((res: any) => {
@@ -52,12 +49,10 @@ const PostAttendance = () => {
                     Navi('/attendance');
                 }
             });
-        } else {
-
-            console.error("Invalid date format");
+        } catch (error) {
+            throw error;
         }
     };
-
 
 
     return (
@@ -85,7 +80,14 @@ const PostAttendance = () => {
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label">Attendance Date</label>
-                                    <input type="date" onChange={(e) => changeInputEvent(e)} name="attendance_date" value={localattendance.attendance_date} className="form-control" placeholder="enter date" />
+                                    <input
+                                        type="date"
+                                        onChange={(e) => changeInputEvent(e)}
+                                        name="attendance_date"
+                                        value={localattendance.attendance_date ? formattedDate(localattendance.attendance_date) : ""}
+                                        className="form-control"
+                                        placeholder="enter date"
+                                    />
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label">In Time</label>
@@ -111,6 +113,5 @@ const PostAttendance = () => {
         </>
     )
 }
-
 
 export default PostAttendance;
