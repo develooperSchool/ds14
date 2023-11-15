@@ -1,34 +1,34 @@
 const SalaryDao = require("../dao/salary.dao");
 
-async function getSalaryAnnexure() {
+async function getSalaryAnnexure(res) {
   try {
-    const salaryAnnexure = await SalaryDao.getSalaryAnnexure();
+    const salaryAnnexure = await SalaryDao.getSalaryAnnexure(res);
     return salaryAnnexure;
   } catch (error) {
     throw error;
   }
 }
 
-async function addSalaryAnnexure(salaryData) {
+async function addSalaryAnnexure(salaryData, res) {
   try {
-    const annexureId = await SalaryDao.addSalaryAnnexure(salaryData);
+    const annexureId = await SalaryDao.addSalaryAnnexure(salaryData, res);
     return annexureId;
   } catch (error) {
     throw error;
   }
 }
 
-async function updateSalaryAnnexure(annexureId, salaryData) {
+async function updateSalaryAnnexure(annexureId, salaryData, res) {
   try {
-    await SalaryDao.updateSalaryAnnexure(annexureId, salaryData);
+    await SalaryDao.updateSalaryAnnexure(annexureId, salaryData, res);
   } catch (error) {
     throw error;
   }
 }
 
-async function deleteSalaryAnnexure(annexureId) {
+async function deleteSalaryAnnexure(annexureId, res) {
   try {
-    await SalaryDao.deleteSalaryAnnexure(annexureId);
+    await SalaryDao.deleteSalaryAnnexure(annexureId, res);
   } catch (error) {
     throw error;
   }

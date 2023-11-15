@@ -1,15 +1,16 @@
 const db = require("../config/db-config");
+const SqlError = require("../errors/SqlError");
 
-async function getSalaryAnnexure() {
+async function getSalaryAnnexure(res) {
   try {
     const [rows] = await db.execute("SELECT * FROM salary_annexure");
     return rows;
   } catch (error) {
-    throw error;
+    throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
   }
 }
 
-async function addSalaryAnnexure(salaryData) {
+async function addSalaryAnnexure(salaryData, res) {
   try {
     const [rows] = await db.execute(
       "INSERT INTO salary_annexure (user_id, name, designation, department, job_location, basic, hra, special_allowance, profession_tax, total_deductions, net_salary, annexure_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -30,11 +31,11 @@ async function addSalaryAnnexure(salaryData) {
     );
     return rows.insertId;
   } catch (error) {
-    throw error;
+    throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
   }
 }
 
-async function updateSalaryAnnexure(annexureId, salaryData) {
+async function updateSalaryAnnexure(annexureId, salaryData, res) {
   try {
     await db.execute(
       "UPDATE salary_annexure SET user_id=?, name=?, designation=?, department=?, job_location=?, basic=?, hra=?, special_allowance=?, profession_tax=?, total_deductions=?, net_salary=?, annexure_date=? WHERE annexure_id = ?",
@@ -55,17 +56,17 @@ async function updateSalaryAnnexure(annexureId, salaryData) {
       ]
     );
   } catch (error) {
-    throw error;
+    throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
   }
 }
 
-async function deleteSalaryAnnexure(annexureId) {
+async function deleteSalaryAnnexure(annexureId, res) {
   try {
     await db.execute("DELETE FROM salary_annexure WHERE annexure_id = ?", [
       annexureId,
     ]);
   } catch (error) {
-    throw error;
+    throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
   }
 }
 

@@ -21,9 +21,9 @@ const UpdateAttendance: React.FC = () => {
     const [localAttendance, setLocalAttendance] = useState<IAttendance>({
         user_id: 0,
         attendance_date: "",
-        in_time: 0,
-        out_time: 0,
-        total_hours_work: 0,
+        in_time: "",
+        out_time: "",
+        total_hours_work: "",
     });
 
     useEffect(() => {

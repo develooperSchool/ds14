@@ -18,6 +18,8 @@ import UpdateAttendance from "../Attendance Records/Pages/AttendanceRecords/Upda
 import GetAllPayrollProcessing from "../Payroll Processing/Pages/GetPayrollProcessing";
 import PostPayrollProcessing from "../Payroll Processing/Pages/PostPayrollProcessing";
 import UpdatePayrollProcessing from "../Payroll Processing/Pages/UpdatePayrollProcessing";
+import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
+import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
 
 const AdminDashboard = () => {
   return (
@@ -27,7 +29,6 @@ const AdminDashboard = () => {
           <div className="col-lg-2">
             <Sidebar />
           </div>
-
           <div className="col-lg-10">
             <Topbar />
             <Routes>
@@ -43,10 +44,16 @@ const AdminDashboard = () => {
               <Route path="/attendance" element={<GetAllAttendance />}></Route>
             </Routes>
             <Routes>
-              <Route path="/postattendance" element={<PostAttendance />}></Route>
+              <Route
+                path="/postattendance"
+                element={<PostAttendance />}
+              ></Route>
             </Routes>
             <Routes>
-              <Route path="/updateattendance/:attendance_id" element={<UpdateAttendance />}></Route>
+              <Route
+                path="/updateattendance/:attendance_id"
+                element={<UpdateAttendance />}
+              ></Route>
             </Routes>
             <Routes>
               <Route path="/payroll" element={<GetAllSalaryAnnexure />}></Route>
@@ -55,16 +62,48 @@ const AdminDashboard = () => {
               <Route path="/create" element={<CreateSalaryAnnexure />}></Route>
             </Routes>
             <Routes>
-              <Route path="/put/:annexureId" element={<UpdateSalaryAnnexure />}></Route>
+              <Route
+                path="/put/:annexureId"
+                element={<UpdateSalaryAnnexure />}
+              ></Route>
             </Routes>
             <Routes>
-              <Route path="/payroll-processing" element={<GetAllPayrollProcessing />}></Route>
+              <Route
+                path="/payroll-processing"
+                element={<GetAllPayrollProcessing />}
+              ></Route>
             </Routes>
             <Routes>
-              <Route path="/postpayroll-processing" element={<PostPayrollProcessing />}></Route>
+              <Route
+                path="/postpayroll-processing"
+                element={<PostPayrollProcessing />}
+              ></Route>
             </Routes>
             <Routes>
-              <Route path="/updatepayroll-processing/:annexureId" element={<UpdatePayrollProcessing />}></Route>
+              <Route
+                path="/updatepayroll-processing/:annexureId"
+                element={<UpdatePayrollProcessing />}
+              ></Route>
+            </Routes>
+            
+            {/* Revenue Code Below */}
+            <Routes>
+              <Route path="/getrevenue" element={<GetAllRevenue />}></Route>
+              <Route
+                path="/updaterevenue/:id"
+                element={<UpdateRevenue />}
+              ></Route>
+            </Routes>
+
+            <Routes>
+              <Route
+                path="/addrevenuecategory"
+                element={<AddRevenueCategory />}
+              ></Route>
+            </Routes>
+
+            <Routes>
+              <Route path="/login" element={<Login />}></Route>
             </Routes>
           </div>
 
@@ -85,7 +124,6 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
-
     </>
   );
 };
