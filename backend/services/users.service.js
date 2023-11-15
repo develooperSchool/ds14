@@ -58,16 +58,16 @@ const deactivateUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  let rows = "";
+  let description = "";
   await userDao
     .createUser(req, res)
     .then((result) => {
-      console.log(result);
+      description = result;
     })
     .catch((error) => {
-      console.log(error);
+      description = error;
     });
-  return rows;
+  return description;
 };
 module.exports = {
   getAllUsers,

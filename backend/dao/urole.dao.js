@@ -15,6 +15,7 @@ const getAllRoles = async (req, res) => {
   return result;
 };
 
+///get role by id
 const getRoleById = async (req, res) => {
   let result = [];
   let values = [req.params.id];
@@ -60,6 +61,7 @@ const updateRoleById = async (id, body) => {
   try {
     let sqlQuery = "UPDATE user_role set role_name = ? WHERE role_id = ?";
     const [result, feilds] = await db.query(sqlQuery, [name, id]);
+    console.log(result);
   } catch (err) {
     throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }
@@ -72,6 +74,7 @@ const updateUserById = async (id, body) => {
   try {
     let sqlQuery = "UPDATE user_master set first_name =? WHERE user_id = ?";
     const [result, feild] = await db.query(sqlQuery, [username, id]);
+    console.log(result);
   } catch (err) {
     throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }
@@ -79,15 +82,19 @@ const updateUserById = async (id, body) => {
 };
 const userLogin = async (username, password) => {
   let message = "";
+  let body = {};
+
   try {
     let sqlQuery = "SELECT * FROM user_master WHERE email =? AND password = ?";
     const [result, feild] = await db.query(sqlQuery, [username, password]);
 
     if (result.length > 0) {
-      message = "login user successfully";
+      // message = "login user successfully"
+      body = result[0];
     } else {
       message = "USER NOT FOUND";
     }
+    return message == "" ? body : message;
   } catch (err) {
     throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }

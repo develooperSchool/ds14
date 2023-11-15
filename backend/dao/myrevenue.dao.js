@@ -58,7 +58,6 @@ const deleteRevenueCategory = async (req, res) => {
 
 const updateRevenueCategory = async (req, res) => {
   let values = [req.body.revenueCategoryName, req.params.id];
-  console.log("update request :", req.body);
   let result = [];
   try {
     let sqlQuery =
