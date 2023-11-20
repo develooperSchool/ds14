@@ -6,3 +6,17 @@ export interface IRevenueCategory {
 export interface IAddRevenueCategory {
   revenueCategoryName: string;
 }
+
+export interface IIncome {
+  income_id: number;
+  total_fees: number;
+  balance_fees: number;
+  paid_fees: number;
+  transaction_id: number;
+  income_amount: number;
+  user_id: number;
+  revenue_category_id: number;
+}
+export interface IAddIncome {
+  paidFees: number;
+}

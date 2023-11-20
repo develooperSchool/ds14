@@ -26,6 +26,9 @@ import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
 import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
 import AddRole from "../Urole/Pages/AddRole";
 import UpdateRole from "../Urole/Pages/UpdateRole";
+import GetAllIncomeInfo from "../Revenue/Pages/Income/GetAllIncomeInfo";
+import UpdateIncomeInfoById from "../Revenue/Pages/Income/UpdateIncomeInfoById";
+import AddIncomeInfo from "../Revenue/Pages/Income/AddIncomeInfo";
 
 const AdminDashboard = () => {
   return (
@@ -127,6 +130,18 @@ const AdminDashboard = () => {
                 path="/addrevenuecategory"
                 element={<AddRevenueCategory />}
               ></Route>
+            </Routes>
+            <Routes>
+              <Route path="/getIncome" element={<GetAllIncomeInfo />}></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/updateIncome/:id"
+                element={<UpdateIncomeInfoById />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route path="/addIncome" element={<AddIncomeInfo />}></Route>
             </Routes>
 
             <Routes>

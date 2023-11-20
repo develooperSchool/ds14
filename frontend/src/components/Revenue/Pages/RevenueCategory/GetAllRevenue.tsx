@@ -67,12 +67,12 @@ const GetAllRevenue: React.FC = () => {
               <tbody>
                 {revenueReduxState.Rcategories.map((categories, index) => {
                   return (
-                    <tr key={categories.revenue_category_id}>
+                    <tr>
                       <td>{categories.revenue_category_id}</td>
                       <td>{categories.revenue_category_name}</td>
                       <td>
                         <Link
-                          to={`/updaterevenue/${categories.revenue_category_id}`}
+                          to={`/updateincome/${categories.revenue_category_id}`}
                           className="btn btn-outline-success"
                         >
                           Update
