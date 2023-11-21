@@ -29,6 +29,9 @@ import UpdateRole from "../Urole/Pages/UpdateRole";
 import GetAllIncomeInfo from "../Revenue/Pages/Income/GetAllIncomeInfo";
 import UpdateIncomeInfoById from "../Revenue/Pages/Income/UpdateIncomeInfoById";
 import AddIncomeInfo from "../Revenue/Pages/Income/AddIncomeInfo";
+import GetAllIExpenseInfo from "../Revenue/Pages/Expense/GetAllIExpenseInfo";
+import UpdateExpenseInfoById from "../Revenue/Pages/Expense/UpdateExpenseInfoById";
+import AddExpenseInfo from "../Revenue/Pages/Expense/AddExpenseInfo";
 
 const AdminDashboard = () => {
   return (
@@ -120,7 +123,7 @@ const AdminDashboard = () => {
             <Routes>
               <Route path="/getrevenue" element={<GetAllRevenue />}></Route>
               <Route
-                path="/updaterevenue/:id"
+                path="/updateRevenue/:id"
                 element={<UpdateRevenue />}
               ></Route>
             </Routes>
@@ -136,14 +139,28 @@ const AdminDashboard = () => {
             </Routes>
             <Routes>
               <Route
-                path="/updateIncome/:id"
+                path="/updateIncome/:incomeId"
                 element={<UpdateIncomeInfoById />}
               ></Route>
             </Routes>
             <Routes>
               <Route path="/addIncome" element={<AddIncomeInfo />}></Route>
             </Routes>
-
+            <Routes>
+              <Route
+                path="/getExpense"
+                element={<GetAllIExpenseInfo />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/updateExpense/:expenseId"
+                element={<UpdateExpenseInfoById />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route path="/addExpense" element={<AddExpenseInfo />}></Route>
+            </Routes>
             <Routes>
               <Route path="/login" element={<Login />}></Route>
             </Routes>

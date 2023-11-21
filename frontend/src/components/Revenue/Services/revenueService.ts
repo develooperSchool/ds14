@@ -3,6 +3,7 @@ import {
   IAddRevenueCategory,
   IRevenueCategory,
   IIncome,
+  IExpense,
 } from "../Model/IRevenue";
 
 export class RevenueService {
@@ -34,11 +35,11 @@ export class RevenueService {
   };
 
   public static updateRevenueCategory = (
-    updateData: IAddRevenueCategory,
+    updateIncomeData: IAddRevenueCategory,
     id: string
   ): Promise<{ data: IAddRevenueCategory[] }> => {
     const dataurl = `${this.serverUrl}/updateRevenueCatBy/${id}`;
-    return axios.put(dataurl, updateData);
+    return axios.put(dataurl, updateIncomeData);
   };
 
   public static deleteRevenueCategory = (id: string): Promise<{ data: {} }> => {
@@ -55,14 +56,14 @@ export class RevenueService {
     data: IIncome[];
   }> => {
     const dataurl = `${this.serverUrl}/incomeInfo`;
-    const res = axios.get(dataurl);
-    console.log("Get Data", res);
+    // const res = axios.get(dataurl);
+    // console.log("Get Data", res);
     return axios.get(dataurl);
   };
   public static getIncomeInfoById = (
     incomeId: number
   ): Promise<{ data: IIncome }> => {
-    const dataurl = `${this.serverUrl}/getInfoById/${incomeId}`;
+    const dataurl = `${this.serverUrl}/incomeInfoById/${incomeId}`;
     return axios.get(dataurl);
   };
 
@@ -72,11 +73,11 @@ export class RevenueService {
     return axios.post(dataurl, body);
   };
   public static updateIncomeInfoById = (
-    updateData: IIncome,
+    updateIncomeData: IIncome,
     incomeId: number
   ): Promise<{ data: IIncome[] }> => {
     const dataurl = `${this.serverUrl}/updateIncome/${incomeId}`;
-    return axios.put(dataurl, updateData);
+    return axios.put(dataurl, updateIncomeData);
   };
   public static deleteIncomeInfoById = (
     incomeId: number
@@ -86,4 +87,44 @@ export class RevenueService {
     return axios.delete(dataurl);
   };
   //==================Income Module Services End======================================
+
+  //==================Expense Module Services Start======================================
+
+  public static getAllExpenseInfo = (): Promise<{
+    data: IExpense[];
+  }> => {
+    const dataurl = `${this.serverUrl}/getAllExpense`;
+    // const res = axios.get(dataurl);
+    // console.log("Get Data", res);
+    return axios.get(dataurl);
+  };
+  public static getExpenseInfoById = (
+    expenseId: number
+  ): Promise<{ data: IExpense }> => {
+    const dataurl = `${this.serverUrl}/getExpenseById/${expenseId}`;
+    return axios.get(dataurl);
+  };
+
+  public static addExpenseInfo = (
+    body: IExpense
+  ): Promise<{ data: IExpense }> => {
+    const dataurl = `${this.serverUrl}/addExpenseInfo`;
+
+    return axios.post(dataurl, body);
+  };
+  public static updateExpenseInfoById = (
+    updateExpenseData: IExpense,
+    expenseId: number
+  ): Promise<{ data: IExpense[] }> => {
+    const dataurl = `${this.serverUrl}/updateExpense/${expenseId}`;
+    return axios.put(dataurl, updateExpenseData);
+  };
+  public static deleteExpenseInfoById = (
+    expenseId: number
+  ): Promise<{ data: {} }> => {
+    const dataurl = `${this.serverUrl}/deleteExpense/${expenseId}`;
+
+    return axios.delete(dataurl);
+  };
+  //==================Expense Module Services End======================================
 }

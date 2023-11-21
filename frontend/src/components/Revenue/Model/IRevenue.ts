@@ -20,3 +20,16 @@ export interface IIncome {
 export interface IAddIncome {
   paidFees: number;
 }
+
+export interface IExpense {
+  expense_id: number;
+  revenue_category_id: number;
+  amount: number;
+  mentor_id: number;
+  remark: string;
+}
+export interface IAddExpense {
+  amount: number;
+  mentor_id: number;
+  remark: string;
+}

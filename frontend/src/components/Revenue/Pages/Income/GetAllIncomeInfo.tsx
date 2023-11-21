@@ -38,7 +38,7 @@ const GetAllIncomeInfo: React.FC = () => {
       <div className="container-fluid mt-3">
         <div className="row">
           <div className="col">
-            <h3 className="text-success mt-3">Revenue Caregory Details</h3>
+            <h3 className="text-success mt-3">Income Details</h3>
             <p className="fst-italic text-justify">
               Revenue, also called income, is the amount of money brought into
               the company, typically by selling goods, products, or services.

@@ -72,7 +72,7 @@ const GetAllRevenue: React.FC = () => {
                       <td>{categories.revenue_category_name}</td>
                       <td>
                         <Link
-                          to={`/updateincome/${categories.revenue_category_id}`}
+                          to={`/updateRevenue/${categories.revenue_category_id}`}
                           className="btn btn-outline-success"
                         >
                           Update

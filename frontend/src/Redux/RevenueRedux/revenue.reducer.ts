@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   IRevenueCategory,
   IIncome,
+  IExpense,
 } from "../../../src/components/Revenue/Model/IRevenue";
 import * as RevenueAction from "../RevenueRedux/revenue.action";
 
@@ -12,6 +13,8 @@ export interface InitialState {
   Rcategory: IRevenueCategory;
   Incomes: IIncome[];
   Income: IIncome;
+  Expenses: IExpense[];
+  Expense: IExpense;
 }
 
 const initialState: InitialState = {
@@ -19,13 +22,15 @@ const initialState: InitialState = {
   Rcategory: {} as IRevenueCategory,
   Incomes: [] as IIncome[],
   Income: {} as IIncome,
+  Expenses: [] as IExpense[],
+  Expense: {} as IExpense,
 };
 export const revenueSlice = createSlice({
   name: "revenueSlice",
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // ============================Revenue Action Start============================
+    // ============================Revenue Reduder Start============================
 
     builder.addCase(
       RevenueAction.getAllRevenueCategoryAction.fulfilled,
@@ -59,9 +64,9 @@ export const revenueSlice = createSlice({
         state.Rcategory = {} as IRevenueCategory;
       }
     );
-    // ============================Revenue Action End============================
+    // ============================Revenue Reduder End============================
 
-    // ============================Income Action Start============================
+    // ============================Income Reduder Start============================
     builder.addCase(
       RevenueAction.getAllIncomeInfoAction.fulfilled,
       (state, action) => {
@@ -95,6 +100,42 @@ export const revenueSlice = createSlice({
         state.Income = {} as IIncome;
       }
     );
-    // ============================Income Action End============================
+    // ============================Income Reduder End============================
+
+    // ============================Expense Reduder Start============================
+    builder.addCase(
+      RevenueAction.getAllExpenseInfoAction.fulfilled,
+      (state, action) => {
+        state.Expenses = action.payload;
+      }
+    );
+
+    builder.addCase(
+      RevenueAction.getExpenseInfoByIdAction.fulfilled,
+      (state, action) => {
+        state.Expense = action.payload;
+      }
+    );
+
+    builder.addCase(
+      RevenueAction.addExpenseInfoAction.fulfilled,
+      (state, action) => {
+        state.Expense = action.payload;
+      }
+    );
+
+    builder.addCase(
+      RevenueAction.updateExpenseInfoByIdAction.fulfilled,
+      (state, action) => {
+        state.Expense = action.payload;
+      }
+    );
+    builder.addCase(
+      RevenueAction.deleteExpenseInfoByIdAction.fulfilled,
+      (state, action) => {
+        state.Expense = {} as IExpense;
+      }
+    );
+    // ============================Expense Reduder Start============================
   },
 });

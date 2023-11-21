@@ -44,14 +44,14 @@ const UpdateIncomeInfoById: React.FC = () => {
         paid_fees: Income.paid_fees,
         transaction_id: Income.transaction_id,
         income_amount: Income.income_amount,
-        user_id: Income.income_amount,
-        revenue_category_id: Income.income_id,
+        user_id: Income.user_id,
+        revenue_category_id: Income.revenue_category_id,
       });
     }
   }, [Income]);
 
-  const dataFromServer = (IncomeId: number) => {
-    dispatch(RevenueAction.getIncomeInfoByIdAction({ IncomeId: IncomeId }));
+  const dataFromServer = (incomeId: number) => {
+    dispatch(RevenueAction.getIncomeInfoByIdAction({ incomeId: incomeId }));
   };
   const Navigate = useNavigate();
 
@@ -68,18 +68,18 @@ const UpdateIncomeInfoById: React.FC = () => {
     event.preventDefault();
     // alert("Revenue Added Successfully");
 
-    let updateData: IAddIncome = {
+    let updateIncomeData: IAddIncome = {
       paidFees: createIncome.paid_fees,
     };
 
     dispatch(
-      RevenueAction.updateRevenueCategoryAction({
-        updateData,
+      RevenueAction.updateIncomeInfoByIdAction({
+        updateIncomeData,
         incomeId,
       })
     ).then((res: any) => {
       if (res && !res.error) {
-        Navigate("/getrevenue");
+        Navigate("/getIncome");
       }
     });
   };

@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
-import { AppDispatch, RootState } from "../../../../Redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  IAddIncome,
-  IAddRevenueCategory,
-  IRevenueCategory,
-} from "../../Model/IRevenue";
-import { Link, useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../../../Redux/store";
+import { useDispatch } from "react-redux";
+import { IAddIncome } from "../../Model/IRevenue";
+import { useNavigate } from "react-router-dom";
 
 const AddIncomeInfo = () => {
   const Navigate = useNavigate();
   //data from redux store
-  const revenueReduxState: RevenueReducer.InitialState = useSelector(
-    (state: RootState) => {
-      return state[RevenueReducer.revenueFeatureKey];
-    }
-  );
+  // const revenueReduxState: RevenueReducer.InitialState = useSelector(
+  //   (state: RootState) => {
+  //     return state[RevenueReducer.revenueFeatureKey];
+  //   }
+  // );
   const dispatch: AppDispatch = useDispatch();
 
   const [addIncome, setAddIncome] = useState<IAddIncome>({
