@@ -1,7 +1,10 @@
 // salaryAnnexureActions.ts
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SalaryAnnexureService } from "../../components/Payroll/Services/salaryAnnexureService";
-import { SalaryAnnexure } from "../../components/Payroll/Model/SalaryAnnexure";
+import {
+  SalaryAnnexure,
+  SalaryAnnexureUpdate,
+} from "../../components/Payroll/Model/SalaryAnnexure";
 
 export const getAllSalaryAnnexureAction: any = createAsyncThunk(
   "PayrollRedux/getAllSalaryAnnexureAction",
@@ -63,7 +66,7 @@ export const postSalaryAnnexureAction: any = createAsyncThunk(
 export const updateSalaryAnnexureAction: any = createAsyncThunk(
   "PayrollRedux/updateSalaryAnnexureAction",
   async (
-    payload: { updatesalaryannexure: SalaryAnnexure; Id: number },
+    payload: { updatesalaryannexure: SalaryAnnexureUpdate; Id: number },
     { rejectWithValue }
   ): Promise<SalaryAnnexure[] | any> => {
     try {

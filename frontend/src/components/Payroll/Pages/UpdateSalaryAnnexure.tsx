@@ -5,97 +5,146 @@ import * as SalaryAnnexureReducer from "../../../Redux/PayrollRedux/salaryReduce
 import { AppDispatch, RootState } from "../../../Redux/store";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { SalaryAnnexure } from "../Model/SalaryAnnexure";
+import { SalaryAnnexure, SalaryAnnexureUpdate } from "../Model/SalaryAnnexure";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const UpdateSalaryAnnexure: React.FC = () => {
+    const dispatch: AppDispatch = useDispatch();
+    const [startDate, setStartDate] = useState<Date | null>(new Date());
 
-    const dispatch: AppDispatch = useDispatch()
 
-    //Data from Redux Store
+    // Data from Redux Store
     const salaryAnnexureReduxState: SalaryAnnexureReducer.InitialState = useSelector(
         (state: RootState) => {
-            return state[SalaryAnnexureReducer.payrollFeatureKey];
+            return state[SalaryAnnexureReducer.salaryfeatureKey];
         }
     );
-    const { payroll } = salaryAnnexureReduxState
 
+    const { salary } = salaryAnnexureReduxState;
+    const { annexureId: Id } = useParams();
+    const navi = useNavigate();
 
-    const { Id } = useParams()
-    const navi = useNavigate()
-
-    const [localpayroll, setlocalpayroll] = useState<SalaryAnnexure>(
-        {
-            annexure_id: 0,
-            user_id: 0,
-            name: "",
-            designation: "",
-            department: "",
-            job_location: "",
-            basic: 0,
-            hra: 0,
-            special_allowance: 0,
-            profession_tax: 0,
-            total_deductions: 0,
-            net_salary: 0,
-            annexure_date: "",
-        }
-    )
+    const [localSalary, setlocalSalary] = useState<SalaryAnnexure>({
+        annexure_id: 0,
+        user_id: 0,
+        name: "",
+        designation: "",
+        department: "",
+        job_location: "",
+        basic: 0,
+        hra: 0,
+        special_allowance: 0,
+        profession_tax: 0,
+        total_deductions: 0,
+        net_salary: 0,
+        annexure_date: "",
+    });
 
     useEffect(() => {
         if (Id) {
-            dataFromServer(Id)
+            dataFromServer(Id);
         }
-    }, [Id])
+    }, [Id]);
 
     useEffect(() => {
-        if (payroll && Object.keys(payroll).length > 0) {
-            setlocalpayroll({
-                ...localpayroll,
-                annexure_id: payroll.annexure_id,
-                user_id: payroll.user_id,
-                name: payroll.name,
-                designation: payroll.designation,
-                department: payroll.department,
-                job_location: payroll.job_location,
-                basic: payroll.basic,
-                hra: payroll.hra,
-                special_allowance: payroll.special_allowance,
-                profession_tax: payroll.profession_tax,
-                total_deductions: payroll.total_deductions,
-                net_salary: payroll.net_salary,
-                annexure_date: payroll.annexure_date,
-            })
-        }
-    }, [payroll])
+        if (salary && Object.keys(salary).length > 0) {
+            setlocalSalary({
+                ...localSalary,
+                annexure_id: salary.annexure_id,
+                user_id: salary.user_id,
+                name: salary.name,
+                designation: salary.designation,
+                department: salary.department,
+                job_location: salary.job_location,
+                basic: salary.basic,
+                hra: salary.hra,
+                special_allowance: salary.special_allowance,
+                profession_tax: salary.profession_tax,
+                total_deductions: salary.total_deductions,
+                net_salary: salary.net_salary,
+                annexure_date: salary.annexure_date,
+            });
 
+            let dateArray: any = salary.annexure_date.split("-");
+            let date: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]))
+
+            setStartDate(date)
+
+        }
+    }, [salary]);
+
+    useEffect(() => {
+        reflectDate();
+    }, [startDate])
+
+    const changeDate = (date: Date | null) => {
+        setStartDate(date);
+    };
+
+    const reflectDate = () => {
+        let day = startDate?.getDate();
+        let month: string | number =
+            startDate?.getMonth() != undefined ? startDate?.getMonth() + 1 : "";
+        let year = startDate?.getFullYear();
+
+        let fullDay: string | number = "";
+        let fullMonth: string | number = "";
+        if (day != undefined && month != undefined) {
+            fullDay = day?.toString().length < 2 ? `0${day}` : day;
+            fullMonth = month?.toString().length < 2 ? `0${month}` : month;
+        }
+        const formattedDate = `${fullDay}-${fullMonth}-${year}`;
+        console.log("formattedDate=", formattedDate)
+        setlocalSalary({
+            ...localSalary,
+            annexure_date: formattedDate,
+        });
+
+    }
 
     const dataFromServer = (Id: string) => {
-        dispatch(SalaryAnnexureAction.getSalaryAnnexureAction({ Id: Id }))
-    }
+        dispatch(SalaryAnnexureAction.getSalaryAnnexureAction({ Id: Id }));
+    };
 
-
-
-    const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        setlocalpayroll({
-            ...localpayroll,
-            [event.target.name]: event.target.value
-        })
-    }
+    const changeInputEvent = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ): void => {
+        setlocalSalary({
+            ...localSalary,
+            [event.target.name]: event.target.value,
+        });
+    };
 
     const submitData = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        dispatch(SalaryAnnexureAction.updateSalaryAnnexureAction({ updatesalaryannexure: localpayroll, Id: Id })).then((res: any) => {
-            if (res && !res.error) {
-                navi('/payroll')
+        let updatesalaryannexure: SalaryAnnexureUpdate = {
+            user_id: localSalary.user_id,
+            name: localSalary.name,
+            designation: localSalary.designation,
+            department: localSalary.department,
+            job_location: localSalary.job_location,
+            basic: localSalary.basic,
+            hra: localSalary.hra,
+            special_allowance: localSalary.special_allowance,
+            profession_tax: localSalary.profession_tax,
+            total_deductions: localSalary.total_deductions,
+            net_salary: localSalary.net_salary,
+            annexure_date: localSalary.annexure_date
+        };
+        dispatch(SalaryAnnexureAction.updateSalaryAnnexureAction({ updatesalaryannexure, Id })).then(
+            (res: any) => {
+                if (res && !res.error) {
+                    navi('/salary');
+                }
             }
-        })
-    }
-
+        );
+    };
 
     return (
         <>
-            <pre>{JSON.stringify(localpayroll)}</pre>
+
             <div className="container mt-4">
                 <div className="row">
                     <div className="col">
@@ -104,69 +153,143 @@ const UpdateSalaryAnnexure: React.FC = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="container mt-4">
-                <div className="row justify-content-center">
-                    <div className="col-lg-6">
-                        <div className="card p-3">
-                            <div className="card-header bg-warning">
-                                <h4>Update Salary</h4>
-                            </div>
-                            <form onSubmit={(e) => submitData(e)} className="mt-2">
-                                <div className="mb-2">
-                                    <label className="form-label">Name</label>
-                                    <input
-                                        type="text"
-                                        onChange={(e) => changeInputEvent(e)}
-                                        name="name"
-                                        value={localpayroll.name}
-                                        className="form-control"
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">Designation</label>
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">Department</label>
-                                    <input type="text" onChange={(e) => changeInputEvent(e)} name="department" value={localpayroll.department} className="form-control" />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">Job Location</label>
-                                    <input type="text" onChange={(e) => changeInputEvent(e)} name="job_location" value={localpayroll.job_location} className="form-control" />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">Basic Salary</label>
-                                    <input type="number" step="0.01" onChange={(e) => changeInputEvent(e)} name="basic" value={localpayroll.basic} className="form-control" />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">Special Allowance</label>
-                                    <input type="number" step="0.01" onChange={(e) => changeInputEvent(e)} name="special_allowance" value={localpayroll.special_allowance} className="form-control" />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">Profession Tax</label>
-                                    <input type="number" step="0.01" onChange={(e) => changeInputEvent(e)} name="profession_tax" value={localpayroll.profession_tax} className="form-control" />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">HRA</label>
-                                    <input type="number" step="0.01" name="hra" value={localpayroll.hra} className="form-control" disabled />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">Net Salary</label>
-                                    <input type="number" step="0.01" name="net_salary" value={localpayroll.net_salary} className="form-control" disabled />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="form-label">Annexure Date</label>
-                                    <input type="date" name="annexure_date" onChange={(e) => changeInputEvent(e)} value={localpayroll.annexure_date} className="form-control" />
-                                </div>
-                                <div className="mb-2">
-                                    <button type="submit" className="btn btn-success">UPDATE</button>
-                                    <button className="btn btn-warning">CANCEL</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+            <form onSubmit={(e) => submitData(e)} className="mt-2">
+                <div className="mb-2">
+                    <label className="form-label">User Id</label>
+                    <input
+                        type="number"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="user_id"
+                        value={localSalary.user_id}
+                        className="form-control"
+                    />
                 </div>
-            </div>
+                <div className="mb-2">
+                    <label className="form-label">Name</label>
+                    <input
+                        type="text"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="name"
+                        value={localSalary.name}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="form-label">Designation</label>
+                    <input
+                        type="text"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="designation"
+                        value={localSalary.designation}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="form-label">Department</label>
+                    <input
+                        type="text"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="department"
+                        value={localSalary.department}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="form-label">Job Location</label>
+                    <input
+                        type="text"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="job_location"
+                        value={localSalary.job_location}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="form-label">Basic Salary</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="basic"
+                        value={localSalary.basic}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="form-label">Special Allowance</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="special_allowance"
+                        value={localSalary.special_allowance}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="form-label">Profession Tax</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="profession_tax"
+                        value={localSalary.profession_tax}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="form-label">HRA</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="hra"
+                        value={localSalary.hra}
+                        className="form-control"
+                        disabled
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="form-label">Net Salary</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="net_salary"
+                        value={localSalary.net_salary}
+                        className="form-control"
+                        disabled
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="form-label">Annexure Date</label>
+                    {/* <input
+                        type="date"
+                        onChange={(e) => changeInputEvent(e)}
+                        name="annexure_date"
+                        value={localSalary.annexure_date}
+                        className="form-control"
+                    /> */}
+                    <DatePicker
+                        dateFormat="dd-MM-yyyy"
+                        selected={startDate}
+                        onChange={(date) => changeDate(date)}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-2">
+                    <button type="submit" className="btn btn-success">
+                        UPDATE
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={() => navi("/salary")}
+                    >
+                        CANCEL
+                    </button>
+                </div>
+            </form>
 
         </>
     )
