@@ -56,7 +56,6 @@ export class UserService {
     body: IUpdateRequest,
     id: string
   ): Promise<{ data: IUpdate[] }> {
-    console.log("service", body);
     const data = `${this.serverUrl}/updateuser/${id}`;
     return axios.put(data, body);
   }

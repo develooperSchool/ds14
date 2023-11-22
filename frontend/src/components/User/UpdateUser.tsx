@@ -76,11 +76,6 @@ const UpdateUser: React.FC = () => {
     }
   }, [user]);
 
-  // useEffect(() => {
-
-  //   }
-  // }, [localUser.dob]);
-
   const changeDate = (date: Date | null) => {
     setStartDate(date);
   };

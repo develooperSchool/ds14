@@ -116,7 +116,6 @@ export const updateUserAction: any = createAsyncThunk(
   ): Promise<IUpdate[] | any> => {
     try {
       const { updateUserData, id } = payload;
-      console.log("action", updateUserData);
       let res = await UserService.updateUser(updateUserData, id);
       return res.data;
     } catch (error: any) {
