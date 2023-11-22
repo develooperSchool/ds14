@@ -101,7 +101,6 @@ const UpdateAttendance: React.FC = () => {
     }
 
 
-
     const dataFromServer = (Id: string) => {
         dispatch(AttendanceAction.getAttendanceAction({ Id: Id }));
     };
@@ -203,8 +202,7 @@ const UpdateAttendance: React.FC = () => {
                                 <div className="mb-2">
                                     <label className="form-label">Total Hrs Work</label>
                                     <input
-                                        type="number"
-                                        step="0.01"
+                                        type="text"
                                         onChange={(e) => changeInput(e)}
                                         name="total_hours_work"
                                         value={localAttendance.total_hours_work}

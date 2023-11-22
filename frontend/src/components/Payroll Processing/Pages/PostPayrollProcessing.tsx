@@ -114,11 +114,11 @@ const PostPayrollProcessing = () => {
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label">Gross Salary</label>
-                                    <input type="text" onChange={(e) => changeInputEvent(e)} name="gross_salary" value={localprocess.gross_salary} className="form-control" />
+                                    <input type="number" onChange={(e) => changeInputEvent(e)} name="gross_salary" value={localprocess.gross_salary} className="form-control" />
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label">Net Salary</label>
-                                    <input type="text" onChange={(e) => changeInputEvent(e)} name="net_salary" value={localprocess.net_salary} className="form-control" />
+                                    <input type="number" onChange={(e) => changeInputEvent(e)} name="net_salary" value={localprocess.net_salary} className="form-control" />
                                 </div>
                                 <div className="mb-2">
                                     <button type="submit" className="btn btn-success">Submit</button>

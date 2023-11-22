@@ -14,16 +14,17 @@ const UpdatePayrollProcessing: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const [startDate, setStartDate] = useState<Date | null>(new Date());
 
-    //Data from Redux Store
     const processingReduxState: PayrollProcessingReducer.InitialState = useSelector((state: RootState) => {
         return state[PayrollProcessingReducer.processingFeatureKey]
     })
+
     const { process } = processingReduxState;
     const { payroll_id: Id } = useParams();
 
-    const navi = useNavigate();
+    const navigate = useNavigate();
 
     const [localProcess, setlocalProcess] = useState<IProcessing>({
+        payroll_id: 0,
         user_id: 0,
         payroll_date: "",
         gross_salary: 0,
@@ -106,7 +107,7 @@ const UpdatePayrollProcessing: React.FC = () => {
         dispatch(PayrollProcessingAction.updateProcessingAction({ updateprocess, Id })).then(
             (res: any) => {
                 if (res && !res.error) {
-                    navi('/payroll-processing');
+                    navigate('/payroll-processing');
                 }
             }
         );
@@ -138,7 +139,7 @@ const UpdatePayrollProcessing: React.FC = () => {
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label">Payroll Date</label>
-                                    {/* <input type="date" onChange={(e) => changeInput(e)} name="payroll_date" value={localProcess.payroll_date} className="form-control" /> */}
+
                                     <DatePicker
                                         dateFormat="dd-MM-yyyy"
                                         selected={startDate}

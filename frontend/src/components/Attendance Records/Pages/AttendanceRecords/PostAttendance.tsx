@@ -22,12 +22,42 @@ const PostAttendance = () => {
 
     useEffect(() => {
         reflectDate();
-    }, [startDate])
-
+    }, [startDate]);
 
     const changeDate = (date: Date) => {
         setStartDate(date);
     };
+
+    const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setlocalattendance({
+            ...localattendance,
+            [event.target.name]: event.target.value
+        });
+    };
+
+    const calculateTotalHoursWorked = () => {
+        const { in_time, out_time } = localattendance;
+
+        if (in_time && out_time) {
+            const inTime = new Date(`2000-01-01T${in_time}`);
+            const outTime = new Date(`2000-01-01T${out_time}`);
+
+            const timeDiffInHours = (outTime.getTime() - inTime.getTime()) / (1000 * 60 * 60);
+
+            const formattedHours = timeDiffInHours.toFixed(2);
+
+            setlocalattendance({
+                ...localattendance,
+                total_hours_work: formattedHours
+            });
+        }
+    };
+
+
+
+    useEffect(() => {
+        calculateTotalHoursWorked();
+    }, [localattendance.in_time, localattendance.out_time]);
 
     const reflectDate = () => {
         let day = startDate?.getDate();
@@ -42,23 +72,11 @@ const PostAttendance = () => {
             fullMonth = month?.toString().length < 2 ? `0${month}` : month;
         }
         const formattedDate = `${fullDay}-${fullMonth}-${year}`;
-        console.log("formattedDate=", formattedDate)
-
         setlocalattendance({
             ...localattendance,
             attendance_date: formattedDate,
         });
-
-    }
-
-
-    const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setlocalattendance({
-            ...localattendance,
-            [event.target.name]: event.target.value
-        })
-    }
-
+    };
 
     const submitData = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -121,7 +139,7 @@ const PostAttendance = () => {
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label">Total Hrs Work</label>
-                                    <input type="time" onChange={(e) => changeInputEvent(e)} name="total_hours_work" value={localattendance.total_hours_work} className="form-control" />
+                                    <input type="text" name="total_hours_work" value={localattendance.total_hours_work} className="form-control" readOnly />
                                 </div>
                                 <div className="mb-2">
                                     <button type="submit" className="btn btn-success">Submit</button>
@@ -133,7 +151,7 @@ const PostAttendance = () => {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default PostAttendance;

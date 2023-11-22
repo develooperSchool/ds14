@@ -108,14 +108,29 @@ const UpdateSalaryAnnexure: React.FC = () => {
         dispatch(SalaryAnnexureAction.getSalaryAnnexureAction({ Id: Id }));
     };
 
-    const changeInputEvent = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ): void => {
-        setlocalSalary({
+    const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        const { name, value } = event.target;
+
+        const updatedAnnexure: SalaryAnnexure = {
             ...localSalary,
-            [event.target.name]: event.target.value,
-        });
+            [name]: isNaN(parseFloat(value)) ? value : parseFloat(value),
+        };
+
+        if (name === "basic") {
+            updatedAnnexure.hra = parseFloat(value) * 0.5;
+        }
+        if (name === "profession_tax") {
+            updatedAnnexure.total_deductions = parseFloat(value);
+        }
+        updatedAnnexure.net_salary =
+            Number(updatedAnnexure.basic) +
+            Number(updatedAnnexure.hra) +
+            Number(updatedAnnexure.special_allowance) -
+            Number(updatedAnnexure.profession_tax);
+
+        setlocalSalary(updatedAnnexure);
     };
+
 
     const submitData = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
@@ -215,6 +230,7 @@ const UpdateSalaryAnnexure: React.FC = () => {
                         className="form-control"
                     />
                 </div>
+
                 <div className="mb-2">
                     <label className="form-label">Special Allowance</label>
                     <input
@@ -226,6 +242,7 @@ const UpdateSalaryAnnexure: React.FC = () => {
                         className="form-control"
                     />
                 </div>
+
                 <div className="mb-2">
                     <label className="form-label">Profession Tax</label>
                     <input
@@ -237,6 +254,7 @@ const UpdateSalaryAnnexure: React.FC = () => {
                         className="form-control"
                     />
                 </div>
+
                 <div className="mb-2">
                     <label className="form-label">HRA</label>
                     <input
@@ -249,6 +267,7 @@ const UpdateSalaryAnnexure: React.FC = () => {
                         disabled
                     />
                 </div>
+
                 <div className="mb-2">
                     <label className="form-label">Net Salary</label>
                     <input
@@ -261,6 +280,7 @@ const UpdateSalaryAnnexure: React.FC = () => {
                         disabled
                     />
                 </div>
+
                 <div className="mb-2">
                     <label className="form-label">Annexure Date</label>
                     {/* <input
