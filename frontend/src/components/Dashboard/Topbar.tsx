@@ -1,7 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Topbar = () => {
+  const navigate = useNavigate();
+  
+  const handleLogout = (): void => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
     <div>
       <div className="container-fluid">
@@ -37,6 +43,12 @@ const Topbar = () => {
                       >
                         Login
                       </Link>
+                      <button
+                        className="nav-link active text-light"
+                        onClick={() => handleLogout()}
+                      >
+                        Logout
+                      </button>
                       <Link
                         className="nav-link active text-light"
                         to={"/UserProfile"}

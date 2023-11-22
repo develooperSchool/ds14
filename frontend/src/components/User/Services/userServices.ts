@@ -25,4 +25,12 @@ export class UserService {
     const url = `${this.DataUrl}/add`;
     return axios.post(url, body);
   };
+
+  public static logout = () => {
+    localStorage.removeItem("userData");
+  };
+
+  
+
+  
 }

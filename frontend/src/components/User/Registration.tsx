@@ -221,7 +221,7 @@ const Registration: React.FC = () => {
                       <DatePicker
                         dateFormat="dd-MM-yyyy"
                         selected={startDate}
-                        onChange={(date) => changeDate(date)}
+                        onChange={(date: Date | null) => changeDate(date)}
                         className="form-control"
                       />
                     </div>

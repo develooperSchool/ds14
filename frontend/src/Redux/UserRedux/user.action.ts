@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Action, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   IUser,
   IRegisterData,
@@ -65,3 +65,21 @@ export const createUserAction: any = createAsyncThunk(
     }
   }
 );
+
+/////
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
