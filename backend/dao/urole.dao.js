@@ -57,6 +57,7 @@ const addNewRole = async (body) => {
 };
 const updateUserById = async (req, res) => {
   const userId = req.params.id;
+  console.log(req.params, res.body);
   let result = [];
   let values = [];
 
@@ -88,6 +89,8 @@ const updateUserById = async (req, res) => {
       subcaste,
       userId,
     ];
+
+    console.log(values);
     let sqlQuery =
       "UPDATE user_master set first_name = ?, last_name = ?, email = ?, contact = ?, address = ?, qualification = ?, passing_year = ?, dob = ?, gender = ?, caste_category = ?, subcaste = ? WHERE user_id = ? ";
     const [rows, field] = await db.query(sqlQuery, values);

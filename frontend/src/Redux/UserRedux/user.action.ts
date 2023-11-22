@@ -5,9 +5,11 @@ import {
   IRegister,
   IUpdate,
   IDeactive,
+  IUpdateRequest,
 } from "../../components/User/Model/Iuser";
 import { UserService } from "../../components/User/Services/userServices";
 import { IResponse } from "../../utils/Model/Response";
+import UpdateUser from "../../components/User/UpdateUser";
 
 export const getAllUserAction: any = createAsyncThunk(
   "UserRedux/getAllUserAction",
@@ -109,12 +111,13 @@ export const createUserAction: any = createAsyncThunk(
 export const updateUserAction: any = createAsyncThunk(
   "User/updateUserAction",
   async (
-    payload: { updateUser: IUpdate; id: string },
+    payload: { updateUserData: IUpdateRequest; id: string },
     { rejectWithValue }
   ): Promise<IUpdate[] | any> => {
     try {
-      const { updateUser, id } = payload;
-      let res = await UserService.updateUser(updateUser, id);
+      const { updateUserData, id } = payload;
+      console.log("action", updateUserData);
+      let res = await UserService.updateUser(updateUserData, id);
       return res.data;
     } catch (error: any) {
       if (!error.res) {
@@ -146,10 +149,10 @@ export const deactiveUserAction: any = createAsyncThunk(
 
 export const getAllActiveUserAction: any = createAsyncThunk(
   "UserRedux/getAllActiveUserAction",
-  async (payload: {}, { rejectWithValue }): Promise<IRegisterData[] | any> => {
+  async (payload: {}, { rejectWithValue }): Promise<IResponse | any> => {
     try {
       let result: any = await UserService.getAllActiveUsers();
-      console.log("result:", result.data.body);
+      console.log("result:", result.data);
       return result.data.body;
     } catch (error: any) {
       if (!error.res) {

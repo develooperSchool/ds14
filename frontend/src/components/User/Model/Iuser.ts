@@ -57,6 +57,21 @@ export interface IUpdate {
   subcaste: string;
 }
 
+export interface IUpdateRequest {
+  userId?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  contact: string;
+  address: string;
+  qualification: string;
+  passingYear: number;
+  dob: string;
+  gender: string;
+  casteCategory: string;
+  subcaste: string;
+}
+
 export interface IDeactive {
   user_id?: string;
   is_active?: number;

@@ -29,6 +29,12 @@ import UpdateRole from "../Urole/Pages/UpdateRole";
 import GetAllIExpenseInfo from "../Revenue/Pages/Expense/GetAllIExpenseInfo";
 import UpdateExpenseInfoById from "../Revenue/Pages/Expense/UpdateExpenseInfoById";
 import AddExpenseInfo from "../Revenue/Pages/Expense/AddExpenseInfo";
+import AddIncomeInfo from "../Revenue/Pages/Income/AddIncomeInfo";
+import GetAllIncomeInfo from "../Revenue/Pages/Income/GetAllIncomeInfo";
+import UpdateIncomeInfoById from "../Revenue/Pages/Income/UpdateIncomeInfoById";
+import AllActiveUsers from "../User/AllActiveUsers";
+import DeactiveUser from "../User/DeactiveUser";
+import UpdateUser from "../User/UpdateUser";
 const AdminDashboard = () => {
   return (
     <>

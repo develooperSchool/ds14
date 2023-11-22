@@ -5,6 +5,7 @@ import {
   IRegister,
   IUpdate,
   IDeactive,
+  IUpdateRequest,
 } from "../Model/Iuser";
 import { IResponse } from "../../../utils/Model/Response";
 
@@ -52,9 +53,10 @@ export class UserService {
   };
 
   public static updateUser(
-    body: IUpdate,
+    body: IUpdateRequest,
     id: string
   ): Promise<{ data: IUpdate[] }> {
+    console.log("service", body);
     const data = `${this.serverUrl}/updateuser/${id}`;
     return axios.put(data, body);
   }
@@ -69,11 +71,9 @@ export class UserService {
   }
 
   public static getAllActiveUsers = async (): Promise<{
-    data: IRegisterData[];
+    data: IResponse[];
   }> => {
     const data = `${this.DataUrl}/isActive`;
-    let res = axios.get(data);
-    console.log("Res:", res);
     return axios.get(data);
   };
 }

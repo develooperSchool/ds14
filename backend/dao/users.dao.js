@@ -30,7 +30,7 @@ const getAllActiveUsers = async (req, res) => {
   let values = [];
   let result = [];
   try {
-    let query = "SELECT * FROM user_master where is_active = ?";
+    let query = "SELECT * FROM user_master where is_active = true";
     const [rows, fields] = await db.query(query, values);
     result = rows;
   } catch (err) {

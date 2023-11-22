@@ -3,9 +3,7 @@ const router = express.Router();
 const userController = require("../controllers/users.controller");
 const userValidation = require("../middlewares/validations/users.validation");
 
-router.get("/isActive", (req, res) => {
-  userController.getAllActiveUsers;
-});
+router.get("/isActive", userController.getAllActiveUsers);
 
 router.get("/", (req, res) => {
   userController.getAllUsers(req, res);
