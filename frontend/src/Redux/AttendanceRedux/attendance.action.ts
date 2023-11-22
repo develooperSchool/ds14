@@ -1,6 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AttendanceService } from "../../components/Attendance Records/Services/attendanceService";
-import { IAttendance } from "../../components/Attendance Records/Model/IAttendance";
+import {
+  IAttendance,
+  IUpdateAttendance,
+} from "../../components/Attendance Records/Model/IAttendance";
 
 export const getAllAttendanceAction: any = createAsyncThunk(
   "AttendanceRedux/getAllAttendanceAction",
@@ -28,6 +31,7 @@ export const getAttendanceAction: any = createAsyncThunk(
       const { Id } = payload;
 
       let res = await AttendanceService.getAttendanceById(Id);
+      console.log(res.data);
       return res.data;
     } catch (error: any) {
       if (!error.res) {
@@ -64,7 +68,7 @@ export const createAttendanceAction: any = createAsyncThunk(
 export const updateAttendanceAction: any = createAsyncThunk(
   "AttendanceRedux/updateAttendanceAction",
   async (
-    payload: { updateAttendance: IAttendance; Id: number },
+    payload: { updateAttendance: IUpdateAttendance; Id: number },
     { rejectWithValue }
   ): Promise<IAttendance[] | any> => {
     try {

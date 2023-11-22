@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SalaryAnnexure } from "../Model/SalaryAnnexure";
+import { SalaryAnnexure, SalaryAnnexureUpdate } from "../Model/SalaryAnnexure";
 
 export class SalaryAnnexureService {
   private static serverUrl: string = "http://localhost:4444/api/salary";
@@ -27,9 +27,9 @@ export class SalaryAnnexureService {
   };
 
   public static updateSalaryAnnexure = (
-    updatesalaryannexure: SalaryAnnexure,
+    updatesalaryannexure: SalaryAnnexureUpdate,
     Id: number
-  ): Promise<{ data: SalaryAnnexure[] }> => {
+  ): Promise<{ data: SalaryAnnexureUpdate[] }> => {
     const dataurl = `${this.serverUrl}/${Id}`;
     return axios.put(dataurl, updatesalaryannexure);
   };

@@ -2,20 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import * as SalaryAnnexureAction from "../../Redux/PayrollRedux/salaryAction";
 import { SalaryAnnexure } from "../../components/Payroll/Model/SalaryAnnexure";
 
-export const payrollFeatureKey = "payrollFeatureKey";
+export const salaryfeatureKey = "salaryfeatureKey";
 
 export interface InitialState {
-  payrolls: SalaryAnnexure[];
-  payroll: SalaryAnnexure;
+  salaries: SalaryAnnexure[];
+  salary: SalaryAnnexure;
 }
 
 const initialState: InitialState = {
-  payrolls: [] as SalaryAnnexure[],
-  payroll: {} as SalaryAnnexure,
+  salaries: [] as SalaryAnnexure[],
+  salary: {} as SalaryAnnexure,
 };
 
-export const payrollSlice = createSlice({
-  name: "payrollSlice",
+export const salarySlice = createSlice({
+  name: "salarySlice",
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -23,7 +23,7 @@ export const payrollSlice = createSlice({
     builder.addCase(
       SalaryAnnexureAction.getAllSalaryAnnexureAction.fulfilled,
       (state, action) => {
-        state.payrolls = action.payload;
+        state.salaries = action.payload;
       }
     );
 
@@ -31,7 +31,7 @@ export const payrollSlice = createSlice({
     builder.addCase(
       SalaryAnnexureAction.getSalaryAnnexureAction.fulfilled,
       (state, action) => {
-        state.payroll = action.payload;
+        state.salary = action.payload;
       }
     );
 
@@ -39,7 +39,7 @@ export const payrollSlice = createSlice({
     builder.addCase(
       SalaryAnnexureAction.postSalaryAnnexureAction.fulfilled,
       (state, action) => {
-        state.payroll = action.payload;
+        state.salary = action.payload;
       }
     );
 
@@ -47,7 +47,7 @@ export const payrollSlice = createSlice({
     builder.addCase(
       SalaryAnnexureAction.updateSalaryAnnexureAction.fulfilled,
       (state, action) => {
-        state.payroll = action.payload;
+        state.salary = action.payload;
       }
     );
 
@@ -55,7 +55,7 @@ export const payrollSlice = createSlice({
     builder.addCase(
       SalaryAnnexureAction.deleteSalaryAnnexureAction.fulfilled,
       (state, action) => {
-        state.payroll = {} as SalaryAnnexure;
+        state.salary = {} as SalaryAnnexure;
       }
     );
   },

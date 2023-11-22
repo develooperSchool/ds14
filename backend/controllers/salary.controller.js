@@ -16,6 +16,16 @@ async function getSalaryAnnexure(req, res) {
   }
 }
 
+async function getSalaryById(req, res, next) {
+  try {
+    const salaryData = req.params.annexureId;
+    const salaryAnnexure = await salaryService.getSalaryById(salaryData, res);
+    res.status(HttpStatusCode.OK).json(salaryAnnexure);
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function addSalaryAnnexure(req, res) {
   try {
     const salaryData = req.body;
@@ -57,6 +67,7 @@ async function deleteSalaryAnnexure(req, res) {
 
 module.exports = {
   getSalaryAnnexure,
+  getSalaryById,
   addSalaryAnnexure,
   updateSalaryAnnexure,
   deleteSalaryAnnexure,

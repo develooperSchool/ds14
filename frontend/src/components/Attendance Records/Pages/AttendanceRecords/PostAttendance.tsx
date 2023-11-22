@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as AttendanceAction from "../../../../Redux/AttendanceRedux/attendance.action";
 import { IAttendance } from "../../Model/IAttendance";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const PostAttendance = () => {
     const dispatch = useDispatch();
     const Navi = useNavigate();
+
+    const [startDate, setStartDate] = useState<Date | null>(new Date());
 
     const [localattendance, setlocalattendance] = useState<IAttendance>({
         user_id: 0,
@@ -16,44 +20,82 @@ const PostAttendance = () => {
         total_hours_work: ""
     });
 
+    useEffect(() => {
+        reflectDate();
+    }, [startDate]);
+
+    const changeDate = (date: Date) => {
+        setStartDate(date);
+    };
+
     const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
         setlocalattendance({
             ...localattendance,
             [event.target.name]: event.target.value
-        })
-    }
+        });
+    };
 
-    const formattedDate = (date: Date | string | null): string => {
-        if (date === null) {
-            throw new Error("Date cannot be null");
+    const calculateTotalHoursWorked = () => {
+        const { in_time, out_time } = localattendance;
+
+        if (in_time && out_time) {
+            const inTime = new Date(`2000-01-01T${in_time}`);
+            const outTime = new Date(`2000-01-01T${out_time}`);
+
+            const timeDiffInHours = (outTime.getTime() - inTime.getTime()) / (1000 * 60 * 60);
+
+            const formattedHours = timeDiffInHours.toFixed(2);
+
+            setlocalattendance({
+                ...localattendance,
+                total_hours_work: formattedHours
+            });
         }
+    };
 
-        const dateObject = typeof date === 'string' ? new Date(date) : date;
 
-        const yyyy = dateObject.getFullYear();
-        const mm = String(dateObject.getMonth() + 1).padStart(2, '0');
-        const dd = String(dateObject.getDate()).padStart(2, '0');
 
-        return `${yyyy}-${mm}-${dd}`;
+    useEffect(() => {
+        calculateTotalHoursWorked();
+    }, [localattendance.in_time, localattendance.out_time]);
+
+    const reflectDate = () => {
+        let day = startDate?.getDate();
+        let month: string | number =
+            startDate?.getMonth() != undefined ? startDate?.getMonth() + 1 : "";
+        let year = startDate?.getFullYear();
+
+        let fullDay: string | number = "";
+        let fullMonth: string | number = "";
+        if (day != undefined && month != undefined) {
+            fullDay = day?.toString().length < 2 ? `0${day}` : day;
+            fullMonth = month?.toString().length < 2 ? `0${month}` : month;
+        }
+        const formattedDate = `${fullDay}-${fullMonth}-${year}`;
+        setlocalattendance({
+            ...localattendance,
+            attendance_date: formattedDate,
+        });
     };
 
     const submitData = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const data: IAttendance = {
+            user_id: localattendance.user_id,
+            attendance_date: localattendance.attendance_date,
+            in_time: localattendance.in_time,
+            out_time: localattendance.out_time,
+            total_hours_work: localattendance.total_hours_work
+        };
 
-        try {
-            const formattedAttendanceDate = formattedDate(localattendance.attendance_date);
-
-            const updatedAttendance = { ...localattendance, attendance_date: formattedAttendanceDate };
-            dispatch(AttendanceAction.createAttendanceAction({ body: updatedAttendance })).then((res: any) => {
-                if (res && !res.error) {
-                    Navi('/attendance');
+        dispatch(AttendanceAction.createAttendanceAction({ body: data }))
+            .then((res: any) => {
+                if (res && !res.data) {
+                    Navi("/attendance");
                 }
-            });
-        } catch (error) {
-            throw error;
-        }
+            })
+            .catch((error: any) => console.log("error"));
     };
-
 
     return (
         <>
@@ -80,13 +122,11 @@ const PostAttendance = () => {
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label">Attendance Date</label>
-                                    <input
-                                        type="date"
-                                        onChange={(e) => changeInputEvent(e)}
-                                        name="attendance_date"
-                                        value={localattendance.attendance_date ? formattedDate(localattendance.attendance_date) : ""}
+                                    <DatePicker
+                                        dateFormat="dd-MM-yyyy"
+                                        selected={startDate}
+                                        onChange={(date: Date) => changeDate(date)}
                                         className="form-control"
-                                        placeholder="enter date"
                                     />
                                 </div>
                                 <div className="mb-2">
@@ -99,7 +139,7 @@ const PostAttendance = () => {
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label">Total Hrs Work</label>
-                                    <input type="time" onChange={(e) => changeInputEvent(e)} name="total_hours_work" value={localattendance.total_hours_work} className="form-control" />
+                                    <input type="text" name="total_hours_work" value={localattendance.total_hours_work} className="form-control" readOnly />
                                 </div>
                                 <div className="mb-2">
                                     <button type="submit" className="btn btn-success">Submit</button>
@@ -111,7 +151,7 @@ const PostAttendance = () => {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default PostAttendance;

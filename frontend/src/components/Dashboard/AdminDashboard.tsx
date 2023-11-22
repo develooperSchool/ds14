@@ -114,7 +114,7 @@ const AdminDashboard = () => {
             </Routes>
             <Routes>
               <Route
-                path="/updatepayroll-processing/:annexureId"
+                path="/updatepayroll-processing/:payroll_id"
                 element={<UpdatePayrollProcessing />}
               ></Route>
             </Routes>

@@ -14,4 +14,3 @@ const pool = mysql.createPool({
 
 // Export the pool to use it in your routes/controllers
 module.exports = pool.promise();
-
