@@ -26,13 +26,9 @@ import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
 import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
 import AddRole from "../Urole/Pages/AddRole";
 import UpdateRole from "../Urole/Pages/UpdateRole";
-import GetAllIncomeInfo from "../Revenue/Pages/Income/GetAllIncomeInfo";
-import UpdateIncomeInfoById from "../Revenue/Pages/Income/UpdateIncomeInfoById";
-import AddIncomeInfo from "../Revenue/Pages/Income/AddIncomeInfo";
 import GetAllIExpenseInfo from "../Revenue/Pages/Expense/GetAllIExpenseInfo";
 import UpdateExpenseInfoById from "../Revenue/Pages/Expense/UpdateExpenseInfoById";
 import AddExpenseInfo from "../Revenue/Pages/Expense/AddExpenseInfo";
-
 const AdminDashboard = () => {
   return (
     <>
@@ -70,8 +66,17 @@ const AdminDashboard = () => {
               <Route path="/register" element={<Registration />}></Route>
             </Routes>
             <Routes>
+              <Route path="/updateuser/:id" element={<UpdateUser />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/deactivate/:id" element={<DeactiveUser />}></Route>
+            </Routes>
+            <Routes>
               <Route path="/users" element={<AllUsers />}></Route>
               <Route path="/revenue" element={<GetAllRevenue />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/isActive" element={<AllActiveUsers />}></Route>
             </Routes>
             <Routes>
               <Route path="/attendance" element={<GetAllAttendance />}></Route>

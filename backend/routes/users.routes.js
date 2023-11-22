@@ -3,6 +3,10 @@ const router = express.Router();
 const userController = require("../controllers/users.controller");
 const userValidation = require("../middlewares/validations/users.validation");
 
+router.get("/isActive", (req, res) => {
+  userController.getAllActiveUsers;
+});
+
 router.get("/", (req, res) => {
   userController.getAllUsers(req, res);
 });
@@ -13,15 +17,23 @@ router.post(
   userController.createUser
 );
 
+// router.get(
+//   "/isActive/:id",
+//   userValidation.getIsActiveUserValidation,
+//   userController.getAllActiveUsers
+// );
+
+router.get("/isActive", userController.getAllActiveUsers);
+
+router.get("/byEmail", (req, res) => {
+  userController.getUserByEmail(req, res);
+});
+
 router.get(
   "/:id",
   userValidation.getUserValidationByID,
   userController.getUserById
 );
-
-router.get("/byEmail", (req, res) => {
-  userController.getUserByEmail(req, res);
-});
 
 router.put(
   "/updateRole/:id",

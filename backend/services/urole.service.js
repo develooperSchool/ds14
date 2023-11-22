@@ -65,16 +65,18 @@ const updateRoleById = async (req, res) => {
 };
 
 const updateUserById = async (req, res) => {
+  const rows = [];
   let message = "";
   await roleDao
     .updateUserById(req, res)
     .then((result) => {
-      message = result;
+      // message = result;
+      rows = result;
     })
     .catch((err) => {
       message = err;
     });
-  return message;
+  return rows;
 };
 const userLogin = async (req, res) => {
   let message = "";
