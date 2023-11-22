@@ -26,10 +26,9 @@ import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
 import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
 import AddRole from "../Urole/Pages/AddRole";
 import UpdateRole from "../Urole/Pages/UpdateRole";
-import UpdateUser from "../User/UpdateUser";
-import DeactiveUser from "../User/DeactiveUser";
-import AllActiveUsers from "../User/AllActiveUsers";
-
+import GetAllIExpenseInfo from "../Revenue/Pages/Expense/GetAllIExpenseInfo";
+import UpdateExpenseInfoById from "../Revenue/Pages/Expense/UpdateExpenseInfoById";
+import AddExpenseInfo from "../Revenue/Pages/Expense/AddExpenseInfo";
 const AdminDashboard = () => {
   return (
     <>
@@ -120,7 +119,7 @@ const AdminDashboard = () => {
             </Routes>
             <Routes>
               <Route
-                path="/updatepayroll-processing/:annexureId"
+                path="/updatepayroll-processing/:payroll_id"
                 element={<UpdatePayrollProcessing />}
               ></Route>
             </Routes>
@@ -129,7 +128,7 @@ const AdminDashboard = () => {
             <Routes>
               <Route path="/getrevenue" element={<GetAllRevenue />}></Route>
               <Route
-                path="/updaterevenue/:id"
+                path="/updateRevenue/:id"
                 element={<UpdateRevenue />}
               ></Route>
             </Routes>
@@ -140,7 +139,33 @@ const AdminDashboard = () => {
                 element={<AddRevenueCategory />}
               ></Route>
             </Routes>
-
+            <Routes>
+              <Route path="/getIncome" element={<GetAllIncomeInfo />}></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/updateIncome/:incomeId"
+                element={<UpdateIncomeInfoById />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route path="/addIncome" element={<AddIncomeInfo />}></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/getExpense"
+                element={<GetAllIExpenseInfo />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route
+                path="/updateExpense/:expenseId"
+                element={<UpdateExpenseInfoById />}
+              ></Route>
+            </Routes>
+            <Routes>
+              <Route path="/addExpense" element={<AddExpenseInfo />}></Route>
+            </Routes>
             <Routes>
               <Route path="/login" element={<Login />}></Route>
             </Routes>

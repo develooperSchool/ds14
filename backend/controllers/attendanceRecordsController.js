@@ -32,14 +32,14 @@ async function getAttendanceRecordById(req, res, next) {
       attendanceId,
       res
     );
-    // res.status(HttpStatusCode.OK).json(record);
-    respond(
-      ATTENDANCE_RECORDS_GET_BY_ID,
-      HttpStatusCode.OK,
-      record,
-      new Date(date.now()),
-      res
-    );
+    res.status(HttpStatusCode.OK).json(record);
+    // respond(
+    //   ATTENDANCE_RECORDS_GET_BY_ID,
+    //   HttpStatusCode.OK,
+    //   record,
+    //   new Date(date.now()),
+    //   res
+    // );
   } catch (error) {
     next(error);
   }

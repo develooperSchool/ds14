@@ -98,29 +98,27 @@ const getIncomeInfoById = async (req, res) => {
 
 const addIncomeInfo = async (req, res) => {
   const {
-    studentId,
     totalFees,
     balanceFees,
-    piadFees,
-    transactionID,
-    amount,
-    userID,
+    paidFees,
+    transactionId,
+    incomeAmount,
+    userId,
     revenueCategoryId,
   } = req.body;
   let values = [
-    studentId,
     totalFees,
     balanceFees,
-    piadFees,
-    transactionID,
-    amount,
-    userID,
+    paidFees,
+    transactionId,
+    incomeAmount,
+    userId,
     revenueCategoryId,
   ];
   let result = [];
   try {
     let sqlQuery =
-      "insert into income(student_id,total_fees,balance_fees,paid_fees,transaction_id,amount,user_id,revenue_category_id) values(?,?,?,?,?,?,?,?)";
+      "insert into income(total_fees,balance_fees,paid_fees,transaction_id,income_amount,user_id,revenue_category_id) values(?,?,?,?,?,?,?)";
     const [rows] = await db.query(sqlQuery, values);
     result = rows;
   } catch (err) {

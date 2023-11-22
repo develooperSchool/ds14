@@ -10,6 +10,18 @@ async function getSalaryAnnexure(res) {
   }
 }
 
+async function getSalaryById(annexureId, res) {
+  try {
+    const [rows] = await db.execute(
+      "SELECT * FROM salary_annexure WHERE annexure_id = ?",
+      [annexureId]
+    );
+    return rows[0];
+  } catch (error) {
+    throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
+  }
+}
+
 async function addSalaryAnnexure(salaryData, res) {
   try {
     const [rows] = await db.execute(
@@ -72,6 +84,7 @@ async function deleteSalaryAnnexure(annexureId, res) {
 
 module.exports = {
   getSalaryAnnexure,
+  getSalaryById,
   addSalaryAnnexure,
   updateSalaryAnnexure,
   deleteSalaryAnnexure,

@@ -4,6 +4,13 @@ const salaryController = require("../controllers/salary.controller");
 const SalaryAnnexureValidation = require("../middlewares/validations/salaryannexure.validation");
 
 router.get("/", salaryController.getSalaryAnnexure);
+
+router.get(
+  "/:annexureId",
+
+  salaryController.getSalaryById
+);
+
 router.post(
   "/",
   SalaryAnnexureValidation.addSalaryAnnexureValidation,

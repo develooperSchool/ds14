@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { SalaryAnnexure } from "../Model/SalaryAnnexure"; // Update with your actual path
+import { SalaryAnnexure } from "../Model/SalaryAnnexure";
 import { useNavigate } from "react-router-dom";
 import * as SalaryAnnexureReducer from "../../../Redux/PayrollRedux/salaryReducer";
 import * as SalaryAnnexureAction from "../../../Redux/PayrollRedux/salaryAction";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CreateSalaryAnnexure = () => {
     const dispatch = useDispatch();
     const Navi = useNavigate();
+
+    const [startDate, setStartDate] = useState<Date | null>(new Date());
 
     const [salaryAnnexure, setSalaryAnnexure] = useState<SalaryAnnexure>({
         annexure_id: 0,
@@ -25,11 +29,21 @@ const CreateSalaryAnnexure = () => {
         annexure_date: "",
     });
 
+    useEffect(() => {
+        reflectDate();
+    }, [startDate]);
+
+    const changeDate = (date: Date | null) => {
+        setStartDate(date);
+    };
+
     const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
 
-
-        const updatedAnnexure: SalaryAnnexure = { ...salaryAnnexure, [name]: isNaN(parseFloat(value)) ? value : parseFloat(value) };
+        const updatedAnnexure: SalaryAnnexure = {
+            ...salaryAnnexure,
+            [name]: isNaN(parseFloat(value)) ? value : parseFloat(value),
+        };
 
         if (name === "basic") {
             updatedAnnexure.hra = parseFloat(value) * 0.5;
@@ -44,24 +58,59 @@ const CreateSalaryAnnexure = () => {
             updatedAnnexure.special_allowance -
             updatedAnnexure.profession_tax;
 
-
         setSalaryAnnexure(updatedAnnexure);
     };
 
+    const reflectDate = () => {
+        let day = startDate?.getDate();
+        let month: string | number = startDate?.getMonth() != undefined ? startDate?.getMonth() + 1 : "";
+        let year = startDate?.getFullYear();
+        let fullDay: string | number = "";
+        let fullMonth: string | number = "";
+        if (day != undefined && month != undefined) {
+            fullDay = day?.toString().length < 2 ? `0${day}` : day;
+            fullMonth = month?.toString().length < 2 ? `0${month}` : month;
+        }
+        const formattedDate = `${fullDay}-${fullMonth}-${year}`;
+        setSalaryAnnexure({
+            ...salaryAnnexure,
+            annexure_date: formattedDate,
+        });
+    };
 
-
-    const submitData = (event: React.FormEvent<HTMLFormElement>) => {
+    const submitData = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        reflectDate();
+        console.log("Updated annexure_date:", salaryAnnexure.annexure_date);
 
-        dispatch(SalaryAnnexureAction.postSalaryAnnexureAction({ body: salaryAnnexure }))
-            .then((res: { error: any }) => {
-                if (res && !res.error) {
-                    Navi("/payroll");
-                    console.log("Salary annexure created successfully.");
-                }
-            });
+        const data: SalaryAnnexure = {
+            annexure_id: salaryAnnexure.annexure_id,
+            user_id: salaryAnnexure.user_id,
+            name: salaryAnnexure.name,
+            designation: salaryAnnexure.designation,
+            department: salaryAnnexure.department,
+            job_location: salaryAnnexure.job_location,
+            basic: salaryAnnexure.basic,
+            hra: salaryAnnexure.hra,
+            special_allowance: salaryAnnexure.special_allowance,
+            profession_tax: salaryAnnexure.profession_tax,
+            total_deductions: salaryAnnexure.total_deductions,
+            net_salary: salaryAnnexure.net_salary,
+            annexure_date: salaryAnnexure.annexure_date,
+        };
+
+        try {
+            const res = await dispatch(SalaryAnnexureAction.postSalaryAnnexureAction({ body: data }));
+
+            if (res && !res.data) {
+                Navi("/payroll");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
+
 
     return (
         <div className="container">
@@ -85,6 +134,16 @@ const CreateSalaryAnnexure = () => {
                             <h4>Create Salary Annexure</h4>
                         </div>
                         <form onSubmit={(e) => submitData(e)} className="mt-2">
+                            <div className="mb-2">
+                                <label className="form-label">User Id</label>
+                                <input
+                                    type="number"
+                                    onChange={(e) => changeInputEvent(e)}
+                                    name="user_id"
+                                    value={salaryAnnexure.user_id}
+                                    className="form-control"
+                                />
+                            </div>
                             <div className="mb-2">
                                 <label className="form-label">Name</label>
                                 <input
@@ -129,7 +188,12 @@ const CreateSalaryAnnexure = () => {
                             </div>
                             <div className="mb-2">
                                 <label className="form-label">Annexure Date</label>
-                                <input type="date" name="annexure_date" onChange={(e) => changeInputEvent(e)} pattern="\d{4}-\d{2}-\d{2}" value={salaryAnnexure.annexure_date} className="form-control" />
+                                <DatePicker
+                                    dateFormat="dd-MM-yyyy"
+                                    selected={startDate}
+                                    onChange={(date) => changeDate(date)}
+                                    className="form-control"
+                                />
                             </div>
                             <div className="mb-2">
                                 <button type="submit" className="btn btn-success">Submit</button>

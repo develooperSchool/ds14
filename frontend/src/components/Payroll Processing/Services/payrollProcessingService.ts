@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IProcessing } from "../Model/IProcessing";
+import { IProcessing, IUpdateProcessing } from "../Model/IProcessing";
 
 export class Payrollprocessingservices {
   private static serverUrl: string =
@@ -25,9 +25,9 @@ export class Payrollprocessingservices {
   };
 
   public static updateProcessing = (
-    updateprocess: IProcessing,
+    updateprocess: IUpdateProcessing,
     Id: number
-  ): Promise<{ data: IProcessing[] }> => {
+  ): Promise<{ data: IUpdateProcessing[] }> => {
     const data = `${this.serverUrl}/${Id}`;
     return axios.put(data, updateprocess);
   };
