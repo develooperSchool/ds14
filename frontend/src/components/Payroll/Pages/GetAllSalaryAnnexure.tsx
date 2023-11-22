@@ -11,7 +11,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
     // Data from Redux Store
     const salaryAnnexureReduxState: SalaryAnnexureReducer.InitialState = useSelector(
         (state: RootState) => {
-            return state[SalaryAnnexureReducer.payrollFeatureKey];
+            return state[SalaryAnnexureReducer.salaryfeatureKey];
         }
     );
 
@@ -75,7 +75,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {salaryAnnexureReduxState.payrolls.map((annexure, index) => (
+                                {salaryAnnexureReduxState.salaries.map((annexure, index) => (
                                     <tr key={index}>
                                         <td>{annexure.annexure_id}</td>
                                         <td>{annexure.user_id}</td>

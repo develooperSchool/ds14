@@ -1,6 +1,7 @@
 const { result } = require("@hapi/joi/lib/base");
 const db = require("../config/db-config");
 const SqlError = require("../errors/SqlError");
+const values = require("@hapi/joi/lib/values");
 
 const getAllRoles = async (req, res) => {
   let result = [];
@@ -54,6 +55,51 @@ const addNewRole = async (body) => {
   }
   return message;
 };
+const updateUserById = async (req, res) => {
+  const userId = req.params.id;
+  let result = [];
+  let values = [];
+
+  const {
+    firstName,
+    lastName,
+    email,
+    contact,
+    address,
+    qualification,
+    passingYear,
+    dob,
+    gender,
+    casteCategory,
+    subcaste,
+  } = req.body;
+  try {
+    values = [
+      firstName,
+      lastName,
+      email,
+      contact,
+      address,
+      qualification,
+      passingYear,
+      dob,
+      gender,
+      casteCategory,
+      subcaste,
+      userId,
+    ];
+
+    let sqlQuery =
+      "UPDATE user_master set first_name = ?, last_name = ?, email = ?, contact = ?, address = ?, qualification = ?, passing_year = ?, dob = ?, gender = ?, caste_category = ?, subcaste = ? WHERE user_id = ? ";
+    const [rows, field] = await db.query(sqlQuery, values);
+    result = rows;
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
+  }
+  return result;
+};
 
 const updateRoleById = async (id, body) => {
   let { name } = body;
@@ -68,18 +114,7 @@ const updateRoleById = async (id, body) => {
 
   return message;
 };
-const updateUserById = async (id, body) => {
-  let { username } = body;
-  let message = "";
-  try {
-    let sqlQuery = "UPDATE user_master set first_name =? WHERE user_id = ?";
-    const [result, feild] = await db.query(sqlQuery, [username, id]);
-    console.log(result);
-  } catch (err) {
-    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
-  }
-  return message;
-};
+
 const userLogin = async (username, password) => {
   let message = "";
   let body = {};

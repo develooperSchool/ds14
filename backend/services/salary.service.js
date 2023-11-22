@@ -9,6 +9,15 @@ async function getSalaryAnnexure(res) {
   }
 }
 
+async function getSalaryById(annexureId, res) {
+  try {
+    const salaryAnnexure = await SalaryDao.getSalaryById(annexureId, res);
+    return salaryAnnexure;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function addSalaryAnnexure(salaryData, res) {
   try {
     const annexureId = await SalaryDao.addSalaryAnnexure(salaryData, res);
@@ -36,6 +45,7 @@ async function deleteSalaryAnnexure(annexureId, res) {
 
 module.exports = {
   getSalaryAnnexure,
+  getSalaryById,
   addSalaryAnnexure,
   updateSalaryAnnexure,
   deleteSalaryAnnexure,

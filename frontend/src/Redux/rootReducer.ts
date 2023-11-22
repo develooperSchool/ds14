@@ -10,8 +10,8 @@ import * as PayrollProcessingReducer from "./PayrollProcessingRedux/payrollproce
 const rootReducer: any = combineReducers({
   [RevenueReducer.revenueFeatureKey]: RevenueReducer.revenueSlice.reducer,
   [UserReducer.userFeatureKey]: UserReducer.userSlice.reducer,
-  [SalaryAnnexureReducer.payrollFeatureKey]:
-    SalaryAnnexureReducer.payrollSlice.reducer,
+  [SalaryAnnexureReducer.salaryfeatureKey]:
+    SalaryAnnexureReducer.salarySlice.reducer,
   [AttendanceReducer.attendanceFeatureKey]:
     AttendanceReducer.attendanceSlice.reducer,
   [PayrollProcessingReducer.processingFeatureKey]:

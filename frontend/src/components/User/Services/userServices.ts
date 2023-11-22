@@ -1,5 +1,13 @@
 import axios from "axios";
-import { IUser, IRegisterData, IRegister } from "../Model/Iuser";
+import {
+  IUser,
+  IRegisterData,
+  IRegister,
+  IUpdate,
+  IDeactive,
+  IUpdateRequest,
+} from "../Model/Iuser";
+import { IResponse } from "../../../utils/Model/Response";
 
 export class UserService {
   private static serverUrl: string = "http://localhost:4444/api/v1/urole";
@@ -19,6 +27,24 @@ export class UserService {
     return axios.post(dataurl, body);
   };
 
+  public static getUserById = async (id: string): Promise<IResponse> => {
+    //
+    let response: IResponse = {
+      message: "",
+      statusCode: 0,
+      description: "",
+      body: [],
+      timeStamp: "",
+    };
+    const url = `${this.DataUrl}/${id}`;
+    await axios
+      .get(url)
+      .then((res) => (response = res.data))
+      .catch((err) => console.log(err));
+
+    return response;
+  };
+
   public static createUser = async (
     body: IRegister
   ): Promise<{ data: IRegisterData | any }> => {
@@ -33,4 +59,27 @@ export class UserService {
   
 
   
+  public static updateUser(
+    body: IUpdateRequest,
+    id: string
+  ): Promise<{ data: IUpdate[] }> {
+    const data = `${this.serverUrl}/updateuser/${id}`;
+    return axios.put(data, body);
+  }
+
+  public static async deactiveUser(id: string): Promise<{ data: IResponse }> {
+    const data = `${this.DataUrl}/deactivate/${id}`;
+    await axios
+      .put(data)
+      .then((response) => console.log("reponse", response))
+      .catch((err) => console.log("error", err));
+    return axios.put(data);
+  }
+
+  public static getAllActiveUsers = async (): Promise<{
+    data: IResponse[];
+  }> => {
+    const data = `${this.DataUrl}/isActive`;
+    return axios.get(data);
+  };
 }

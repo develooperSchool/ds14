@@ -1,6 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Payrollprocessingservices } from "../../components/Payroll Processing/Services/payrollProcessingService";
-import { IProcessing } from "../../components/Payroll Processing/Model/IProcessing";
+import {
+  IProcessing,
+  IUpdateProcessing,
+} from "../../components/Payroll Processing/Model/IProcessing";
 
 export const getAllProcessingAction: any = createAsyncThunk(
   "PayrollProcessingRedux/getAllProcessingAction",
@@ -63,7 +66,7 @@ export const createProcessingAction: any = createAsyncThunk(
 export const updateProcessingAction: any = createAsyncThunk(
   "PayrollProcessingRedux/updateProcessingAction",
   async (
-    payload: { updateprocess: IProcessing; Id: number },
+    payload: { updateprocess: IUpdateProcessing; Id: number },
     { rejectWithValue }
   ): Promise<IProcessing[] | any> => {
     try {
