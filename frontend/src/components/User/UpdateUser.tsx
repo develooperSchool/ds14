@@ -4,10 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "./Redux/store";
 import * as userAction from "../../Redux/UserRedux/user.action";
 import * as userReducer from "../../Redux/UserRedux/user.reducer";
-import { IRegisterData, IUpdate } from "./Model/Iuser";
+import { IRegisterData, IUpdate, IUpdateRequest } from "./Model/Iuser";
+import DatePicker from "react-datepicker";
 
 const UpdateUser: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   //Data from redux store
 
@@ -42,9 +44,14 @@ const UpdateUser: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
+    reflectDate();
+  }, [startDate]);
+
+  useEffect(() => {
     if (user && Object.keys(user).length > 0) {
       setLocalUser({
         ...localUser,
+        user_id: user.user_id,
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
@@ -58,7 +65,40 @@ const UpdateUser: React.FC = () => {
         subcaste: user.subcaste,
       });
     }
+    if (localUser.dob && localUser.dob !== "") {
+      let dateArray = String(localUser.dob).split("-");
+      let date: Date = new Date(
+        Number(dateArray[2]),
+        Number(dateArray[1]) - 1,
+        Number(dateArray[0])
+      );
+      setStartDate(date);
+    }
   }, [user]);
+
+  const changeDate = (date: Date | null) => {
+    setStartDate(date);
+  };
+
+  const reflectDate = () => {
+    let day = startDate?.getDate();
+    let month: string | number =
+      startDate?.getMonth() != undefined ? startDate?.getMonth() + 1 : "";
+    let year = startDate?.getFullYear();
+
+    let fullDay: string | number = "";
+    let fullMonth: string | number = "";
+    if (day != undefined && month != undefined) {
+      fullDay = day?.toString().length < 2 ? `0${day}` : day;
+      fullMonth = month?.toString().length < 2 ? `0${month}` : month;
+    }
+    const formattedDate = `${fullDay}-${fullMonth}-${year}`;
+    console.log("formattedDate=", formattedDate);
+    setLocalUser({
+      ...localUser,
+      dob: formattedDate,
+    });
+  };
   const dataFromServer = (id: string) => {
     dispatch(userAction.getUserAction({ id: id }));
   };
@@ -71,20 +111,20 @@ const UpdateUser: React.FC = () => {
 
   const submitData = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-
-    let updateUserData: IUpdate = {
-      first_name: localUser.first_name,
-      last_name: localUser.last_name,
+    let updateUserData: IUpdateRequest = {
+      firstName: localUser.first_name,
+      lastName: localUser.last_name,
       email: localUser.email,
       contact: localUser.contact,
       address: localUser.address,
       qualification: localUser.qualification,
-      passing_year: localUser.passing_year,
+      passingYear: localUser.passing_year,
       dob: localUser.dob,
       gender: localUser.gender,
-      caste_category: localUser.caste_category,
+      casteCategory: localUser.caste_category,
       subcaste: localUser.subcaste,
     };
+    console.log(updateUserData);
     dispatch(
       userAction.updateUserAction({
         updateUserData,
@@ -92,7 +132,7 @@ const UpdateUser: React.FC = () => {
       })
     ).then((res: any) => {
       if (res && !res.error) {
-        navi("/");
+        navi("/users");
       }
     });
   };
@@ -127,6 +167,11 @@ const UpdateUser: React.FC = () => {
               <div className="card-body">
                 <div className="row">
                   <div className="col-lg-6 mb-2">
+                    <input
+                      type="hidden"
+                      name="user_id"
+                      value={localUser.user_id}
+                    />
                     <div className="form-group">
                       <label>First Name</label>
                       <input
@@ -212,6 +257,12 @@ const UpdateUser: React.FC = () => {
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
                       <label>Date of Birth</label>
+                      <DatePicker
+                        dateFormat="dd-MM-yyyy"
+                        selected={startDate}
+                        onChange={(date) => changeDate(date)}
+                        className="form-control"
+                      />
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">

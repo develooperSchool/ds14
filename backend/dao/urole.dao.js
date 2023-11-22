@@ -88,6 +88,7 @@ const updateUserById = async (req, res) => {
       subcaste,
       userId,
     ];
+
     let sqlQuery =
       "UPDATE user_master set first_name = ?, last_name = ?, email = ?, contact = ?, address = ?, qualification = ?, passing_year = ?, dob = ?, gender = ?, caste_category = ?, subcaste = ? WHERE user_id = ? ";
     const [rows, field] = await db.query(sqlQuery, values);
