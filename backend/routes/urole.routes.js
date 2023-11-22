@@ -31,18 +31,16 @@ router.post(
   roleValidation.addRoleValidation,
   roleController.addNewRole
 );
-
-router.put(
-  "/updaterole/:id",
-  roleValidation.getRoleByIdValidation,
-  roleController.updateRoleById
-);
-
 router.put(
   "/updateuser/:id",
   roleValidation.getRoleByIdValidation,
   roleController.updateUserById
 );
+// router.put(
+//   "/updaterole/:id",
+//   roleValidation.getRoleByIdValidation,
+//   roleController.updateRoleById
+// );
 
 router.all("*", (req, res) => {
   res.status(404).json({ error: "Not Found" });

@@ -26,6 +26,19 @@ const getUserById = async (req, res) => {
   return result;
 };
 
+const getAllActiveUsers = async (req, res) => {
+  let values = [];
+  let result = [];
+  try {
+    let query = "SELECT * FROM user_master where is_active = ?";
+    const [rows, fields] = await db.query(query, values);
+    result = rows;
+  } catch (err) {
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
+  }
+  return result;
+};
+
 const getUserByEmail = async (req, res) => {
   let values = [req.body.email];
   let result = [];
@@ -54,9 +67,10 @@ const updateUserRoleById = async (req, res) => {
 };
 
 const deactivateUserById = async (req, res) => {
-  const values = [req.params.id, req.body.isActive];
+  const values = [req.params.id];
+  let result = [];
   try {
-    let sqlQuery = "UPDATE user_master set is_active = ? where user_id= ?";
+    let sqlQuery = "UPDATE user_master set is_active = false where user_id= ?";
     const [result, fields] = await db.query(sqlQuery, values);
 
     if (result.affectedRows > 0) message = "User deactivated successfully";
@@ -127,4 +141,5 @@ module.exports = {
   updateUserRoleById,
   deactivateUserById,
   createUser,
+  getAllActiveUsers,
 };

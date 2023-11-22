@@ -55,8 +55,8 @@ const updateRoleById = async (req, res) => {
 };
 const updateUserById = async (req, res) => {
   await roleService
-    .updateUserById(req.params.id, req.body)
-    .then((result) =>
+    .updateUserById(req, res)
+    .then((rows) =>
       res.status(HttpStatusCode.OK).json("username updated successfully")
     )
     .catch((err) => res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send(err));

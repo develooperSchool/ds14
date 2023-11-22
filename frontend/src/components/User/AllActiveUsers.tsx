@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "./Redux/store";
 import * as UserAction from "../../Redux/UserRedux/user.action";
 import * as UserReducer from "../../Redux/UserRedux/user.reducer";
 import { Link } from "react-router-dom";
-import * as userAction from "../../Redux/UserRedux/user.action";
+import { useSelector } from "react-redux";
 
-const AllUsers: React.FC = () => {
+const AllActiveUsers: React.FC = () => {
   const userReduxState: UserReducer.InitialState = useSelector(
     (state: RootState) => {
       return state[UserReducer.userFeatureKey];
@@ -20,28 +20,14 @@ const AllUsers: React.FC = () => {
   }, []);
 
   const dataFromServer = () => {
-    dispatch(UserAction.getAllUserAction());
+    dispatch(UserAction.getAllActiveUserAction());
   };
-
-  const deactivateUser = (id: string) => {
-    dispatch(
-      userAction.deactiveUserAction({
-        id,
-      })
-    ).then((res: any) => {
-      if (res && !res.error) {
-        // navigate("/");
-        dataFromServer();
-      }
-    });
-  };
-
   return (
     <>
       <div className="container mt-4">
         <div className="row">
           <div className="col">
-            <p className="h3 text-success">All Users</p>
+            <p className="h3 text-success">All Active Users</p>
             <p className="fst-italic">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
               voluptas quod repellat nisi, maxime quas omnis iure? Officia,
@@ -56,10 +42,6 @@ const AllUsers: React.FC = () => {
         </div>
       </div>
       <div className="container">
-        <Link className="btn btn-outline-info m-3" to={"/register"}>
-          +New
-        </Link>
-
         <div className="row">
           <div className="col">
             <table className="table table-striped table-hover text-center">
@@ -96,20 +78,6 @@ const AllUsers: React.FC = () => {
                       <td>{user.gender}</td>
                       <td>{user.caste_category}</td>
                       <td>{user.subcaste}</td>
-                      <td>
-                        <Link
-                          to={`/updateuser/${user.user_id}`}
-                          className="btn btn-outline-success"
-                        >
-                          UPDATE
-                        </Link>
-                        <button
-                          className="btn btn-outline-danger ms-3"
-                          onClick={() => deactivateUser(`${user.user_id}`)}
-                        >
-                          DELETE
-                        </button>
-                      </td>
                     </tr>
                   );
                 })}
@@ -122,4 +90,4 @@ const AllUsers: React.FC = () => {
   );
 };
 
-export default AllUsers;
+export default AllActiveUsers;

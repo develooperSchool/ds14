@@ -26,6 +26,9 @@ import UpdateRevenue from "../Revenue/Pages/RevenueCategory/UpdateRevenue";
 import AddRevenueCategory from "../Revenue/Pages/RevenueCategory/AddRevenueCategory";
 import AddRole from "../Urole/Pages/AddRole";
 import UpdateRole from "../Urole/Pages/UpdateRole";
+import UpdateUser from "../User/UpdateUser";
+import DeactiveUser from "../User/DeactiveUser";
+import AllActiveUsers from "../User/AllActiveUsers";
 
 const AdminDashboard = () => {
   return (
@@ -64,8 +67,17 @@ const AdminDashboard = () => {
               <Route path="/register" element={<Registration />}></Route>
             </Routes>
             <Routes>
+              <Route path="/updateuser/:id" element={<UpdateUser />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/deactivate/:id" element={<DeactiveUser />}></Route>
+            </Routes>
+            <Routes>
               <Route path="/users" element={<AllUsers />}></Route>
               <Route path="/revenue" element={<GetAllRevenue />}></Route>
+            </Routes>
+            <Routes>
+              <Route path="/isActive" element={<AllActiveUsers />}></Route>
             </Routes>
             <Routes>
               <Route path="/attendance" element={<GetAllAttendance />}></Route>

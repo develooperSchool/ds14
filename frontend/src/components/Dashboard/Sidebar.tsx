@@ -43,7 +43,12 @@ const Sidebar = () => {
           </li>
           <li className="mt-3">
             <Link to={"/users"} className="Link">
-              <i className="bi bi-graph-up-arrow"> </i>Users
+              <i className="fa-solid fa-users"> </i> All Users
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/isActive"} className="Link">
+              <i className="fa-solid fa-users"> </i> All Active Users
             </Link>
           </li>
           <li className="mt-3">
