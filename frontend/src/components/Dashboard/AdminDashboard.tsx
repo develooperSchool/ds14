@@ -64,6 +64,7 @@ const AdminDashboard = () => {
               <Route path="/UserProfile" element={<UserProfile />}></Route>
               {/* <Route path="/getrevenue" element={<GetAllRevenue />}></Route> */}
               <Route path="/login" element={<Login />}></Route>
+
             </Routes>
             <Routes>
               <Route path="/forgot" element={<ForgotPwd />}></Route>
@@ -172,9 +173,7 @@ const AdminDashboard = () => {
             <Routes>
               <Route path="/addExpense" element={<AddExpenseInfo />}></Route>
             </Routes>
-            <Routes>
-              <Route path="/login" element={<Login />}></Route>
-            </Routes>
+            
           </div>
 
           <div className="container mt-5">

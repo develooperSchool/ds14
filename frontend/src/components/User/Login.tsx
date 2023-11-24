@@ -39,6 +39,7 @@ const Login: React.FC = () => {
         Navigate("/");
       }
     });
+    
   };
   return (
     <>
@@ -81,7 +82,7 @@ const Login: React.FC = () => {
               <div className="mb-3 ">
                 <Link to={"/forgot"}>Forgot Password</Link>
               </div>
-              <button className="btn btn-success btn-block w-100">Login</button>
+              <button type="submit" className="btn btn-success btn-block w-100">Login</button>
               <div className="mt-3 text-center">
                 <span>New user? </span>
                 <Link to={"/register"}>Register Here</Link>

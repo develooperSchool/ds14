@@ -52,6 +52,13 @@ export class UserService {
     return axios.post(url, body);
   };
 
+  public static logout = () => {
+    localStorage.removeItem("userData");
+  };
+
+  
+
+  
   public static updateUser(
     body: IUpdateRequest,
     id: string
