@@ -72,7 +72,8 @@ const UpdateIncomeInfoById: React.FC = () => {
       totalFees: createIncome.total_fees,
       paidFees: createIncome.paid_fees,
       balanceFees: createIncome.balance_fees - createIncome.paid_fees,
-      amount: createIncome.income_amount + createIncome.paid_fees,
+      amount:
+        Number(createIncome.income_amount) + Number(createIncome.paid_fees),
       userId: createIncome.user_id,
       transactionId: createIncome.transaction_id,
       revenueCategoryId: createIncome.revenue_category_id,
