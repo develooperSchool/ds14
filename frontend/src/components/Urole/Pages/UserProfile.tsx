@@ -24,10 +24,7 @@ function UserProfile() {
   data = data !== null ? user = JSON.parse(data) : data;
 
 
-  function logOut(){
-    localStorage.clear();
-  }
-
+ 
   
 
   return (
@@ -45,7 +42,7 @@ function UserProfile() {
             </li>
           </ul>
         </div>
-        {/* <button className="btn" onClick={logOut}>Logout</button> */}
+       
       </div>
     </div>
   );

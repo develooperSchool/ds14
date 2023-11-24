@@ -173,9 +173,7 @@ const AdminDashboard = () => {
             <Routes>
               <Route path="/addExpense" element={<AddExpenseInfo />}></Route>
             </Routes>
-            <Routes>
-              <Route path="/login" element={<Login />}></Route>
-            </Routes>
+            
           </div>
 
           <div className="container mt-5">

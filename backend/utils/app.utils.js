@@ -37,7 +37,8 @@ const isInvalidDate = (input) => {
 };
 
 const isInvalidPassword = (input) => {
- return !/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/.test(input);
+//  return !/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/.test(input);
+return input.length < 8;
 };
 
 const isInvalidYear = (input) => {
