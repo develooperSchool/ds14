@@ -5,6 +5,7 @@ import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { IAddIncome, IIncome } from "../../Model/IRevenue";
+import { eventNames } from "process";
 
 const UpdateIncomeInfoById: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -41,7 +42,7 @@ const UpdateIncomeInfoById: React.FC = () => {
         income_id: Income.income_id,
         total_fees: Income.total_fees,
         balance_fees: Income.balance_fees,
-        paid_fees: Income.paid_fees,
+        paid_fees: Income.balance_fees,
         transaction_id: Income.transaction_id,
         income_amount: Income.income_amount,
         user_id: Income.user_id,
@@ -66,11 +67,19 @@ const UpdateIncomeInfoById: React.FC = () => {
 
   const submitData = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    // alert("Revenue Added Successfully");
 
     let updateIncomeData: IAddIncome = {
+      totalFees: createIncome.total_fees,
       paidFees: createIncome.paid_fees,
+      balanceFees: createIncome.balance_fees - createIncome.paid_fees,
+      amount:
+        Number(createIncome.income_amount) + Number(createIncome.paid_fees),
+      userId: createIncome.user_id,
+      transactionId: createIncome.transaction_id,
+      revenueCategoryId: createIncome.revenue_category_id,
     };
+
+    alert(JSON.stringify(updateIncomeData));
 
     dispatch(
       RevenueAction.updateIncomeInfoByIdAction({
@@ -82,6 +91,18 @@ const UpdateIncomeInfoById: React.FC = () => {
         Navigate("/getIncome");
       }
     });
+  };
+
+  const validatePaidFees = (
+    event: React.FocusEvent<HTMLInputElement, Element>
+  ) => {
+    if (Income.balance_fees < Number(event.target.value)) {
+      alert("Amount cannot exceed Balance Fees !");
+      setCreateIncome({
+        ...createIncome,
+        paid_fees: createIncome.balance_fees,
+      });
+    }
   };
 
   return (
@@ -115,7 +136,37 @@ const UpdateIncomeInfoById: React.FC = () => {
               </div>
               <form onSubmit={(e) => submitData(e)}>
                 <div className="mb-2">
-                  <label className="form-label">Enter Paid Fees</label>
+                  <label className="form-label">Your Total Course Fee</label>
+                  <input
+                    type="text"
+                    name="total_fees"
+                    value={createIncome.total_fees}
+                    onChange={(e) => {
+                      changeInputEvent(e);
+                    }}
+                    className="form-control"
+                    placeholder="Enter Paid Fees"
+                    disabled
+                  />
+                </div>
+                <div className="mb-2">
+                  <label className="form-label">Your Total Balance Fee</label>
+                  <input
+                    type="text"
+                    name="balance_fees"
+                    value={createIncome.balance_fees}
+                    onChange={(e) => {
+                      changeInputEvent(e);
+                    }}
+                    className="form-control"
+                    placeholder="Enter Paid Fees"
+                    disabled
+                  />
+                </div>
+                <div className="mb-2">
+                  <label className="form-label">
+                    Enter Fee which you paying now
+                  </label>
                   <input
                     type="text"
                     name="paid_fees"
@@ -123,8 +174,9 @@ const UpdateIncomeInfoById: React.FC = () => {
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}
+                    onBlur={(e) => validatePaidFees(e)}
                     className="form-control"
-                    placeholder="Enter Paid Fees"
+                    placeholder="Enter Fee here"
                   />
                 </div>
 

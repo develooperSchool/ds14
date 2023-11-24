@@ -18,7 +18,13 @@ export interface IIncome {
   revenue_category_id: number;
 }
 export interface IAddIncome {
+  totalFees: number;
   paidFees: number;
+  balanceFees: number;
+  amount: number;
+  userId: number;
+  transactionId: number;
+  revenueCategoryId: number;
 }
 
 export interface IExpense {
@@ -29,7 +35,8 @@ export interface IExpense {
   remark: string;
 }
 export interface IAddExpense {
+  revenueCategoryId: number;
   amount: number;
-  mentor_id: number;
+  mentorId: number;
   remark: string;
 }

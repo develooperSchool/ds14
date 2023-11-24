@@ -107,7 +107,7 @@ const updateRevenueCategory = async (req, res) => {
       respond(
         REVENUE_CATEGORY_IS_UPDATED_SUCCESSFULLY,
         HttpStatusCode.CREATED,
-        rows,
+        "REVENUE CATEGORY IS UPDATED SUCCESSFULLY",
         new Date(Date.now()),
         res
       );
@@ -162,7 +162,7 @@ const addIncomeInfo = async (req, res) => {
       respond(
         INCOME_DETAILS_IS_ADDED_SUCCESSFULLY,
         HttpStatusCode.CREATED,
-        rows,
+        "INCOME DETAILS IS ADDED SUCCESSFULLY",
         new Date(Date.now()),
         res
       );
@@ -247,7 +247,7 @@ const addExpenseInfo = async (req, res) => {
       respond(
         EXPENSE_DETAILS_IS_ADDED_SUCCESSFULLY,
         HttpStatusCode.CREATED,
-        rows,
+        "EXPENSE DETAILS IS ADDED SUCCESSFULLY",
         new Date(Date.now()),
         res
       );

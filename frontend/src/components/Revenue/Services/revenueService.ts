@@ -4,6 +4,7 @@ import {
   IRevenueCategory,
   IIncome,
   IExpense,
+  IAddExpense,
 } from "../Model/IRevenue";
 
 export class RevenueService {
@@ -69,7 +70,7 @@ export class RevenueService {
 
   public static addIncomeInfo = (body: IIncome): Promise<{ data: IIncome }> => {
     const dataurl = `${this.serverUrl}/addIncome`;
-
+    console.log("Body :", body);
     return axios.post(dataurl, body);
   };
   public static updateIncomeInfoById = (
