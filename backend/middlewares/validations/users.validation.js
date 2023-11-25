@@ -19,6 +19,13 @@ const getUserValidationByID = (req, res, next) => {
   else next();
 };
 
+const getIsActiveUserValidation = (req, res, next) => {
+  if (userUtil.isInvalidId(req.params.id))
+    throw new InvalidIdError("ID GIVEN FOR DEACTIVATING USER IS INVALID", res);
+  // res.status(httpStatusCode.BAD_REQUEST).send("User Id is invalid")
+  else next();
+};
+
 const updatetUserRoleValidationByID = (req, res, next) => {
   if (userUtil.isInvalidId(req.params.id))
     throw new InvalidIdError("USER_ID GIVEN FOR UPDATING USER IS INVALID", res);
@@ -80,7 +87,10 @@ const createUserValidation = (req, res, next) => {
   // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid Passing Year")
 
   if (userUtil.isInvalidDate(req.body.dob))
-    throw new InvalidDateError("DATE OF BIRTH OF NEW USER IS INVALID", res);
+    throw new InvalidDateError(
+      "DATE OF BIRTH OF NEW USER IS INVALID" + req.body.dob,
+      res
+    );
   // res.status(httpStatusCode.BAD_REQUEST).send("Date of Birth cannot be null or undefined")
 
   if (userUtil.isInvalidGender(req.body.gender))
@@ -118,4 +128,5 @@ module.exports = {
   getUserValidationByID,
   updatetUserRoleValidationByID,
   deactivateUserValidationByID,
+  getIsActiveUserValidation,
 };

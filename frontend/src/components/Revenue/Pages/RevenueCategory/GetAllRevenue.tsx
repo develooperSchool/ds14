@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import * as RevenueReducer from "../../Redux/RevenueRedux/revenue.reducer";
-import * as RevenueAction from "../../Redux/RevenueRedux/revenue.action";
+import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
+import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../Redux/store";
+import { AppDispatch, RootState } from "../../../../Redux/store";
 import { Link } from "react-router-dom";
 
 const GetAllRevenue: React.FC = () => {
@@ -20,6 +20,17 @@ const GetAllRevenue: React.FC = () => {
 
   const dataFromserver = () => {
     dispatach(RevenueAction.getAllRevenueCategoryAction());
+  };
+  const deleteRevenueCategory = (id: string) => {
+    if (id) {
+      dispatach(RevenueAction.deleteRevenueCategoryAction({ id: id })).then(
+        (res: any) => {
+          if (res && !res.error) {
+            dataFromserver();
+          }
+        }
+      );
+    }
   };
 
   return (
@@ -39,7 +50,9 @@ const GetAllRevenue: React.FC = () => {
           </div>
         </div>
       </div>
-
+      <Link to="/addrevenuecategory" className="btn btn-outline-info">
+        Add Category Here
+      </Link>
       <div className="container">
         <div className="row">
           <div className="col">
@@ -59,12 +72,19 @@ const GetAllRevenue: React.FC = () => {
                       <td>{categories.revenue_category_name}</td>
                       <td>
                         <Link
-                          to={`/update/${categories.revenue_category_id}`}
+                          to={`/updateRevenue/${categories.revenue_category_id}`}
                           className="btn btn-outline-success"
                         >
                           Update
                         </Link>
-                        <button className="btn btn-outline-danger">
+                        <button
+                          className="btn btn-outline-danger"
+                          onClick={() =>
+                            deleteRevenueCategory(
+                              categories.revenue_category_id
+                            )
+                          }
+                        >
                           Delete
                         </button>
                       </td>
@@ -79,5 +99,4 @@ const GetAllRevenue: React.FC = () => {
     </>
   );
 };
-
 export default GetAllRevenue;

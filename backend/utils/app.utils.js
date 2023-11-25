@@ -1,5 +1,5 @@
 const isInvalidId = (input) => {
-    return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
+  return !/^[0-9]+$/.test(input) || parseInt(input) <= 0;
 };
 
 const isInvalidName = (input) => {
@@ -37,7 +37,8 @@ const isInvalidDate = (input) => {
 };
 
 const isInvalidPassword = (input) => {
-  return !/^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z\d]{8,20}$/.test(input);
+//  return !/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/.test(input);
+return input.length < 8;
 };
 
 const isInvalidYear = (input) => {
@@ -49,9 +50,20 @@ const isInvalidGender = (input) => {
 };
 
 const isInValidContact = (input) => {
-  return !/^(\+91|91)[789]\d{9}$/.test(input);
+  // return !/^(\+91|91)[789]\d{9}$/.test(input);
+  return !/^[789]\d{9}$/.test(input);
 };
 
+const respond = (message, statusCode, description, timeStamp, res) => {
+  const fieldName = typeof description === "string" ? "description" : "body";
+  const response = {
+    message,
+    statusCode,
+    [fieldName]: description,
+    timeStamp,
+  };
+  res.status(statusCode).send(response);
+};
 
 module.exports = {
   isInvalidId,
@@ -65,4 +77,10 @@ module.exports = {
   isInvalidName,
   isInvalidDate,
   IsInvalidN,
+  respond,
 };
+
+// 1. camelCase --> variableName, functionName, etc    getStudentByEmail
+// 2. PascleCase --> React, ClassName, ComponentName.. ArrayIndexOutOfBoundsException
+// 3. snake_case --> python_language, database_level, database_name, table_name, column_name
+//                   revenue_category_table, revenue_category_id

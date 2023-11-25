@@ -27,6 +27,19 @@ const getUserById = async (req, res) => {
   return rows;
 };
 
+const getAllActiveUsers = async (req, res) => {
+  let rows = [];
+  await userDao
+    .getAllActiveUsers(req, res)
+    .then((res) => {
+      rows = res;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  return rows;
+};
+
 const getUserByEmail = async (req, res) => {
   let rows = [];
   await userDao
@@ -49,25 +62,25 @@ const updateUserRoleById = async (req, res) => {
 };
 
 const deactivateUserById = async (req, res) => {
-  let rows = "";
+  let response = "";
   await userDao
     .deactivateUserById(req, res)
-    .then((result) => (rows = result))
+    .then((result) => (response = result))
     .catch((error) => console.log(error));
-  return rows;
+  return response;
 };
 
 const createUser = async (req, res) => {
-  let rows = "";
+  let description = "";
   await userDao
     .createUser(req, res)
     .then((result) => {
-      console.log(result);
+      description = result;
     })
     .catch((error) => {
-      console.log(error);
+      description = error;
     });
-  return rows;
+  return description;
 };
 module.exports = {
   getAllUsers,
@@ -76,4 +89,5 @@ module.exports = {
   updateUserRoleById,
   deactivateUserById,
   createUser,
+  getAllActiveUsers,
 };
