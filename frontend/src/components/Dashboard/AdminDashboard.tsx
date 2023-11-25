@@ -64,7 +64,6 @@ const AdminDashboard = () => {
               <Route path="/UserProfile" element={<UserProfile />}></Route>
               {/* <Route path="/getrevenue" element={<GetAllRevenue />}></Route> */}
               <Route path="/login" element={<Login />}></Route>
-
             </Routes>
             <Routes>
               <Route path="/forgot" element={<ForgotPwd />}></Route>
@@ -173,38 +172,15 @@ const AdminDashboard = () => {
             <Routes>
               <Route path="/addExpense" element={<AddExpenseInfo />}></Route>
             </Routes>
-            
           </div>
 
           <div className="container mt-5">
             <div className="row">
-              <div className="col-lg-6">
-                <Routes>
-                  <Route path="/" element={<PieChart />}></Route>
-                </Routes>
-              </div>
+              <div className="col-lg-6"></div>
             </div>
+
             <div className="container mt-5">
               <div className="row">
-                <div className="col-lg-6">
-                  <Routes>
-                    <Route path="/" element={<PieChart />}></Route>
-                  </Routes>
-                </div>
-                <div className="col-lg-6">
-                  <Routes>
-                    <Route path="/" element={<PieChartCircle />}></Route>
-                  </Routes>
-                </div>
-              </div>
-            </div>
-            <div className="container mt-5">
-              <div className="row">
-                <div className="col-lg-6">
-                  <Routes>
-                    <Route path="/" element={<PieChart />}></Route>
-                  </Routes>
-                </div>
                 <div className="col-lg-6">
                   <Routes>
                     <Route path="/" element={<PieChartCircle />}></Route>

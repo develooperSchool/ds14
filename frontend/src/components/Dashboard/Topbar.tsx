@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Topbar = () => {
   const navigate = useNavigate();
-  
+
   const handleLogout = (): void => {
     localStorage.clear();
     navigate("/login");
@@ -43,6 +43,8 @@ const Topbar = () => {
                       >
                         Login
                       </Link>
+                    </li>
+                    <li>
                       <button
                         className="nav-link active text-light"
                         onClick={() => handleLogout()}
