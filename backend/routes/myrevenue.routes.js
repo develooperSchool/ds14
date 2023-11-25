@@ -1,67 +1,95 @@
-const express=require("express");
-const revenueController=require("../controllers/myrevenue.controller");
-const router=express.Router();
+const express = require("express");
+const revenueController = require("../controllers/myrevenue.controller");
+const revenueValidation = require("../middlewares/validations/myrevenue.validation");
+const HttpStatusCode = require("../utils/HttpStatusCode");
 
-router.get("/getAllrevenueCatagory",(req,res)=>{
-revenueController.getAllRevenueCategory(req,res);
+const router = express.Router();
+
+router.get("/getAllrevenueCategory", (req, res) => {
+  revenueController.getAllRevenueCategory(req, res);
 });
 
-router.get("/getRevenueCatById/:id",(req,res)=>{
-revenueController.getRevenueCategoryeById(req,res);
+router.get(
+  "/getRevenueCatById/:id",
+  revenueValidation.revenueByIdValidation,
+  revenueController.getRevenueCategoryById
+);
+
+router.post(
+  "/addRevenueCategorydetails",
+  revenueValidation.addRevenueValidation,
+  revenueController.addRevenueCategory
+);
+
+router.delete(
+  "/deleteRevenueCategory/:id",
+  revenueValidation.revenueByIdValidation,
+  revenueController.deleteRevenueCategory
+);
+
+router.put(
+  "/updateRevenueCatBy/:id",
+  revenueValidation.revenueByIdValidation,
+  revenueController.updateRevenueCategory
+);
+
+router.get("/incomeInfo", (req, res) => {
+  revenueController.getAllIncomeInfo(req, res);
 });
 
-router.post("/addRevenueCategory",(req,res)=>{
-revenueController.addRevenueCatogary(req,res);
+router.get(
+  "/incomeInfoById/:id",
+  revenueValidation.revenueByIdValidation,
+  revenueController.getIncomeInfoById
+);
+
+router.post(
+  "/addIncome",
+  revenueValidation.addamountValidation,
+  revenueController.addIncomeInfo
+);
+
+router.put(
+  "/updateIncome/:id",
+  revenueValidation.revenueByIdValidation,
+  revenueController.updateIncomeInfoById
+);
+
+router.delete(
+  "/deleteIncome/:id",
+  revenueValidation.revenueByIdValidation,
+  revenueController.deleteIncomeInfoById
+);
+
+router.get("/getAllExpense", (req, res) => {
+  revenueController.getAllExpenseInfo(req, res);
 });
 
-router.delete("/deleteRevenueCatogory/:id",(req,res)=>{
-revenueController.deleteRevenueCatogary(req,res);
+router.get(
+  "/getExpenseById/:id",
+  revenueValidation.revenueByIdValidation,
+  revenueController.getExpenseInfoById
+);
+
+router.post(
+  "/addExpenseInfo",
+  revenueValidation.addamountValidation,
+  revenueController.addExpenseInfo
+);
+
+router.put(
+  "/updateExpense/:id",
+  revenueValidation.revenueByIdValidation,
+  revenueController.updateExpenseInfoById
+);
+
+router.delete(
+  "/deleteExpense/:id",
+  revenueValidation.revenueByIdValidation,
+  revenueController.deleteExpenseInfoById
+);
+
+router.all("*", (req, res) => {
+  res.status(HttpStatusCode.NOT_FOUND).json("URL NOT FOUND");
 });
-
-
-router.put("/updateRevenueCatBy/:id",(req,res)=>{
-revenueController.updateRevenueCatogary(req,res);
-});
-
-router.get("/incomeInfo",(req,res)=>{
-revenueController.getAllIncomeInfo(req,res);
-});
-
-router.get("/incomeInfoById/:id",(req,res)=>{
-revenueController.getIncomeInfoById(req,res);
-});
-
-router.post("/addIncome",(req,res)=>{
-revenueController.addIncomeInfo(req,res);
-});
-
-router.put("/updateIncome/:id",(req,res)=>{
-revenueController.updateIncomeInfoById(req,res);
-});
-
-router.delete("/deleteIncome/:id",(req,res)=>{
-revenueController.deleteIncomeInfoById(req,res);
-});
-
-router.get("/getAllExpense",(req,res)=>{
-revenueController.getAllExpenseInfo(req,res);
-});
-
-router.get("/getExpenseById/:id",(req,res)=>{
-revenueController.getExpenseInfoById(req,res);
-});
-
-router.post("/addExpenseInfo",(req,res)=>{
-revenueController.addExpenseInfo(req,res);
-});
-
-router.put("/updateExpense/:id",(req,res)=>{
-revenueController.updateExpenseInfo(req,res);
-});
-router.delete("/deleteExpense/:id",(req,res)=>{
-revenueController.deleteExpenseInfo(req,res);
-});
-
-
-
-module.exports=router;
+module.exports = router;

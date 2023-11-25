@@ -1,9 +1,9 @@
 const roleDao = require("../dao/urole.dao");
 
-const getAllRoles = async () => {
+const getAllRoles = async (req, res) => {
   let rows = [];
   await roleDao
-    .getAllRoles()
+    .getAllRoles(req, res)
     .then((res) => {
       rows = res;
     })
@@ -13,12 +13,11 @@ const getAllRoles = async () => {
 
   return rows;
 };
-////////////
 
-const getRoleById = async (role_Id) => {
+const getRoleById = async (req, res) => {
   let rows = [];
   await roleDao
-    .getRoleById(role_Id)
+    .getRoleById(req, res)
     .then((result) => {
       rows = result;
     })
@@ -29,79 +28,76 @@ const getRoleById = async (role_Id) => {
   return rows;
 };
 //
-const deleteRoleById = async (id) => {
-  // let rows = [];
+const deleteRoleById = async (req, res) => {
   await roleDao
-    .deleteRoleById(id)
-    .then(() => {
-      // rows = res;
+    .deleteRoleById(req, res)
+    .then((rows) => {})
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const addNewRole = async (req, res) => {
+  let message = "";
+  await roleDao
+    .addNewRole(req, res)
+    .then((result) => {
+      console.log(result);
     })
     .catch((err) => {
       console.log(err);
     });
-    
+  return message;
 };
 
-const addNewRole = async (body)=>{
-  let res="";
-await roleDao.addNewRole(body)
-.then((result)=>{
-  console.log(result);
-
-})
-.catch((err)=>{
-  console.log(err)
-})
-return res;
-};
-
-const updateRoleById = async (id,body)=>{
-  let message ="";
-
-  await roleDao.updateRoleById(id,body)
-  .then((result)=>{
-    res=result
-  })
-  .catch((err)=>{
-    res=err
-  })
-  return message
-} 
-
-const updateUserById = async (id,body)=>{
+const updateRoleById = async (req, res) => {
   let message = "";
-  await roleDao.updateUserById(id,body)
-  .then((result)=>{
-    res=result
-  })
-  .catch((err)=>{
-    res=err
-  })
-  return message
-}
-const userLogin = async (username,password)=>{
-  let res="";
-  await roleDao.userLogin(username,password)
-  .then((result)=>{
-    console.log(result)
-    res=result
-  })
-  .catch((err)=>{
-    res=err
-  })
-  return res
-}
 
+  await roleDao
+    .updateRoleById(req, res)
+    .then((result) => {
+      res = result;
+    })
+    .catch((err) => {
+      res = err;
+    });
+  return message;
+};
 
+const updateUserById = async (req, res) => {
+  const rows = [];
+  let message = "";
+  await roleDao
+    .updateUserById(req, res)
+    .then((result) => {
+      // message = result;
+      rows = result;
+    })
+    .catch((err) => {
+      message = err;
+    });
+  return rows;
+};
+const userLogin = async (req, res) => {
+  let message = "";
+  await roleDao
+    .userLogin(req, res)
+    .then((result) => {
+      console.log(result);
+      message = result;
+    })
+    .catch((err) => {
+      message = err;
+    });
+  return message;
+};
 
-module.exports ={
-    getAllRoles,
-    getRoleById,
-    deleteRoleById,
-    addNewRole,
-    updateRoleById,
-    updateUserById,
-    userLogin
-    
-    
-}
+module.exports = {
+  getAllRoles,
+  getRoleById,
+  deleteRoleById,
+  addNewRole,
+  updateRoleById,
+  updateUserById,
+  userLogin,
+};

@@ -1,150 +1,316 @@
+const SqlError = require("../errors/SqlError");
 const revenueService = require("../services/myrevenue.service");
+const HttpStatusCode = require("../utils/HttpStatusCode");
+const { respond } = require("../utils/app.utils");
+const {
+  ALL_REVENUE_CATEGORY_DETAILS_GET_SUCCESSFULLY,
+  REVENUE_CATEGORY_DELETED_SUCCESSFULLY,
+  REVENUE_CATEGORY_IS_ADDED_SUCCESSFULLY,
+  REVENUE_CATEGORY_INFORMATION_GET_BY_ID_IS_SUCCESSFULLY,
+  REVENUE_CATEGORY_IS_UPDATED_SUCCESSFULLY,
+  ALL_INCOME_INFORMATION_GET_SUCCESSFULLY,
+  INCOME_INFORMATION_GET_BY_ID_IS_SUCCESSFULLY,
+  INCOME_DETAILS_IS_ADDED_SUCCESSFULLY,
+  INCOME_DETAILS_IS_DELETED_SUCCESSFULLY,
+  INCOME_DETAILS_IS_UPDATED_SUCCESSFULLY,
+  ALL_EXPENSE_INFORMATION_GET_SUCCESSFULLY,
+  EXPENSE_INFORMATION_GET_BY_ID_IS_SUCCESSFULLY,
+  EXPENSE_DETAILS_IS_ADDED_SUCCESSFULLY,
+  EXPENSE_DETAILS_IS_UPDATED_SUCCESSFULLY,
+  EXPENSE_DETAILS_IS_DELETED_SUCCESSFULLY,
+} = require("../utils/app.constants");
 
 const getAllRevenueCategory = async (req, res) => {
-    await revenueService.getAllRevenueCategory().then((rows) => {
-    res.status(200).json(rows);
-    }).catch((err) => {
-    console.log(err)
-    });
-}
-
-const addRevenueCatogary = async (req, res) => {
-    await revenueService.addRevenueCat(req.body.user_Name).then(() => {
-
-
-        // console.log(rows)
-
-        res.status(200).send("Data Added Successfully");
-
-    }).catch((err) => {
-    console.log(err);
-    });
-}
-
-
-const deleteRevenueCatogary = async (req, res) => {
-    await revenueService.deleteRevenueCat(req.params.id).then(() => {
-    res.status(200).send("Given ID Details data deleted Successfully");
-    }).catch((err) => {
-    console.log(err);
-    });
-}
-
-const getRevenueCatogaryById = async (req, res) => {
-    await revenueService.getRevenueCatogaryById(req.params.id).then((rows) => {
-    res.status(200).json(rows);
-    }).catch((err) => {
-    console.log(err);
+  await revenueService
+    .getAllRevenueCategory(req, res)
+    .then((rows) => {
+      //res.status(HttpStatusCode.OK).json(rows);
+      respond(
+        ALL_REVENUE_CATEGORY_DETAILS_GET_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
     })
-}
+    .catch((err) => {
+      console.error(err.message);
+    });
+};
 
+const addRevenueCategory = async (req, res) => {
+  await revenueService
+    .addRevenueCategory(req, res)
+    .then((rows) => {
+      // console.log(rows)
 
-const updateRevenueCatogary = async (req, res) => {
-    await revenueService.updateRevenueCat(req.params.id, req.body.revenueCategoryName).then((rows) => {
-    console.log(rows)
-    res.status(200).send("Data Updated Sucessfully");
-    }).catch((err) => {
-    console.log(err);
+      //res.status(HttpStatusCode.CREATED).json("REVENUE CATEGORY IS ADDED SUCCESSFULLY");
+      respond(
+        REVENUE_CATEGORY_IS_ADDED_SUCCESSFULLY,
+        HttpStatusCode.CREATED,
+        rows,
+        new Date(Date.now()),
+        res
+      );
     })
-}
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const getRevenueCategoryById = async (req, res) => {
+  await revenueService
+    .getRevenueCategoryById(req, res)
+    .then((rows) => {
+      //res.status(HttpStatusCode.OK).json(rows);
+      respond(
+        REVENUE_CATEGORY_INFORMATION_GET_BY_ID_IS_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const deleteRevenueCategory = async (req, res) => {
+  await revenueService
+    .deleteRevenueCategory(req, res)
+    .then((rows) => {
+      // res
+      //   .status(HttpStatusCode.OK)
+      //   .json("REVENUE CATEGORY IS DELETED SUCCESSFULLY");
+      respond(
+        REVENUE_CATEGORY_DELETED_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
+
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const updateRevenueCategory = async (req, res) => {
+  await revenueService
+    .updateRevenueCategory(req, res)
+    .then((rows) => {
+      // res
+      //   .status(HttpStatusCode.CREATED)
+      //   .json("REVENUE CATEGORY IS UPDATED SUCCESSFULLY");
+      respond(
+        REVENUE_CATEGORY_IS_UPDATED_SUCCESSFULLY,
+        HttpStatusCode.CREATED,
+        "REVENUE CATEGORY IS UPDATED SUCCESSFULLY",
+        new Date(Date.now()),
+        res
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 const getAllIncomeInfo = async (req, res) => {
-    await revenueService.getAllIncomeInfo().then((rows) => {
-    res.status(200).json(rows);
-    }).catch((err) => {
-    console.log(err);
+  await revenueService
+    .getAllIncomeInfo(req, res)
+    .then((rows) => {
+      //res.status(HttpStatusCode.OK).json(rows);
+      respond(
+        ALL_INCOME_INFORMATION_GET_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
+
+    .catch((err) => {
+      console.log(err);
     });
-}
+};
 
 const getIncomeInfoById = async (req, res) => {
-    await revenueService.getIncomeInfoById(req.params.id).then((rows) => {
-    res.status(200).json(rows);
-    }).catch((err) => {
-    console.log(err);
+  await revenueService
+    .getIncomeInfoById(req, res)
+    .then((rows) => {
+      //res.status(HttpStatusCode.OK).json(rows);
+      respond(
+        INCOME_INFORMATION_GET_BY_ID_IS_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
+    .catch((err) => {
+      console.log(err);
     });
-}
-
+};
 
 const addIncomeInfo = async (req, res) => {
-    await revenueService.addIncomeInfo(req.body).then((rows) => {
-    console.log(rows)
-    res.status(200).send("Income Information Details Submitted Successfully");
-    }).catch((err) => {
-    console.log(err)
+  await revenueService
+    .addIncomeInfo(req, res)
+    .then((rows) => {
+      //res.status(HttpStatusCode.CREATED).json("INCOME DETAILS IS ADDED SUCCESSFULLY");
+      respond(
+        INCOME_DETAILS_IS_ADDED_SUCCESSFULLY,
+        HttpStatusCode.CREATED,
+        "INCOME DETAILS IS ADDED SUCCESSFULLY",
+        new Date(Date.now()),
+        res
+      );
     })
-}
-
-const updateIncomeInfoById = async (req, res) => {
-    await revenueService.updateIncomeInfoById(req.body.paidFees, req.params.id).then((rows) => {
-    console.log(rows)
-    res.status(200).send("Update Paid Fees Successfully");
-    })
-}
-
-const deleteIncomeInfoById = async (req, res) => {
-    await revenueService.deleteIncomeInfoById(req.params.id).then(() => {
-    res.status(200).send("Income Record deleted...");
-    }).catch((err) => {
-    console.log(err)
+    .catch((err) => {
+      console.log(err);
     });
-}
+};
+const deleteIncomeInfoById = async (req, res) => {
+  await revenueService
+    .deleteIncomeInfoById(req, res)
+    .then((rows) => {
+      //res.status(HttpStatusCode.OK).json("INCOME DETAILS IS DELETED SUCCESSFULLY");
+      respond(
+        INCOME_DETAILS_IS_DELETED_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+const updateIncomeInfoById = async (req, res) => {
+  await revenueService.updateIncomeInfoById(req, res).then((rows) => {
+    //res.status(HttpStatusCode.CREATED).json("INCOME DETAILS IS UPDATED SUCCESSFULLY");
+    respond(
+      INCOME_DETAILS_IS_UPDATED_SUCCESSFULLY,
+      HttpStatusCode.CREATED,
+      rows,
+      new Date(Date.now()),
+      res
+    );
+  });
+};
 
 const getAllExpenseInfo = async (req, res) => {
-    await revenueService.getAllExpenseInfo().then((rows) => {
-    res.status(200).json(rows);
-    }).catch((err) => {
-    console.log(err);
+  await revenueService
+    .getAllExpenseInfo(req, res)
+    .then((rows) => {
+      //res.status(HttpStatusCode.OK).json(rows);
+      respond(
+        ALL_EXPENSE_INFORMATION_GET_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
+    .catch((err) => {
+      console.log(err);
     });
-}
+};
 
 const getExpenseInfoById = async (req, res) => {
-    await revenueService.getExpenseInfoById(req.params.id).then((rows) => {
-    res.status(200).json(rows);
-    }).catch((err) => {
-    console.log(err);
+  await revenueService
+    .getExpenseInfoById(req, res)
+    .then((rows) => {
+      //res.status(HttpStatusCode.OK).json(rows);
+      respond(
+        EXPENSE_INFORMATION_GET_BY_ID_IS_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
+    .catch((err) => {
+      console.log(err);
     });
-}
+};
 
 const addExpenseInfo = async (req, res) => {
-    await revenueService.addExpenseInfo(req.body).then((rows) => {
-    console.log(rows)
-    res.status(200).send("Data Expense Added...");
-    }).catch((err) => {
-    console.log(err)
+  await revenueService
+    .addExpenseInfo(req, res)
+    .then((rows) => {
+      // res
+      //   .status(HttpStatusCode.CREATED)
+      //   .json("EXPENSE DETAILS IS ADDED SUCCESSFULLY");
+      respond(
+        EXPENSE_DETAILS_IS_ADDED_SUCCESSFULLY,
+        HttpStatusCode.CREATED,
+        "EXPENSE DETAILS IS ADDED SUCCESSFULLY",
+        new Date(Date.now()),
+        res
+      );
     })
-}
-
-const updateExpenseInfo = async (req, res) => {
-    await revenueService.updateExpenseInfo(req.body.amount,req.params.id).then((rows)=>{
-    console.log(rows)
-    res.status(200).send("Expense info Updated Successfully...")
-    }).catch((err)=>{
-    console.log(err);
+    .catch((err) => {
+      console.log(err);
     });
-}
+};
 
-const deleteExpenseInfo= async (req, res) => {
-    await revenueService.deleteExpenseInfo(req.params.id).then(() => {
-    res.status(200).send("Income Record deleted for given ID...");
-    }).catch((err) => {
-    console.log(err)
+const updateExpenseInfoById = async (req, res) => {
+  await revenueService
+    .updateExpenseInfoById(req, res)
+    .then((rows) => {
+      //res
+      // .status(HttpStatusCode.CREATED)
+      // .json("EXPENSE DETAILS IS UPDATED SUCCESSFULLY");
+      respond(
+        EXPENSE_DETAILS_IS_UPDATED_SUCCESSFULLY,
+        HttpStatusCode.CREATED,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
+    .catch((err) => {
+      console.log(err);
     });
-}
+};
+
+const deleteExpenseInfoById = async (req, res) => {
+  await revenueService
+    .deleteExpenseInfoById(req, res)
+    .then((rows) => {
+      // res
+      //   .status(HttpStatusCode.OK)
+      //   .json("EXPENSE DETAILS IS DELETED SUCCESSFULLY");
+      respond(
+        EXPENSE_DETAILS_IS_DELETED_SUCCESSFULLY,
+        HttpStatusCode.OK,
+        rows,
+        new Date(Date.now()),
+        res
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 module.exports = {
-    getAllRevenueCategory,
-    addRevenueCatogary,
-    deleteRevenueCatogary,
-    getRevenueCatogaryById,
-    updateRevenueCatogary,
-    getAllIncomeInfo,
-    getIncomeInfoById,
-    addIncomeInfo,
-    updateIncomeInfoById,
-    deleteIncomeInfoById,
-    getAllExpenseInfo,
-    getExpenseInfoById,
-    addExpenseInfo,
-    updateExpenseInfo,
-    deleteExpenseInfo
-}
+  getAllRevenueCategory,
+  addRevenueCategory,
+  deleteRevenueCategory,
+  getRevenueCategoryById,
+  updateRevenueCategory,
+  getAllIncomeInfo,
+  getIncomeInfoById,
+  addIncomeInfo,
+  updateIncomeInfoById,
+  deleteIncomeInfoById,
+  getAllExpenseInfo,
+  getExpenseInfoById,
+  addExpenseInfo,
+  updateExpenseInfoById,
+  deleteExpenseInfoById,
+};

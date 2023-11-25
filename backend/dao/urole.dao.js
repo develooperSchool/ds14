@@ -1,112 +1,140 @@
 const { result } = require("@hapi/joi/lib/base");
 const db = require("../config/db-config");
+const SqlError = require("../errors/SqlError");
+const values = require("@hapi/joi/lib/values");
 
-const getAllRoles = async () => {
+const getAllRoles = async (req, res) => {
   let result = [];
   let values = [];
   try {
-    let sqlQuery = "select * from user_role"
+    let sqlQuery = "select * from user_role";
     const [rows, feild] = await db.query(sqlQuery, values);
-    result = rows
+    result = rows;
   } catch (err) {
-    console.error(err);
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }
   return result;
 };
 
 ///get role by id
-const getRoleById = async (id)=>{
+const getRoleById = async (req, res) => {
   let result = [];
-  let values = [id];
+  let values = [req.params.id];
   try {
-    let sqlQuery = "select * from user_role where role_id=?"
+    let sqlQuery = "select * from user_role where role_id=?";
     const [rows] = await db.query(sqlQuery, values);
-    result = rows
+    result = rows;
   } catch (err) {
-    console.error(err);
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }
   return result;
+};
 
-}
-
-const deleteRoleById = async (id) => {
-  
+const deleteRoleById = async (req, res) => {
   try {
-    let row =[id]
-    let query = 'DELETE FROM user_role WHERE role_id = ?';
-    const rows = db.execute(query, row);
-    console.log("result", rows);
+    let row = [req.params.id];
+    let sqlQuery = "DELETE FROM user_role WHERE role_id = ?";
+    const rows = db.execute(sqlQuery, row);
   } catch (err) {
-    console.error(err);
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }
-  return row;
+  return rows;
 };
 
 //
-const addNewRole = async (body)=>{
-  const {name} = body;
+const addNewRole = async (body) => {
+  const { name } = body;
   let message = "";
 
- try{
-  let sqlQuery = "INSERT INTO user_role (role_name) VALUES (?)";
-  const [result , feilds] = await db.query(sqlQuery,[name]);
-  console.log("result",result)
+  try {
+    let sqlQuery = "INSERT INTO user_role (role_name) VALUES (?)";
+    const [result, feilds] = await db.query(sqlQuery, [name]);
+    console.log("result", result);
+  } catch (error) {
+    throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
+  }
+  return message;
+};
+const updateUserById = async (req, res) => {
+  const userId = req.params.id;
+  let result = [];
+  let values = [];
 
- }catch(error){
-  console.log(error)
- }
- return message;
-}
+  const {
+    firstName,
+    lastName,
+    email,
+    contact,
+    address,
+    qualification,
+    passingYear,
+    dob,
+    gender,
+    casteCategory,
+    subcaste,
+  } = req.body;
+  try {
+    values = [
+      firstName,
+      lastName,
+      email,
+      contact,
+      address,
+      qualification,
+      passingYear,
+      dob,
+      gender,
+      casteCategory,
+      subcaste,
+      userId,
+    ];
 
-const updateRoleById = async (id,body)=>{
-  let {name}=body;
+    let sqlQuery =
+      "UPDATE user_master set first_name = ?, last_name = ?, email = ?, contact = ?, address = ?, qualification = ?, passing_year = ?, dob = ?, gender = ?, caste_category = ?, subcaste = ? WHERE user_id = ? ";
+    const [rows, field] = await db.query(sqlQuery, values);
+    result = rows;
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
+  }
+  return result;
+};
+
+const updateRoleById = async (id, body) => {
+  let { name } = body;
   let message = "";
-  try{
-    let sqlQuery = "UPDATE user_role set role_name = ? WHERE role_id = ?"; 
-  const [result,feilds]= await db.query(sqlQuery,[name ,id]);
-  console.log(result)
-  }
-  catch(err){
-    console.log(err)
+  try {
+    let sqlQuery = "UPDATE user_role set role_name = ? WHERE role_id = ?";
+    const [result, feilds] = await db.query(sqlQuery, [name, id]);
+    console.log(result);
+  } catch (err) {
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }
 
-return message
-  
-}
-const updateUserById = async (id,body)=>{
+  return message;
+};
 
-  
-  let{username}=body;
-  let message ="";
-  try{
-    let sqlQuery = "UPDATE user_master set first_name =? WHERE user_id = ?";
-    const [result,feild]=await db.query(sqlQuery,[username,id])
-    console.log(result)
-  }
-  catch(err){
-    console.log(err)
-  }
-  return message
-}
-const userLogin = async (username,password)=>{
+const userLogin = async (username, password) => {
   let message = "";
-try{
-  let sqlQuery = "SELECT * FROM user_master WHERE email =? AND password = ?";
-  const[result,feild]= await db.query(sqlQuery,[username,password])
-  
-  if(result.length>0){
-    message = "login user successfully"
-  }
-  else{
-    message="USER NOT FOUND"
-  }
-}
-catch(err){
-  console.log(err)
-}
-return message;
-}
+  let body = {};
 
+  try {
+    let sqlQuery = "SELECT * FROM user_master WHERE email =? AND password = ?";
+    const [result, feild] = await db.query(sqlQuery, [username, password]);
+
+    if (result.length > 0) {
+      // message = "login user successfully"
+      body = result[0];
+    } else {
+      message = "USER NOT FOUND";
+    }
+    return message == "" ? body : message;
+  } catch (err) {
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
+  }
+  return message;
+};
 
 module.exports = {
   getAllRoles,
@@ -115,6 +143,5 @@ module.exports = {
   addNewRole,
   updateRoleById,
   updateUserById,
-  userLogin
-  
-}
+  userLogin,
+};

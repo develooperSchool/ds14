@@ -1,85 +1,89 @@
-const { error } = require("@hapi/joi/lib/base")
-const db = require("../config/db-config")
-const getAllUsers= async()=>{
-    let result =[]
-    let values= []
-   try{
-    let sqlQuery = "select * from user_master"
-    const [rows,fields] = await db.query(sqlQuery,values)
-    result=rows
-   }
-   catch(err){
-    console.error(err)
-   }
-   return result
-    
-}
+const db = require("../config/db-config");
+const SqlError = require("../errors/SqlError");
+const getAllUsers = async (res) => {
+  let result = [];
+  let values = [];
+  try {
+    let sqlQuery = "select * from user_master";
+    const [rows, fields] = await db.query(sqlQuery, values);
+    result = rows;
+  } catch (err) {
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
+  }
+  return result;
+};
 
-const getUserById = async (userId)=>{
-let values = [userId]
-let result = []
-try{
-    let query = "SELECT * FROM user_master where user_id = ?"
-    const [rows, fields] = await db.query(query,values)
-    result = rows
-}catch(err){
-    console.error(err)
-}
-return result
-}
+const getUserById = async (req, res) => {
+  let values = [req.params.id];
+  let result = [];
+  try {
+    let query = "SELECT * FROM user_master where user_id = ?";
+    const [rows, fields] = await db.query(query, values);
+    result = rows;
+  } catch (err) {
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
+  }
+  return result;
+};
 
-const getUserByEmail = async (email)=>{
-    let values=[email]
-    let result=[]
-    try{
-        let query = "SELECT * FROM user_master where email = ?"
-        const[rows,fields] = await db.query(query,values)
-        result=rows
-    }catch(err){
-        console.error(err)
-    }
-    return result
-}
+const getAllActiveUsers = async (req, res) => {
+  let values = [];
+  let result = [];
+  try {
+    let query = "SELECT * FROM user_master where is_active = true";
+    const [rows, fields] = await db.query(query, values);
+    result = rows;
+  } catch (err) {
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
+  }
+  return result;
+};
 
-const updateUserRoleById = async(id,body)=>{
-    let message = ""
-    const {roleId} =body
-    try{
-        let sqlQuery = "UPDATE user_master set role_id = ? where user_id = ?"
-        const [result,fields] = await db.query(sqlQuery,[roleId,id])
-        console.log(result)
-        if (result.affectedRows>0) message = "User Role updated successfully"
-        else message="Failed to update"
-    }
-    catch(error) {
-        console.log(error)
-        message ="Error" + error.message
-    }
-    return message
-    }
+const getUserByEmail = async (req, res) => {
+  let values = [req.body.email];
+  let result = [];
+  try {
+    let query = "SELECT * FROM user_master where email = ?";
+    const [rows, fields] = await db.query(query, values);
+    result = rows;
+  } catch (err) {
+    throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
+  }
+  return result;
+};
 
+const updateUserRoleById = async (req, res) => {
+  const values = [req.params.id, req.body.roleId];
 
-const deactivateUserById = async (id,body)=>{
-    let message = ""
-    const {isActive} =body
-    try{
-        let sqlQuery = "UPDATE user_master set is_active = ? where user_id= ?"
-        const[result,fields] = await db.query(sqlQuery,[isActive,id])
-        console.log(result)
-        if(result.affectedRows>0) message = "User deactivated successfully"
-        else message= "Failed to deactivate"
+  try {
+    let sqlQuery = "UPDATE user_master set role_id = ? where user_id = ?";
+    const [result, fields] = await db.query(sqlQuery, values);
 
-    }
-    catch(error){
-        console.log(error)
-        message= "Error "+ error.message
-    }
-    return message
-}
+    if (result.affectedRows > 0) message = "User Role updated successfully";
+  } catch (error) {
+    throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
+  }
+  return result;
+};
 
-const createUser = async(body) =>{
-    let message =""
-    const { firstName,
+const deactivateUserById = async (req, res) => {
+  const values = [req.params.id];
+  let result = [];
+  try {
+    let sqlQuery = "UPDATE user_master set is_active = false where user_id= ?";
+    const [result, fields] = await db.query(sqlQuery, values);
+
+    if (result.affectedRows > 0) message = "User deactivated successfully";
+  } catch (error) {
+    throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
+  }
+  return result;
+};
+
+const createUser = async (req, res) => {
+  let message = "";
+  const {
+    firstName,
     lastName,
     email,
     contact,
@@ -95,41 +99,47 @@ const createUser = async(body) =>{
     createdBy,
     updatedBy,
     isActive,
-    roleId, password} = body
+    roleId,
+    password,
+  } = req.body;
 
-    // let query = "";
-    // let row = [],
-    //   values = [];
-    try {
-        values= [firstName,
-            lastName,
-            email,
-            contact,
-            address,
-            qualification,
-            passingYear,
-            dob,
-            gender,
-            casteCategory,
-            subcaste,
-            creationTs,
-            updationTs,
-            createdBy,
-            updatedBy,
-            isActive,
-            roleId, password]
-            query= "INSERT INTO user_master(first_name, last_name,email,contact,address,qualification,passing_year,dob,gender,caste_category,subcaste,creation_ts,updation_ts,created_by,updated_by,is_active,role_id, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-            const [result,fields]=await db.query(query,values)
-            if(result.affectedRows>0)message = "New User Created successfully"
-            else message = "Failed to create new user"
-    }
-    catch(error){
-    console.log(error)
-    message = "ERROR: " + error.message
+  try {
+    values = [
+      firstName,
+      lastName,
+      email,
+      contact,
+      address,
+      qualification,
+      passingYear,
+      dob,
+      gender,
+      casteCategory,
+      subcaste,
+      creationTs,
+      updationTs,
+      createdBy,
+      updatedBy,
+      isActive,
+      roleId,
+      password,
+    ];
+    query =
+      "INSERT INTO user_master(first_name, last_name,email,contact,address,qualification,passing_year,dob,gender,caste_category,subcaste,is_active,role_id, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    const [result, fields] = await db.query(query, values);
+    if (result.affectedRows > 0) message = "New User Created successfully";
+  } catch (error) {
+    throw new SqlError(String(error.sqlMessage).toUpperCase(), res);
+  }
+  return message;
+};
 
-    }
-    return message
-    }
-
-
-module.exports={getAllUsers, getUserById, getUserByEmail,updateUserRoleById,deactivateUserById, createUser}
+module.exports = {
+  getAllUsers,
+  getUserById,
+  getUserByEmail,
+  updateUserRoleById,
+  deactivateUserById,
+  createUser,
+  getAllActiveUsers,
+};
