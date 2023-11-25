@@ -3,20 +3,12 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import { Route, Routes } from "react-router-dom";
 import Card from "./Card";
-import GetAllCourse from "../Course/GetAllCourse";
+
 import PieChart from "./PieChart";
 import PieChartCircle from "./PieChartCircle";
-import Login from "../User/Login";
-import ForgotPwd from "../User/ForgotPwd";
+
+import GetAllCourses from "../Courses/Pages/GetAllCourses";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
-import GetAllUrole from "../Urole/Pages/GetAllUrole";
-import UserProfile from "../Urole/Pages/UserProfile";
-import Registration from "../User/Registration";
-import AllUsers from "../User/AllUsers";
-import CreateSalaryAnnexure from "../Payroll/Pages/PostSalaryAnnexure";
-import GetAllSalaryAnnexure from "../Payroll/Pages/GetAllSalaryAnnexure";
-import UpdateSalaryAnnexure from "../Payroll/Pages/UpdateSalaryAnnexure";
-import GetAllAttendance from "../Attendance Records/Pages/AttendanceRecords/GetAllAttendance";
 import PostAttendance from "../Attendance Records/Pages/AttendanceRecords/PostAttendance";
 import UpdateAttendance from "../Attendance Records/Pages/AttendanceRecords/UpdateAttendance";
 import GetAllPayrollProcessing from "../Payroll Processing/Pages/GetPayrollProcessing";
@@ -34,8 +26,7 @@ import GetAllIncomeInfo from "../Revenue/Pages/Income/GetAllIncomeInfo";
 import UpdateIncomeInfoById from "../Revenue/Pages/Income/UpdateIncomeInfoById";
 import AllActiveUsers from "../User/AllActiveUsers";
 import DeactiveUser from "../User/DeactiveUser";
-import UpdateUser from "../User/UpdateUser";
-const AdminDashboard = () => {
+import UpdateUser from "../User/UpdateUser";const AdminDashboard = () => {
   return (
     <>
       <div className="container-fluid">
@@ -49,7 +40,7 @@ const AdminDashboard = () => {
               <Route path="/" element={<Card />}></Route>
             </Routes>
             <Routes>
-              <Route path="/course" element={<GetAllCourse />}></Route>
+              <Route path="/courses" element={<GetAllCourses />}></Route>
             </Routes>
             <Routes>
               <Route path="/updateurole/:id" element={<UpdateRole />}></Route>
@@ -194,6 +185,51 @@ const AdminDashboard = () => {
                 <div className="col-lg-6">
                   <Routes>
                     <Route path="/" element={<PieChartCircle />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/rev" element={<GetAllRevenue />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/course_admin" element={<Coursescrud />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/course_update/:Id" element={<Updatecourse />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/create_course" element={<Createcourse />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/time_table" element={<Gettimetable />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/getFaculty" element={<GetFaculty />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/facultyDetails/:userId" element={<FacultyDetails />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/Assign_Faculty" element={<PostFaculty />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/add_timeTable_row" element={<TableRow />}></Route>
                   </Routes>
                 </div>
               </div>

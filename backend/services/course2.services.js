@@ -1,8 +1,15 @@
 var dao=require('../dao/course2.Dao');
 
 let getCourse2=async (req,res)=>{
-    let rows;
+    let rows=[];
      await dao.getCourse2(req,res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
+     return rows;
+};
+
+
+let getCourse2ById=async (req,res)=>{
+    let rows=[];
+     await dao.getCourse2ById(req,res).then((resp)=>{rows=resp;}).catch((err)=>{console.log(err)});
      return rows;
 };
 
@@ -25,4 +32,4 @@ let deleteCourse2=async (req,res)=>{
      return rows;
 };
 
-module.exports={getCourse2,postCourse2,putCourse2,deleteCourse2}
+module.exports={getCourse2,postCourse2,putCourse2,deleteCourse2,getCourse2ById}

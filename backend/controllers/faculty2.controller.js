@@ -3,13 +3,20 @@ const stCode=require('../utils/HttpStatusCode');
 
 let getFaculty2=(req,res)=>{
     services.getFaculty2(req,res).then((resp)=>{ 
-        res.status(stCode.OK).json({resp});
+        res.status(stCode.OK).json(resp);
+    }).catch((err)=>console.log(err));
+};
+
+
+let getFaculty=(req,res)=>{
+    services.getFaculty(req,res).then((resp)=>{ 
+        res.status(stCode.OK).json(resp);
     }).catch((err)=>console.log(err));
 };
 
 let postFaculty2=(req,res)=>{
     services.postFaculty2(req,res).then((resp)=>{ 
-        res.status(stCode.CREATED).json({resp});
+        res.status(stCode.CREATED).json(resp);
     }).catch((err)=>console.log(err));
 };
 
@@ -25,4 +32,4 @@ let deleteFaculty2=(req,res)=>{
     }).catch((err)=>console.log(err));
 };
 
-module.exports={getFaculty2,postFaculty2,putFaculty2,deleteFaculty2};
+module.exports={getFaculty2,getFaculty,postFaculty2,putFaculty2,deleteFaculty2};

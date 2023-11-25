@@ -1,0 +1,10 @@
+.faculty_table{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    position: fixed;
+    top: 100px;
+    left: 238px;
+    width:75%;
+height: 100vh;
+overflow-y: scroll
+}
