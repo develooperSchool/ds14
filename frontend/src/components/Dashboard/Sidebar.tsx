@@ -23,8 +23,8 @@ const Sidebar = () => {
           </li>
           <li className="mt-3">
 
-            <Link to={"/course"} className="Link">
-              <i className=" bi bi-book-half text-dark"> </i>Cource
+            <Link to={"/courses"} className="Link">
+              <i className=" bi bi-book-half text-dark"> </i>Courses
 
             </Link>
           </li>
@@ -34,8 +34,23 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mt-3">
-            <Link to={"/revenue"} className="Link">
+            <Link to={"/rev"} className="Link">
               <i className="bi bi-graph-up-arrow"> </i>Revenue
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/course_admin"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Course_crud
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/time_table"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Time-table
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/getFaculty"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Faculty
             </Link>
           </li>
         </ul>

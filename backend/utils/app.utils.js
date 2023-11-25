@@ -12,7 +12,7 @@ const isInvalidName = (input) => {
 
 const IsInvalidN = (input) => {
   return (
-    !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
+    !/^[a-zA-Z\s\ -']{2,50}$/.test(input) ||
     input.trim().length == 0 ||
     /(.)\1\1+/.test(input)
   );
@@ -20,7 +20,7 @@ const IsInvalidN = (input) => {
 
 const IsInvalidNameNum = (input) => {
   return (
-    !/^[a-zA-Z0-9\s\-']{2,20}$/.test(input) ||
+    /^[a-zA-Z!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{2,20}$/.test(input) ||
     input.length == 0 ||
     /(.)\1\1+/.test(input)
   );

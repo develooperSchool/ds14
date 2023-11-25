@@ -6,16 +6,46 @@ let getEnrollment=async(req,res)=>{
         let q='select * from student_enrollment';
         let values = [];    
         let [rows,fields]=await db.query(q,values)
-        return rows;
+        return rows;  
     }
     catch(err){throw new sqlErr(String(err.sqlMessage).toUpperCase(),res)}
 };
 
-let postEnrollment=async(req,res)=>{
+
+
+let getEnrollmentDataById=async(req,res)=>{
     
     try{
+        let q=`select * from student_enrollment,courses where student_enrollment.user_id=${req.params.Id} and student_enrollment.course_id=courses.course_id`;
+        let values = [];    
+        let [rows,fields]=await db.query(q,values)
+        return rows;  
+    }
+    catch(err){throw new sqlErr(String(err.sqlMessage).toUpperCase(),res)}
+};
+
+let getEnrollmentData=async(req,res)=>{
+    try{
+        let q='select * from student_enrollment,user_master,courses where student_enrollment.user_id=user_master.user_id and student_enrollment.course_id=courses.course_id';
+        let values = [];    
+        let [rows,fields]=await db.query(q,values)
+        return rows;  
+    }
+    catch(err){throw new sqlErr(String(err.sqlMessage).toUpperCase(),res)}
+};
+
+
+
+
+let postEnrollment=async(req,res)=>{
+   
+    try{
+        let T=new Date().getTime();
+        let S=new Date().getSeconds();
+         let unique_id=T+S;
+
         let q='insert into student_enrollment values (?,?,?)';
-        let {unique_id,user_id,course_id} =req.body;
+        let {user_id,course_id} =req.body;
         let values = [unique_id,user_id,course_id];    
         let [rows,fields]=await db.query(q,values)
         return rows;
@@ -44,4 +74,4 @@ let deleteEnrollment=async(req,res)=>{
     catch(err){throw new sqlErr(String(err.sqlMessage).toUpperCase(),res)}
 };
 
-module.exports={getEnrollment,postEnrollment,putEnrollment,deleteEnrollment}
+module.exports={getEnrollmentDataById,getEnrollmentDataById,getEnrollment,getEnrollmentData,postEnrollment,putEnrollment,deleteEnrollment}

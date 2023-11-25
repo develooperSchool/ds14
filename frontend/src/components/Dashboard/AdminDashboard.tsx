@@ -3,16 +3,20 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import { Route, Routes } from "react-router-dom";
 import Card from "./Card";
-import GetAllCourse from "../Course/GetAllCourse";
+
 import PieChart from "./PieChart";
 import PieChartCircle from "./PieChartCircle";
-<<<<<<< HEAD
-import GetAllCourses from "../Courses/GetAllCourses";
-=======
-import Login from "../User/Login";
-import ForgotPwd from "../User/ForgotPwd";
+
+import GetAllCourses from "../Courses/Pages/GetAllCourses";
 import GetAllRevenue from "../Revenue/Pages/RevenueCategory/GetAllRevenue";
->>>>>>> 31c0144b02ddeab9902a2e68bcabadd394a2527d
+import Coursescrud from "../Courses/Pages/Coursescrud";
+import Updatecourse from "../Courses/Pages/UpdateCourse";
+import Createcourse from "../Courses/Pages/CreateCourse";
+import Gettimetable from "../Timetable/Pages/Gettietable";
+import GetFaculty from "../Faculty/Pages/GetFaculty";
+import FacultyDetails from "../Faculty/Pages/FacultyDetails";
+import PostFaculty from "../Faculty/Pages/PostFaculty";
+import TableRow from "../Timetable/Pages/AddTableRow";
 
 const AdminDashboard = () => {
   return (
@@ -44,6 +48,51 @@ const AdminDashboard = () => {
                 <div className="col-lg-6">
                   <Routes>
                     <Route path="/" element={<PieChartCircle />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/rev" element={<GetAllRevenue />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/course_admin" element={<Coursescrud />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/course_update/:Id" element={<Updatecourse />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/create_course" element={<Createcourse />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/time_table" element={<Gettimetable />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/getFaculty" element={<GetFaculty />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/facultyDetails/:userId" element={<FacultyDetails />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/Assign_Faculty" element={<PostFaculty />}></Route>
+                  </Routes>
+                </div>
+                <div className="col-lg-6">
+                  <Routes>
+                    <Route path="/add_timeTable_row" element={<TableRow />}></Route>
                   </Routes>
                 </div>
               </div>

@@ -3,7 +3,7 @@ const stCode=require('../utils/HttpStatusCode');
 
 let getTime=(req,res)=>{
     services.getTime(req,res).then((resp)=>{ 
-        res.status(stCode.OK).json({resp});
+        res.status(stCode.OK).json(resp);
     }).catch((err)=>console.log(err));
 };
 
