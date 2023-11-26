@@ -60,17 +60,27 @@ const Sidebar = () => {
           </li>
           <li className="mt-3">
             <Link to={"/payroll"} className="Link">
-              <i className="bi bi-graph-up-arrow"> </i>Salary Annexure
+              <i className="fa-solid fa-hand-holding-dollar"></i> Salary Annexure
             </Link>
           </li>
           <li className="mt-3">
             <Link to={"/attendance"} className="Link">
-              <i className="bi bi-graph-up-arrow"> </i>Attendance Records
+              <i className="fa-regular fa-calendar-check"></i> Attendance Records
             </Link>
           </li>
           <li className="mt-3">
             <Link to={"/payroll-processing"} className="Link">
-              <i className="bi bi-graph-up-arrow"> </i>Payroll Processing
+              <i className="fas fa-calculator"></i> Payroll Processing
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/letter"} className="Link">
+              <i className="fa-solid fa-envelope"></i> Relieving Letter
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/offerLetter"} className="Link">
+              <i className="fa-solid fa-envelope"></i> Offer Letter
             </Link>
           </li>
         </ul>
