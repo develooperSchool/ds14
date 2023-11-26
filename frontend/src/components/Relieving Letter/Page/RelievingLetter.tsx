@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import logo from "../../Payroll/Images/logo.png";
 import { Button, Form, Modal } from "react-bootstrap";
@@ -111,11 +111,14 @@ const RelievingLetter: React.FC = () => {
         }
     });
 
+    useEffect(() => {
+        handleModalShow();
+    }, [])
+
     const handleModalShow = () => setShowModal(true);
     const handleModalClose = () => setShowModal(false);
 
     const handleFormSubmit = () => {
-        // Perform any additional logic you need on form submission
         setShowModal(false);
     };
 
@@ -231,11 +234,6 @@ const RelievingLetter: React.FC = () => {
                 </Modal.Footer>
             </Modal>
 
-            <div className="container">
-                <Button variant="primary" onClick={handleModalShow}>
-                    FILL DETAILS
-                </Button>
-            </div>
         </>
     );
 };

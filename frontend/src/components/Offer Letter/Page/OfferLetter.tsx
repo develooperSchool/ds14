@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import logo from "../../Payroll/Images/logo.png";
 import { Button, Form, Modal } from "react-bootstrap";
-import { parentPort } from "worker_threads";
 
 const OfferLetter: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
@@ -89,13 +88,16 @@ const OfferLetter: React.FC = () => {
                             <Text style={styles.tableCell}>Name</Text>
                         </View>
                         <View style={[styles.tableCol, styles.header1]}>
+                            <Text style={styles.tableCell}>Designation</Text>
+                        </View>
+                        <View style={[styles.tableCol, styles.header1]}>
                             <Text style={styles.tableCell}>Department</Text>
                         </View>
                         <View style={[styles.tableCol, styles.header1]}>
-                            <Text style={styles.tableCell}>Job Location</Text>
+                            <Text style={styles.tableCell}>Reporting To</Text>
                         </View>
                         <View style={[styles.tableCol, styles.header1]}>
-                            <Text style={styles.tableCell}>Reporting To</Text>
+                            <Text style={styles.tableCell}>Job Location</Text>
                         </View>
 
                     </View>
@@ -107,10 +109,13 @@ const OfferLetter: React.FC = () => {
                             <Text style={styles.tableCell}>{designation}</Text>
                         </View>
                         <View style={styles.tableCol}>
-                            <Text style={styles.tableCell}>{location}</Text>
+                            <Text style={styles.tableCell}>{department}</Text>
                         </View>
                         <View style={styles.tableCol}>
                             <Text style={styles.tableCell}>{reportingTo}</Text>
+                        </View>
+                        <View style={styles.tableCol}>
+                            <Text style={styles.tableCell}>{location}</Text>
                         </View>
 
                     </View>
@@ -214,9 +219,15 @@ const OfferLetter: React.FC = () => {
                         </View>
                     </View>
                 </View>
-                <View style={{ flexDirection: "row", marginTop: 40 }}>
-                    <Text style={{ fontSize: 12 }}>Authorized Signatory</Text>
-                    <Text style={{ fontSize: 12, textAlign: "right" }}>Agreed and Accepted</Text>
+                <View style={{ flexDirection: "row", marginTop: 60 }}>
+                    <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: 12 }}>Authorized Signatory</Text>
+                        <Text style={{ fontSize: 12 }}>Madhu Chandrashekhar, Manager (HR)</Text>
+                    </View>
+                    <View style={{ flex: 1, alignItems: "flex-end" }}>
+                        <Text style={{ fontSize: 12 }}>Agreed and Accepted</Text>
+                        <Text style={{ fontSize: 12 }}>Ashitosh Shelar</Text>
+                    </View>
                 </View>
 
             </Page>
@@ -279,11 +290,11 @@ const OfferLetter: React.FC = () => {
         },
         table: {
             display: "flex",
-            width: "100%", // Updated to 100%
+            width: "100%",
             borderStyle: "solid",
             borderWidth: 1,
-            borderColor: "#000", // Border color
-            marginBottom: 10, // Add some margin for spacing
+            borderColor: "#000",
+            marginBottom: 10,
         },
         tableRow: {
             flexDirection: "row",
@@ -304,6 +315,10 @@ const OfferLetter: React.FC = () => {
         },
 
     });
+
+    useEffect(() => {
+        handleModalShow();
+    }, [])
 
     const handleModalShow = () => setShowModal(true);
     const handleModalClose = () => setShowModal(false);
@@ -554,11 +569,6 @@ const OfferLetter: React.FC = () => {
                 </Modal.Footer>
             </Modal>
 
-            <div className="container">
-                <Button variant="primary" onClick={handleModalShow}>
-                    FILL DETAILS
-                </Button>
-            </div>
         </>
     );
 };
