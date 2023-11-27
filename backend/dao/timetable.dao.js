@@ -3,7 +3,7 @@ let sqlErr=require('../errors/SqlError')
 
 let getTime=async(req,res)=>{
     try{
-        let q='select * from time_table';
+        let q='select * from time_table,subjects,user_master where time_table.sub_id=subjects.sub_id and time_table.user_id=user_master.user_id';
         let values = [];    
         let [rows,fields]=await db.query(q,values)
         return rows;
@@ -12,10 +12,11 @@ let getTime=async(req,res)=>{
 };
 
 let postTime=async(req,res)=>{
+   
     try{
         let q='insert into time_table values (?,?,?,?)';
-        let {id,sub_id,time,faculty_id} =req.body;
-        let values = [id,sub_id,time,faculty_id];    
+        let {Id,sub_id,time,user_id} =req.body;
+        let values = [Id,sub_id,time,user_id];    
         let [rows,fields]=await db.query(q,values)
         return rows;
     }
@@ -34,8 +35,9 @@ let putTime=async(req,res)=>{
 };
 
 let deleteTime=async(req,res)=>{
+    
     try{
-        let q=`delete from time_table  where id = ${req.params.id}`;
+        let q=`delete from time_table  where Id = ${req.params.Id}`;
         let values = [];    
         let [rows,fields]=await db.query(q,values)
         return rows;

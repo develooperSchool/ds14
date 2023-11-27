@@ -3,13 +3,13 @@ const stCode=require('../utils/HttpStatusCode');
 
 let getSubjects=(req,res)=>{
     services.getSubjects(req,res).then((resp)=>{ 
-        res.status(stCode.OK).json({resp});
+        res.status(stCode.OK).json(resp);
     }).catch((err)=>console.log(err));
 };
 
 let postSubjects=(req,res)=>{
     services.postSubjects(req,res).then((resp)=>{ 
-        res.status(stCode.CREATED).json({resp});
+        res.status(stCode.CREATED).json(resp);
     }).catch((err)=>console.log(err));
 };
 

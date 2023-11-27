@@ -4,7 +4,7 @@ const err=require('../../errors/InvalidEnrollmentErr')
 const postEnrollmentValidation=(req,res,next)=>{
     const { unique_id,user_id,course_id}=req.body;
 
-    if (utils.isInvalidId(unique_id)) { throw new err.InvalidUniqueId('ENTER CORRECT ID',res) };
+    // if (utils.isInvalidId(unique_id)) { throw new err.InvalidUniqueId('ENTER CORRECT ID',res) };
     if(utils.isInvalidId(user_id)){throw new err.InvalidUserId('ENTER CORRECT ID',res) };
     if(utils.isInvalidId(course_id)){ throw new err.InvalidCourseId('ENTER CORRECT ID',res) };
      next();
