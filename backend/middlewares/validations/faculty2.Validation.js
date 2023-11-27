@@ -7,7 +7,7 @@ const postFaculty2Validation = (req, res, next) => {
 
     if (utils.isInvalidId(sub_id)) { throw new err.InvalidSubId("ENTER CORRECT ID",res) };
     if(utils.isInvalidId(user_id)){ throw new err.InvalidUserId("ENTER CORRECT ID",res) };
-    if(utils.isInvalidId(faculty_id)){ throw new err.InvalidFacId("ENTER CORRECT ID",res) };
+    
      next();
   };
 

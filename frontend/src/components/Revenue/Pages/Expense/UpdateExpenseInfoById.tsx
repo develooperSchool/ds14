@@ -60,11 +60,11 @@ const UpdateExpenseInfoById: React.FC = () => {
 
   const submitData = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    // alert("Revenue Added Successfully");
 
     let updateExpenseData: IAddExpense = {
+      revenueCategoryId: createExpense.revenue_category_id,
       amount: createExpense.amount,
-      mentor_id: createExpense.mentor_id,
+      mentorId: createExpense.mentor_id,
       remark: createExpense.remark,
     };
 

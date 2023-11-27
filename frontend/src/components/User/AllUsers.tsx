@@ -4,6 +4,7 @@ import { RootState, AppDispatch } from "./Redux/store";
 import * as UserAction from "../../Redux/UserRedux/user.action";
 import * as UserReducer from "../../Redux/UserRedux/user.reducer";
 import { Link } from "react-router-dom";
+import * as userAction from "../../Redux/UserRedux/user.action";
 
 const AllUsers: React.FC = () => {
   const userReduxState: UserReducer.InitialState = useSelector(
@@ -20,6 +21,19 @@ const AllUsers: React.FC = () => {
 
   const dataFromServer = () => {
     dispatch(UserAction.getAllUserAction());
+  };
+
+  const deactivateUser = (id: string) => {
+    dispatch(
+      userAction.deactiveUserAction({
+        id,
+      })
+    ).then((res: any) => {
+      if (res && !res.error) {
+        // navigate("/");
+        dataFromServer();
+      }
+    });
   };
 
   return (
@@ -84,12 +98,15 @@ const AllUsers: React.FC = () => {
                       <td>{user.subcaste}</td>
                       <td>
                         <Link
-                          to={`/user/update/${user.user_id}`}
+                          to={`/updateuser/${user.user_id}`}
                           className="btn btn-outline-success"
                         >
                           UPDATE
                         </Link>
-                        <button className="btn btn-outline-danger ms-3">
+                        <button
+                          className="btn btn-outline-danger ms-3"
+                          onClick={() => deactivateUser(`${user.user_id}`)}
+                        >
                           DELETE
                         </button>
                       </td>

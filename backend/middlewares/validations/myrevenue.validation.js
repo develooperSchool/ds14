@@ -20,7 +20,7 @@ const addRevenueValidation = (req, res, next) => {
 };
 
 const addamountValidation = (req, res, next) => {
-  if (utils.isInvalidId(req.body.incomeAmount))
+  if (utils.isInvalidId(req.body.amount))
     throw new InvalidAmountError("PLEASE ENTER CORRECT AMOUNT", res);
   // res.status(HttpStatusCode.BAD_REQUEST).send("PLEASE ENTER CORRECT AMOUNT");
   else next();

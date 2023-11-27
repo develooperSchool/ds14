@@ -7,8 +7,8 @@ router.get(`/get`,(req,res)=>{controller.getTime(req,res);});
 
 router.post(`/post`,validation.postTimeValidation,controller.postTime);
 
-router.put(`/update/:id`,validation.putTimeValidation,controller.putTime);
+router.put(`/update/:Id`,validation.putTimeValidation,controller.putTime);
 
-router.delete(`/delete/:id`,validation.deleteTimeValidation,controller.deleteTime);
+router.delete(`/delete/:Id`,validation.deleteTimeValidation,controller.deleteTime);
 
 module.exports = router;

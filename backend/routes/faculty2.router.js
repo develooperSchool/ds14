@@ -5,6 +5,8 @@ const validation=require('../middlewares/validations/faculty2.Validation');
 
 router.get(`/get`,(req,res)=>{ controller.getFaculty2(req,res);});
 
+router.get(`/getFaculty`,(req,res)=>{ controller.getFaculty(req,res);});
+
 router.post(`/post`,validation.postFaculty2Validation,controller.postFaculty2);
 
 router.put(`/update/:id`,validation.putFaculty2Validation,controller.putFaculty2);

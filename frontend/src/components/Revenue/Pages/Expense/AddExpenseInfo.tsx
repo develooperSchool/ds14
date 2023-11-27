@@ -17,8 +17,9 @@ const AddExpenseInfo = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const [createExpense, setCreateExpense] = useState<IAddExpense>({
+    revenueCategoryId: 0,
     amount: 0,
-    mentor_id: 0,
+    mentorId: 0,
     remark: "",
   });
 
@@ -74,9 +75,25 @@ const AddExpenseInfo = () => {
               </div>
               <form onSubmit={(e) => submitData(e)}>
                 <div className="mb-2">
-                  <label className="form-label">Enter Amount</label>
+                  <label className="form-label">
+                    Enter Revenue Category ID
+                  </label>
                   <input
                     type="text"
+                    name="revenueCategoryId"
+                    value={createExpense.revenueCategoryId}
+                    onChange={(e) => {
+                      changeInputEvent(e);
+                    }}
+                    className="form-control"
+                    placeholder="Enter Revenue Category Id"
+                  />
+                </div>
+
+                <div className="mb-2">
+                  <label className="form-label">Enter Amount</label>
+                  <input
+                    type="number"
                     name="amount"
                     value={createExpense.amount}
                     onChange={(e) => {
@@ -90,8 +107,8 @@ const AddExpenseInfo = () => {
                   <label className="form-label">Enter Mentor ID</label>
                   <input
                     type="text"
-                    name="mentor_id"
-                    value={createExpense.mentor_id}
+                    name="mentorId"
+                    value={createExpense.mentorId}
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}
@@ -99,6 +116,7 @@ const AddExpenseInfo = () => {
                     placeholder="Enter Mentor Id"
                   />
                 </div>
+
                 <div className="mb-2">
                   <label className="form-label">Enter Remark</label>
                   <input

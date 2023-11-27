@@ -1,7 +1,12 @@
 const userService = require("../services/users.service");
 const HttpStatusCode = require("../utils/HttpStatusCode");
 const { respond } = require("../utils/app.utils");
-const { NEW_USER_CREATED_SUCCESSFULLY, SUCCESS , USER_ROLE_UPDATED, USER_DEACTIVATED_SUCCESSFULLY} = require("../utils/app.constants")
+const {
+  NEW_USER_CREATED_SUCCESSFULLY,
+  SUCCESS,
+  USER_ROLE_UPDATED,
+  USER_DEACTIVATED_SUCCESSFULLY,
+} = require("../utils/app.constants");
 const getAllUsers = async (req, res) => {
   await userService
     .getAllUsers(res)
@@ -18,6 +23,19 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   await userService
     .getUserById(req, res)
+    .then((rows) => {
+      // console.log(rows);
+      // res.status(HttpStatusCode.OK).json(rows);
+      respond(SUCCESS, HttpStatusCode.OK, rows, new Date(Date.now()), res);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+const getAllActiveUsers = async (req, res) => {
+  await userService
+    .getAllActiveUsers(req, res)
     .then((rows) => {
       // console.log(rows);
       // res.status(HttpStatusCode.OK).json(rows);
@@ -62,12 +80,12 @@ const updateUserRoleById = async (req, res) => {
 const deactivateUserById = async (req, res) => {
   await userService
     .deactivateUserById(req, res)
-    .then((result) => {
+    .then((response) => {
       // res.status(HttpStatusCode.OK).json("User Deactivated successfully");
       respond(
         USER_DEACTIVATED_SUCCESSFULLY,
         HttpStatusCode.OK,
-        rows,
+        response,
         new Date(Date.now()),
         res
       );
@@ -105,4 +123,5 @@ module.exports = {
   updateUserRoleById,
   deactivateUserById,
   createUser,
+  getAllActiveUsers,
 };

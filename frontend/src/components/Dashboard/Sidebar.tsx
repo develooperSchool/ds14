@@ -22,8 +22,8 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mt-3">
-            <Link to={"/course"} className="Link">
-              <i className=" bi bi-book-half text-dark"> </i>Cource
+            <Link to={"/courses"} className="Link">
+              <i className=" bi bi-book-half text-dark"> </i>Courses
             </Link>
           </li>
           <li className="mt-3">
@@ -32,17 +32,15 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mt-3">
-            <Link to={"/getrevenue"} className="Link">
+            <Link to={"/revenue"} className="Link">
               <i className="bi bi-graph-up-arrow"> </i>Revenue
             </Link>
           </li>
-
           <li className="mt-3">
             <Link to={"/getIncome"} className="Link">
               <i className="bi bi-currency-rupee"> </i>Income
             </Link>
           </li>
-
           <li className="mt-3">
             <Link to={"/getExpense"} className="Link">
               <i className="bi bi-currency-exchange"> </i>Expense
@@ -55,7 +53,12 @@ const Sidebar = () => {
           </li>
           <li className="mt-3">
             <Link to={"/users"} className="Link">
-              <i className="bi bi-graph-up-arrow"> </i>Users
+              <i className="fa-solid fa-users"> </i> All Users
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/isActive"} className="Link">
+              <i className="fa-solid fa-users"> </i> All Active Users
             </Link>
           </li>
           <li className="mt-3">
@@ -81,6 +84,21 @@ const Sidebar = () => {
           <li className="mt-3">
             <Link to={"/offerLetter"} className="Link">
               <i className="fa-solid fa-envelope"></i> Offer Letter
+            </Link>
+          </li>{" "}
+          <li className="mt-3">
+            <Link to={"/course_admin"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Course_crud
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/time_table"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Time-table
+            </Link>
+          </li>
+          <li className="mt-3">
+            <Link to={"/getFaculty"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Faculty
             </Link>
           </li>
         </ul>

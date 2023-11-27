@@ -22,6 +22,9 @@ export const userSlice = createSlice({
       state.users = action.payload;
     });
 
+    builder.addCase(UserAction.getUserAction.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
     builder.addCase(UserAction.userLoginAction.fulfilled, (state, action) => {
       state.user = action.payload;
     });
@@ -29,5 +32,23 @@ export const userSlice = createSlice({
     builder.addCase(UserAction.createUserAction.fulfilled, (state, action) => {
       state.user = action.payload;
     });
+
+    builder.addCase(UserAction.updateUserAction.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
+
+    builder.addCase(
+      UserAction.deactiveUserAction.fulfilled,
+      (state, action) => {
+        state.user = action.payload;
+      }
+    );
+    builder.addCase(
+      UserAction.getAllActiveUserAction.fulfilled,
+      (state, action) => {
+        state.users = action.payload;
+      }
+    );
   },
 });
+///

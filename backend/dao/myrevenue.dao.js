@@ -102,7 +102,7 @@ const addIncomeInfo = async (req, res) => {
     balanceFees,
     paidFees,
     transactionId,
-    incomeAmount,
+    amount,
     userId,
     revenueCategoryId,
   } = req.body;
@@ -111,7 +111,7 @@ const addIncomeInfo = async (req, res) => {
     balanceFees,
     paidFees,
     transactionId,
-    incomeAmount,
+    amount,
     userId,
     revenueCategoryId,
   ];
@@ -140,10 +140,12 @@ const deleteIncomeInfoById = async (req, res) => {
   return result;
 };
 const updateIncomeInfoById = async (req, res) => {
-  let values = [req.body.paidFees, req.params.id];
+  const { paidFees, balanceFees, amount } = req.body;
+  let values = [paidFees, balanceFees, amount, req.params.id];
   let result = [];
   try {
-    sqlQuery = "update income set paid_fees=? where income_id=?";
+    sqlQuery =
+      "update income set paid_fees=?, balance_fees = ?, income_amount = ? where income_id=?";
     const [rows] = await db.query(sqlQuery, values);
     result = rows;
   } catch (err) {
