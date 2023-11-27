@@ -51,19 +51,21 @@ const UpdateAttendance: React.FC = () => {
                 total_hours_work: attendance.total_hours_work,
             });
 
-            let dateArray: any = attendance.attendance_date.split("-");
-            let date: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]))
+            if (attendance.attendance_date && attendance.attendance_date !== "") {
+                let dateArray: any = attendance.attendance_date.split("-");
+                let date: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]))
 
-            setStartDate(date)
+                setStartDate(date)
 
-            // Time:
-            let inTimeArray: any = attendance.in_time.split(":");
-            let dateInTime: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]), Number(inTimeArray[0]), Number(inTimeArray[1]), Number(inTimeArray[2]))
-            setInTime(dateInTime)
+                // Time:
+                let inTimeArray: any = attendance.in_time.split(":");
+                let dateInTime: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]), Number(inTimeArray[0]), Number(inTimeArray[1]), Number(inTimeArray[2]))
+                setInTime(dateInTime)
 
-            let outTimeArray: any = attendance.out_time.split(":");
-            let dateOutTime: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]), Number(outTimeArray[0]), Number(outTimeArray[1]), Number(outTimeArray[2]))
-            setOutTime(dateOutTime);
+                let outTimeArray: any = attendance.out_time.split(":");
+                let dateOutTime: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]), Number(outTimeArray[0]), Number(outTimeArray[1]), Number(outTimeArray[2]))
+                setOutTime(dateOutTime);
+            }
         }
     }, [attendance]);
 

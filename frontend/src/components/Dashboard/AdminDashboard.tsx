@@ -21,6 +21,10 @@ import UpdateRole from "../Urole/Pages/UpdateRole";
 import GetAllIExpenseInfo from "../Revenue/Pages/Expense/GetAllIExpenseInfo";
 import UpdateExpenseInfoById from "../Revenue/Pages/Expense/UpdateExpenseInfoById";
 import AddExpenseInfo from "../Revenue/Pages/Expense/AddExpenseInfo";
+import RelievingLetter from "../Relieving Letter/Page/RelievingLetter";
+import OfferLetter from "../Offer Letter/Page/OfferLetter";
+
+
 import AddIncomeInfo from "../Revenue/Pages/Income/AddIncomeInfo";
 import GetAllIncomeInfo from "../Revenue/Pages/Income/GetAllIncomeInfo";
 import UpdateIncomeInfoById from "../Revenue/Pages/Income/UpdateIncomeInfoById";
@@ -119,6 +123,14 @@ const AdminDashboard = () => {
                 path="/updatepayroll-processing/:payroll_id"
                 element={<UpdatePayrollProcessing />}
               ></Route>
+
+
+              <Route path="/letter" element={<RelievingLetter />}></Route>
+
+
+
+              <Route path="/offerLetter" element={<OfferLetter />}></Route>
+
 
               {/* Revenue Code Below */}
 
