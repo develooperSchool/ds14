@@ -47,11 +47,12 @@ const UpdatePayrollProcessing: React.FC = () => {
                 net_salary: process.net_salary,
             });
 
-            let dateArray = process.payroll_date.split("-");
-            let date: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]))
+            if (process.payroll_date && process.payroll_date !== "") {
+                let dateArray = process.payroll_date.split("-");
+                let date: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]))
 
-            setStartDate(date)
-
+                setStartDate(date)
+            }
         }
     }, [process]);
 

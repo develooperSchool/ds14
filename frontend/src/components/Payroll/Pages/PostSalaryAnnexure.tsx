@@ -52,6 +52,11 @@ const CreateSalaryAnnexure = () => {
             updatedAnnexure.total_deductions = parseFloat(value);
         }
 
+        updatedAnnexure.profession_tax = 200;
+
+        updatedAnnexure.total_deductions =
+            updatedAnnexure.profession_tax;
+
         updatedAnnexure.net_salary =
             updatedAnnexure.basic +
             updatedAnnexure.hra +
@@ -176,7 +181,7 @@ const CreateSalaryAnnexure = () => {
                             </div>
                             <div className="mb-2">
                                 <label className="form-label">Profession Tax</label>
-                                <input type="number" step="0.01" onChange={(e) => changeInputEvent(e)} name="profession_tax" value={salaryAnnexure.profession_tax} className="form-control" />
+                                <input type="number" step="0.01" onChange={(e) => changeInputEvent(e)} name="profession_tax" value={200} className="form-control" />
                             </div>
                             <div className="mb-2">
                                 <label className="form-label">HRA</label>
