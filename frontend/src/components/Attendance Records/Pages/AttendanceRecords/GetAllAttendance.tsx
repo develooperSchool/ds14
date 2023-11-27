@@ -53,7 +53,7 @@ const GetAllAttendance: React.FC = () => {
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <table className="table table-stripped table-hover text-center">
+                        <table className="table table-secondary table-stripped table-hover text-center">
                             <thead>
                                 <tr>
                                     <th>Attendance Id</th>
@@ -78,12 +78,12 @@ const GetAllAttendance: React.FC = () => {
                                             <td>
                                                 <Link
                                                     to={`/updateattendance/${newattend.attendance_id}`}
-                                                    className="btn btn-outline-success"
+                                                    className="btn btn-success"
                                                 >
                                                     Update
                                                 </Link>
                                                 <button
-                                                    className="btn btn-outline-danger"
+                                                    className="btn btn-danger"
                                                     onClick={() =>
                                                         deleteAttendance(
                                                             String(newattend.attendance_id)
