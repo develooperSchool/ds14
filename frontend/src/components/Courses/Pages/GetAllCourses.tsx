@@ -21,7 +21,9 @@ let GetAllCourses: React.FC = () => {
   const dataFromserver = () => {
     dispatach(couresActions.getAllCourseAction());
     dispatach(
-      couresActions.getPurchasedCourseByIdAction({ Id: userObject.user_id })
+      couresActions.getPurchasedCourseByIdAction({
+        Id: userObject.user_id,
+      })
     );
   };
 
@@ -32,6 +34,10 @@ let GetAllCourses: React.FC = () => {
   let setLocalData = (courseData: ICOURSES) => {
     localStorage.setItem("courseData", JSON.stringify(courseData));
   };
+
+  let data: any = localStorage.getItem("courseData");
+  let a: any = JSON.parse(data);
+  console.log(a);
 
   return (
     <>
