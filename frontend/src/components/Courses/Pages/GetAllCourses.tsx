@@ -14,17 +14,18 @@ let GetAllCourses: React.FC = () => {
       return state[courseReducer.CourseFeatureKey];
     }
   );
+
   const dispatach: AppDispatch = useDispatch();
   let userData: any = localStorage.getItem("userData");
   let userObject: IUSERBYID = JSON.parse(userData);
 
   const dataFromserver = () => {
     dispatach(couresActions.getAllCourseAction());
-    dispatach(
-      couresActions.getPurchasedCourseByIdAction({
-        Id: userObject.user_id,
-      })
-    );
+    if (userObject.user_id) {
+      dispatach(
+        couresActions.getPurchasedCourseByIdAction({ Id: userObject.user_id })
+      );
+    }
   };
 
   useEffect(() => {
@@ -34,10 +35,6 @@ let GetAllCourses: React.FC = () => {
   let setLocalData = (courseData: ICOURSES) => {
     localStorage.setItem("courseData", JSON.stringify(courseData));
   };
-
-  let data: any = localStorage.getItem("courseData");
-  let a: any = JSON.parse(data);
-  console.log(a);
 
   return (
     <>
