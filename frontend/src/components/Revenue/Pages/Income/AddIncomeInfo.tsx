@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
 import { AppDispatch } from "../../../../Redux/store";
 import { useDispatch } from "react-redux";
 import { IAddIncome } from "../../Model/IRevenue";
 import { useNavigate } from "react-router-dom";
+import { ICOURSES } from "../../../Courses/Model/Icourses";
+import { IUser } from "../../../User/Model/Iuser";
+import { IUSERBYID } from "../../../Faculty/Model/Ifaculty";
+import * as EnrollmentAction from "../../../../Redux/EnrollmentRedux/Enrollment.actions";
 
 const AddIncomeInfo = () => {
   const Navigate = useNavigate();
@@ -21,6 +25,12 @@ const AddIncomeInfo = () => {
     revenueCategoryId: 0,
   });
 
+  const [courseObject, setCourseObject] = useState<ICOURSES>({
+    course_duration: "",
+    course_fees: "",
+    course_name: "",
+  });
+
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddIncome({
       ...addIncome,
@@ -28,34 +38,56 @@ const AddIncomeInfo = () => {
     });
   };
 
+  useEffect(() => {
+    let localCourse: string | null = localStorage.getItem("courseData");
+    let localUser: string | null = localStorage.getItem("userData");
+    let userData: IUSERBYID = localUser ? JSON.parse(localUser) : {};
+    let courseData: ICOURSES = localCourse
+      ? JSON.parse(localCourse)
+      : courseObject;
+    setCourseObject(courseData);
+    // if (courseObject.course_fees !== "") {
+    //   console.log(courseObject);
+
+    setAddIncome({
+      ...addIncome,
+      totalFees: Number(courseObject.course_fees),
+      balanceFees: Number(courseObject.course_fees),
+      userId: userData.user_id,
+      revenueCategoryId: 1063,
+      transactionId: 454545,
+      paidFees: Number(courseObject.course_fees),
+    });
+    console.log(addIncome);
+  }, [courseObject.course_fees]);
+
   const submitData = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     console.log("submit", addIncome);
 
     dispatch(RevenueAction.addIncomeInfoAction({ body: addIncome }))
       .then((res: any) => {
         if (res && !res.error) {
-          Navigate("/getIncome");
+          dispatch(
+            EnrollmentAction.createEnrollmentAction({
+              obj: {
+                user_id: addIncome.userId,
+                course_id: courseObject.course_id,
+              },
+            })
+          );
+          Navigate("/courses");
+          localStorage.removeItem("courseData");
         }
       })
       .catch((err: any) => {
         console.log("err", err);
       });
   };
-  //code for dropdown
-  const [selectedValue, setSelectedValue] = useState("");
-
-  const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // Update the state with the selected value
-    setSelectedValue(e.target.value);
-    setAddIncome({
-      ...addIncome,
-      totalFees: Number(e.target.value),
-    });
-  };
 
   const calculateBalanceFees = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let balanceFee = Number(selectedValue) - Number(e.target.value);
+    let balanceFee = Number(addIncome.totalFees) - Number(addIncome.paidFees);
     if (balanceFee >= 0) {
       setAddIncome({
         ...addIncome,
@@ -107,20 +139,12 @@ const AddIncomeInfo = () => {
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
                       <label className="form-label">Select Course</label>
-                      <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={selectedValue}
-                        onChange={(e) => handleDropdownChange(e)}
-                      >
-                        <option selected>Select Course Name</option>
-                        <option value="80000">Full Stack Develper</option>
-                        <option value="20000">HTML</option>
-                        <option value="25000">CSS</option>
-                        <option value="30000">Node JS</option>
-                        <option value="40000">React JS</option>
-                        <option value="10000">MY SQL</option>
-                      </select>
+                      <input
+                        className="form-control"
+                        name="course_name"
+                        value={courseObject.course_name}
+                        disabled
+                      />
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">
@@ -130,6 +154,7 @@ const AddIncomeInfo = () => {
                         <input
                           type="text"
                           name="totalFees"
+                          onChange={(e) => changeInputEvent(e)}
                           value={addIncome.totalFees}
                           className="form-control"
                           disabled
@@ -142,7 +167,7 @@ const AddIncomeInfo = () => {
                       <div className="mb-2">
                         <label className="form-label">Enter Paid Fees</label>
                         <input
-                          type="text"
+                          type="number"
                           name="paidFees"
                           value={addIncome.paidFees}
                           onChange={(e) => {

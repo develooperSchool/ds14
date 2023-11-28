@@ -79,8 +79,6 @@ const UpdateIncomeInfoById: React.FC = () => {
       revenueCategoryId: createIncome.revenue_category_id,
     };
 
-    alert(JSON.stringify(updateIncomeData));
-
     dispatch(
       RevenueAction.updateIncomeInfoByIdAction({
         updateIncomeData,
