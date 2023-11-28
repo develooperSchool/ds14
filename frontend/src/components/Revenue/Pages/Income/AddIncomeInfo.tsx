@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ICOURSES } from "../../../Courses/Model/Icourses";
 import { IUser } from "../../../User/Model/Iuser";
 import { IUSERBYID } from "../../../Faculty/Model/Ifaculty";
-import * as CourseAction from "../../../../Redux/CoursesRedux/Courses.actions";
+import * as EnrollmentAction from "../../../../Redux/EnrollmentRedux/Enrollment.actions";
 
 const AddIncomeInfo = () => {
   const Navigate = useNavigate();
@@ -45,19 +45,21 @@ const AddIncomeInfo = () => {
     let courseData: ICOURSES = localCourse
       ? JSON.parse(localCourse)
       : courseObject;
-    console.log(courseData);
     setCourseObject(courseData);
+    // if (courseObject.course_fees !== "") {
+    //   console.log(courseObject);
+
     setAddIncome({
       ...addIncome,
       totalFees: Number(courseObject.course_fees),
-      balanceFees: addIncome.totalFees,
-      // userId: userData.user_id,
-      userId: 3,
+      balanceFees: Number(courseObject.course_fees),
+      userId: userData.user_id,
       revenueCategoryId: 1063,
       transactionId: 454545,
-      paidFees: addIncome.totalFees,
+      paidFees: Number(courseObject.course_fees),
     });
-  }, []);
+    console.log(addIncome);
+  }, [courseObject.course_fees]);
 
   const submitData = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -67,9 +69,16 @@ const AddIncomeInfo = () => {
     dispatch(RevenueAction.addIncomeInfoAction({ body: addIncome }))
       .then((res: any) => {
         if (res && !res.error) {
-          // dispatch(CourseAction.createCourseAction);
-        Navigate("/getIncome");
-        localStorage.removeItem("courseData");
+          dispatch(
+            EnrollmentAction.createEnrollmentAction({
+              obj: {
+                user_id: addIncome.userId,
+                course_id: courseObject.course_id,
+              },
+            })
+          );
+          Navigate("/courses");
+          localStorage.removeItem("courseData");
         }
       })
       .catch((err: any) => {
@@ -78,8 +87,7 @@ const AddIncomeInfo = () => {
   };
 
   const calculateBalanceFees = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let balanceFee =
-      Number(courseObject.course_fees) - Number(addIncome.paidFees);
+    let balanceFee = Number(addIncome.totalFees) - Number(addIncome.paidFees);
     if (balanceFee >= 0) {
       setAddIncome({
         ...addIncome,
@@ -99,7 +107,6 @@ const AddIncomeInfo = () => {
 
   return (
     <>
-      <span>{JSON.stringify(addIncome)}</span>
       <div className="container-fluid">
         <div className="row">
           <div className="col">
