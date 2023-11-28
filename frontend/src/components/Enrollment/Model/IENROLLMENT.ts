@@ -12,3 +12,8 @@ export interface IENROLMENT {
   address: string;
   role_id: string;
 }
+
+export interface IUSERENROLLMENT {
+  user_id: string;
+  course_id: string;
+}
