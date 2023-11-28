@@ -7,6 +7,7 @@ import { RootState } from "../../../Redux/store";
 import { AppDispatch } from "../../../Redux/store";
 import { ICOURSES, IPURCHASE } from "../Model/Icourses";
 import { IUSERBYID } from "../../Faculty/Model/Ifaculty";
+import { Link } from "react-router-dom";
 
 let GetAllCourses: React.FC = () => {
   const coursesReduxState: courseReducer.initialState = useSelector(
@@ -79,14 +80,16 @@ let GetAllCourses: React.FC = () => {
                     Course Duration: {elem.course_duration}
                   </p>
                   <p className="card-text">Price: {elem.course_fees}</p>
-                  <button
-                    className="btn btn-outline-success"
-                    onClick={() => {
-                      setLocalData(elem);
-                    }}
-                  >
-                    Buy
-                  </button>
+                  <Link to={"/addIncome"}>
+                    <button
+                      className="btn btn-outline-success"
+                      onClick={() => {
+                        setLocalData(elem);
+                      }}
+                    >
+                      Buy
+                    </button>
+                  </Link>
                 </div>
               </div>
             );
