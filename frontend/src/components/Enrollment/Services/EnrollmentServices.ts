@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IENROLMENT } from "../Model/IENROLLMENT";
+import { IENROLMENT, IUSERENROLLMENT } from "../Model/IENROLLMENT";
 
 export class EnrollmentServices {
   private static serverUrl: string = "http://localhost:4444/api/v1/enrollment";
@@ -9,6 +9,13 @@ export class EnrollmentServices {
   }> => {
     const data = `${this.serverUrl}/get`;
     return axios.get(data);
+  };
+
+  public static createEnrollment = (
+    obj: IUSERENROLLMENT
+  ): Promise<{ data: IUSERENROLLMENT | any }> => {
+    const data = `${this.serverUrl}/post`;
+    return axios.post(data, obj);
   };
 
   //   public static getCoursesById = (Id: string): Promise<{ data: ICOURSES }> => {
@@ -21,11 +28,6 @@ export class EnrollmentServices {
   //   ): Promise<{ data: IPURCHASE[] }> => {
   //     const data = `http://localhost:4444/api/v1/enrollment/getDataById/${Id}`;
   //     return axios.get(data);
-  //   };
-
-  //   public static createCourses = (obj: IC): Promise<{ data: ICOURSES }> => {
-  //     const data = `${this.serverUrl}/post`;
-  //     return axios.post(data, obj);
   //   };
 
   //   public static updateCourseById = (

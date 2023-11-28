@@ -37,7 +37,7 @@ let Enrollment: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {EnrollmentReduxState.userEnrollment.map(
+            {EnrollmentReduxState.userEnrollmentData.map(
               (elem: IENROLMENT, ind: any) => {
                 return (
                   <>
