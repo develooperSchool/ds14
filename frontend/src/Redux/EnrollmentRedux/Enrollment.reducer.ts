@@ -1,14 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as EnrollmentActions from "./Enrollment.actions";
-import { IENROLMENT } from "../../components/Enrollment/Model/IENROLLMENT";
+import {
+  IENROLMENT,
+  IUSERENROLLMENT,
+} from "../../components/Enrollment/Model/IENROLLMENT";
 export let enrollmentFeatureKey = "enrollmentFeatureKey";
 
 export interface initialState {
-  userEnrollment: IENROLMENT[];
+  userEnrollmentData: IENROLMENT[];
+  userEnrollment: IUSERENROLLMENT;
 }
 
 let State = {
-  userEnrollment: [] as IENROLMENT[],
+  userEnrollmentData: [] as IENROLMENT[],
+  userEnrollment: {} as IUSERENROLLMENT,
 };
 
 export let enrollmentSlice = createSlice({
@@ -18,6 +23,13 @@ export let enrollmentSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       EnrollmentActions.getAllEnrollmentAction.fulfilled,
+      (state, action) => {
+        state.userEnrollmentData = action.payload;
+      }
+    );
+
+    builder.addCase(
+      EnrollmentActions.createEnrollmentAction.fulfilled,
       (state, action) => {
         state.userEnrollment = action.payload;
       }
