@@ -24,7 +24,6 @@ import AddExpenseInfo from "../Revenue/Pages/Expense/AddExpenseInfo";
 import RelievingLetter from "../Relieving Letter/Page/RelievingLetter";
 import OfferLetter from "../Offer Letter/Page/OfferLetter";
 
-
 import AddIncomeInfo from "../Revenue/Pages/Income/AddIncomeInfo";
 import GetAllIncomeInfo from "../Revenue/Pages/Income/GetAllIncomeInfo";
 import UpdateIncomeInfoById from "../Revenue/Pages/Income/UpdateIncomeInfoById";
@@ -49,6 +48,7 @@ import Gettimetable from "../Timetable/Pages/Gettietable";
 import AllUsers from "../User/AllUsers";
 import ForgotPwd from "../User/ForgotPwd";
 import Registration from "../User/Registration";
+import Enrollment from "../Enrollment/Pages/GetAllEnrollment";
 const AdminDashboard = () => {
   return (
     <>
@@ -123,13 +123,9 @@ const AdminDashboard = () => {
                 element={<UpdatePayrollProcessing />}
               ></Route>
 
-
               <Route path="/letter" element={<RelievingLetter />}></Route>
 
-
-
               <Route path="/offerLetter" element={<OfferLetter />}></Route>
-
 
               {/* Revenue Code Below */}
 
@@ -178,6 +174,7 @@ const AdminDashboard = () => {
               ></Route>
               <Route path="/Assign_Faculty" element={<PostFaculty />}></Route>
               <Route path="/add_timeTable_row" element={<TableRow />}></Route>
+              <Route path="/EnrollmentData" element={<Enrollment />}></Route>
             </Routes>
           </div>
         </div>

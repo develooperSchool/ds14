@@ -8,6 +8,7 @@ import * as UserReducer from "./UserRedux/user.reducer";
 import * as SalaryAnnexureReducer from "./PayrollRedux/salaryReducer";
 import * as AttendanceReducer from "./AttendanceRedux/attendance.reducer";
 import * as PayrollProcessingReducer from "./PayrollProcessingRedux/payrollprocessing.reducer";
+import * as enrollmentReducer from "./EnrollmentRedux/Enrollment.reducer";
 
 let rootReducer: any = combineReducers({
   [couresReducer.CourseFeatureKey]: couresReducer.couresSlice.reducer,
@@ -22,6 +23,8 @@ let rootReducer: any = combineReducers({
   [PayrollProcessingReducer.processingFeatureKey]:
     PayrollProcessingReducer.processingSlice.reducer,
   [UroleReducer.uroleFeatureKey]: UroleReducer.uroleSlice.reducer,
+  [enrollmentReducer.enrollmentFeatureKey]:
+    enrollmentReducer.enrollmentSlice.reducer,
 });
 
 export default rootReducer;

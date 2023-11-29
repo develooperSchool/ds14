@@ -101,6 +101,11 @@ const Sidebar = () => {
               <i className="bi bi-graph-up-arrow"> </i>Faculty
             </Link>
           </li>
+          <li className="mt-3">
+            <Link to={"/EnrollmentData"} className="Link">
+              <i className="bi bi-graph-up-arrow"> </i>Enrollment
+            </Link>
+          </li>
         </ul>
       </div>
     </>
