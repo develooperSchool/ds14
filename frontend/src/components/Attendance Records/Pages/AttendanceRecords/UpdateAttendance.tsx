@@ -84,12 +84,12 @@ const UpdateAttendance: React.FC = () => {
     const reflectDate = () => {
         let day = startDate?.getDate();
         let month: string | number =
-            startDate?.getMonth() != undefined ? startDate?.getMonth() + 1 : "";
+            startDate?.getMonth() !== undefined ? startDate?.getMonth() + 1 : "";
         let year = startDate?.getFullYear();
 
         let fullDay: string | number = "";
         let fullMonth: string | number = "";
-        if (day != undefined && month != undefined) {
+        if (day !== undefined && month !== undefined) {
             fullDay = day?.toString().length < 2 ? `0${day}` : day;
             fullMonth = month?.toString().length < 2 ? `0${month}` : month;
         }
