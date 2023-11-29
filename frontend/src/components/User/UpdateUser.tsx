@@ -65,13 +65,14 @@ const UpdateUser: React.FC = () => {
         subcaste: user.subcaste,
       });
     }
-    if (localUser.dob && localUser.dob !== "") {
-      let dateArray = String(localUser.dob).split("-");
+    if (user.dob && user.dob !== "") {
+      let dateArray = String(user.dob).split("-");
       let date: Date = new Date(
         Number(dateArray[2]),
         Number(dateArray[1]) - 1,
         Number(dateArray[0])
       );
+
       setStartDate(date);
     }
   }, [user]);
