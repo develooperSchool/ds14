@@ -9,6 +9,7 @@ import { ICOURSES } from "../../../Courses/Model/Icourses";
 import { IUser } from "../../../User/Model/Iuser";
 import { IUSERBYID } from "../../../Faculty/Model/Ifaculty";
 import * as EnrollmentAction from "../../../../Redux/EnrollmentRedux/Enrollment.actions";
+import { updateRoleIdAction } from "../../../../Redux/CoursesRedux/Courses.actions";
 
 const AddIncomeInfo = () => {
   const Navigate = useNavigate();
@@ -52,11 +53,12 @@ const AddIncomeInfo = () => {
     setAddIncome({
       ...addIncome,
       totalFees: Number(courseObject.course_fees),
-      balanceFees: Number(courseObject.course_fees),
+      balanceFees: 0,
       userId: userData.user_id,
       revenueCategoryId: 1063,
       transactionId: 454545,
       paidFees: Number(courseObject.course_fees),
+      amount: Number(courseObject.course_fees),
     });
     console.log(addIncome);
   }, [courseObject.course_fees]);
@@ -76,7 +78,21 @@ const AddIncomeInfo = () => {
                 course_id: courseObject.course_id,
               },
             })
-          );
+          ).then((res: any) => {
+            if (res && !res.error) {
+              dispatch(
+                updateRoleIdAction({ id: addIncome.userId, roleId: "3" })
+              ).then((res: any) => {
+                if (res && !res.error) {
+                  let user: string | any = localStorage.getItem("userData");
+                  let currentUser: IUSERBYID = JSON.parse(user);
+                  currentUser.role_id = 3;
+                  console.log("userdata:", currentUser);
+                  localStorage.setItem("userData", JSON.stringify(currentUser));
+                }
+              });
+            }
+          });
           Navigate("/courses");
           localStorage.removeItem("courseData");
         }
@@ -87,11 +103,12 @@ const AddIncomeInfo = () => {
   };
 
   const calculateBalanceFees = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let balanceFee = Number(addIncome.totalFees) - Number(addIncome.paidFees);
-    if (balanceFee >= 0) {
+    let calculatedBalanceFee =
+      Number(addIncome.totalFees) - Number(addIncome.paidFees);
+    if (calculatedBalanceFee >= 0) {
       setAddIncome({
         ...addIncome,
-        balanceFees: balanceFee,
+        balanceFees: calculatedBalanceFee,
         amount: Number(e.target.value),
       });
     } else {
