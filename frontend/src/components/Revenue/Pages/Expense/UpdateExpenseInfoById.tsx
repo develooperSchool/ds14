@@ -8,6 +8,9 @@ import { IAddExpense, IExpense } from "../../Model/IRevenue";
 
 const UpdateExpenseInfoById: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const [validation, setValidation] = useState({
+    categoryError: "",
+  });
 
   const revenueReduxState: RevenueReducer.InitialState = useSelector(
     (state: RootState) => {
@@ -52,6 +55,13 @@ const UpdateExpenseInfoById: React.FC = () => {
   const changeInputEvent = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
+    const inputValue = event.target.value;
+
+    // Check if the input contains only letters
+    const isNumberOnly = /^[0-9]+$/.test(inputValue);
+    setValidation({
+      categoryError: isNumberOnly ? "" : "Please Enter Number Only",
+    });
     setCreateExpense({
       ...createExpense,
       [event.target.name]: event.target.value,
@@ -119,9 +129,16 @@ const UpdateExpenseInfoById: React.FC = () => {
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}
-                    className="form-control"
+                    className={`form-control ${
+                      validation.categoryError && "is-invalid"
+                    }`}
                     placeholder="Enter Expense Amount"
                   />
+                  {validation.categoryError && (
+                    <div className="invalid-feedback">
+                      {validation.categoryError}
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-3">

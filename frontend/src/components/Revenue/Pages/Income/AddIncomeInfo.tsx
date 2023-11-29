@@ -16,6 +16,10 @@ const AddIncomeInfo = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
+  const [validation, setValidation] = useState({
+    categoryError: "",
+  });
+
   const [addIncome, setAddIncome] = useState<IAddIncome>({
     totalFees: 0,
     paidFees: 0,
@@ -33,6 +37,13 @@ const AddIncomeInfo = () => {
   });
 
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+
+    // Check if the input contains only letters
+    const isNumberOnly = /^[0-9]+$/.test(inputValue);
+    setValidation({
+      categoryError: isNumberOnly ? "" : "Please Enter Number Only",
+    });
     setAddIncome({
       ...addIncome,
       [event.target.name]: event.target.value,
@@ -184,16 +195,23 @@ const AddIncomeInfo = () => {
                       <div className="mb-2">
                         <label className="form-label">Enter Paid Fees</label>
                         <input
-                          type="number"
+                          type="text"
                           name="paidFees"
                           value={addIncome.paidFees}
                           onChange={(e) => {
                             changeInputEvent(e);
                           }}
                           onBlur={(e) => calculateBalanceFees(e)}
-                          className="form-control"
-                          placeholder="Enter Paid Fees"
+                          className={`form-control ${
+                            validation.categoryError && "is-invalid"
+                          }`}
+                          placeholder="Enter Fees which you want to pay"
                         />
+                        {validation.categoryError && (
+                          <div className="invalid-feedback">
+                            {validation.categoryError}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

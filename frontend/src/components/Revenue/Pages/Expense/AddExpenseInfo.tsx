@@ -79,7 +79,7 @@ const AddExpenseInfo = () => {
                     Enter Revenue Category ID
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="revenueCategoryId"
                     value={createExpense.revenueCategoryId}
                     onChange={(e) => {
@@ -106,7 +106,7 @@ const AddExpenseInfo = () => {
                 <div className="mb-2">
                   <label className="form-label">Enter Mentor ID</label>
                   <input
-                    type="text"
+                    type="number"
                     name="mentorId"
                     value={createExpense.mentorId}
                     onChange={(e) => {
