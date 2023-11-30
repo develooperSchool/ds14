@@ -59,7 +59,6 @@ const AllActiveUsers: React.FC = () => {
                   <th>Gender</th>
                   <th>Caste</th>
                   <th>Subcaste</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
