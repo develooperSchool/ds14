@@ -21,6 +21,20 @@ const GetAllSalaryAnnexure: React.FC = () => {
         }
     );
 
+    const [search, setSearch] = useState("");
+
+    const searchItem = salaryAnnexureReduxState.salaries.filter((item) => {
+        if (search == "") {
+            return item;
+        } else if (
+            item.name.toLowerCase().includes(search.toLowerCase()) ||
+            item.annexure_id.toString().includes(search) ||
+            item.annexure_date.toLowerCase().includes(search.toLowerCase())
+        ) {
+            return item;
+        }
+    });
+
     const { totalPages, startPageIndex, endPageIndex, currentPageIndex, displayPage } = usePagination({ perPageRecords: 5, totalPageRecords: salaryAnnexureReduxState.salaries.length });
 
     useEffect(() => {
@@ -315,9 +329,21 @@ const GetAllSalaryAnnexure: React.FC = () => {
             </div>
 
             <div className="container">
-                <Link className="btn btn-primary" to="/create">
-                    + NEW
-                </Link>
+                <div className="row">
+                    <div className="col">
+                        <Link className="btn btn-primary" to="/create">
+                            + NEW
+                        </Link>
+                    </div>
+                    <div className="col-3">
+                        <input
+                            type="text"
+                            placeholder="Search Here"
+                            className="form-control"
+                            onChange={(event) => setSearch(event.target.value)}
+                        />
+                    </div>
+                </div>
             </div>
 
             <div className="container">
@@ -343,38 +369,39 @@ const GetAllSalaryAnnexure: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {salaryAnnexureReduxState.salaries.slice(startPageIndex, endPageIndex + 1).map((annexure, index) => (
-                                    <tr key={index}>
-                                        <td>{annexure.annexure_id}</td>
-                                        <td>{annexure.user_id}</td>
-                                        <td>{annexure.name}</td>
-                                        <td>{annexure.designation}</td>
-                                        <td>{annexure.department}</td>
-                                        <td>{annexure.job_location}</td>
-                                        <td>{annexure.basic}</td>
-                                        <td>{annexure.hra}</td>
-                                        <td>{annexure.special_allowance}</td>
-                                        <td>{annexure.profession_tax}</td>
-                                        <td>{annexure.total_deductions}</td>
-                                        <td>{annexure.net_salary}</td>
-                                        <td>{annexure.annexure_date}</td>
-                                        <td>
-                                            <Link to={`/put/${annexure.annexure_id}`} className="btn btn-success">
-                                                Update
-                                            </Link>
-                                            <button
-                                                className="btn btn-danger"
-                                                onClick={() => deleteSalaryAnnexure(annexure.annexure_id)}
-                                            >
-                                                Delete
-                                            </button>
-                                            <button className="btn btn-warning">
-                                                <DownloadLink annexure={annexure} />
+                                {(searchItem.length > 0 ? searchItem : salaryAnnexureReduxState.salaries)
+                                    .slice(startPageIndex, endPageIndex + 1).map((annexure, index) => (
+                                        <tr key={index}>
+                                            <td>{annexure.annexure_id}</td>
+                                            <td>{annexure.user_id}</td>
+                                            <td>{annexure.name}</td>
+                                            <td>{annexure.designation}</td>
+                                            <td>{annexure.department}</td>
+                                            <td>{annexure.job_location}</td>
+                                            <td>{annexure.basic}</td>
+                                            <td>{annexure.hra}</td>
+                                            <td>{annexure.special_allowance}</td>
+                                            <td>{annexure.profession_tax}</td>
+                                            <td>{annexure.total_deductions}</td>
+                                            <td>{annexure.net_salary}</td>
+                                            <td>{annexure.annexure_date}</td>
+                                            <td>
+                                                <Link to={`/put/${annexure.annexure_id}`} className="btn btn-success">
+                                                    Update
+                                                </Link>
+                                                <button
+                                                    className="btn btn-danger"
+                                                    onClick={() => deleteSalaryAnnexure(annexure.annexure_id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                                <button className="btn btn-warning">
+                                                    <DownloadLink annexure={annexure} />
 
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
                             </tbody>
                         </table>
 

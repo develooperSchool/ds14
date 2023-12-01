@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as AttendanceReducer from "../../../../Redux/AttendanceRedux/attendance.reducer"
 import * as AttendanceAction from "../../../../Redux/AttendanceRedux/attendance.action";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,19 @@ const GetAllAttendance: React.FC = () => {
     const attendanceReduxState: AttendanceReducer.InitialState = useSelector((state: RootState) => {
         return state[AttendanceReducer.attendanceFeatureKey]
     })
+
+    const [search, setSearch] = useState("");
+
+    const searchItem = attendanceReduxState.attendances.filter((item) => {
+        if (search == "") {
+            return item;
+        } else if (
+            item.attendance_date.toLowerCase().includes(search.toLowerCase()) ||
+            String(item.attendance_id).includes(search)
+        ) {
+            return item;
+        }
+    });
 
     const dispatch: AppDispatch = useDispatch();
 
@@ -51,7 +64,20 @@ const GetAllAttendance: React.FC = () => {
             </div>
 
             <div className="container">
-                <Link className="btn btn-primary" to="/postattendance">+ NEW</Link>
+                <div className="row">
+                    <div className="col">
+                        <Link className="btn btn-primary" to="/postattendance">+ NEW</Link>
+                    </div>
+                    <div className="col-3">
+                        <input
+                            type="text"
+                            placeholder="Search Here"
+                            className="form-control"
+                            onChange={(event) => setSearch(event.target.value)}
+                        />
+                    </div>
+                </div>
+
             </div>
 
             <div className="container">
@@ -70,7 +96,7 @@ const GetAllAttendance: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {attendanceReduxState.attendances.slice(startPageIndex, endPageIndex + 1).map((newattend, index) => {
+                                {(searchItem.length > 0 ? searchItem : attendanceReduxState.attendances).slice(startPageIndex, endPageIndex + 1).map((newattend, index) => {
                                     return (
                                         <tr key={index}>
                                             <td>{newattend.attendance_id}</td>
