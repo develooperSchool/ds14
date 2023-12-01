@@ -3,6 +3,10 @@ const db = require("../config/db-config");
 const SqlError = require("../errors/SqlError");
 const values = require("@hapi/joi/lib/values");
 
+const Jwt = require("jsonwebtoken");
+
+const jwtKey = "devschool";
+
 const getAllRoles = async (req, res) => {
   let result = [];
   let values = [];
@@ -122,10 +126,21 @@ const userLogin = async (username, password) => {
   try {
     let sqlQuery = "SELECT * FROM user_master WHERE email =? AND password = ?";
     const [result, feild] = await db.query(sqlQuery, [username, password]);
-
     if (result.length > 0) {
-      // message = "login user successfully"
+      let globalToken = "";
+      const [user] = result;
+
+      const generateToken = (user) => {
+        return Jwt.sign(user, jwtKey);
+      };
+
+      const token = generateToken(user);
+
       body = result[0];
+      body = {
+        ...body,
+        token,
+      };
     } else {
       message = "USER NOT FOUND";
     }

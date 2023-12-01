@@ -8,6 +8,8 @@ import ReactPDF, { Document, Page, Text, View, StyleSheet, Image } from "@react-
 import { SalaryAnnexure } from "../Model/SalaryAnnexure";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import companyLogo from "../Images/logo.png"
+import { usePagination } from "../../Pagination";
+import { Pagination } from "react-bootstrap";
 
 const GetAllSalaryAnnexure: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -18,6 +20,8 @@ const GetAllSalaryAnnexure: React.FC = () => {
             return state[SalaryAnnexureReducer.salaryfeatureKey];
         }
     );
+
+    const { totalPages, startPageIndex, endPageIndex, currentPageIndex, displayPage } = usePagination({ perPageRecords: 5, totalPageRecords: salaryAnnexureReduxState.salaries.length });
 
     useEffect(() => {
         fetchDataFromServer();
@@ -339,7 +343,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {salaryAnnexureReduxState.salaries.map((annexure, index) => (
+                                {salaryAnnexureReduxState.salaries.slice(startPageIndex, endPageIndex + 1).map((annexure, index) => (
                                     <tr key={index}>
                                         <td>{annexure.annexure_id}</td>
                                         <td>{annexure.user_id}</td>
@@ -373,6 +377,23 @@ const GetAllSalaryAnnexure: React.FC = () => {
                                 ))}
                             </tbody>
                         </table>
+
+                        <Pagination>
+                            <Pagination.First onClick={() => displayPage(1)} />
+                            <Pagination.Prev onClick={() => displayPage(currentPageIndex - 1)} disabled={currentPageIndex === 1} />
+                            {[...Array(totalPages)].map((_, index) => (
+                                <Pagination.Item
+                                    key={index + 1}
+                                    active={index + 1 === currentPageIndex}
+                                    onClick={() => displayPage(index + 1)}
+                                >
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                            <Pagination.Next onClick={() => displayPage(currentPageIndex + 1)} disabled={currentPageIndex === totalPages} />
+                            <Pagination.Last onClick={() => displayPage(totalPages)} />
+                        </Pagination>
+
                     </div>
                 </div>
             </div>
