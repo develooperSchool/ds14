@@ -9,15 +9,16 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 import mystore from "../src/Redux/store";
 import { Provider } from "react-redux";
+import store from "./Redux/store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <Provider store={mystore}>
-    <App />
-  </Provider>
-);
+ 
+   <Provider store={store}> <App /></Provider>
+  
+); 
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -67,11 +67,12 @@ const UpdateSalaryAnnexure: React.FC = () => {
                 annexure_date: salary.annexure_date,
             });
 
-            let dateArray: any = salary.annexure_date.split("-");
-            let date: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]))
+            if (salary.annexure_date && salary.annexure_date !== "") {
+                let dateArray: any = salary.annexure_date.split("-");
+                let date: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]))
 
-            setStartDate(date)
-
+                setStartDate(date)
+            }
         }
     }, [salary]);
 
@@ -86,12 +87,12 @@ const UpdateSalaryAnnexure: React.FC = () => {
     const reflectDate = () => {
         let day = startDate?.getDate();
         let month: string | number =
-            startDate?.getMonth() != undefined ? startDate?.getMonth() + 1 : "";
+            startDate?.getMonth() !== undefined ? startDate?.getMonth() + 1 : "";
         let year = startDate?.getFullYear();
 
         let fullDay: string | number = "";
         let fullMonth: string | number = "";
-        if (day != undefined && month != undefined) {
+        if (day !== undefined && month !== undefined) {
             fullDay = day?.toString().length < 2 ? `0${day}` : day;
             fullMonth = month?.toString().length < 2 ? `0${month}` : month;
         }
@@ -151,7 +152,7 @@ const UpdateSalaryAnnexure: React.FC = () => {
         dispatch(SalaryAnnexureAction.updateSalaryAnnexureAction({ updatesalaryannexure, Id })).then(
             (res: any) => {
                 if (res && !res.error) {
-                    navi('/salary');
+                    navi('/payroll');
                 }
             }
         );
@@ -304,7 +305,7 @@ const UpdateSalaryAnnexure: React.FC = () => {
                     <button
                         type="button"
                         className="btn btn-warning"
-                        onClick={() => navi("/salary")}
+                        onClick={() => navi("/payroll")}
                     >
                         CANCEL
                     </button>

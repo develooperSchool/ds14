@@ -5,6 +5,10 @@ const validation=require('../middlewares/validations/enrollment.Validation')
 
 router.get(`/get`,(req,res)=>{controller.getEnrollment(req,res);});
 
+router.get(`/getData`,(req,res)=>{controller.getEnrollmentData(req,res);});
+
+router.get(`/getDataById/:Id`,(req,res)=>{controller.getEnrollmentDataById(req,res);});
+
 router.post(`/post`,validation.postEnrollmentValidation,controller.postEnrollment);
 
 router.put(`/update/:id`,validation.putEnrollmentValidation,controller.putEnrollment);

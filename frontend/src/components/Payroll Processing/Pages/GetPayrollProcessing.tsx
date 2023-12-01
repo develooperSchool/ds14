@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import * as PayrollProcessingAction from "../../../Redux/PayrollProcessingRedux/payrollprocessing.action"
 import * as PayrollProcessingReducer from "../../../Redux/PayrollProcessingRedux/payrollprocessing.reducer"
 import { useSelector } from "react-redux";
+import { usePagination } from "../../Pagination";
+import { Pagination } from "react-bootstrap";
 
 
 const GetAllPayrollProcessing: React.FC = () => {
@@ -14,7 +16,8 @@ const GetAllPayrollProcessing: React.FC = () => {
         return state[PayrollProcessingReducer.processingFeatureKey]
     })
 
-    const dispatch: AppDispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch();
+    const { totalPages, startPageIndex, endPageIndex, currentPageIndex, displayPage } = usePagination({ perPageRecords: 5, totalPageRecords: processingReduxState.processes.length });
 
     useEffect(() => {
         dataFromServer()
@@ -65,27 +68,41 @@ const GetAllPayrollProcessing: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                    processingReduxState.processes.map((newprocess, index) => {
-                                        return (
-                                            <tr>
-                                                <td>{newprocess.payroll_id}</td>
-                                                <td>{newprocess.user_id}</td>
-                                                <td>{newprocess.payroll_date}</td>
-                                                <td>{newprocess.gross_salary}</td>
-                                                <td>{newprocess.net_salary}</td>
-                                                <td>
-                                                    <Link to={`/updatepayroll-processing/${newprocess.payroll_id}`} className="btn btn-primary">
-                                                        UPDATE
-                                                    </Link>
-                                                    <button className="btn btn-warning" onClick={() => deletePayrollProcessing(String(newprocess.payroll_id))}>DELETE</button>
-                                                </td>
-                                            </tr>
-                                        )
-                                    })
+                                {processingReduxState.processes.slice(startPageIndex, endPageIndex + 1).map((newprocess, index) => {
+                                    return (
+                                        <tr>
+                                            <td>{newprocess.payroll_id}</td>
+                                            <td>{newprocess.user_id}</td>
+                                            <td>{newprocess.payroll_date}</td>
+                                            <td>{newprocess.gross_salary}</td>
+                                            <td>{newprocess.net_salary}</td>
+                                            <td>
+                                                <Link to={`/updatepayroll-processing/${newprocess.payroll_id}`} className="btn btn-primary">
+                                                    UPDATE
+                                                </Link>
+                                                <button className="btn btn-warning" onClick={() => deletePayrollProcessing(String(newprocess.payroll_id))}>DELETE</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
                                 }
                             </tbody>
                         </table>
+                        <Pagination>
+                            <Pagination.First onClick={() => displayPage(1)} />
+                            <Pagination.Prev onClick={() => displayPage(currentPageIndex - 1)} disabled={currentPageIndex === 1} />
+                            {[...Array(totalPages)].map((_, index) => (
+                                <Pagination.Item
+                                    key={index + 1}
+                                    active={index + 1 === currentPageIndex}
+                                    onClick={() => displayPage(index + 1)}
+                                >
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                            <Pagination.Next onClick={() => displayPage(currentPageIndex + 1)} disabled={currentPageIndex === totalPages} />
+                            <Pagination.Last onClick={() => displayPage(totalPages)} />
+                        </Pagination>
                     </div>
                 </div>
             </div>

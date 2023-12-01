@@ -40,8 +40,7 @@ const Registration: React.FC = () => {
 
   useEffect(() => {
     reflectDate();
-  }, [startDate])
-  
+  }, [startDate]);
 
   const changeDate = (date: Date | null) => {
     setStartDate(date);
@@ -63,9 +62,10 @@ const Registration: React.FC = () => {
       ...create,
       dob: formattedDate,
     });
-
-  }
-  const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+  };
+  const changeInputEvent = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setCreate({
       ...create,
       [event.target.name]: event.target.value,
@@ -89,7 +89,9 @@ const Registration: React.FC = () => {
     });
   };
 
-  const submitData = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitData = (
+    event: React.FormEvent<HTMLFormElement | HTMLSelectElement>
+  ) => {
     event.preventDefault();
     const data: IRegister = {
       firstName: create.first_name,
@@ -114,6 +116,11 @@ const Registration: React.FC = () => {
       })
       .catch((error: any) => console.log(error));
   };
+  // const [selectedValue, setSelectedValue] = useState("");
+
+  // const handleDropdownChange = (e: any) => {
+  //   setSelectedValue(e.target.value);
+  // };
   return (
     <>
       <div className="offset-lg-2 col-lg-8 mt-3">
@@ -221,7 +228,7 @@ const Registration: React.FC = () => {
                       <DatePicker
                         dateFormat="dd-MM-yyyy"
                         selected={startDate}
-                        onChange={(date: Date | null) => changeDate(date)}
+                        onChange={(date) => changeDate(date)}
                         className="form-control"
                       />
                     </div>
@@ -248,23 +255,31 @@ const Registration: React.FC = () => {
                   </div>
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
-                      <label>Caste</label>
+                      {/* <label>Caste</label>
                       <input
                         type="text"
                         className="form-control"
                         onChange={(e) => changeInputEvent(e)}
                         value={create.caste_category}
                         name="caste_category"
-                      />
-                      {/* <select name="caste" id="" className="form-control">
-                                        <option value="select">Select</option>
-                                        <option value="open">OPEN</option>
-                                        <option value="obc">OBC</option>
-                                        <option value="sc">SC</option>
-                                        <option value="st">ST</option>
-                                        <option value="vjnt">VJNT</option>
-                                        <option value="other">OTHER</option>
-                                    </select> */}
+                      /> */}
+                      <label>Caste</label>
+                      <select
+                        name="caste_category"
+                        id=""
+                        className="form-select"
+                        aria-label="Default select example"
+                        value={create.caste_category}
+                        onChange={(e) => changeInputEvent(e)}
+                      >
+                        <option value="Select">Select</option>
+                        <option value="OPEN">OPEN</option>
+                        <option value="OBC">OBC</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                        <option value="VJNT">VJNT</option>
+                        <option value="OTHER">OTHER</option>
+                      </select>
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">

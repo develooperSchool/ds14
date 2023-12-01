@@ -9,6 +9,9 @@ import { eventNames } from "process";
 
 const UpdateIncomeInfoById: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const [validation, setValidation] = useState({
+    categoryError: "",
+  });
 
   const revenueReduxState: RevenueReducer.InitialState = useSelector(
     (state: RootState) => {
@@ -59,6 +62,13 @@ const UpdateIncomeInfoById: React.FC = () => {
   const changeInputEvent = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
+    const inputValue = event.target.value;
+
+    // Check if the input contains only letters
+    const isNumberOnly = /^[0-9]+$/.test(inputValue);
+    setValidation({
+      categoryError: isNumberOnly ? "" : "Please Enter Number Only",
+    });
     setCreateIncome({
       ...createIncome,
       [event.target.name]: event.target.value,
@@ -78,8 +88,6 @@ const UpdateIncomeInfoById: React.FC = () => {
       transactionId: createIncome.transaction_id,
       revenueCategoryId: createIncome.revenue_category_id,
     };
-
-    alert(JSON.stringify(updateIncomeData));
 
     dispatch(
       RevenueAction.updateIncomeInfoByIdAction({
@@ -159,7 +167,6 @@ const UpdateIncomeInfoById: React.FC = () => {
                       changeInputEvent(e);
                     }}
                     className="form-control"
-                    placeholder="Enter Paid Fees"
                     disabled
                   />
                 </div>
@@ -175,9 +182,16 @@ const UpdateIncomeInfoById: React.FC = () => {
                       changeInputEvent(e);
                     }}
                     onBlur={(e) => validatePaidFees(e)}
-                    className="form-control"
-                    placeholder="Enter Fee here"
+                    className={`form-control ${
+                      validation.categoryError && "is-invalid"
+                    }`}
+                    placeholder="Enter Fees which you want to pay"
                   />
+                  {validation.categoryError && (
+                    <div className="invalid-feedback">
+                      {validation.categoryError}
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-3">
