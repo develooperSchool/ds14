@@ -67,16 +67,21 @@ const GetAllPayrollProcessing: React.FC = () => {
                     <div className="col">
                         <Link className="btn btn-primary" to="/postpayroll-processing">+ NEW</Link>
                     </div>
-                    <div className="col-3">
+                    <div className="col input-group justify-content-end">
                         <input
                             type="text"
                             placeholder="Search Here"
-                            className="form-control"
+                            className="custom-input"
+                            style={{ width: '150px', height: "30px", border: "1 px solid grey" }}
                             onChange={(event) => setSearch(event.target.value)}
                         />
+                        <div className="input-group-append">
+                            <span className="input-group-text">
+                                <i className="fas fa-search"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
-
             </div>
 
             <div className="container mt-4">
