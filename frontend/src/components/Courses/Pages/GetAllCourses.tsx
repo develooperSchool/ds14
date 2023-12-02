@@ -32,18 +32,6 @@ let GetAllCourses: React.FC = () => {
     }
   };
 
-  // let courseData = (coursesReduxState.courses , coursesReduxState.PurchasedCourses) => {
-  //   for (let i=0;i<=coursesReduxState.courses.length;i++){
-
-  //   }
-  //   // if (coursesReduxState.courses && coursesReduxState.PurchasedCourses) {
-  //   //   result = coursesReduxState.courses.map((elem: ICOURSES, ind: any) => {
-  //   //     let a: IPURCHASE = coursesReduxState.PurchasedCourses[ind];
-  //   //     return elem.course_id !== a.course_id;
-  //   //   });
-  //   // }
-  // };
-
   let coursesArray: ICOURSES[] = coursesReduxState.courses;
   let purchasedCourses: IPURCHASE[] = coursesReduxState.PurchasedCourses;
   function getUniqueElements(
@@ -59,8 +47,6 @@ let GetAllCourses: React.FC = () => {
   }
 
   let availableCourses = getUniqueElements(coursesArray, purchasedCourses);
-
-  console.log("available", availableCourses);
 
   useEffect(() => {
     dataFromserver();
@@ -78,7 +64,6 @@ let GetAllCourses: React.FC = () => {
           <div className="userPurchase">
             {coursesReduxState.PurchasedCourses.map(
               (elem: IPURCHASE, ind: any) => {
-                //localStorage.setItem(`course${ind + 1}`, JSON.stringify(elem));
                 return (
                   <>
                     <div className="cardc">

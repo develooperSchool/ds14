@@ -30,12 +30,6 @@ export class facultyServices {
     return axios.post(data, obj);
   };
 
-  // public static updateCourseById=(Id:string,Body:IC):Promise<{data:ICOURSES}>=>{
-  //     const data=`${this.serverUrl}/update/${Id}`;
-
-  //     return axios.put(data,Body);
-  // };
-
   public static DeleteFacultyById = (
     Id: string
   ): Promise<{ data: IFACULTY }> => {

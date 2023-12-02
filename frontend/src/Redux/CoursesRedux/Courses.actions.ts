@@ -12,7 +12,8 @@ export const getAllCourseAction: any = createAsyncThunk(
   async (payload: {}, { rejectWithValue }): Promise<ICOURSES[] | any> => {
     try {
       let res = await Courseservices.getAllCourses();
-      return res.data;
+      const array: any = res.data;
+      return array.body;
     } catch (err: any) {
       if (!err.res) {
         throw err;
@@ -31,7 +32,8 @@ export const getCourseByIdAction: any = createAsyncThunk(
     let { Id } = payload;
     try {
       let res = await Courseservices.getCoursesById(Id);
-      return res.data;
+      const array: any = res.data;
+      return array.body;
     } catch (err: any) {
       if (!err.res) {
         throw err;
@@ -50,7 +52,8 @@ export const getPurchasedCourseByIdAction: any = createAsyncThunk(
     let { Id } = payload;
     try {
       let res = await Courseservices.getPurchasedCoursesById(Id);
-      return res.data;
+      const array: any = res.data;
+      return array.body;
     } catch (err: any) {
       if (!err.res) {
         throw err;
