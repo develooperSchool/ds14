@@ -42,10 +42,9 @@ export interface IRegister {
   roleId?: number;
   password: string;
 }
-export interface IupdateUser{
-  username:string;
+export interface IupdateUser {
+  username: string;
 }
-
 
 export interface IUpdate {
   user_id?: string;

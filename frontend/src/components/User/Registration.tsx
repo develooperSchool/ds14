@@ -285,13 +285,14 @@ const Registration: React.FC = () => {
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
                       <label>Subcaste</label>
-                      <input
+                      {/* add select option for subcast
+                       {<input
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="subcaste"
                         value={create.subcaste}
                         className="form-control"
-                      />
+                      />} */}
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">
