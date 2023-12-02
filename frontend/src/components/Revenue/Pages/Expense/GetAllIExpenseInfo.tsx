@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
@@ -14,6 +14,22 @@ const GetAllIExpenseInfo: React.FC = () => {
       return state[RevenueReducer.revenueFeatureKey];
     }
   );
+
+  const [search, setSearch] = useState("");
+
+  const searchItem = revenueReduxState.Expenses.filter((item) => {
+    if (search === "") {
+      return item;
+    } else if (
+      item.expense_id.toString().includes(search) ||
+      item.mentor_id.toString().includes(search) ||
+      item.amount.toString().includes(search) ||
+      item.revenue_category_id.toString().includes(search) ||
+      item.remark.toLowerCase().includes(search.toLowerCase())
+    ) {
+      return item;
+    }
+  });
   const dispatach: AppDispatch = useDispatch();
   const {
     totalPages,
@@ -62,9 +78,23 @@ const GetAllIExpenseInfo: React.FC = () => {
           </div>
         </div>
       </div>
-      <Link to="/addExpense" className="btn btn-outline-info">
-        Add Expense Details
-      </Link>
+      <div>
+        <div className="row">
+          <div className="col">
+            <Link to="/addrevenuecategory" className="btn btn-outline-info">
+              Add Expense Here
+            </Link>
+          </div>
+          <div className="col-3">
+            <input
+              type="text"
+              placeholder="Search Here"
+              className="form-control"
+              onChange={(event) => setSearch(event.target.value)}
+            />
+          </div>
+        </div>
+      </div>
       <div className="container">
         <div className="row">
           <div className="col">
@@ -80,37 +110,39 @@ const GetAllIExpenseInfo: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {revenueReduxState.Expenses.slice(
-                  startPageIndex,
-                  endPageIndex + 1
-                ).map((expenseDetails, index) => {
-                  return (
-                    <tr>
-                      <td>{expenseDetails.expense_id}</td>
+                {(searchItem.length > 0
+                  ? searchItem
+                  : revenueReduxState.Expenses
+                )
+                  .slice(startPageIndex, endPageIndex + 1)
+                  .map((expenseDetails, index) => {
+                    return (
+                      <tr>
+                        <td>{expenseDetails.expense_id}</td>
 
-                      <td>{expenseDetails.mentor_id}</td>
-                      <td>{expenseDetails.revenue_category_id}</td>
-                      <td>{expenseDetails.amount}</td>
-                      <td>{expenseDetails.remark}</td>
-                      <td>
-                        <Link
-                          to={`/updateExpense/${expenseDetails.expense_id}`}
-                          className="btn btn-outline-success"
-                        >
-                          Update
-                        </Link>
-                        <button
-                          className="btn btn-outline-danger"
-                          onClick={() =>
-                            deleteExpenseInfoById(expenseDetails.expense_id)
-                          }
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                        <td>{expenseDetails.mentor_id}</td>
+                        <td>{expenseDetails.revenue_category_id}</td>
+                        <td>{expenseDetails.amount}</td>
+                        <td>{expenseDetails.remark}</td>
+                        <td>
+                          <Link
+                            to={`/updateExpense/${expenseDetails.expense_id}`}
+                            className="btn btn-outline-success"
+                          >
+                            Update
+                          </Link>
+                          <button
+                            className="btn btn-outline-danger"
+                            onClick={() =>
+                              deleteExpenseInfoById(expenseDetails.expense_id)
+                            }
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
             <Pagination>

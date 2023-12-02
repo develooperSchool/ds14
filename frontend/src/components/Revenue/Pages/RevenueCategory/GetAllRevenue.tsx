@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,23 @@ const GetAllRevenue: React.FC = () => {
       return state[RevenueReducer.revenueFeatureKey];
     }
   );
+
+  const [search, setSearch] = useState("");
+
+  const searchItem = revenueReduxState.Rcategories.filter((item) => {
+    if (search === "") {
+      return item;
+    } else if (
+      item.revenue_category_name.toLowerCase().includes(search.toLowerCase()) ||
+      //item.revenue_category_id.toLowerCase().includes(search.toLowerCase())
+      item.revenue_category_id.toString().includes(search)
+    ) {
+      return item;
+    }
+  });
+  // console.log("serach Item", searchItem);
+
+  //console.log("Serach ", search);
 
   const dispatach: AppDispatch = useDispatch();
 
@@ -63,9 +80,24 @@ const GetAllRevenue: React.FC = () => {
           </div>
         </div>
       </div>
-      <Link to="/addrevenuecategory" className="btn btn-outline-info">
-        Add Category Here
-      </Link>
+      <div>
+        <div className="row">
+          <div className="col">
+            <Link to="/addrevenuecategory" className="btn btn-outline-info">
+              Add Category Here
+            </Link>
+          </div>
+          <div className="col-3">
+            <input
+              type="text"
+              placeholder="Search Here"
+              className="form-control"
+              onChange={(event) => setSearch(event.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="container">
         <div className="row">
           <div className="col">
@@ -78,35 +110,37 @@ const GetAllRevenue: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {revenueReduxState.Rcategories.slice(
-                  startPageIndex,
-                  endPageIndex + 1
-                ).map((categories, index) => {
-                  return (
-                    <tr>
-                      <td>{categories.revenue_category_id}</td>
-                      <td>{categories.revenue_category_name}</td>
-                      <td>
-                        <Link
-                          to={`/updateRevenue/${categories.revenue_category_id}`}
-                          className="btn btn-outline-success"
-                        >
-                          Update
-                        </Link>
-                        <button
-                          className="btn btn-outline-danger"
-                          onClick={() =>
-                            deleteRevenueCategory(
-                              categories.revenue_category_id
-                            )
-                          }
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {(searchItem.length > 0
+                  ? searchItem
+                  : revenueReduxState.Rcategories
+                )
+                  .slice(startPageIndex, endPageIndex + 1)
+                  .map((categories, index) => {
+                    return (
+                      <tr>
+                        <td>{categories.revenue_category_id}</td>
+                        <td>{categories.revenue_category_name}</td>
+                        <td>
+                          <Link
+                            to={`/updateRevenue/${categories.revenue_category_id}`}
+                            className="btn btn-outline-success"
+                          >
+                            Update
+                          </Link>
+                          <button
+                            className="btn btn-outline-danger"
+                            onClick={() =>
+                              deleteRevenueCategory(
+                                categories.revenue_category_id
+                              )
+                            }
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
 
