@@ -2,9 +2,7 @@ const { result } = require("@hapi/joi/lib/base");
 const db = require("../config/db-config");
 const SqlError = require("../errors/SqlError");
 const values = require("@hapi/joi/lib/values");
-
 const Jwt = require("jsonwebtoken");
-
 const jwtKey = "devschool";
 
 const getAllRoles = async (req, res) => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
@@ -14,6 +14,25 @@ const GetAllIncomeInfo: React.FC = () => {
       return state[RevenueReducer.revenueFeatureKey];
     }
   );
+  const [search, setSearch] = useState("");
+
+  const searchItem = revenueReduxState.Incomes.filter((item) => {
+    if (search === "") {
+      return item;
+    } else if (
+      //item.revenue_category_id.toLowerCase().includes(search.toLowerCase())
+      item.income_id.toString().includes(search) ||
+      item.user_id.toString().includes(search) ||
+      item.revenue_category_id.toString().includes(search) ||
+      item.total_fees.toString().includes(search) ||
+      item.paid_fees.toString().includes(search) ||
+      item.balance_fees.toString().includes(search) ||
+      item.transaction_id.toString().includes(search) ||
+      item.income_amount.toString().includes(search)
+    ) {
+      return item;
+    }
+  });
   const dispatach: AppDispatch = useDispatch();
   const {
     totalPages,
@@ -62,9 +81,23 @@ const GetAllIncomeInfo: React.FC = () => {
           </div>
         </div>
       </div>
-      <Link to="/addIncome" className="btn btn-outline-info">
-        Add Income Details
-      </Link>
+      <div>
+        <div className="row">
+          <div className="col">
+            <Link to="/addrevenuecategory" className="btn btn-outline-info">
+              Add Income Deatails
+            </Link>
+          </div>
+          <div className="col-3">
+            <input
+              type="text"
+              placeholder="Search Here"
+              className="form-control"
+              onChange={(event) => setSearch(event.target.value)}
+            />
+          </div>
+        </div>
+      </div>
       <div className="container">
         <div className="row">
           <div className="col">
@@ -83,40 +116,42 @@ const GetAllIncomeInfo: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {revenueReduxState.Incomes.slice(
-                  startPageIndex,
-                  endPageIndex + 1
-                ).map((incomeDetails, index) => {
-                  return (
-                    <tr>
-                      <td>{incomeDetails.income_id}</td>
+                {(searchItem.length > 0
+                  ? searchItem
+                  : revenueReduxState.Incomes
+                )
+                  .slice(startPageIndex, endPageIndex + 1)
+                  .map((incomeDetails, index) => {
+                    return (
+                      <tr>
+                        <td>{incomeDetails.income_id}</td>
 
-                      <td>{incomeDetails.user_id}</td>
-                      <td>{incomeDetails.revenue_category_id}</td>
-                      <td>{incomeDetails.total_fees}</td>
-                      <td>{incomeDetails.paid_fees}</td>
-                      <td>{incomeDetails.balance_fees}</td>
-                      <td>{incomeDetails.transaction_id}</td>
-                      <td>{incomeDetails.income_amount}</td>
-                      <td>
-                        <Link
-                          to={`/updateIncome/${incomeDetails.income_id}`}
-                          className="btn btn-outline-success"
-                        >
-                          Update
-                        </Link>
-                        <button
-                          className="btn btn-outline-danger"
-                          onClick={() =>
-                            deleteIncomeInfoById(incomeDetails.income_id)
-                          }
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                        <td>{incomeDetails.user_id}</td>
+                        <td>{incomeDetails.revenue_category_id}</td>
+                        <td>{incomeDetails.total_fees}</td>
+                        <td>{incomeDetails.paid_fees}</td>
+                        <td>{incomeDetails.balance_fees}</td>
+                        <td>{incomeDetails.transaction_id}</td>
+                        <td>{incomeDetails.income_amount}</td>
+                        <td>
+                          <Link
+                            to={`/updateIncome/${incomeDetails.income_id}`}
+                            className="btn btn-outline-success"
+                          >
+                            Update
+                          </Link>
+                          <button
+                            className="btn btn-outline-danger"
+                            onClick={() =>
+                              deleteIncomeInfoById(incomeDetails.income_id)
+                            }
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
 
