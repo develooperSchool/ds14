@@ -4,6 +4,8 @@ import * as UroleAction from "../../../Redux/UroleRedux/urole.action";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../Redux/store";
 import { Link } from "react-router-dom";
+import { usePagination } from "../../Pagination";
+import { Pagination } from "react-bootstrap";
 
 const GetUrole: React.FC = () => {
   //data from redux store
@@ -13,6 +15,16 @@ const GetUrole: React.FC = () => {
     }
   );
   const dispatach: AppDispatch = useDispatch();
+  const {
+    totalPages,
+    startPageIndex,
+    endPageIndex,
+    currentPageIndex,
+    displayPage,
+  } = usePagination({
+    perPageRecords: 5,
+    totalPageRecords: uroleReduxState.uroles.length,
+  });
 
   useEffect(() => {
     dataFromserver();
@@ -67,7 +79,10 @@ const GetUrole: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {uroleReduxState.uroles.map((urole: any) => {
+              {uroleReduxState.uroles.slice(
+                  startPageIndex,
+                  endPageIndex + 1
+                ).map((urole: any) => {
                   return (
                     <tr>
                       <td>{urole.role_id}</td>
@@ -95,6 +110,27 @@ const GetUrole: React.FC = () => {
                 })}
               </tbody>
             </table>
+            <Pagination>
+              <Pagination.First onClick={() => displayPage(1)} />
+              <Pagination.Prev
+                onClick={() => displayPage(currentPageIndex - 1)}
+                disabled={currentPageIndex === 1}
+              />
+              {[...Array(totalPages)].map((_, index) => (
+                <Pagination.Item
+                  key={index + 1}
+                  active={index + 1 === currentPageIndex}
+                  onClick={() => displayPage(index + 1)}
+                >
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+              <Pagination.Next
+                onClick={() => displayPage(currentPageIndex + 1)}
+                disabled={currentPageIndex === totalPages}
+              />
+              <Pagination.Last onClick={() => displayPage(totalPages)} />
+            </Pagination>
           </div>
         </div>
       </div>
