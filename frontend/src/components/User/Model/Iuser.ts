@@ -42,10 +42,9 @@ export interface IRegister {
   roleId?: number;
   password: string;
 }
-export interface IupdateUser{
-  username:string;
+export interface IupdateUser {
+  username: string;
 }
-
 
 export interface IUpdate {
   user_id?: string;
@@ -80,4 +79,9 @@ export interface IUpdateRequest {
 export interface IDeactive {
   user_id?: string;
   is_active?: number;
+}
+
+export interface ICaste {
+  category: string;
+  cast_name: string;
 }
