@@ -80,3 +80,8 @@ export interface IDeactive {
   user_id?: string;
   is_active?: number;
 }
+
+export interface ICaste {
+  category: string;
+  cast_name: string;
+}

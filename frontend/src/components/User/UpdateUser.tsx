@@ -4,8 +4,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "./Redux/store";
 import * as userAction from "../../Redux/UserRedux/user.action";
 import * as userReducer from "../../Redux/UserRedux/user.reducer";
-import { IRegisterData, IUpdate, IUpdateRequest } from "./Model/Iuser";
+import { ICaste, IRegisterData, IUpdate, IUpdateRequest } from "./Model/Iuser";
 import DatePicker from "react-datepicker";
+import { castArray } from "./CastArray";
+import { obcArray } from "./CasteArray1";
 
 const UpdateUser: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -42,6 +44,39 @@ const UpdateUser: React.FC = () => {
       dataFromServer(id);
     }
   }, [id]);
+
+  var [state, setState] = useState<ICaste[]>([
+    {
+      category: "",
+      cast_name: "",
+    },
+  ]);
+
+  let castData = (input: string) => {
+    var array: any;
+    if (input === "SC") {
+      array = castArray.SC.filter((elem: any) => {
+        return elem;
+      });
+    } else if (input === "ST") {
+      array = castArray.ST.filter((elem: any) => {
+        return elem;
+      });
+    } else if (input === "OBC") {
+      array = obcArray;
+    } else {
+      array = [
+        {
+          category: "",
+          cast_name: "",
+        },
+      ];
+      return array;
+    }
+
+    setState(array);
+  };
+  console.log(state);
 
   useEffect(() => {
     reflectDate();
@@ -103,14 +138,18 @@ const UpdateUser: React.FC = () => {
   const dataFromServer = (id: string) => {
     dispatch(userAction.getUserAction({ id: id }));
   };
-  const changeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const changeInput = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ): void => {
     setLocalUser({
       ...localUser,
       [event.target.name]: event.target.value,
     });
   };
 
-  const submitData = (event: React.FormEvent<HTMLFormElement>): void => {
+  const submitData = (
+    event: React.FormEvent<HTMLFormElement | HTMLSelectElement>
+  ): void => {
     event.preventDefault();
     let updateUserData: IUpdateRequest = {
       firstName: localUser.first_name,
@@ -289,34 +328,58 @@ const UpdateUser: React.FC = () => {
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
                       <label>Caste</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        onChange={(e) => changeInput(e)}
-                        value={localUser.caste_category}
+                      <select
                         name="caste_category"
-                      />
-                      {/* <select name="caste" id="" className="form-control">
-                                        <option value="select">Select</option>
-                                        <option value="open">OPEN</option>
-                                        <option value="obc">OBC</option>
-                                        <option value="sc">SC</option>
-                                        <option value="st">ST</option>
-                                        <option value="vjnt">VJNT</option>
-                                        <option value="other">OTHER</option>
-                                    </select> */}
+                        id=""
+                        className="form-select"
+                        aria-label="Default select example"
+                        value={localUser.caste_category}
+                        onClick={() => {
+                          castData(localUser.caste_category);
+                        }}
+                        onChange={(e) => changeInput(e)}
+                      >
+                        <option value="Select">Select</option>
+                        <option value="OPEN">OPEN</option>
+                        <option value="OBC">OBC</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                        <option value="VJNT">VJNT</option>
+                        <option value="SBC">SBC</option>
+                      </select>
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
-                      <label>Subcaste</label>
-                      <input
+                      {localUser.caste_category != "OPEN" && (
+                        <label>Subcaste</label>
+                      )}
+                      {localUser.caste_category != "OPEN" && (
+                        <select
+                          onChange={(e) => changeInput(e)}
+                          name="subcaste"
+                          id=""
+                          className="form-control"
+                        >
+                          <option>select</option>
+                          {state.map((element: ICaste) => {
+                            return (
+                              <>
+                                <option value={element.cast_name}>
+                                  {element.cast_name}
+                                </option>
+                              </>
+                            );
+                          })}
+                        </select>
+                      )}
+                      {/* <input
                         onChange={(e) => changeInput(e)}
                         type="text"
                         name="subcaste"
                         value={localUser.subcaste}
                         className="form-control"
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>
