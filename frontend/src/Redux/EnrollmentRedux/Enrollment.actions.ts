@@ -10,7 +10,8 @@ export const getAllEnrollmentAction: any = createAsyncThunk(
   async (payload: {}, { rejectWithValue }): Promise<IENROLMENT[] | any> => {
     try {
       let res = await EnrollmentServices.getAllEnrollments();
-      return res.data;
+      const array: any = res.data;
+      return array.body;
     } catch (err: any) {
       if (!err.res) {
         throw err;

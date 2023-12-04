@@ -335,7 +335,29 @@ const Registration: React.FC = () => {
                   </div>
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
+{create.caste_category != "OPEN" && (
+                        <label>Subcaste</label>
+                      )}
                       {create.caste_category != "OPEN" && (
+                        <select
+                          onChange={(e) => changeInputEvent(e)}
+                          name="subcaste"
+                          id=""
+                          className="form-control"
+                        >
+                          <option>select</option>
+                          {state.map((element: ICaste) => {
+                            return (
+                              <>
+                                <option value={element.cast_name}>
+                                  {element.cast_name}
+                                </option>
+                              </>
+                            );
+                          })}
+                        </select>
+                      )}
+                      {/* <input<<<<<<< .mine
                         <label>Subcaste</label>
                       )}
                       {create.caste_category != "OPEN" && (
@@ -358,12 +380,36 @@ const Registration: React.FC = () => {
                         </select>
                       )}
                       {/* <input
+=======
+                      {/* add select option for subcast
+                       {<input
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="subcaste"
                         value={create.subcaste}
                         className="form-control"
-                      /> */}
+  />} */}
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">

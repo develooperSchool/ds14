@@ -83,7 +83,7 @@ const userLogin = async (req, res) => {
   await roleDao
     .userLogin(req, res)
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       message = result;
     })
     .catch((err) => {

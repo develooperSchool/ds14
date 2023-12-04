@@ -31,7 +31,7 @@ let FacultyDetails: React.FC = () => {
           <table className="table table-stripped table-hover">
             <thead className="course_table_head ">
               <tr>
-                <th scope="col">#SR.NO</th>
+                <th scope="col">#ROLE ID</th>
                 <th scope="col">FACULTY </th>
                 <th scope="col">EMAIL</th>
                 <th scope="col">CONTACT</th>
@@ -48,7 +48,7 @@ let FacultyDetails: React.FC = () => {
                   return (
                     <>
                       <tr>
-                        <td>{ind + 1}</td>
+                        <td>{elem.role_id}</td>
                         <td>{`${elem.first_name} ${elem.last_name}`}</td>
                         <td>{elem.email}</td>
                         <td>{elem.contact}</td>
