@@ -7,15 +7,12 @@ import { Link } from "react-router-dom";
 import { usePagination } from "../../Pagination";
 import { Col, Pagination } from "react-bootstrap";
 import { Iurole } from "../Model/Iurole";
-import axios from "axios";
 
 const GetUrole: React.FC = () => {
   ///filtering and sortig code
-  const [data, setData] = useState<Iurole[]>([]);
-  const [sortedData, setSortedData] = useState("ASC");
   const [search, setSearch] = useState("");
-  // const [filteredData, setFilteredData] = useState<Iurole[]>([]);
-  // const [filterText, setFilterText] = useState<string>("");
+  const [sortBy, setSortBy] = useState<string>("role_name");
+  const [sortOrder, setSortOrder] = useState<string>("asc");
 
   //data from redux store
   const uroleReduxState: UroleReducer.InitialState = useSelector(
@@ -25,6 +22,10 @@ const GetUrole: React.FC = () => {
   );
 
   const dispatach: AppDispatch = useDispatch();
+  useEffect(() => {
+    let data = dataFromserver();
+    console.log(uroleReduxState);
+  }, []);
 
   ///code for searching
   const searchItem = uroleReduxState.uroles.filter((item) => {
@@ -36,7 +37,16 @@ const GetUrole: React.FC = () => {
     ) {
       return item;
     }
-  });
+  }).sort(
+    (a: Iurole, b: Iurole) => {
+      const aValue = a[sortBy].toString().toLowerCase();
+      const bValue = b[sortBy].toString().toLowerCase();
+
+      if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
+      if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
+      return 0;
+    }
+  );
 
   ////pagination code
   const {
@@ -57,10 +67,6 @@ const GetUrole: React.FC = () => {
 
   //
 
- 
-
-  
-
   const dataFromserver = () => {
     dispatach(UroleAction.getAllRolesAction());
   };
@@ -73,6 +79,25 @@ const GetUrole: React.FC = () => {
       });
     }
   };
+  const handleSort = (criteria: string) => {
+    if (sortBy === criteria) {
+      setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+    } else {
+      setSortBy(criteria);
+      setSortOrder("asc");
+    }
+  };
+
+  // const sortedUroles = [...uroleReduxState.uroles].sort(
+  //   (a: Iurole, b: Iurole) => {
+  //     const aValue = a[sortBy].toString().toLowerCase();
+  //     const bValue = b[sortBy].toString().toLowerCase();
+
+  //     if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
+  //     if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
+  //     return 0;
+  //   }
+  // );
 
   return (
     <>
@@ -99,6 +124,7 @@ const GetUrole: React.FC = () => {
               Add New Role Here
             </Link>
           </div>
+
           <div className="col-3">
             <input
               type="text"
@@ -110,52 +136,43 @@ const GetUrole: React.FC = () => {
         </div>
       </div>
 
-     
-
-      
-      
-        
-
       <div className="container">
         <div className="row">
           <div className="col">
             <table className="table table-stripped table-hover text-center">
               <thead>
                 <tr>
-                  <th>Role Id</th>
-                  <th>Role Name</th>
+                  <th onClick={() => handleSort("role_id")}>Role Id</th>
+                  <th onClick={() => handleSort("role_name")}>Role Name</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {/* {uroleReduxState.uroles
                   .slice(startPageIndex, endPageIndex + 1) */}
-                {(searchItem.length > 0 ? searchItem : uroleReduxState.uroles)
-                
-                
+                {/* {(searchItem.length > 0 ? searchItem : uroleReduxState.uroles) */}
+                {searchItem
                   .slice(startPageIndex, endPageIndex + 1)
-                  .map((urole: any) => {
-                    return (
-                      <tr>
-                        <td>{urole.role_id}</td>
-                        <td>{urole.role_name}</td>
-                        <td>
-                          <Link
-                            to={`/updateurole/${urole.role_id}`}
-                            className="btn btn-outline-success"
-                          >
-                            Update
-                          </Link>
-                          <button
-                            className="btn btn-outline-danger"
-                            onClick={() => deleteRole(urole.role_id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  .map((urole: any) => (
+                    <tr key={urole.role_id}>
+                      <td>{urole.role_id}</td>
+                      <td>{urole.role_name}</td>
+                      <td>
+                        <Link
+                          to={`/updateurole/${urole.role_id}`}
+                          className="btn btn-outline-success"
+                        >
+                          Update
+                        </Link>
+                        <button
+                          className="btn btn-outline-danger"
+                          onClick={() => deleteRole(urole.role_id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
             <Pagination>
