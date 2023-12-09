@@ -335,7 +335,7 @@ const Registration: React.FC = () => {
                   </div>
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
-{create.caste_category != "OPEN" && (
+                      {create.caste_category != "OPEN" && (
                         <label>Subcaste</label>
                       )}
                       {create.caste_category != "OPEN" && (
