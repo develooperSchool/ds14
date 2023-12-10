@@ -5,6 +5,8 @@ import { AppDispatch, RootState } from "../../User/Redux/store";
 import { useEffect } from "react";
 import "../../../style/Courses/courescrud.css";
 import { IENROLMENT } from "../Model/IENROLLMENT";
+import { usePagination } from "../../Pagination";
+import Pagination from "react-bootstrap/esm/Pagination";
 
 let Enrollment: React.FC = () => {
   const EnrollmentReduxState: enrollmentReducer.initialState = useSelector(
@@ -14,6 +16,16 @@ let Enrollment: React.FC = () => {
   );
 
   const dispatach: AppDispatch = useDispatch();
+  const {
+    totalPages,
+    startPageIndex,
+    endPageIndex,
+    currentPageIndex,
+    displayPage,
+  } = usePagination({
+    perPageRecords: 10,
+    totalPageRecords: EnrollmentReduxState.userEnrollmentData.length,
+  });
 
   let dataFromServer = () => {
     dispatach(enrollmentActions.getAllEnrollmentAction());
@@ -37,8 +49,9 @@ let Enrollment: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {EnrollmentReduxState.userEnrollmentData.map(
-              (elem: IENROLMENT, ind: any) => {
+            {EnrollmentReduxState.userEnrollmentData
+              .slice(startPageIndex, endPageIndex)
+              .map((elem: IENROLMENT, ind: any) => {
                 return (
                   <>
                     <tr>
@@ -52,10 +65,30 @@ let Enrollment: React.FC = () => {
                     </tr>
                   </>
                 );
-              }
-            )}
+              })}
           </tbody>
         </table>
+        <Pagination>
+          <Pagination.First onClick={() => displayPage(1)} />
+          <Pagination.Prev
+            onClick={() => displayPage(currentPageIndex - 1)}
+            disabled={currentPageIndex === 1}
+          />
+          {[...Array(totalPages)].map((_, index) => (
+            <Pagination.Item
+              key={index + 1}
+              active={index + 1 === currentPageIndex}
+              onClick={() => displayPage(index + 1)}
+            >
+              {index + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next
+            onClick={() => displayPage(currentPageIndex + 1)}
+            disabled={currentPageIndex === totalPages}
+          />
+          <Pagination.Last onClick={() => displayPage(totalPages)} />
+        </Pagination>
       </div>
     </>
   );

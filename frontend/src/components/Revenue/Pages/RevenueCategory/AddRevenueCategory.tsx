@@ -96,7 +96,7 @@ const AddRevenueCategory = () => {
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}
-                    className={`form-control ${
+                    className={`form-control  ${
                       validation.categoryError && "is-invalid"
                     }`}
                     placeholder="Enter Revenue Category"
