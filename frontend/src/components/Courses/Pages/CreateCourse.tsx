@@ -8,6 +8,9 @@ import { createCourseAction } from "../../../Redux/CoursesRedux/Courses.actions"
 
 let Createcourse = () => {
   let dispatch: AppDispatch = useDispatch();
+  const [validation, setValidation] = useState({
+    categoryError: "",
+  });
 
   let [state, setstate] = useState<IC>({
     courseName: "",
@@ -21,6 +24,14 @@ let Createcourse = () => {
     setstate({
       ...state,
       [event.target.name]: event.target.value,
+    });
+    const inputValue = event.target.value;
+    // Check if the input contains only letters
+    const isLettersOnly = /^[a-zA-Z\s]+$/.test(inputValue);
+    setValidation({
+      categoryError: isLettersOnly
+        ? ""
+        : "Category name must contain only letters",
     });
   };
 
@@ -60,7 +71,9 @@ let Createcourse = () => {
                     <label className="form-label mb-1">Enter Course Name</label>
                     <input
                       type="text"
-                      className="form-control"
+                      className={`form-control  ${
+                        validation.categoryError && "is-invalid"
+                      }`}
                       name="courseName"
                       value={state.courseName}
                       onChange={(e) => {
@@ -68,6 +81,11 @@ let Createcourse = () => {
                       }}
                       id="inputEmail4"
                     />
+                    {validation.categoryError && (
+                      <div className="invalid-feedback">
+                        {validation.categoryError}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -78,7 +96,9 @@ let Createcourse = () => {
                     </label>
                     <input
                       type="text"
-                      className="form-control "
+                      className={`form-control  ${
+                        validation.categoryError && "is-invalid"
+                      }`}
                       value={state.courseDuration}
                       onChange={(e) => {
                         changeInput(e);
@@ -93,7 +113,7 @@ let Createcourse = () => {
                   <div>
                     <label className="form-label mb-1">Enter Course Fees</label>
                     <input
-                      type="text"
+                      type="number"
                       onChange={(e) => {
                         changeInput(e);
                       }}
@@ -102,6 +122,11 @@ let Createcourse = () => {
                       name="courseFees"
                       id="inputEmail4"
                     />
+                    {validation.categoryError && (
+                      <div className="invalid-feedback">
+                        {validation.categoryError}
+                      </div>
+                    )}
                   </div>
                 </div>
 
