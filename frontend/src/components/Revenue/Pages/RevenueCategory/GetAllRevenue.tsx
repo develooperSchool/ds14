@@ -14,7 +14,7 @@ const GetAllRevenue: React.FC = () => {
       return state[RevenueReducer.revenueFeatureKey];
     }
   );
-
+  //Seraching code
   const [search, setSearch] = useState("");
 
   const searchItem = revenueReduxState.Rcategories.filter((item) => {
