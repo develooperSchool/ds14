@@ -14,21 +14,21 @@ const GetAllIncomeInfo: React.FC = () => {
       return state[RevenueReducer.revenueFeatureKey];
     }
   );
+
   const [search, setSearch] = useState("");
 
   const searchItem = revenueReduxState.Incomes.filter((item) => {
     if (search === "") {
       return item;
     } else if (
-      //item.revenue_category_id.toLowerCase().includes(search.toLowerCase())
-      item.income_id.toString().includes(search) ||
-      item.user_id.toString().includes(search) ||
-      item.revenue_category_id.toString().includes(search) ||
-      item.total_fees.toString().includes(search) ||
-      item.paid_fees.toString().includes(search) ||
-      item.balance_fees.toString().includes(search) ||
-      item.transaction_id.toString().includes(search) ||
-      item.income_amount.toString().includes(search)
+      item.income_id.toString().includes(search.toLowerCase()) ||
+      item.user_id.toString().includes(search.toLowerCase()) ||
+      item.revenue_category_id.toString().includes(search.toLowerCase()) ||
+      item.total_fees.toString().includes(search.toLowerCase()) ||
+      item.paid_fees.toString().includes(search.toLowerCase()) ||
+      item.balance_fees.toString().includes(search.toLowerCase()) ||
+      item.transaction_id.toString().includes(search.toLowerCase()) ||
+      item.income_amount.toString().includes(search.toLowerCase())
     ) {
       return item;
     }
