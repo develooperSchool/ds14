@@ -12,7 +12,8 @@ export const getAllFacultyAction: any = createAsyncThunk(
   async (payload: {}, { rejectWithValue }): Promise<IUSER[] | any> => {
     try {
       let res = await facultyServices.getAllFacultyData();
-      return res.data;
+      let array: any = res.data;
+      return array.body;
     } catch (err: any) {
       if (!err.res) {
         throw err;
@@ -27,7 +28,8 @@ export const getFacultyAction: any = createAsyncThunk(
   async (payload: {}, { rejectWithValue }): Promise<IUSERBYID[] | any> => {
     try {
       let res = await facultyServices.getAllFaculty();
-      return res.data;
+      const array: any = res.data;
+      return array.body;
     } catch (err: any) {
       if (!err.res) {
         throw err;
@@ -42,8 +44,8 @@ export const getSubjectsAction: any = createAsyncThunk(
   async (payload: {}, { rejectWithValue }): Promise<ISUBJECTS[] | any> => {
     try {
       let res = await facultyServices.getAllSubjects();
-      console.log(res);
-      return res.data;
+      let array: any = res.data;
+      return array.body;
     } catch (err: any) {
       if (!err.res) {
         throw err;
@@ -62,7 +64,8 @@ export const getFacultyByIdAction: any = createAsyncThunk(
     const { Id } = payload;
     try {
       let res = await facultyServices.getFacultyDataById(Id);
-      return res.data.body;
+      const array: any = res.data;
+      return array.body;
     } catch (err: any) {
       if (!err.res) {
         throw err;
@@ -79,7 +82,6 @@ export const assignFacultyAction: any = createAsyncThunk(
     { rejectWithValue }
   ): Promise<IFACULTY | any> => {
     let { obj } = payload;
-    console.log(obj);
     try {
       let res = await facultyServices.assignFaculty(obj);
       return res.data;

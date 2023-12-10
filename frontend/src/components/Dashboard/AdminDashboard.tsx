@@ -49,6 +49,7 @@ import AllUsers from "../User/AllUsers";
 import ForgotPwd from "../User/ForgotPwd";
 import Registration from "../User/Registration";
 import Enrollment from "../Enrollment/Pages/GetAllEnrollment";
+
 const AdminDashboard = () => {
   return (
     <>

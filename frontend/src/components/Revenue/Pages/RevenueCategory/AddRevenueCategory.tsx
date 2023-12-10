@@ -25,6 +25,10 @@ const AddRevenueCategory = () => {
   });
 
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setcreatecatogiry({
+      ...createcategory,
+      [event.target.name]: event.target.value,
+    });
     const inputValue = event.target.value;
 
     // Check if the input contains only letters
@@ -33,11 +37,6 @@ const AddRevenueCategory = () => {
       categoryError: isLettersOnly
         ? ""
         : "Category name must contain only letters",
-    });
-
-    setcreatecatogiry({
-      ...createcategory,
-      [event.target.name]: event.target.value,
     });
   };
 
@@ -96,7 +95,7 @@ const AddRevenueCategory = () => {
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}
-                    className={`form-control ${
+                    className={`form-control  ${
                       validation.categoryError && "is-invalid"
                     }`}
                     placeholder="Enter Revenue Category"
