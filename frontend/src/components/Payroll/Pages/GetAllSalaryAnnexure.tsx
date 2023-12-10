@@ -4,17 +4,10 @@ import { Link } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../Redux/store";
 import * as SalaryAnnexureReducer from "../../../Redux/PayrollRedux/salaryReducer";
 import * as SalaryAnnexureAction from "../../../Redux/PayrollRedux/salaryAction";
-import ReactPDF, {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  Image,
-} from "@react-pdf/renderer";
+import ReactPDF, { Document, Page, Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import { SalaryAnnexure } from "../Model/SalaryAnnexure";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import companyLogo from "../Images/logo.png";
+import companyLogo from "../Images/logo.png"
 import { usePagination } from "../../Pagination";
 import { Pagination } from "react-bootstrap";
 
@@ -22,21 +15,27 @@ const GetAllSalaryAnnexure: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
   // Data from Redux Store
-  const salaryAnnexureReduxState: SalaryAnnexureReducer.InitialState =
-    useSelector((state: RootState) => {
+  const salaryAnnexureReduxState: SalaryAnnexureReducer.InitialState = useSelector(
+    (state: RootState) => {
       return state[SalaryAnnexureReducer.salaryfeatureKey];
-    });
+    }
+  );
 
-  const {
-    totalPages,
-    startPageIndex,
-    endPageIndex,
-    currentPageIndex,
-    displayPage,
-  } = usePagination({
-    perPageRecords: 5,
-    totalPageRecords: salaryAnnexureReduxState.salaries.length,
+  const [search, setSearch] = useState("");
+
+  const searchItem = salaryAnnexureReduxState.salaries.filter((item) => {
+    if (search == "") {
+      return item;
+    } else if (
+      item.name.toLowerCase().includes(search.toLowerCase()) ||
+      item.annexure_id.toString().includes(search) ||
+      item.annexure_date.toLowerCase().includes(search.toLowerCase())
+    ) {
+      return item;
+    }
   });
+
+  const { totalPages, startPageIndex, endPageIndex, currentPageIndex, displayPage } = usePagination({ perPageRecords: 5, totalPageRecords: salaryAnnexureReduxState.salaries.length });
 
   useEffect(() => {
     fetchDataFromServer();
@@ -48,15 +47,17 @@ const GetAllSalaryAnnexure: React.FC = () => {
 
   const deleteSalaryAnnexure = (annexureId: number) => {
     if (annexureId) {
-      dispatch(
-        SalaryAnnexureAction.deleteSalaryAnnexureAction({ Id: annexureId })
-      ).then((res: any) => {
-        if (res && !res.error) {
-          fetchDataFromServer();
+      dispatch(SalaryAnnexureAction.deleteSalaryAnnexureAction({ Id: annexureId })).then(
+        (res: any) => {
+          if (res && !res.error) {
+            fetchDataFromServer();
+          }
         }
-      });
+      );
     }
   };
+
+
 
   const generatePDF = (annexure: SalaryAnnexure) => (
     <Document>
@@ -66,18 +67,15 @@ const GetAllSalaryAnnexure: React.FC = () => {
             <Image style={styles.logo} src={companyLogo} />
             <View style={styles.companyInfo}>
               <Text style={styles.companyName}>CI SOLUTIONS</Text>
-              <Text style={styles.companyAddress}>
-                Plot no-97, Sector-05, Ghansoli, Navi Mumbai 400701
-              </Text>
+              <Text style={styles.companyAddress}>Plot no-97, Sector-05, Ghansoli, Navi Mumbai 400701</Text>
             </View>
           </View>
 
-          <Text style={styles.title}>
-            Pay slip for the month of September-2023
-          </Text>
+          <Text style={styles.title}>Pay slip for the month of September-2023</Text>
         </View>
         <View style={styles.content}>
           <View style={styles.twoColumnsContainer}>
+
             <View style={styles.column}>
               <View style={styles.row}>
                 <Text style={styles.label}>Name</Text>
@@ -141,9 +139,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
               <View style={styles.subRow}>
                 <Text style={styles.subCell}>Special Allowance</Text>
                 <Text style={styles.subCell}>{annexure.special_allowance}</Text>
-                <Text style={styles.subCell}>
-                  {annexure.special_allowance * 12}
-                </Text>
+                <Text style={styles.subCell}>{annexure.special_allowance * 12}</Text>
               </View>
             </View>
           </View>
@@ -161,9 +157,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
               <View style={styles.subRow}>
                 <Text style={styles.subCell}>Profession Tax</Text>
                 <Text style={styles.subCell}>{annexure.profession_tax}</Text>
-                <Text style={styles.subCell}>
-                  {annexure.profession_tax * 12}
-                </Text>
+                <Text style={styles.subCell}>{annexure.profession_tax * 12}</Text>
               </View>
             </View>
           </View>
@@ -193,25 +187,26 @@ const GetAllSalaryAnnexure: React.FC = () => {
       flexDirection: "column",
       backgroundColor: "#E4E4E4",
       padding: 15,
+
     },
     header: {
       textAlign: "center",
       marginBottom: 10,
-      borderBottom: 1,
+      borderBottom: 1
     },
     logoContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
       marginBottom: 10,
-      margin: 0,
+      margin: 0
     },
     logo: {
       width: 170,
       height: 120,
     },
     companyInfo: {
-      marginRight: 100,
+      marginRight: 100
     },
     companyName: {
       fontSize: 20,
@@ -227,7 +222,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
     title: {
       fontSize: 12,
       fontWeight: "bold",
-      marginBottom: 5,
+      marginBottom: 5
     },
     content: {
       margin: 10,
@@ -238,14 +233,14 @@ const GetAllSalaryAnnexure: React.FC = () => {
       flexDirection: "column",
       border: "1px solid #000",
       width: "100%",
-      fontSize: 12,
+      fontSize: 12
     },
     subTable: {
       marginLeft: 0,
       display: "flex",
       flexDirection: "column",
       width: "100%",
-      fontSize: 12,
+      fontSize: 12
     },
     row: {
       flexDirection: "row",
@@ -257,6 +252,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
       flexDirection: "row",
       borderBottom: "1px solid #000",
       padding: 5,
+
     },
     rowHeader: {
       flexDirection: "row",
@@ -291,7 +287,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
       flexDirection: "row",
       justifyContent: "space-between",
       marginBottom: 10,
-      fontSize: 12,
+      fontSize: 12
     },
     column: {
       flex: 1,
@@ -302,19 +298,19 @@ const GetAllSalaryAnnexure: React.FC = () => {
       backgroundColor: "#000",
       marginVertical: 5,
     },
+
   });
+
+
+
+
 
   const DownloadLink = ({ annexure }: { annexure: SalaryAnnexure }) => {
     const pdfContent = generatePDF(annexure);
 
     return (
-      <PDFDownloadLink
-        document={pdfContent}
-        fileName={`salary_annexure_${annexure.annexure_id}.pdf`}
-      >
-        {({ blob, url, loading, error }) =>
-          loading ? "Loading document..." : "Download"
-        }
+      <PDFDownloadLink document={pdfContent} fileName={`salary_annexure_${annexure.annexure_id}.pdf`}>
+        {({ blob, url, loading, error }) => (loading ? "Loading document..." : "Download")}
       </PDFDownloadLink>
     );
   };
@@ -326,22 +322,34 @@ const GetAllSalaryAnnexure: React.FC = () => {
           <div className="col">
             <h3 className="text-success mt-3">Salary Annexure Details</h3>
             <p className="fst-italic text-justify">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem,
-              ipsum? Asperiores totam tenetur minus officia sint perferendis
-              quidem accusamus, iusto reiciendis a quos laudantium. Repellat
-              eius porro qui amet voluptates odit. Consequatur, aliquam
-              similique libero dolor dolorem totam eligendi! Quod dignissimos
-              commodi blanditiis deleniti, magnam hic placeat ut illum.
-              Expedita.
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem, ipsum? Asperiores totam tenetur minus officia sint perferendis quidem accusamus, iusto reiciendis a quos laudantium. Repellat eius porro qui amet voluptates odit. Consequatur, aliquam similique libero dolor dolorem totam eligendi! Quod dignissimos commodi blanditiis deleniti, magnam hic placeat ut illum. Expedita.
             </p>
           </div>
         </div>
       </div>
 
       <div className="container">
-        <Link className="btn btn-primary" to="/create">
-          + NEW
-        </Link>
+        <div className="row">
+          <div className="col">
+            <Link className="btn btn-primary" to="/create">
+              + NEW
+            </Link>
+          </div>
+          <div className="col input-group justify-content-end">
+            <input
+              type="text"
+              placeholder="Search Here"
+              className="custom-input"
+              style={{ width: '150px', height: "30px", border: "1 px solid grey" }}
+              onChange={(event) => setSearch(event.target.value)}
+            />
+            <div className="input-group-append">
+              <span className="input-group-text">
+                <i className="fas fa-search"></i>
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="container">
@@ -367,9 +375,8 @@ const GetAllSalaryAnnexure: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {salaryAnnexureReduxState.salaries
-                  .slice(startPageIndex, endPageIndex + 1)
-                  .map((annexure, index) => (
+                {(searchItem.length > 0 ? searchItem : salaryAnnexureReduxState.salaries)
+                  .slice(startPageIndex, endPageIndex + 1).map((annexure, index) => (
                     <tr key={index}>
                       <td>{annexure.annexure_id}</td>
                       <td>{annexure.user_id}</td>
@@ -385,22 +392,18 @@ const GetAllSalaryAnnexure: React.FC = () => {
                       <td>{annexure.net_salary}</td>
                       <td>{annexure.annexure_date}</td>
                       <td>
-                        <Link
-                          to={`/put/${annexure.annexure_id}`}
-                          className="btn btn-success"
-                        >
+                        <Link to={`/put/${annexure.annexure_id}`} className="btn btn-success">
                           Update
                         </Link>
                         <button
                           className="btn btn-danger"
-                          onClick={() =>
-                            deleteSalaryAnnexure(annexure.annexure_id)
-                          }
+                          onClick={() => deleteSalaryAnnexure(annexure.annexure_id)}
                         >
                           Delete
                         </button>
                         <button className="btn btn-warning">
                           <DownloadLink annexure={annexure} />
+
                         </button>
                       </td>
                     </tr>
@@ -410,10 +413,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
 
             <Pagination>
               <Pagination.First onClick={() => displayPage(1)} />
-              <Pagination.Prev
-                onClick={() => displayPage(currentPageIndex - 1)}
-                disabled={currentPageIndex === 1}
-              />
+              <Pagination.Prev onClick={() => displayPage(currentPageIndex - 1)} disabled={currentPageIndex === 1} />
               {[...Array(totalPages)].map((_, index) => (
                 <Pagination.Item
                   key={index + 1}
@@ -423,12 +423,10 @@ const GetAllSalaryAnnexure: React.FC = () => {
                   {index + 1}
                 </Pagination.Item>
               ))}
-              <Pagination.Next
-                onClick={() => displayPage(currentPageIndex + 1)}
-                disabled={currentPageIndex === totalPages}
-              />
+              <Pagination.Next onClick={() => displayPage(currentPageIndex + 1)} disabled={currentPageIndex === totalPages} />
               <Pagination.Last onClick={() => displayPage(totalPages)} />
             </Pagination>
+
           </div>
         </div>
       </div>
