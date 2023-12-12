@@ -21,6 +21,7 @@ const attendanceRecordsRoutes = require("./routes/attendanceRecords");
 const payrollProcessingRoutes = require("./routes/payrollProcessing");
 const salaryRoutes = require("./routes/salary.routes");
 var enrollmentRouter = require("./routes/enrollment.routes");
+var userEnrollmentRouter = require("./routes/userEnrollment.routes");
 
 //project routes............................
 //let enrollmentRouter=require('./router/enrollment.routes');
@@ -75,6 +76,7 @@ app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/faculties", facultyRouter);
 app.use("/api/v1/guests", guestRouter);
 app.use("/api/v1/enrollment", enrollmentRouter);
+app.use("/api/v1/userEnrollment", userEnrollmentRouter);
 
 //project....................................
 //app.use('/api/v1/enrollment',enrollmentRouter);

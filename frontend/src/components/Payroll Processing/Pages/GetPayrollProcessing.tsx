@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../Redux/store";
 import { useDispatch } from "react-redux";
@@ -15,6 +15,19 @@ const GetAllPayrollProcessing: React.FC = () => {
     const processingReduxState: PayrollProcessingReducer.InitialState = useSelector((state: RootState) => {
         return state[PayrollProcessingReducer.processingFeatureKey]
     })
+
+    const [search, setSearch] = useState("");
+
+    const searchItem = processingReduxState.processes.filter((item) => {
+        if (search == "") {
+            return item;
+        } else if (
+            item.payroll_date.toLowerCase().includes(search.toLowerCase()) ||
+            String(item.payroll_id).includes(search)
+        ) {
+            return item;
+        }
+    });
 
     const dispatch: AppDispatch = useDispatch();
     const { totalPages, startPageIndex, endPageIndex, currentPageIndex, displayPage } = usePagination({ perPageRecords: 5, totalPageRecords: processingReduxState.processes.length });
@@ -50,7 +63,25 @@ const GetAllPayrollProcessing: React.FC = () => {
             </div>
 
             <div className="container">
-                <Link className="btn btn-primary" to="/postpayroll-processing">+ NEW</Link>
+                <div className="row">
+                    <div className="col">
+                        <Link className="btn btn-primary" to="/postpayroll-processing">+ NEW</Link>
+                    </div>
+                    <div className="col input-group justify-content-end">
+                        <input
+                            type="text"
+                            placeholder="Search Here"
+                            className="custom-input"
+                            style={{ width: '150px', height: "30px", border: "1 px solid grey" }}
+                            onChange={(event) => setSearch(event.target.value)}
+                        />
+                        <div className="input-group-append">
+                            <span className="input-group-text">
+                                <i className="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="container mt-4">
@@ -68,7 +99,7 @@ const GetAllPayrollProcessing: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {processingReduxState.processes.slice(startPageIndex, endPageIndex + 1).map((newprocess, index) => {
+                                {(searchItem.length > 0 ? searchItem : processingReduxState.processes).slice(startPageIndex, endPageIndex + 1).map((newprocess, index) => {
                                     return (
                                         <tr>
                                             <td>{newprocess.payroll_id}</td>

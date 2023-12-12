@@ -45,6 +45,14 @@ const Topbar = () => {
                       </Link>
                     </li>
                     <li>
+                      <Link
+                        className="nav-link active text-light"
+                        to={"/enroll"}
+                      >
+                        Enroll Here!
+                      </Link>
+                    </li>
+                    <li>
                       <button
                         className="nav-link active text-light"
                         onClick={() => handleLogout()}

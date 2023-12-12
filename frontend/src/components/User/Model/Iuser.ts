@@ -19,7 +19,7 @@ export interface IRegisterData {
   createdBy?: string;
   updatedBy?: string;
   is_active?: number;
-  roleId?: number;
+  role_id?: number;
   password: string;
 }
 
