@@ -52,7 +52,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mt-3">
-            <Link to={"/userEnrollment"} className="Link">
+            <Link to={"/userEnrollData"} className="Link">
               <i className="fa-solid fa-users"> </i> All Enrolled Users
             </Link>
           </li>

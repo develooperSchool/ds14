@@ -36,11 +36,11 @@ router.put(
   roleValidation.getRoleByIdValidation,
   roleController.updateUserById
 );
-// router.put(
-//   "/updaterole/:id",
-//   roleValidation.getRoleByIdValidation,
-//   roleController.updateRoleById
-// );
+router.put(
+  "/updaterole/:id",
+  roleValidation.getRoleByIdValidation,
+  roleController.updateRoleById
+);
 
 router.all("*", (req, res) => {
   res.status(404).json({ error: "Not Found" });

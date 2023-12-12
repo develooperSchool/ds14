@@ -51,6 +51,7 @@ import Registration from "../User/Registration";
 import Enrollment from "../Enrollment/Pages/GetAllEnrollment";
 import GetAllEnrollUsers from "../UserEnrollment/Pages/GetAllEnrollUsers";
 import EnrollUser from "../UserEnrollment/Pages/EnrollUser";
+
 const AdminDashboard = () => {
   return (
     <>

@@ -87,8 +87,7 @@ const GetAllEnrollUsers: React.FC = () => {
               <thead>
                 <tr>
                   <th>Sr.No.</th>
-                  <th>FirstName</th>
-                  <th>LastName</th>
+                  <th>Name</th>
                   <th>EmailId</th>
                   <th>Contact</th>
                   <th>Address</th>
@@ -111,8 +110,8 @@ const GetAllEnrollUsers: React.FC = () => {
                     return (
                       <tr>
                         <td>{userE.enroll_id}</td>
-                        <td>{userE.first_name}</td>
-                        <td>{userE.last_name}</td>
+                        <td>{`${userE.first_name} ${userE.last_name}`}</td>
+
                         <td>{userE.email}</td>
                         <td>{userE.contact}</td>
                         <td>{userE.address}</td>
