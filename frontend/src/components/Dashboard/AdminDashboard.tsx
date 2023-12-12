@@ -49,6 +49,8 @@ import AllUsers from "../User/AllUsers";
 import ForgotPwd from "../User/ForgotPwd";
 import Registration from "../User/Registration";
 import Enrollment from "../Enrollment/Pages/GetAllEnrollment";
+import GetAllEnrollUsers from "../UserEnrollment/Pages/GetAllEnrollUsers";
+import EnrollUser from "../UserEnrollment/Pages/EnrollUser";
 const AdminDashboard = () => {
   return (
     <>
@@ -83,6 +85,11 @@ const AdminDashboard = () => {
               <Route path="/deactivate/:id" element={<DeactiveUser />}></Route>
 
               <Route path="/users" element={<AllUsers />}></Route>
+              <Route
+                path="/userEnrollData"
+                element={<GetAllEnrollUsers />}
+              ></Route>
+
               <Route path="/revenue" element={<GetAllRevenue />}></Route>
 
               <Route path="/isActive" element={<AllActiveUsers />}></Route>
@@ -93,6 +100,7 @@ const AdminDashboard = () => {
                 path="/postattendance"
                 element={<PostAttendance />}
               ></Route>
+              <Route path="/enroll" element={<EnrollUser />}></Route>
 
               <Route
                 path="/updateattendance/:attendance_id"

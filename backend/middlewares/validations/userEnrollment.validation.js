@@ -12,7 +12,7 @@ const InvalidQualificationError = require("../../errors/InvalidQualificationErro
 const InvalidCasteCategoryError = require("../../errors/InvalidCasteCategoryError");
 const InvalidSubcasteError = require("../../errors/InvalidSubcasteError");
 
-const getUserValidationByID = (req, res, next) => {
+const getEnrolledUserValidationByID = (req, res, next) => {
   if (userUtil.isInvalidId(req.params.id))
     throw new InvalidIdError("USER_ID GIVEN FOR FETCHING USER IS INVALID", res);
   // res.status(httpStatusCode.BAD_REQUEST).send("User Id is invalid")
@@ -43,7 +43,7 @@ const deactivateUserValidationByID = (req, res, next) => {
   else next();
 };
 
-const createUserValidation = (req, res, next) => {
+const enrollUserValidation = (req, res, next) => {
   if (userUtil.isInvalidName(req.body.firstName))
     throw new InvalidNameError(
       "FIRST NAME ENTERED FOR CREATING NEW USER IS INVALID",
@@ -106,26 +106,18 @@ const createUserValidation = (req, res, next) => {
       res
     );
   // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid casteCategory")
-
-  // if (userUtil.isInvalidSubcaste(req.body.subcaste))
+  // if (req.body.subcaste)
   //   throw new InvalidSubcasteError(
   //     "SUBCASTE ENTERED FOR CREATING NEW USER IS INVALID",
   //     res
   //   );
   // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid subcaste")
-
-  if (userUtil.isInvalidPassword(req.body.password))
-    throw new InvalidPasswordError(
-      "PASSWORD ENTERED BY NEW USER IS INVALID",
-      res
-    );
-  // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid password ")
   else next();
 };
 
 module.exports = {
-  createUserValidation,
-  getUserValidationByID,
+  enrollUserValidation,
+  getEnrolledUserValidationByID,
   updatetUserRoleValidationByID,
   deactivateUserValidationByID,
   getIsActiveUserValidation,

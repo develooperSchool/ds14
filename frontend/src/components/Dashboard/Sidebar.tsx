@@ -52,6 +52,11 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mt-3">
+            <Link to={"/userEnrollment"} className="Link">
+              <i className="fa-solid fa-users"> </i> All Enrolled Users
+            </Link>
+          </li>
+          <li className="mt-3">
             <Link to={"/users"} className="Link">
               <i className="fa-solid fa-users"> </i> All Users
             </Link>
@@ -63,12 +68,14 @@ const Sidebar = () => {
           </li>
           <li className="mt-3">
             <Link to={"/payroll"} className="Link">
-              <i className="fa-solid fa-hand-holding-dollar"></i> Salary Annexure
+              <i className="fa-solid fa-hand-holding-dollar"></i> Salary
+              Annexure
             </Link>
           </li>
           <li className="mt-3">
             <Link to={"/attendance"} className="Link">
-              <i className="fa-regular fa-calendar-check"></i> Attendance Records
+              <i className="fa-regular fa-calendar-check"></i> Attendance
+              Records
             </Link>
           </li>
           <li className="mt-3">

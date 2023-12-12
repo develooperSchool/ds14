@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
-import { AppDispatch, RootState } from "./Redux/store";
-import { ICaste, IRegister, IRegisterData } from "./Model/Iuser";
-import * as UserAction from "../../Redux/UserRedux/user.action";
-import * as UserReducer from "../../Redux/UserRedux/user.reducer";
+import { useNavigate } from "react-router-dom";
+import { castArray } from "../../User/CastArray";
+import { obcArray } from "../../User/CasteArray1";
+import { IRegisterData, ICaste } from "../../User/Model/Iuser";
+import { AppDispatch, RootState } from "../../User/Redux/store";
+import * as UserEnrollAction from "../../../Redux/UserEnrollRedux/userEnroll.action";
+import * as UserEnrollReducer from "../../../Redux/UserEnrollRedux/userEnroll.reducer";
+import { IEnroll, IEnrollCaste, IEnrollData } from "../Model/IEnroll";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { start } from "repl";
-import { create } from "domain";
-import { castArray } from "./CastArray";
-import { obcArray } from "./CasteArray1";
 
-const Registration: React.FC = () => {
+const EnrollUser = () => {
   const Navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   //Data from redux store
 
-  const userReduxState: UserReducer.InitialState = useSelector(
+  const userEnrollReduxState: UserEnrollReducer.InitialState = useSelector(
     (state: RootState) => {
-      return state[UserReducer.userFeatureKey];
+      return state[UserEnrollReducer.userEnrollFeatureKey];
     }
   );
 
   const [startDate, setStartDate] = useState<Date | null>(new Date());
 
-  const [create, setCreate] = useState<IRegisterData>({
+  const [enroll, setenroll] = useState<IEnrollData>({
     first_name: "",
     last_name: "",
     email: "",
@@ -37,7 +36,6 @@ const Registration: React.FC = () => {
     gender: "",
     caste_category: "",
     subcaste: "",
-    password: "",
   });
 
   useEffect(() => {
@@ -60,21 +58,21 @@ const Registration: React.FC = () => {
       fullMonth = month?.toString().length < 2 ? `0${month}` : month;
     }
     const formattedDate = `${fullDay}-${fullMonth}-${year}`;
-    setCreate({
-      ...create,
+    setenroll({
+      ...enroll,
       dob: formattedDate,
     });
   };
   const changeInputEvent = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setCreate({
-      ...create,
+    setenroll({
+      ...enroll,
       [event.target.name]: event.target.value,
     });
   };
 
-  var [state, setState] = useState<ICaste[]>([
+  var [state, setState] = useState<IEnrollCaste[]>([
     {
       category: "",
       cast_name: "",
@@ -119,42 +117,24 @@ const Registration: React.FC = () => {
   };
   console.log(state);
 
-  const setDefaults = () => {
-    setCreate({
-      first_name: "John",
-      last_name: "Doe",
-      email: "doe@example.com",
-      contact: "9988776655",
-      address: "123 Main Street",
-      qualification: "Test",
-      passing_year: 2013,
-      dob: "05-05-2013",
-      gender: "male",
-      caste_category: "TEST01",
-      subcaste: "TEST02",
-      password: "password",
-    });
-  };
-
   const submitData = (
     event: React.FormEvent<HTMLFormElement | HTMLSelectElement>
   ) => {
     event.preventDefault();
-    const data: IRegister = {
-      firstName: create.first_name,
-      lastName: create.last_name,
-      email: create.email,
-      contact: create.contact,
-      address: create.address,
-      qualification: create.qualification,
-      passingYear: create.passing_year,
-      dob: create.dob,
-      gender: create.gender,
-      casteCategory: create.caste_category,
-      subcaste: create.subcaste,
-      password: create.password,
+    const data: IEnroll = {
+      firstName: enroll.first_name,
+      lastName: enroll.last_name,
+      email: enroll.email,
+      contact: enroll.contact,
+      address: enroll.address,
+      qualification: enroll.qualification,
+      passingYear: enroll.passing_year,
+      dob: enroll.dob,
+      gender: enroll.gender,
+      casteCategory: enroll.caste_category,
+      subcaste: enroll.subcaste,
     };
-    dispatch(UserAction.createUserAction({ user: data }))
+    dispatch(UserEnrollAction.enrollUserAction({ userEnroll: data }))
       .then((res: any) => {
         if (res && !res.data) {
           alert(res.payload.data.description);
@@ -163,18 +143,14 @@ const Registration: React.FC = () => {
       })
       .catch((error: any) => console.log(error));
   };
-  // const [selectedValue, setSelectedValue] = useState("");
 
-  // const handleDropdownChange = (e: any) => {
-  //   setSelectedValue(e.target.value);
-  // };
   return (
     <>
       <div className="offset-lg-2 col-lg-8 mt-3">
         <div className="container">
           <div className="card">
             <div className="card-header">
-              <h1 className="text-center">Registration Form</h1>
+              <h1 className="text-center">Enrollment Form</h1>
             </div>
             <form onSubmit={(e) => submitData(e)}>
               <div className="card-body">
@@ -186,7 +162,7 @@ const Registration: React.FC = () => {
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="first_name"
-                        value={create.first_name}
+                        value={enroll.first_name}
                         className="form-control"
                       />
                     </div>
@@ -198,7 +174,7 @@ const Registration: React.FC = () => {
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="last_name"
-                        value={create.last_name}
+                        value={enroll.last_name}
                         className="form-control"
                       />
                     </div>
@@ -210,7 +186,7 @@ const Registration: React.FC = () => {
                         onChange={(e) => changeInputEvent(e)}
                         type="email"
                         name="email"
-                        value={create.email}
+                        value={enroll.email}
                         className="form-control"
                       />
                     </div>
@@ -222,7 +198,7 @@ const Registration: React.FC = () => {
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="contact"
-                        value={create.contact}
+                        value={enroll.contact}
                         className="form-control"
                       />
                     </div>
@@ -233,7 +209,7 @@ const Registration: React.FC = () => {
                       <input
                         name="address"
                         onChange={(e) => changeInputEvent(e)}
-                        value={create.address}
+                        value={enroll.address}
                         className="form-control"
                       />
                     </div>
@@ -245,7 +221,7 @@ const Registration: React.FC = () => {
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="qualification"
-                        value={create.qualification}
+                        value={enroll.qualification}
                         className="form-control"
                       />
                     </div>
@@ -257,7 +233,7 @@ const Registration: React.FC = () => {
                         onChange={(e) => changeInputEvent(e)}
                         type="number"
                         name="passing_year"
-                        value={create.passing_year}
+                        value={enroll.passing_year}
                         className="form-control"
                       />
                     </div>
@@ -269,7 +245,7 @@ const Registration: React.FC = () => {
                         onChange={(e) => changeInputEvent(e)}
                         type="Date"
                         name="dob"
-                        value={create.dob}
+                        value={enroll.dob}
                         className="form-control"
                       /> */}
                       <DatePicker
@@ -307,7 +283,7 @@ const Registration: React.FC = () => {
                         type="text"
                         className="form-control"
                         onChange={(e) => changeInputEvent(e)}
-                        value={create.caste_category}
+                        value={enroll.caste_category}
                         name="caste_category"
                       /> */}
                       <label>Caste</label>
@@ -317,9 +293,9 @@ const Registration: React.FC = () => {
                         id=""
                         className="form-select"
                         aria-label="Default select example"
-                        value={create.caste_category}
+                        value={enroll.caste_category}
                         onClick={() => {
-                          castData(create.caste_category);
+                          castData(enroll.caste_category);
                         }}
                         onChange={(e) => changeInputEvent(e)}
                       >
@@ -335,10 +311,10 @@ const Registration: React.FC = () => {
                   </div>
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
-                      {create.caste_category != "OPEN" && (
+                      {enroll.caste_category != "OPEN" && (
                         <label>Subcaste</label>
                       )}
-                      {create.caste_category != "OPEN" && (
+                      {enroll.caste_category != "OPEN" && (
                         <select
                           onChange={(e) => changeInputEvent(e)}
                           name="subcaste"
@@ -360,7 +336,7 @@ const Registration: React.FC = () => {
                       {/* <input<<<<<<< .mine
                         <label>Subcaste</label>
                       )}
-                      {create.caste_category != "OPEN" && (
+                      {enroll.caste_category != "OPEN" && (
                         <select
                           onChange={(e) => changeInputEvent(e)}
                           name="subcaste"
@@ -383,57 +359,12 @@ const Registration: React.FC = () => {
 =======
                       {/* add select option for subcast
                        {<input
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="subcaste"
-                        value={create.subcaste}
+                        value={enroll.subcaste}
                         className="form-control"
   />} */}
-                    </div>
-                  </div>
-                  <div className="col-lg-6 mb-2">
-                    <div className="form-group">
-                      <label>Password</label>
-                      <input
-                        onChange={(e) => changeInputEvent(e)}
-                        type="password"
-                        name="password"
-                        value={create.password}
-                        className="form-control"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-6 mb-2">
-                    <div className="form-group">
-                      <label>Confirm Password</label>
-                      <input
-                        onChange={(e) => changeInputEvent(e)}
-                        type="password"
-                        name="password"
-                        value={create.password}
-                        className="form-control"
-                      />
                     </div>
                   </div>
                 </div>
@@ -461,4 +392,4 @@ const Registration: React.FC = () => {
   );
 };
 
-export default Registration;
+export default EnrollUser;
