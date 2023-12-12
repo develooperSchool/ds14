@@ -1,47 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "./Redux/store";
-import * as UserAction from "../../Redux/UserRedux/user.action";
-import * as UserReducer from "../../Redux/UserRedux/user.reducer";
-import { Link } from "react-router-dom";
-import * as userAction from "../../Redux/UserRedux/user.action";
+import { usePagination } from "../../Pagination";
+import * as UserEnrollAction from "../../../Redux/UserEnrollRedux/userEnroll.action";
+import * as UserEnrollReducer from "../../../Redux/UserEnrollRedux/userEnroll.reducer";
+import { RootState, AppDispatch } from "../../User/Redux/store";
 import { Pagination } from "react-bootstrap";
-import { usePagination } from "../Pagination";
-import { IRegisterData, IRegister } from "./Model/Iuser";
+import * as userEnrollAction from "../../../Redux/UserEnrollRedux/userEnroll.action";
+import { Link } from "react-router-dom";
 
-const AllUsers: React.FC = () => {
-  const userReduxState: UserReducer.InitialState = useSelector(
+const GetAllEnrollUsers: React.FC = () => {
+  const userEnrollReduxState: UserEnrollReducer.InitialState = useSelector(
     (state: RootState) => {
-      return state[UserReducer.userFeatureKey];
+      return state[UserEnrollReducer.userEnrollFeatureKey];
     }
   );
 
-  let userData: any = userReduxState.users.filter((elem: IRegisterData) => {
-    if (
-      elem.first_name !== null ||
-      elem.address !== null ||
-      elem.caste_category !== null ||
-      elem.contact !== null ||
-      elem.dob !== null ||
-      elem.email !== null ||
-      elem.gender !== null ||
-      elem.last_name !== null ||
-      elem.passing_year !== null
-    ) {
-      return elem;
-    }
-  });
-  console.log("userData", userData);
   const [search, setSearch] = useState("");
 
-  const searchItem = userData.filter((item: IRegisterData) => {
-    if (search === "") {
+  const searchItem = userEnrollReduxState.usersEnroll.filter((item) => {
+    if (search == "") {
       return item;
     } else if (
       item.first_name.toLowerCase().includes(search.toLowerCase()) ||
-      item.user_id?.toString().includes(search)
+      item.enroll_id?.toString().includes(search)
     ) {
-      console.log("item", item.first_name.toLowerCase());
       return item;
     }
   });
@@ -56,7 +38,7 @@ const AllUsers: React.FC = () => {
     displayPage,
   } = usePagination({
     perPageRecords: 7,
-    totalPageRecords: userReduxState.users.length,
+    totalPageRecords: userEnrollReduxState.usersEnroll.length,
   });
 
   useEffect(() => {
@@ -64,20 +46,7 @@ const AllUsers: React.FC = () => {
   }, []);
 
   const dataFromServer = () => {
-    dispatch(UserAction.getAllUserAction());
-  };
-
-  const deactivateUser = (id: string) => {
-    dispatch(
-      userAction.deactiveUserAction({
-        id,
-      })
-    ).then((res: any) => {
-      if (res && !res.error) {
-        // navigate("/");
-        dataFromServer();
-      }
-    });
+    dispatch(UserEnrollAction.getAllEnrollUserAction());
   };
 
   return (
@@ -100,7 +69,7 @@ const AllUsers: React.FC = () => {
         </div>
       </div>
       <div className="container">
-        <Link className="btn btn-outline-info m-3" to={"/register"}>
+        <Link className="btn btn-outline-info m-3" to={"/enroll"}>
           +New
         </Link>
         <div className="col-3">
@@ -118,8 +87,7 @@ const AllUsers: React.FC = () => {
               <thead>
                 <tr>
                   <th>Sr.No.</th>
-                  <th>FirstName</th>
-                  <th>LastName</th>
+                  <th>Name</th>
                   <th>EmailId</th>
                   <th>Contact</th>
                   <th>Address</th>
@@ -133,34 +101,34 @@ const AllUsers: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {(searchItem.length > 0 ? searchItem : userReduxState.users)
+                {(searchItem.length > 0
+                  ? searchItem
+                  : userEnrollReduxState.usersEnroll
+                )
                   .slice(startPageIndex, endPageIndex + 1)
-                  .map((user: IRegisterData) => {
+                  .map((userE) => {
                     return (
                       <tr>
-                        <td>{user.user_id}</td>
-                        <td>{user.first_name}</td>
-                        <td>{user.last_name}</td>
-                        <td>{user.email}</td>
-                        <td>{user.contact}</td>
-                        <td>{user.address}</td>
-                        <td>{user.qualification}</td>
-                        <td>{user.passing_year}</td>
-                        <td>{user.dob}</td>
-                        <td>{user.gender}</td>
-                        <td>{user.caste_category}</td>
-                        <td>{user.subcaste}</td>
+                        <td>{userE.enroll_id}</td>
+                        <td>{`${userE.first_name} ${userE.last_name}`}</td>
+
+                        <td>{userE.email}</td>
+                        <td>{userE.contact}</td>
+                        <td>{userE.address}</td>
+                        <td>{userE.qualification}</td>
+                        <td>{userE.passing_year}</td>
+                        <td>{userE.dob}</td>
+                        <td>{userE.gender}</td>
+                        <td>{userE.caste_category}</td>
+                        <td>{userE.subcaste}</td>
                         <td>
                           <Link
-                            to={`/updateuser/${user.user_id}`}
+                            to={`/updateEnrolluser/${userE.enroll_id}`}
                             className="btn btn-outline-success"
                           >
                             UPDATE
                           </Link>
-                          <button
-                            className="btn btn-outline-danger ms-3"
-                            onClick={() => deactivateUser(`${user.user_id}`)}
-                          >
+                          <button className="btn btn-outline-danger ms-3">
                             DELETE
                           </button>
                         </td>
@@ -197,4 +165,4 @@ const AllUsers: React.FC = () => {
   );
 };
 
-export default AllUsers;
+export default GetAllEnrollUsers;

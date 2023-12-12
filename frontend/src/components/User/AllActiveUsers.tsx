@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "./Redux/store";
 import * as UserAction from "../../Redux/UserRedux/user.action";
@@ -14,6 +14,20 @@ const AllActiveUsers: React.FC = () => {
       return state[UserReducer.userFeatureKey];
     }
   );
+  const [search, setSearch] = useState("");
+
+  const searchItem = userReduxState.users.filter((item) => {
+    if (search === "") {
+      return item;
+    } else if (
+      item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+      item.last_name.toLowerCase().includes(search.toLowerCase()) ||
+      item.caste_category.toLowerCase().includes(search.toLowerCase()) ||
+      item.user_id?.toString().includes(search)
+    ) {
+      return item;
+    }
+  });
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -51,6 +65,14 @@ const AllActiveUsers: React.FC = () => {
               obcaecati. Veniam vero accusantium amet voluptatum sint assumenda
               nam.
             </p>
+            <div className="col-3">
+              <input
+                type="text"
+                placeholder="Search Here"
+                className="form-control"
+                onChange={(event) => setSearch(event.target.value)}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -75,7 +97,7 @@ const AllActiveUsers: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {userReduxState.users
+                {(searchItem.length > 0 ? searchItem : userReduxState.users)
                   .slice(startPageIndex, endPageIndex + 1)
                   .map((user) => {
                     return (
