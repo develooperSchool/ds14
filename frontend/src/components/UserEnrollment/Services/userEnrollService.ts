@@ -36,4 +36,18 @@ export class UserEnrollService {
     const url = `${this.DataUrl}/enroll`;
     return axios.post(url, body);
   };
+  public static updateEnrollUser(
+    body: IEnroll,
+    id: string
+  ): Promise<{ data: IEnroll[] }> {
+    const data = `${this.DataUrl}/updateEnroll/${id}`;
+    console.log("data", data);
+    return axios.put(data, body);
+  }
+
+  public static deleteEnrollUserById = (id: string): Promise<{ data: {} }> => {
+    const url = `${this.DataUrl}/delete/${id}`;
+
+    return axios.delete(url);
+  };
 }

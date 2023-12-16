@@ -51,6 +51,7 @@ import Registration from "../User/Registration";
 import Enrollment from "../Enrollment/Pages/GetAllEnrollment";
 import GetAllEnrollUsers from "../UserEnrollment/Pages/GetAllEnrollUsers";
 import EnrollUser from "../UserEnrollment/Pages/EnrollUser";
+import UpdateEnrollUser from "../UserEnrollment/Pages/UpdateEnrollUser";
 
 const AdminDashboard = () => {
   return (
@@ -89,6 +90,10 @@ const AdminDashboard = () => {
               <Route
                 path="/userEnrollData"
                 element={<GetAllEnrollUsers />}
+              ></Route>
+              <Route
+                path="/updateEnroll/:id"
+                element={<UpdateEnrollUser />}
               ></Route>
 
               <Route path="/revenue" element={<GetAllRevenue />}></Route>

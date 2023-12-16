@@ -38,5 +38,18 @@ export const userSlice = createSlice({
         state.userEnroll = action.payload;
       }
     );
+
+    builder.addCase(
+      UserEnrollAction.updateEnrollUserAction.fulfilled,
+      (state, action) => {
+        state.userEnroll = action.payload;
+      }
+    );
+    builder.addCase(
+      UserEnrollAction.deleteEnrollUserByIdAction.fulfilled,
+      (state, action) => {
+        state.userEnroll = {} as IEnrollData;
+      }
+    );
   },
 });

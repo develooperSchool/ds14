@@ -11,7 +11,7 @@ export interface IEnrollData {
   gender: string;
   caste_category: string;
   subcaste: string;
-  roleId?: number;
+  role_id?: number;
 }
 
 export interface IEnroll {

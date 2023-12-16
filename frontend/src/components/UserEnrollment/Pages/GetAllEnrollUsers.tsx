@@ -49,12 +49,24 @@ const GetAllEnrollUsers: React.FC = () => {
     dispatch(UserEnrollAction.getAllEnrollUserAction());
   };
 
+  const deleteEnrollUserById = (id: string) => {
+    if (id) {
+      dispatch(UserEnrollAction.deleteEnrollUserByIdAction({ id: id })).then(
+        (res: any) => {
+          if (res && !res.error) {
+            dataFromServer();
+          }
+        }
+      );
+    }
+  };
+
   return (
     <>
       <div className="container mt-4">
         <div className="row">
           <div className="col">
-            <p className="h3 text-success">All Users</p>
+            <p className="h3 text-success">All Enrolled Users</p>
             <p className="fst-italic">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
               voluptas quod repellat nisi, maxime quas omnis iure? Officia,
@@ -123,12 +135,17 @@ const GetAllEnrollUsers: React.FC = () => {
                         <td>{userE.subcaste}</td>
                         <td>
                           <Link
-                            to={`/updateEnrolluser/${userE.enroll_id}`}
+                            to={`/updateEnroll/${userE.enroll_id}`}
                             className="btn btn-outline-success"
                           >
                             UPDATE
                           </Link>
-                          <button className="btn btn-outline-danger ms-3">
+                          <button
+                            className="btn btn-outline-danger ms-3"
+                            onClick={() =>
+                              deleteEnrollUserById(String(userE.enroll_id))
+                            }
+                          >
                             DELETE
                           </button>
                         </td>

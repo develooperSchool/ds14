@@ -80,3 +80,40 @@ export const enrollUserAction: any = createAsyncThunk(
     }
   }
 );
+
+export const updateEnrollUserAction: any = createAsyncThunk(
+  "UserEnroll/updateEnrollUserAction",
+  async (
+    payload: { updateUserData: IEnroll; id: string },
+    { rejectWithValue }
+  ): Promise<IEnroll[] | any> => {
+    try {
+      const { updateUserData, id } = payload;
+      let res = await UserEnrollService.updateEnrollUser(updateUserData, id);
+      return res.data;
+    } catch (error: any) {
+      if (!error.res) {
+        throw error;
+      }
+      return rejectWithValue(error.res.data);
+    }
+  }
+);
+export const deleteEnrollUserByIdAction: any = createAsyncThunk(
+  "UserEnrollRedux/deleteEnrollUserByIdAction",
+  async (
+    payload: { id: string },
+    { rejectWithValue }
+  ): Promise<IEnrollData | any> => {
+    try {
+      const { id } = payload;
+      let res = await UserEnrollService.deleteEnrollUserById(id);
+      return res.data;
+    } catch (error: any) {
+      if (!error.res) {
+        throw error;
+      }
+      return rejectWithValue(error.res.data);
+    }
+  }
+);
