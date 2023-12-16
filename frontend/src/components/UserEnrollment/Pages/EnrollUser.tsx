@@ -138,7 +138,7 @@ const EnrollUser = () => {
       .then((res: any) => {
         if (res && !res.data) {
           alert(res.payload.data.description);
-          Navigate("/users");
+          Navigate("/userEnrollData");
         }
       })
       .catch((error: any) => console.log(error));
