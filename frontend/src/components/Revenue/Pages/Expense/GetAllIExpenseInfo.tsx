@@ -81,7 +81,7 @@ const GetAllIExpenseInfo: React.FC = () => {
       <div>
         <div className="row">
           <div className="col">
-            <Link to="/addrevenuecategory" className="btn btn-outline-info">
+            <Link to="/addExpense" className="btn btn-outline-info">
               Add Expense Here
             </Link>
           </div>
