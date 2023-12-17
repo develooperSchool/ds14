@@ -80,21 +80,20 @@ const GetAllIncomeInfo: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
-      <div>
-        <div className="row">
-          <div className="col">
-            <Link to="/addrevenuecategory" className="btn btn-outline-info">
-              Add Income Deatails
-            </Link>
-          </div>
-          <div className="col-3">
-            <input
-              type="text"
-              placeholder="Search Here"
-              className="form-control"
-              onChange={(event) => setSearch(event.target.value)}
-            />
+
+        <div>
+          <div className="row">
+            <div className="col">
+              <h5>Below we have Income Deatails</h5>
+            </div>
+            <div className="col-3">
+              <input
+                type="text"
+                placeholder="Search Here"
+                className="form-control"
+                onChange={(event) => setSearch(event.target.value)}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -104,14 +103,14 @@ const GetAllIncomeInfo: React.FC = () => {
             <table className="table table-stripped table-hover text-center">
               <thead>
                 <tr>
-                  <th>Income ID</th>
+                  {/* <th>Income ID</th> */}
                   <th>User ID</th>
                   <th>Revenue ID</th>
                   <th>Total Fees</th>
                   <th>Paid Fees</th>
                   <th>Balance Fees</th>
                   <th>Transaction ID</th>
-                  <th>Income Amount</th>
+                  {/* <th>Income Amount</th> */}
                   <th>Action</th>
                 </tr>
               </thead>
@@ -124,7 +123,7 @@ const GetAllIncomeInfo: React.FC = () => {
                   .map((incomeDetails, index) => {
                     return (
                       <tr>
-                        <td>{incomeDetails.income_id}</td>
+                        {/* <td>{incomeDetails.income_id}</td> */}
 
                         <td>{incomeDetails.user_id}</td>
                         <td>{incomeDetails.revenue_category_id}</td>
@@ -132,14 +131,14 @@ const GetAllIncomeInfo: React.FC = () => {
                         <td>{incomeDetails.paid_fees}</td>
                         <td>{incomeDetails.balance_fees}</td>
                         <td>{incomeDetails.transaction_id}</td>
-                        <td>{incomeDetails.income_amount}</td>
+                        {/* <td>{incomeDetails.income_amount}</td> */}
                         <td>
-                          <Link
+                          {/* <Link
                             to={`/updateIncome/${incomeDetails.income_id}`}
                             className="btn btn-outline-success"
                           >
                             Update
-                          </Link>
+                          </Link> */}
                           <button
                             className="btn btn-outline-danger"
                             onClick={() =>
