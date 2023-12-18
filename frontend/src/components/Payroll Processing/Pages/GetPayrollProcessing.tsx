@@ -93,7 +93,7 @@ const GetAllPayrollProcessing: React.FC = () => {
                                     <th>Payroll Id</th>
                                     <th>User Id</th>
                                     <th>Payroll Date</th>
-                                    <th>GRoss Salary</th>
+                                    <th>Gross Salary</th>
                                     <th>Net Salary</th>
                                     <th>Action</th>
                                 </tr>

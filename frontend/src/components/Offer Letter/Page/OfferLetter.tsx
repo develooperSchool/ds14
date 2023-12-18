@@ -518,7 +518,9 @@ const OfferLetter: React.FC = () => {
             </div>
             <div className="container">
                 <PDFDownloadLink document={<PdfDocument employeeName={employeeName} location={location} joiningDate={joiningDate} designation={designation} department={department} reportingTo={reportingTo} basic={basic} specialAllowance={specialAllowance} professionTax={professionTax} hra={hra} />} fileName="offer_letter.pdf">
-                    {({ blob, url, loading, error }) => (loading ? "Loading document..." : "Download Offer Letter")}
+                    {({ blob, url, loading, error }) => (<button className="btn btn-warning" disabled={loading}>
+                        {loading ? "Loading document..." : "Download"}
+                    </button>)}
                 </PDFDownloadLink>
             </div>
 
