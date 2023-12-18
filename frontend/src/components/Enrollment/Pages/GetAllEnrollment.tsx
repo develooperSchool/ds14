@@ -2,7 +2,7 @@ import * as enrollmentReducer from "../../../Redux/EnrollmentRedux/Enrollment.re
 import * as enrollmentActions from "../../../Redux/EnrollmentRedux/Enrollment.actions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../User/Redux/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../../../style/Courses/courescrud.css";
 import { IENROLMENT } from "../Model/IENROLLMENT";
 import { usePagination } from "../../Pagination";
@@ -35,9 +35,35 @@ let Enrollment: React.FC = () => {
     dataFromServer();
   }, []);
 
+  const [search, setSearch] = useState("");
+  const searchItem = EnrollmentReduxState.userEnrollmentData.filter(
+    (item: IENROLMENT) => {
+      if (search === "") {
+        return item;
+      } else if (
+        item.course_name.toLowerCase().includes(search.toLowerCase()) ||
+        item.course_duration?.toString().includes(search) ||
+        item.course_duration.toLowerCase().includes(search.toLowerCase()) ||
+        item.user_id?.toString().includes(search) ||
+        item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+        item.last_name.toLowerCase().includes(search.toLowerCase())
+      ) {
+        return item;
+      }
+    }
+  );
+
   return (
     <>
       <div className="courses-table">
+        <div className="col-3">
+          <input
+            type="text"
+            placeholder="Search Here"
+            className="form-control"
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </div>
         <table className="table table-stripped table-hover">
           <thead className="course_table_head ">
             <tr>
@@ -49,7 +75,10 @@ let Enrollment: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {EnrollmentReduxState.userEnrollmentData
+            {(searchItem.length > 0
+              ? searchItem
+              : EnrollmentReduxState.userEnrollmentData
+            )
               .slice(startPageIndex, endPageIndex)
               .map((elem: IENROLMENT, ind: any) => {
                 return (

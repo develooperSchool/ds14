@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as courseActions from "../../../Redux/CoursesRedux/Courses.actions";
 import * as courseReducer from "../../../Redux/CoursesRedux/Courses.reducer";
 import { useSelector } from "react-redux";
@@ -28,6 +28,19 @@ let Coursescrud: React.FC = () => {
     perPageRecords: 5,
     totalPageRecords: courseReduxState.courses.length,
   });
+  const [search, setSearch] = useState("");
+  const searchItem = courseReduxState.courses.filter((item: ICOURSES) => {
+    if (search === "") {
+      return item;
+    } else if (
+      item.course_name.toLowerCase().includes(search.toLowerCase()) ||
+      item.course_duration?.toString().includes(search) ||
+      item.course_duration.toLowerCase().includes(search.toLowerCase()) ||
+      item.course_id?.toString().includes(search)
+    ) {
+      return item;
+    }
+  });
 
   let dataFromServer = () => {
     dispatch(courseActions.getAllCourseAction());
@@ -51,6 +64,14 @@ let Coursescrud: React.FC = () => {
         <Link to={"/create_course"} className="create_course_btn">
           <button className=" btn btn-outline-success">Create +</button>
         </Link>
+        <div className="col-3">
+          <input
+            type="text"
+            placeholder="Search Here"
+            className="form-control"
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </div>
         <table className="table table-stripped table-hover">
           <thead className="course_table_head ">
             <tr>
@@ -62,7 +83,7 @@ let Coursescrud: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {courseReduxState.courses
+            {(searchItem.length > 0 ? searchItem : courseReduxState.courses)
               .slice(startPageIndex, endPageIndex + 1)
               .map((elem: ICOURSES, ind: any) => {
                 return (

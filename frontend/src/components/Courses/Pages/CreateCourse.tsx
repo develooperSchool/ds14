@@ -91,10 +91,9 @@ let Createcourse = () => {
 
                 <div className="row mb-2">
                   <div>
-                    <label className="form-label mb-1">
-                      Enter Course Duration
-                    </label>
+                    <label className="form-label mb-1">Enter Duration</label>
                     <input
+                      placeholder="Duration in months/weeks or days"
                       type="text"
                       className={`form-control  ${
                         validation.categoryError && "is-invalid"
