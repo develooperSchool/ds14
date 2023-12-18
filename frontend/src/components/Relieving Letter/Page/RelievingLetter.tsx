@@ -210,7 +210,9 @@ const RelievingLetter: React.FC = () => {
             </div>
             <div className="container">
                 <PDFDownloadLink document={<PdfDocument employeeName={employeeName} location={location} resignationDate={resignationDate} employmentStartDate={employmentStartDate} employmentEndDate={employmentEndDate} designation={designation} />} fileName="relieving_letter.pdf">
-                    {({ blob, url, loading, error }) => (loading ? "Loading document..." : "Download Relieving Letter")}
+                    {({ blob, url, loading, error }) => (<button className="btn btn-warning" disabled={loading}>
+                        {loading ? "Loading document..." : "Download"}
+                    </button>)}
                 </PDFDownloadLink>
             </div>
 
