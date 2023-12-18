@@ -240,11 +240,12 @@ const UpdateEnrollUser = () => {
                     <div className="form-group">
                       <label>Email</label>
                       <input
-                        onChange={(e) => changeInput(e)}
+                        // onChange={(e) => changeInput(e)}
                         type="email"
                         name="email"
                         value={localUser.email}
                         className="form-control"
+                        readOnly
                       />
                     </div>
                   </div>
