@@ -3,8 +3,8 @@ import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from "
 import logo from "../../Payroll/Images/logo.png";
 import { Button, Form, Modal } from "react-bootstrap";
 
-const PdfDocument: React.FC<{ employeeName: string, location: string, joiningDate: string, designation: string, department: string, reportingTo: string, basic: string, specialAllowance: string, professionTax: string, hra: string }> = ({
-    employeeName, location, joiningDate, designation, department, reportingTo, basic, specialAllowance, professionTax, hra
+const PdfDocument: React.FC<{ employeeName: string, location: string, joiningDate: string, designation: string, department: string, reportingTo: string, basic: string, specialAllowance: string, professionTax: string, hra: string, agreeAndAccepted: string }> = ({
+    employeeName, location, joiningDate, designation, department, reportingTo, basic, specialAllowance, professionTax, hra, agreeAndAccepted
 }) => (
     <Document>
         <Page size="A4" style={styles.page}>
@@ -209,7 +209,7 @@ const PdfDocument: React.FC<{ employeeName: string, location: string, joiningDat
                 </View>
                 <View style={{ flex: 1, alignItems: "flex-end" }}>
                     <Text style={{ fontSize: 12 }}>Agreed and Accepted</Text>
-                    <Text style={{ fontSize: 12 }}>Ashitosh Shelar</Text>
+                    <Text style={{ fontSize: 12 }}>{agreeAndAccepted}</Text>
                 </View>
             </View>
 
@@ -309,9 +309,11 @@ const OfferLetter: React.FC = () => {
     const [reportingTo, setReportingTo] = useState("");
     const [basic, setBasic] = useState("");
     const [specialAllowance, setSpecialAllowance] = useState("");
+    const [agreeAndAccepted, setAgreeAndAccepted] = useState("");
     const [professionTax, setProfessionTax] = useState("");
     const [hra, setHRA] = useState("");
     const [validated, setValidated] = useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
 
     const handleModalShow1 = () => setShowModal1(true);
@@ -323,12 +325,13 @@ const OfferLetter: React.FC = () => {
         const namePattern1 = /^[A-Za-z\s]+$/;
         const datePattern1 = /^\d{4}-\d{2}-\d{2}$/;
 
-        if ((!namePattern1.test(employeeName)) || (!namePattern1.test(location)) || (!datePattern1.test(joiningDate)) || (!namePattern1.test(designation)) || (!namePattern1.test(department)) || (!namePattern1.test(reportingTo)) || !basic || !specialAllowance || !professionTax || !hra) {
+        if ((!namePattern1.test(employeeName)) || (!namePattern1.test(location)) || (!datePattern1.test(joiningDate)) || (!namePattern1.test(designation)) || (!namePattern1.test(department)) || (!namePattern1.test(reportingTo)) || !basic || !specialAllowance || !professionTax || !hra || !agreeAndAccepted) {
             setValidated(true);
             return;
         }
 
         setShowModal1(false);
+        setFormSubmitted(true);
     };
 
     useEffect(() => {
@@ -509,7 +512,7 @@ const OfferLetter: React.FC = () => {
                                 </div>
                                 <div>
                                     <p>Agree and Accepted</p>
-                                    <p>Ashitosh Shelar</p>
+                                    <p>{agreeAndAccepted}</p>
                                 </div>
                             </div>
                         </main>
@@ -517,11 +520,13 @@ const OfferLetter: React.FC = () => {
                 </div>
             </div>
             <div className="container">
-                <PDFDownloadLink document={<PdfDocument employeeName={employeeName} location={location} joiningDate={joiningDate} designation={designation} department={department} reportingTo={reportingTo} basic={basic} specialAllowance={specialAllowance} professionTax={professionTax} hra={hra} />} fileName="offer_letter.pdf">
-                    {({ blob, url, loading, error }) => (<button className="btn btn-warning" disabled={loading}>
-                        {loading ? "Loading document..." : "Download"}
-                    </button>)}
-                </PDFDownloadLink>
+                {formSubmitted && (
+                    <PDFDownloadLink document={<PdfDocument employeeName={employeeName} location={location} joiningDate={joiningDate} designation={designation} department={department} reportingTo={reportingTo} basic={basic} specialAllowance={specialAllowance} professionTax={professionTax} hra={hra} agreeAndAccepted={agreeAndAccepted} />} fileName="offer_letter.pdf">
+                        {({ blob, url, loading, error }) => (<button className="btn btn-warning" disabled={loading}>
+                            {loading ? "Loading document..." : "Download"}
+                        </button>)}
+                    </PDFDownloadLink>
+                )}
             </div>
 
             <Modal show={showModal1} onHide={handleModalClose1}>
@@ -597,6 +602,13 @@ const OfferLetter: React.FC = () => {
                             <Form.Control type="number" value={professionTax} onChange={(e) => setProfessionTax(e.target.value)} placeholder="Enter Professional Tax" required />
                             <Form.Control.Feedback type="invalid">
                                 Please enter a valid number for Professional Tax
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group controlId="agree and accepted">
+                            <Form.Label>Agree & Accepted:</Form.Label>
+                            <Form.Control type="text" value={agreeAndAccepted} onChange={(e) => setAgreeAndAccepted(e.target.value)} placeholder="Enter Name" required />
+                            <Form.Control.Feedback type="invalid">
+                                Please enter a valid name
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Form>
