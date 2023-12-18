@@ -95,14 +95,14 @@ const Sidebar = () => {
           </li>{" "}
           <li className="mt-3">
             <Link to={"/course_admin"} className="Link">
-              <i className="bi bi-graph-up-arrow"> </i>Course_crud
+              <i className="bi bi-graph-up-arrow"> </i>Available Courses
             </Link>
           </li>
-          <li className="mt-3">
+          {/* <li className="mt-3">
             <Link to={"/time_table"} className="Link">
               <i className="bi bi-graph-up-arrow"> </i>Time-table
             </Link>
-          </li>
+          </li> */}
           <li className="mt-3">
             <Link to={"/getFaculty"} className="Link">
               <i className="bi bi-graph-up-arrow"> </i>Faculty

@@ -56,9 +56,8 @@ let FacultyDetails: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {facultyRootState.facultyDataByID
-                .slice(startPageIndex, endPageIndex)
-                .map((elem: IUSERBYID, ind: any) => {
+              {facultyRootState.facultyDataByID.map(
+                (elem: IUSERBYID, ind: any) => {
                   return (
                     <>
                       <tr>
@@ -74,30 +73,10 @@ let FacultyDetails: React.FC = () => {
                       </tr>
                     </>
                   );
-                })}
+                }
+              )}
             </tbody>
           </table>
-          <Pagination>
-            <Pagination.First onClick={() => displayPage(1)} />
-            <Pagination.Prev
-              onClick={() => displayPage(currentPageIndex - 1)}
-              disabled={currentPageIndex === 1}
-            />
-            {[...Array(totalPages)].map((_, index) => (
-              <Pagination.Item
-                key={index + 1}
-                active={index + 1 === currentPageIndex}
-                onClick={() => displayPage(index + 1)}
-              >
-                {index + 1}
-              </Pagination.Item>
-            ))}
-            <Pagination.Next
-              onClick={() => displayPage(currentPageIndex + 1)}
-              disabled={currentPageIndex === totalPages}
-            />
-            <Pagination.Last onClick={() => displayPage(totalPages)} />
-          </Pagination>
         </div>
       </div>
     </>

@@ -9,6 +9,7 @@ import { ICOURSES, IPURCHASE } from "../Model/Icourses";
 import { IUSERBYID } from "../../Faculty/Model/Ifaculty";
 import { Link } from "react-router-dom";
 import { wait } from "@testing-library/user-event/dist/utils";
+import { JsxEmit } from "typescript";
 
 let GetAllCourses: React.FC = () => {
   const coursesReduxState: courseReducer.initialState = useSelector(
