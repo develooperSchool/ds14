@@ -39,6 +39,7 @@ const AllUsers: React.FC = () => {
       return item;
     } else if (
       item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+      item.email.toLowerCase().includes(search.toLowerCase()) ||
       item.user_id?.toString().includes(search)
     ) {
       console.log("item", item.first_name.toLowerCase());
@@ -100,16 +101,20 @@ const AllUsers: React.FC = () => {
         </div>
       </div>
       <div className="container">
-        <Link className="btn btn-outline-info m-3" to={"/register"}>
-          +New
-        </Link>
-        <div className="col-3">
-          <input
-            type="text"
-            placeholder="Search Here"
-            className="form-control"
-            onChange={(event) => setSearch(event.target.value)}
-          />
+        <div className="row">
+          <div className="col">
+            <Link className="btn btn-outline-info m-3" to={"/register"}>
+              +New
+            </Link>
+          </div>
+          <div className="col-3">
+            <input
+              type="text"
+              placeholder="Search Here"
+              className="form-control"
+              onChange={(event) => setSearch(event.target.value)}
+            />
+          </div>
         </div>
 
         <div className="row">
