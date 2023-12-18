@@ -12,6 +12,10 @@ let Createcourse = () => {
     categoryError: "",
   });
 
+  const [validation1, setValidation1] = useState({
+    categoryError: "",
+  });
+
   let [state, setstate] = useState<IC>({
     courseName: "",
     courseDuration: "",
@@ -25,14 +29,20 @@ let Createcourse = () => {
       ...state,
       [event.target.name]: event.target.value,
     });
-    const inputValue = event.target.value;
-    // Check if the input contains only letters
-    const isLettersOnly = /^[a-zA-Z\s]+$/.test(inputValue);
-    setValidation({
-      categoryError: isLettersOnly
-        ? ""
-        : "Category name must contain only letters",
-    });
+    if (state.courseName) {
+      const isLettersOnly = /^[a-zA-Z\s]+$/.test(state.courseName);
+      setValidation({
+        categoryError: isLettersOnly
+          ? ""
+          : "Category name must contain only letters",
+      });
+    }
+    if (state.courseDuration) {
+      const isLettersOnly = /^[0-9a-zA-Z\s]+$/.test(state.courseDuration);
+      setValidation1({
+        categoryError: isLettersOnly ? "" : "Enter Valid Fields",
+      });
+    }
   };
 
   let form = (event: React.FormEvent<HTMLFormElement>) => {
@@ -95,9 +105,10 @@ let Createcourse = () => {
                       Enter Course Duration
                     </label>
                     <input
+                      placeholder="Number Days/Weeks/Months"
                       type="text"
                       className={`form-control  ${
-                        validation.categoryError && "is-invalid"
+                        validation1.categoryError && "is-invalid"
                       }`}
                       value={state.courseDuration}
                       onChange={(e) => {
@@ -106,6 +117,11 @@ let Createcourse = () => {
                       name="courseDuration"
                       id="inputEmail4"
                     />
+                    {validation.categoryError && (
+                      <div className="invalid-feedback">
+                        {validation1.categoryError}
+                      </div>
+                    )}
                   </div>
                 </div>
 

@@ -65,103 +65,101 @@ let TableRow: React.FC = () => {
 
   return (
     <>
-      <h1>{JSON.stringify(state)}</h1>
-      <div className="create_course">
-        <div className="course-create_form">
-          <form
-            className="row g-3"
-            onSubmit={(e) => {
-              form(e);
-            }}
-          >
-            <div className="row">
-              <div className="col-md-5">
-                <label htmlFor="inputEmail4" className="form-label">
-                  Select Subject
-                </label>
-                <select
-                  className="form-select"
-                  name={"sub_id"}
-                  onChange={(e) => {
-                    changeInput(e);
-                  }}
-                  aria-label="Default select example"
-                >
-                  <option selected>Open this select menu</option>
-                  {timeTableState.subjectData.map(
-                    (elem: ISUBJECTS, ind: any) => {
+      <div className="container-fluid">
+        <div className="row justify-content-center">
+          <div className="col-lg-6">
+            <div className="card p-3">
+              <div className="card-header bg-warning">
+                <h3>Create Timetable</h3>
+              </div>
+              <form
+                className="form mt-3"
+                onSubmit={(e) => {
+                  form(e);
+                }}
+              >
+                <div className="mb-3">
+                  <label className="form-label">Select Subject</label>
+                  <select
+                    className="form-select"
+                    name={"sub_id"}
+                    onChange={(e) => {
+                      changeInput(e);
+                    }}
+                    aria-label="Default select example"
+                  >
+                    <option selected>Open this select menu</option>
+                    {timeTableState.subjectData.map(
+                      (elem: ISUBJECTS, ind: any) => {
+                        return (
+                          <>
+                            <option value={elem.sub_id}>{elem.subject}</option>
+                          </>
+                        );
+                      }
+                    )}
+                  </select>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="inputEmail4" className="form-label">
+                    Select Faculty
+                  </label>
+                  <select
+                    className="form-select"
+                    onChange={(e) => {
+                      changeInput(e);
+                    }}
+                    name={"user_id"}
+                    aria-label="Default select example"
+                  >
+                    <option selected>Open this select menu</option>
+                    {timeTableState.facultyData.map((elem: IUSER, ind: any) => {
                       return (
                         <>
-                          <option value={elem.sub_id}>{elem.subject}</option>
+                          <option
+                            value={elem.user_id}
+                          >{` ${elem.first_name} ${elem.last_name}`}</option>
                         </>
                       );
-                    }
+                    })}
+                  </select>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="inputEmail4" className="form-label">
+                    Enter Exact Time
+                  </label>
+                  <input
+                    type="text"
+                    onChange={(e) => {
+                      changeInput(e);
+                    }}
+                    className={`form-control  ${
+                      validation.categoryError && "is-invalid"
+                    }`}
+                    name="time"
+                    placeholder="HH:MM:SS AM/PM"
+                    id="inputEmail4"
+                  />
+                  {validation.categoryError && (
+                    <div className="invalid-feedback">
+                      {validation.categoryError}
+                    </div>
                   )}
-                </select>
-              </div>
-            </div>
+                </div>
 
-            <div className="row">
-              <div className="col-md-5">
-                <label htmlFor="inputEmail4" className="form-label">
-                  Select Faculty
-                </label>
-                <select
-                  className="form-select"
-                  onChange={(e) => {
-                    changeInput(e);
-                  }}
-                  name={"user_id"}
-                  aria-label="Default select example"
-                >
-                  <option selected>Open this select menu</option>
-                  {timeTableState.facultyData.map((elem: IUSER, ind: any) => {
-                    return (
-                      <>
-                        <option
-                          value={elem.user_id}
-                        >{` ${elem.first_name} ${elem.last_name}`}</option>
-                      </>
-                    );
-                  })}
-                </select>
-              </div>
+                <div className="row justify-content-center">
+                  <button type="submit" className="btn btn-success col-lg-3">
+                    Submit
+                  </button>
+                  <button type="reset" className="btn btn-warning col-lg-3">
+                    Reset
+                  </button>
+                </div>
+              </form>
             </div>
-
-            <div className="row">
-              <div className="col-md-5">
-                <label htmlFor="inputEmail4" className="form-label">
-                  Enter Exact Time
-                </label>
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    changeInput(e);
-                  }}
-                  className={`form-control  ${
-                    validation.categoryError && "is-invalid"
-                  }`}
-                  name="time"
-                  placeholder="HH:MM:SS AM/PM"
-                  id="inputEmail4"
-                />
-                {validation.categoryError && (
-                  <div className="invalid-feedback">
-                    {validation.categoryError}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="course_create_button row mt-2">
-              <button type="submit" className="btn btn-success col-md-2">
-                Submit
-              </button>
-              <button type="reset" className="btn btn-warning col-md-2">
-                Reset
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </>

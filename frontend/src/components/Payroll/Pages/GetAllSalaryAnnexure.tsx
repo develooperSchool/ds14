@@ -308,9 +308,16 @@ const GetAllSalaryAnnexure: React.FC = () => {
   const DownloadLink = ({ annexure }: { annexure: SalaryAnnexure }) => {
     const pdfContent = generatePDF(annexure);
 
+    const buttonStyle = {
+      padding: '1px',
+      fontSize: '14px',
+    };
+
     return (
       <PDFDownloadLink document={pdfContent} fileName={`salary_annexure_${annexure.annexure_id}.pdf`}>
-        {({ blob, url, loading, error }) => (loading ? "Loading document..." : "Download")}
+        {({ blob, url, loading, error }) => (<button className="btn btn-warning" style={buttonStyle} disabled={loading}>
+          {loading ? "Loading document..." : "Download"}
+        </button>)}
       </PDFDownloadLink>
     );
   };
