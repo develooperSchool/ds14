@@ -18,11 +18,17 @@ const GetAllEnrollUsers: React.FC = () => {
   const [search, setSearch] = useState("");
 
   const searchItem = userEnrollReduxState.usersEnroll.filter((item) => {
-    if (search == "") {
+    if (search === "") {
       return item;
     } else if (
       item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+      item.last_name.toLowerCase().includes(search.toLowerCase()) ||
       item.email.toLowerCase().includes(search.toLowerCase()) ||
+      item.contact.toString().includes(search) ||
+      item.address.toLowerCase().includes(search.toLowerCase()) ||
+      item.gender.toLowerCase().includes(search.toLowerCase()) ||
+      item.caste_category.toLowerCase().includes(search.toLowerCase()) ||
+      item.qualification.toLowerCase().includes(search.toLowerCase()) ||
       item.enroll_id?.toString().includes(search)
     ) {
       return item;
@@ -84,9 +90,9 @@ const GetAllEnrollUsers: React.FC = () => {
       <div className="container">
         <div className="row">
           <div className="col">
-            <Link className="btn btn-outline-info m-3" to={"/enroll"}>
+            {/* <Link className="btn btn-outline-info m-3" to={"/enroll"}>
               +New
-            </Link>
+            </Link> */}
           </div>
           <div className="col-3">
             <input
