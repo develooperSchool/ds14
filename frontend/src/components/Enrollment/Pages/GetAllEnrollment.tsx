@@ -55,8 +55,8 @@ let Enrollment: React.FC = () => {
 
   return (
     <>
-      <div className="courses-table">
-        <div className="col-3">
+      <div>
+        <div className="col-3 mt-5">
           <input
             type="text"
             placeholder="Search Here"

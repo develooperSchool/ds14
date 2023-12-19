@@ -1,4 +1,4 @@
-var services = require("../services/course2.services");
+var services = require("../services/courses.services");
 let stCode = require("../utils/HttpStatusCode");
 const { respond } = require("../utils/app.utils");
 const {
@@ -8,27 +8,27 @@ const {
   COURSE_DELETED_SUCCESSFULLY,
 } = require("../utils/app.constants");
 
-let getCourse2 = (req, res) => {
+let getCourses = (req, res) => {
   services
-    .getCourse2(req, res)
+    .getCourses(req, res)
     .then((resp) => {
       respond(SUCCESS, stCode.OK, resp, new Date(Date.now()), res);
     })
     .catch((err) => console.log(err));
 };
 
-let getCourse2ById = (req, res) => {
+let getCourseById = (req, res) => {
   services
-    .getCourse2ById(req, res)
+    .getCourseById(req, res)
     .then((resp) => {
       respond(SUCCESS, stCode.OK, resp, new Date(Date.now()), res);
     })
     .catch((err) => console.log(err));
 };
 
-let postCourse2 = (req, res) => {
+let postCourse = (req, res) => {
   services
-    .postCourse2(req, res)
+    .postCourse(req, res)
     .then((resp) => {
       respond(
         NEW_COURSE_CREATED_SUCCESSFULLY,
@@ -41,9 +41,9 @@ let postCourse2 = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-let putCourse2 = (req, res) => {
+let putCourse = (req, res) => {
   services
-    .putCourse2(req, res)
+    .putCourse(req, res)
     .then((resp) => {
       respond(
         COURSE_UPDATED_SUCCESSFULLY,
@@ -56,9 +56,9 @@ let putCourse2 = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-let deleteCourse2 = (req, res) => {
+let deleteCourse = (req, res) => {
   services
-    .deleteCourse2(req, res)
+    .deleteCourse(req, res)
     .then((resp) => {
       respond(
         COURSE_DELETED_SUCCESSFULLY,
@@ -72,9 +72,9 @@ let deleteCourse2 = (req, res) => {
 };
 
 module.exports = {
-  getCourse2,
-  postCourse2,
-  putCourse2,
-  deleteCourse2,
-  getCourse2ById,
+  getCourses,
+  postCourse,
+  putCourse,
+  deleteCourse,
+  getCourseById,
 };

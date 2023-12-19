@@ -25,8 +25,8 @@ var userEnrollmentRouter = require("./routes/userEnrollment.routes");
 
 //project routes............................
 //let enrollmentRouter=require('./router/enrollment.routes');
-let course2tRouter = require("./routes/course2.router");
-let faculty2tRouter = require("./routes/faculty2.router");
+let course2tRouter = require("./routes/courses.router");
+let faculty2tRouter = require("./routes/faculties.router");
 let subjectstRouter = require("./routes/subjects.router");
 let TimeRouter = require("./routes/timetable.routes");
 

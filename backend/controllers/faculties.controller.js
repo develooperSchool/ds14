@@ -1,11 +1,11 @@
-var services = require("../services/faculty2.services");
+var services = require("../services/faculties.services");
 const stCode = require("../utils/HttpStatusCode");
 const { respond } = require("../utils/app.utils");
 const { SUCCESS } = require("../utils/app.constants");
 
-let getFaculty2 = (req, res) => {
+let getFaculties = (req, res) => {
   services
-    .getFaculty2(req, res)
+    .getFaculties(req, res)
     .then((resp) => {
       respond(SUCCESS, stCode.OK, resp, new Date(Date.now()), res);
     })
@@ -21,27 +21,27 @@ let getFaculty = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-let postFaculty2 = (req, res) => {
+let postFaculty = (req, res) => {
   services
-    .postFaculty2(req, res)
+    .postFaculty(req, res)
     .then((resp) => {
       respond(SUCCESS, stCode.CREATED, resp, new Date(Date.now()), res);
     })
     .catch((err) => console.log(err));
 };
 
-let putFaculty2 = (req, res) => {
+let putFaculty = (req, res) => {
   services
-    .putFaculty2(req, res)
+    .putFaculty(req, res)
     .then((resp) => {
       respond(SUCCESS, stCode.OK, resp, new Date(Date.now()), res);
     })
     .catch((err) => console.log(err));
 };
 
-let deleteFaculty2 = (req, res) => {
+let deleteFaculty = (req, res) => {
   services
-    .deleteFaculty2(req, res)
+    .deleteFaculty(req, res)
     .then((resp) => {
       respond(SUCCESS, stCode.OK, resp, new Date(Date.now()), res);
     })
@@ -49,9 +49,9 @@ let deleteFaculty2 = (req, res) => {
 };
 
 module.exports = {
-  getFaculty2,
+  getFaculties,
   getFaculty,
-  postFaculty2,
-  putFaculty2,
-  deleteFaculty2,
+  postFaculty,
+  putFaculty,
+  deleteFaculty,
 };

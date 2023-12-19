@@ -35,7 +35,6 @@ let Coursescrud: React.FC = () => {
     } else if (
       item.course_name.toLowerCase().includes(search.toLowerCase()) ||
       item.course_duration?.toString().includes(search) ||
-      item.course_duration.toLowerCase().includes(search.toLowerCase()) ||
       item.course_id?.toString().includes(search)
     ) {
       return item;
@@ -60,7 +59,7 @@ let Coursescrud: React.FC = () => {
 
   return (
     <>
-      <div className="courses-table">
+      <div>
         <Link to={"/create_course"} className="create_course_btn">
           <button className=" btn btn-outline-success">Create +</button>
         </Link>
@@ -77,7 +76,7 @@ let Coursescrud: React.FC = () => {
             <tr>
               <th scope="col">SR.NO</th>
               <th scope="col">COURSE</th>
-              <th scope="col">DURATION</th>
+              <th scope="col">DURATION IN MONTHS</th>
               <th scope="col">FEES</th>
               <th scope="col">ACTION</th>
             </tr>
