@@ -9,7 +9,7 @@ import { usePagination } from "../../Pagination";
 import Pagination from "react-bootstrap/esm/Pagination";
 
 let Enrollment: React.FC = () => {
-  const EnrollmentReduxState: enrollmentReducer.initialState = useSelector(
+  const enrollmentReduxState: enrollmentReducer.initialState = useSelector(
     (state: RootState) => {
       return state[enrollmentReducer.enrollmentFeatureKey];
     }
@@ -24,7 +24,7 @@ let Enrollment: React.FC = () => {
     displayPage,
   } = usePagination({
     perPageRecords: 10,
-    totalPageRecords: EnrollmentReduxState.userEnrollmentData.length,
+    totalPageRecords: enrollmentReduxState.userEnrollmentData.length,
   });
 
   let dataFromServer = () => {
@@ -36,7 +36,7 @@ let Enrollment: React.FC = () => {
   }, []);
 
   const [search, setSearch] = useState("");
-  const searchItem = EnrollmentReduxState.userEnrollmentData.filter(
+  const searchItem = enrollmentReduxState.userEnrollmentData.filter(
     (item: IENROLMENT) => {
       if (search === "") {
         return item;
@@ -77,7 +77,7 @@ let Enrollment: React.FC = () => {
           <tbody>
             {(searchItem.length > 0
               ? searchItem
-              : EnrollmentReduxState.userEnrollmentData
+              : enrollmentReduxState.userEnrollmentData
             )
               .slice(startPageIndex, endPageIndex)
               .map((elem: IENROLMENT, ind: any) => {
