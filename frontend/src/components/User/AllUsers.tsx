@@ -48,6 +48,7 @@ const AllUsers: React.FC = () => {
       item.qualification.toLowerCase().includes(search.toLowerCase()) ||
       item.user_id?.toString().includes(search)
     ) {
+      console.log("item", item.first_name.toLowerCase());
       return item;
     }
   });

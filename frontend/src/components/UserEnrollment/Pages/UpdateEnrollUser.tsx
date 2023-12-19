@@ -24,7 +24,7 @@ const UpdateEnrollUser = () => {
 
   const { userEnroll } = userEnrollReduxState;
   const { id } = useParams();
-  const navi = useNavigate();
+  const navigate = useNavigate();
 
   const [localUser, setLocalUser] = useState<IEnrollData>({
     first_name: "",
@@ -173,7 +173,7 @@ const UpdateEnrollUser = () => {
       })
     ).then((res: any) => {
       if (res && !res.error) {
-        navi("/userEnrollData");
+        navigate("/userEnrollData");
       }
     });
   };
