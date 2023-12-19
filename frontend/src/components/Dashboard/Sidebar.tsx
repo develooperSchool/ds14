@@ -11,24 +11,26 @@ const Sidebar = () => {
               <i className="bi bi-person-fill-lock text-dark"></i> Admin
             </Link>
           </li>
-          <li className="mt-3">
+          {/* <li className="mt-3">
             <Link to={"#"} className="Link">
               <i className="bi bi-person-fill text-dark"> </i>Mentor
             </Link>
-          </li>
+          </li> 
           <li className="mt-3">
             <Link to={"#"} className="Link">
               <i className="bi-person-lines-fill text-dark"> </i>Student
             </Link>
+          </li> 
+            <li className="mt-3">
+            <Link to={"#"} className="Link">
+              <i className="bi bi-file-text-fill text-dark"> </i>Carriculam
+            </Link>
           </li>
+          
+          */}
           <li className="mt-3">
             <Link to={"/courses"} className="Link">
               <i className=" bi bi-book-half text-dark"> </i>Courses
-            </Link>
-          </li>
-          <li className="mt-3">
-            <Link to={"#"} className="Link">
-              <i className="bi bi-file-text-fill text-dark"> </i>Carriculam
             </Link>
           </li>
           <li className="mt-3">
