@@ -1,4 +1,4 @@
-var dao = require("../dao/courses.Dao");
+var dao = require("../dao/courses.dao");
 
 let getCourses = async (req, res) => {
   let rows = [];
