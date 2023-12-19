@@ -12,10 +12,6 @@ let Createcourse = () => {
     categoryError: "",
   });
 
-  const [validation1, setValidation1] = useState({
-    categoryError: "",
-  });
-
   let [state, setstate] = useState<IC>({
     courseName: "",
     courseDuration: "",
@@ -35,12 +31,6 @@ let Createcourse = () => {
         categoryError: isLettersOnly
           ? ""
           : "Category name must contain only letters",
-      });
-    }
-    if (state.courseDuration) {
-      const isLettersOnly = /^[0-9a-zA-Z\s]+$/.test(state.courseDuration);
-      setValidation1({
-        categoryError: isLettersOnly ? "" : "Enter Valid Fields",
       });
     }
   };
@@ -102,14 +92,11 @@ let Createcourse = () => {
                 <div className="row mb-2">
                   <div>
                     <label className="form-label mb-1">
-                      Enter Course Duration
+                      Enter Course Duration( In Months )
                     </label>
                     <input
-                      placeholder="Number Days/Weeks/Months"
-                      type="text"
-                      className={`form-control  ${
-                        validation1.categoryError && "is-invalid"
-                      }`}
+                      type="number"
+                      className={`form-control`}
                       value={state.courseDuration}
                       onChange={(e) => {
                         changeInput(e);
@@ -117,11 +104,6 @@ let Createcourse = () => {
                       name="courseDuration"
                       id="inputEmail4"
                     />
-                    {validation.categoryError && (
-                      <div className="invalid-feedback">
-                        {validation1.categoryError}
-                      </div>
-                    )}
                   </div>
                 </div>
 

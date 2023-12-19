@@ -116,6 +116,7 @@ const RelievingLetter: React.FC = () => {
     const [employmentEndDate, setEmploymentEndDate] = useState("");
     const [designation, setDesignation] = useState("");
     const [validated, setValidated] = useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const handleModalShow = () => setShowModal(true);
     const handleModalClose = () => setShowModal(false);
@@ -138,6 +139,7 @@ const RelievingLetter: React.FC = () => {
             return;
         }
         setShowModal(false);
+        setFormSubmitted(true);
     };
 
     useEffect(() => {
@@ -209,11 +211,14 @@ const RelievingLetter: React.FC = () => {
                 </div>
             </div>
             <div className="container">
-                <PDFDownloadLink document={<PdfDocument employeeName={employeeName} location={location} resignationDate={resignationDate} employmentStartDate={employmentStartDate} employmentEndDate={employmentEndDate} designation={designation} />} fileName="relieving_letter.pdf">
-                    {({ blob, url, loading, error }) => (<button className="btn btn-warning" disabled={loading}>
-                        {loading ? "Loading document..." : "Download"}
-                    </button>)}
-                </PDFDownloadLink>
+                {formSubmitted && (
+                    <PDFDownloadLink document={<PdfDocument employeeName={employeeName} location={location} resignationDate={resignationDate} employmentStartDate={employmentStartDate} employmentEndDate={employmentEndDate} designation={designation} />} fileName="relieving_letter.pdf">
+                        {({ blob, url, loading, error }) => (<button className="btn btn-warning" disabled={loading}>
+                            {loading ? "Loading document..." : "Download"}
+                        </button>)}
+
+                    </PDFDownloadLink>
+                )}
             </div>
 
             <Modal show={showModal} onHide={handleModalClose}>

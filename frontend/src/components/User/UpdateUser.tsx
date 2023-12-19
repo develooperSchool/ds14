@@ -23,7 +23,7 @@ const UpdateUser: React.FC = () => {
 
   const { user } = userReduxState;
   const { id } = useParams();
-  const navi = useNavigate();
+  const navigate = useNavigate();
 
   const [localUser, setLocalUser] = useState<IUpdate>({
     first_name: "",
@@ -172,7 +172,7 @@ const UpdateUser: React.FC = () => {
       })
     ).then((res: any) => {
       if (res && !res.error) {
-        navi("/users");
+        navigate("/users");
       }
     });
   };

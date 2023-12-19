@@ -39,7 +39,13 @@ const AllUsers: React.FC = () => {
       return item;
     } else if (
       item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+      item.last_name.toLowerCase().includes(search.toLowerCase()) ||
       item.email.toLowerCase().includes(search.toLowerCase()) ||
+      item.contact.toString().includes(search) ||
+      item.address.toLowerCase().includes(search.toLowerCase()) ||
+      item.gender.toLowerCase().includes(search.toLowerCase()) ||
+      item.caste_category.toLowerCase().includes(search.toLowerCase()) ||
+      item.qualification.toLowerCase().includes(search.toLowerCase()) ||
       item.user_id?.toString().includes(search)
     ) {
       console.log("item", item.first_name.toLowerCase());
