@@ -39,8 +39,8 @@ let FacultyDetails: React.FC = () => {
 
   return (
     <>
-      <div className="faculty_table">
-        <div className="courses-table">
+      <div>
+        <div>
           <table className="table table-stripped table-hover">
             <thead className="course_table_head ">
               <tr>
