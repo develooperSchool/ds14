@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "./Redux/store";
 import * as UserAction from "../../Redux/UserRedux/user.action";
 import * as UserReducer from "../../Redux/UserRedux/user.reducer";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { usePagination } from "../Pagination";
+import { Pagination } from "react-bootstrap";
 
 const AllActiveUsers: React.FC = () => {
   const userReduxState: UserReducer.InitialState = useSelector(
@@ -12,8 +14,38 @@ const AllActiveUsers: React.FC = () => {
       return state[UserReducer.userFeatureKey];
     }
   );
+  const [search, setSearch] = useState("");
+
+  const searchItem = userReduxState.users.filter((item) => {
+    if (search === "") {
+      return item;
+    } else if (
+      item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+      item.last_name.toLowerCase().includes(search.toLowerCase()) ||
+      item.email.toLowerCase().includes(search.toLowerCase()) ||
+      item.contact.toString().includes(search) ||
+      item.address.toLowerCase().includes(search.toLowerCase()) ||
+      item.gender.toLowerCase().includes(search.toLowerCase()) ||
+      item.caste_category.toLowerCase().includes(search.toLowerCase()) ||
+      item.qualification.toLowerCase().includes(search.toLowerCase()) ||
+      item.user_id?.toString().includes(search)
+    ) {
+      return item;
+    }
+  });
 
   const dispatch: AppDispatch = useDispatch();
+
+  const {
+    totalPages,
+    startPageIndex,
+    endPageIndex,
+    currentPageIndex,
+    displayPage,
+  } = usePagination({
+    perPageRecords: 5,
+    totalPageRecords: userReduxState.users.length,
+  });
 
   useEffect(() => {
     dataFromServer();
@@ -38,6 +70,14 @@ const AllActiveUsers: React.FC = () => {
               obcaecati. Veniam vero accusantium amet voluptatum sint assumenda
               nam.
             </p>
+            <div className="col-3">
+              <input
+                type="text"
+                placeholder="Search Here"
+                className="form-control"
+                onChange={(event) => setSearch(event.target.value)}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -59,30 +99,52 @@ const AllActiveUsers: React.FC = () => {
                   <th>Gender</th>
                   <th>Caste</th>
                   <th>Subcaste</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {userReduxState.users.map((user) => {
-                  return (
-                    <tr key={user.user_id}>
-                      <td>{user.user_id}</td>
-                      <td>{user.first_name}</td>
-                      <td>{user.last_name}</td>
-                      <td>{user.email}</td>
-                      <td>{user.contact}</td>
-                      <td>{user.address}</td>
-                      <td>{user.qualification}</td>
-                      <td>{user.passing_year}</td>
-                      <td>{user.dob}</td>
-                      <td>{user.gender}</td>
-                      <td>{user.caste_category}</td>
-                      <td>{user.subcaste}</td>
-                    </tr>
-                  );
-                })}
+                {(searchItem.length > 0 ? searchItem : userReduxState.users)
+                  .slice(startPageIndex, endPageIndex + 1)
+                  .map((user) => {
+                    return (
+                      <tr key={user.user_id}>
+                        <td>{user.user_id}</td>
+                        <td>{user.first_name}</td>
+                        <td>{user.last_name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.contact}</td>
+                        <td>{user.address}</td>
+                        <td>{user.qualification}</td>
+                        <td>{user.passing_year}</td>
+                        <td>{user.dob}</td>
+                        <td>{user.gender}</td>
+                        <td>{user.caste_category}</td>
+                        <td>{user.subcaste}</td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
+            <Pagination>
+              <Pagination.First onClick={() => displayPage(1)} />
+              <Pagination.Prev
+                onClick={() => displayPage(currentPageIndex - 1)}
+                disabled={currentPageIndex === 1}
+              />
+              {[...Array(totalPages)].map((_, index) => (
+                <Pagination.Item
+                  key={index + 1}
+                  active={index + 1 === currentPageIndex}
+                  onClick={() => displayPage(index + 1)}
+                >
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+              <Pagination.Next
+                onClick={() => displayPage(currentPageIndex + 1)}
+                disabled={currentPageIndex === totalPages}
+              />
+              <Pagination.Last onClick={() => displayPage(totalPages)} />
+            </Pagination>
           </div>
         </div>
       </div>

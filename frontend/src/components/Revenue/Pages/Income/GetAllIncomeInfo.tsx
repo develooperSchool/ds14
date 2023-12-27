@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
 import { AppDispatch, RootState } from "../../../User/Redux/store";
 import { Link } from "react-router-dom";
+import { usePagination } from "../../../Pagination";
+import { Pagination } from "react-bootstrap";
 
 const GetAllIncomeInfo: React.FC = () => {
   //data from redux store
@@ -12,7 +14,36 @@ const GetAllIncomeInfo: React.FC = () => {
       return state[RevenueReducer.revenueFeatureKey];
     }
   );
+
+  const [search, setSearch] = useState("");
+
+  const searchItem = revenueReduxState.Incomes.filter((item) => {
+    if (search === "") {
+      return item;
+    } else if (
+      item.income_id.toString().includes(search.toLowerCase()) ||
+      item.user_id.toString().includes(search.toLowerCase()) ||
+      item.revenue_category_id.toString().includes(search.toLowerCase()) ||
+      item.total_fees.toString().includes(search.toLowerCase()) ||
+      item.paid_fees.toString().includes(search.toLowerCase()) ||
+      item.balance_fees.toString().includes(search.toLowerCase()) ||
+      item.transaction_id.toString().includes(search.toLowerCase()) ||
+      item.income_amount.toString().includes(search.toLowerCase())
+    ) {
+      return item;
+    }
+  });
   const dispatach: AppDispatch = useDispatch();
+  const {
+    totalPages,
+    startPageIndex,
+    endPageIndex,
+    currentPageIndex,
+    displayPage,
+  } = usePagination({
+    perPageRecords: 5,
+    totalPageRecords: revenueReduxState.Incomes.length,
+  });
 
   useEffect(() => {
     dataFromserver();
@@ -49,61 +80,101 @@ const GetAllIncomeInfo: React.FC = () => {
             </p>
           </div>
         </div>
+
+        <div>
+          <div className="row">
+            <div className="col">
+              <h5>Below we have Income Deatails</h5>
+            </div>
+            <div className="col-3">
+              <input
+                type="text"
+                placeholder="Search Here"
+                className="form-control"
+                onChange={(event) => setSearch(event.target.value)}
+              />
+            </div>
+          </div>
+        </div>
       </div>
-      <Link to="/addIncome" className="btn btn-outline-info">
-        Add Income Details
-      </Link>
       <div className="container">
         <div className="row">
           <div className="col">
             <table className="table table-stripped table-hover text-center">
               <thead>
                 <tr>
-                  <th>Income ID</th>
+                  {/* <th>Income ID</th> */}
                   <th>User ID</th>
                   <th>Revenue ID</th>
                   <th>Total Fees</th>
                   <th>Paid Fees</th>
                   <th>Balance Fees</th>
                   <th>Transaction ID</th>
-                  <th>Income Amount</th>
+                  {/* <th>Income Amount</th> */}
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {revenueReduxState.Incomes.map((incomeDetails, index) => {
-                  return (
-                    <tr>
-                      <td>{incomeDetails.income_id}</td>
+                {(searchItem.length > 0
+                  ? searchItem
+                  : revenueReduxState.Incomes
+                )
+                  .slice(startPageIndex, endPageIndex + 1)
+                  .map((incomeDetails, index) => {
+                    return (
+                      <tr>
+                        {/* <td>{incomeDetails.income_id}</td> */}
 
-                      <td>{incomeDetails.user_id}</td>
-                      <td>{incomeDetails.revenue_category_id}</td>
-                      <td>{incomeDetails.total_fees}</td>
-                      <td>{incomeDetails.paid_fees}</td>
-                      <td>{incomeDetails.balance_fees}</td>
-                      <td>{incomeDetails.transaction_id}</td>
-                      <td>{incomeDetails.income_amount}</td>
-                      <td>
-                        <Link
-                          to={`/updateIncome/${incomeDetails.income_id}`}
-                          className="btn btn-outline-success"
-                        >
-                          Update
-                        </Link>
-                        <button
-                          className="btn btn-outline-danger"
-                          onClick={() =>
-                            deleteIncomeInfoById(incomeDetails.income_id)
-                          }
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                        <td>{incomeDetails.user_id}</td>
+                        <td>{incomeDetails.revenue_category_id}</td>
+                        <td>{incomeDetails.total_fees}</td>
+                        <td>{incomeDetails.paid_fees}</td>
+                        <td>{incomeDetails.balance_fees}</td>
+                        <td>{incomeDetails.transaction_id}</td>
+                        {/* <td>{incomeDetails.income_amount}</td> */}
+                        <td>
+                          {/* <Link
+                            to={`/updateIncome/${incomeDetails.income_id}`}
+                            className="btn btn-outline-success"
+                          >
+                            Update
+                          </Link> */}
+                          <button
+                            className="btn btn-outline-danger"
+                            onClick={() =>
+                              deleteIncomeInfoById(incomeDetails.income_id)
+                            }
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
+
+            <Pagination>
+              <Pagination.First onClick={() => displayPage(1)} />
+              <Pagination.Prev
+                onClick={() => displayPage(currentPageIndex - 1)}
+                disabled={currentPageIndex === 1}
+              />
+              {[...Array(totalPages)].map((_, index) => (
+                <Pagination.Item
+                  key={index + 1}
+                  active={index + 1 === currentPageIndex}
+                  onClick={() => displayPage(index + 1)}
+                >
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+              <Pagination.Next
+                onClick={() => displayPage(currentPageIndex + 1)}
+                disabled={currentPageIndex === totalPages}
+              />
+              <Pagination.Last onClick={() => displayPage(totalPages)} />
+            </Pagination>
           </div>
         </div>
       </div>

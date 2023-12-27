@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "./Redux/store";
-import { IRegister, IRegisterData } from "./Model/Iuser";
+import { ICaste, IRegister, IRegisterData } from "./Model/Iuser";
 import * as UserAction from "../../Redux/UserRedux/user.action";
 import * as UserReducer from "../../Redux/UserRedux/user.reducer";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { start } from "repl";
 import { create } from "domain";
+import { castArray } from "./CastArray";
+import { obcArray } from "./CasteArray1";
 
 const Registration: React.FC = () => {
   const Navigate = useNavigate();
@@ -40,8 +42,7 @@ const Registration: React.FC = () => {
 
   useEffect(() => {
     reflectDate();
-  }, [startDate])
-  
+  }, [startDate]);
 
   const changeDate = (date: Date | null) => {
     setStartDate(date);
@@ -63,14 +64,60 @@ const Registration: React.FC = () => {
       ...create,
       dob: formattedDate,
     });
-
-  }
-  const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+  };
+  const changeInputEvent = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setCreate({
       ...create,
       [event.target.name]: event.target.value,
     });
   };
+
+  var [state, setState] = useState<ICaste[]>([
+    {
+      category: "",
+      cast_name: "",
+    },
+  ]);
+
+  let castData = (input: string) => {
+    var array: any;
+    if (input === "SC") {
+      array = castArray.SC.filter((elem: any) => {
+        return elem;
+      });
+    } else if (input === "OPEN") {
+      array = castArray.OPEN.filter((elem: any) => {
+        return elem;
+      });
+    } else if (input === "ST") {
+      array = castArray.ST.filter((elem: any) => {
+        return elem;
+      });
+    } else if (input === "SBC") {
+      array = castArray.SBC.filter((elem: any) => {
+        return elem;
+      });
+    } else if (input === "VJNT") {
+      array = castArray.VJNT.filter((elem: any) => {
+        return elem;
+      });
+    } else if (input === "OBC") {
+      array = obcArray;
+    } else {
+      array = [
+        {
+          category: "",
+          cast_name: "",
+        },
+      ];
+      return array;
+    }
+
+    setState(array);
+  };
+  console.log(state);
 
   const setDefaults = () => {
     setCreate({
@@ -89,7 +136,9 @@ const Registration: React.FC = () => {
     });
   };
 
-  const submitData = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitData = (
+    event: React.FormEvent<HTMLFormElement | HTMLSelectElement>
+  ) => {
     event.preventDefault();
     const data: IRegister = {
       firstName: create.first_name,
@@ -114,6 +163,11 @@ const Registration: React.FC = () => {
       })
       .catch((error: any) => console.log(error));
   };
+  // const [selectedValue, setSelectedValue] = useState("");
+
+  // const handleDropdownChange = (e: any) => {
+  //   setSelectedValue(e.target.value);
+  // };
   return (
     <>
       <div className="offset-lg-2 col-lg-8 mt-3">
@@ -221,7 +275,7 @@ const Registration: React.FC = () => {
                       <DatePicker
                         dateFormat="dd-MM-yyyy"
                         selected={startDate}
-                        onChange={(date: Date | null) => changeDate(date)}
+                        onChange={(date) => changeDate(date)}
                         className="form-control"
                       />
                     </div>
@@ -248,35 +302,114 @@ const Registration: React.FC = () => {
                   </div>
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
-                      <label>Caste</label>
+                      {/* <label>Caste</label>
                       <input
                         type="text"
                         className="form-control"
                         onChange={(e) => changeInputEvent(e)}
                         value={create.caste_category}
                         name="caste_category"
-                      />
-                      {/* <select name="caste" id="" className="form-control">
-                                        <option value="select">Select</option>
-                                        <option value="open">OPEN</option>
-                                        <option value="obc">OBC</option>
-                                        <option value="sc">SC</option>
-                                        <option value="st">ST</option>
-                                        <option value="vjnt">VJNT</option>
-                                        <option value="other">OTHER</option>
-                                    </select> */}
+                      /> */}
+                      <label>Caste</label>
+
+                      <select
+                        name="caste_category"
+                        id=""
+                        className="form-select"
+                        aria-label="Default select example"
+                        value={create.caste_category}
+                        onClick={() => {
+                          castData(create.caste_category);
+                        }}
+                        onChange={(e) => changeInputEvent(e)}
+                      >
+                        <option value="Select">Select</option>
+                        <option value="OPEN">OPEN</option>
+                        <option value="OBC">OBC</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                        <option value="VJNT">VJNT</option>
+                        <option value="SBC">SBC</option>
+                      </select>
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
-                      <label>Subcaste</label>
-                      <input
+                      {create.caste_category != "OPEN" && (
+                        <label>Subcaste</label>
+                      )}
+                      {create.caste_category != "OPEN" && (
+                        <select
+                          onChange={(e) => changeInputEvent(e)}
+                          name="subcaste"
+                          id=""
+                          className="form-control"
+                        >
+                          <option>select</option>
+                          {state.map((element: ICaste) => {
+                            return (
+                              <>
+                                <option value={element.cast_name}>
+                                  {element.cast_name}
+                                </option>
+                              </>
+                            );
+                          })}
+                        </select>
+                      )}
+                      {/* <input<<<<<<< .mine
+                        <label>Subcaste</label>
+                      )}
+                      {create.caste_category != "OPEN" && (
+                        <select
+                          onChange={(e) => changeInputEvent(e)}
+                          name="subcaste"
+                          id=""
+                          className="form-control"
+                        >
+                          <option>select</option>
+                          {state.map((element: ICaste) => {
+                            return (
+                              <>
+                                <option value={element.cast_name}>
+                                  {element.cast_name}
+                                </option>
+                              </>
+                            );
+                          })}
+                        </select>
+                      )}
+                      {/* <input
+=======
+                      {/* add select option for subcast
+                       {<input
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
                         onChange={(e) => changeInputEvent(e)}
                         type="text"
                         name="subcaste"
                         value={create.subcaste}
                         className="form-control"
-                      />
+  />} */}
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">

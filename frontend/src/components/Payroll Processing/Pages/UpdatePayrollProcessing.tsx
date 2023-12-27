@@ -47,11 +47,12 @@ const UpdatePayrollProcessing: React.FC = () => {
                 net_salary: process.net_salary,
             });
 
-            let dateArray = process.payroll_date.split("-");
-            let date: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]))
+            if (process.payroll_date && process.payroll_date !== "") {
+                let dateArray = process.payroll_date.split("-");
+                let date: Date = new Date(Number(dateArray[2]), Number(dateArray[1]) - 1, Number(dateArray[0]))
 
-            setStartDate(date)
-
+                setStartDate(date)
+            }
         }
     }, [process]);
 
@@ -66,12 +67,12 @@ const UpdatePayrollProcessing: React.FC = () => {
     const reflectDate = () => {
         let day = startDate?.getDate();
         let month: string | number =
-            startDate?.getMonth() != undefined ? startDate?.getMonth() + 1 : "";
+            startDate?.getMonth() !== undefined ? startDate?.getMonth() + 1 : "";
         let year = startDate?.getFullYear();
 
         let fullDay: string | number = "";
         let fullMonth: string | number = "";
-        if (day != undefined && month != undefined) {
+        if (day !== undefined && month !== undefined) {
             fullDay = day?.toString().length < 2 ? `0${day}` : day;
             fullMonth = month?.toString().length < 2 ? `0${month}` : month;
         }

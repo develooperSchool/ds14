@@ -107,11 +107,11 @@ const createUserValidation = (req, res, next) => {
     );
   // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid casteCategory")
 
-  if (userUtil.isInvalidName(req.body.subcaste))
-    throw new InvalidSubcasteError(
-      "SUBCASTE ENTERED FOR CREATING NEW USER IS INVALID",
-      res
-    );
+  // if (userUtil.isInvalidSubcaste(req.body.subcaste))
+  //   throw new InvalidSubcasteError(
+  //     "SUBCASTE ENTERED FOR CREATING NEW USER IS INVALID",
+  //     res
+  //   );
   // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid subcaste")
 
   if (userUtil.isInvalidPassword(req.body.password))

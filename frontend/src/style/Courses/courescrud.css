@@ -1,0 +1,42 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+
+
+.courses-table{
+    margin: 0px;
+    padding: 0px;
+
+position: fixed;
+top: 100px;
+left: 238px;
+width:75%;
+height: 80vh;
+overflow-y: scroll;
+
+}
+
+.courses-table table tr td{
+    font-family: 'Poppins', sans-serif;
+font-weight: 500;
+
+}
+
+.courses-table table .tr:hover{
+    transform: scale(1.01);
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    background-color: #fff;
+}
+
+.create_course{
+    font-family: 'Poppins', sans-serif;
+    margin: 0px;
+    padding: 30px;
+
+position: fixed;
+top: 100px;
+left: 238px;
+
+}
+

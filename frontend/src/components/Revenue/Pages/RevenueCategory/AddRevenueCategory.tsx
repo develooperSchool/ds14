@@ -16,6 +16,10 @@ const AddRevenueCategory = () => {
   // );
   const dispatch: AppDispatch = useDispatch();
 
+  const [validation, setValidation] = useState({
+    categoryError: "",
+  });
+
   const [createcategory, setcreatecatogiry] = useState<IAddRevenueCategory>({
     revenueCategoryName: "",
   });
@@ -24,6 +28,15 @@ const AddRevenueCategory = () => {
     setcreatecatogiry({
       ...createcategory,
       [event.target.name]: event.target.value,
+    });
+    const inputValue = event.target.value;
+
+    // Check if the input contains only letters
+    const isLettersOnly = /^[a-zA-Z\s]+$/.test(inputValue);
+    setValidation({
+      categoryError: isLettersOnly
+        ? ""
+        : "Category name must contain only letters",
     });
   };
 
@@ -82,10 +95,32 @@ const AddRevenueCategory = () => {
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}
+                    className={`form-control  ${
+                      validation.categoryError && "is-invalid"
+                    }`}
+                    placeholder="Enter Revenue Category"
+                  />
+                  {validation.categoryError && (
+                    <div className="invalid-feedback">
+                      {validation.categoryError}
+                    </div>
+                  )}
+                </div>
+                {/* <div className="mb-2">
+                  <label className="form-label">
+                    Enter Revenue Category Name
+                  </label>
+                  <input
+                    type="text"
+                    name="revenueCategoryName"
+                    value={createcategory.revenueCategoryName}
+                    onChange={(e) => {
+                      changeInputEvent(e);
+                    }}
                     className="form-control"
                     placeholder="Enter Revenue Category"
                   />
-                </div>
+                </div> */}
 
                 <div className="mt-3">
                   <button type="submit" className="btn btn-outline-success">

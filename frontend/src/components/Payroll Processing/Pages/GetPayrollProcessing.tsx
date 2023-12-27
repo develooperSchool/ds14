@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../Redux/store";
 import { useDispatch } from "react-redux";
 import * as PayrollProcessingAction from "../../../Redux/PayrollProcessingRedux/payrollprocessing.action"
 import * as PayrollProcessingReducer from "../../../Redux/PayrollProcessingRedux/payrollprocessing.reducer"
 import { useSelector } from "react-redux";
+import { usePagination } from "../../Pagination";
+import { Pagination } from "react-bootstrap";
 
 
 const GetAllPayrollProcessing: React.FC = () => {
@@ -14,7 +16,21 @@ const GetAllPayrollProcessing: React.FC = () => {
         return state[PayrollProcessingReducer.processingFeatureKey]
     })
 
-    const dispatch: AppDispatch = useDispatch()
+    const [search, setSearch] = useState("");
+
+    const searchItem = processingReduxState.processes.filter((item) => {
+        if (search == "") {
+            return item;
+        } else if (
+            item.payroll_date.toLowerCase().includes(search.toLowerCase()) ||
+            String(item.payroll_id).includes(search)
+        ) {
+            return item;
+        }
+    });
+
+    const dispatch: AppDispatch = useDispatch();
+    const { totalPages, startPageIndex, endPageIndex, currentPageIndex, displayPage } = usePagination({ perPageRecords: 5, totalPageRecords: processingReduxState.processes.length });
 
     useEffect(() => {
         dataFromServer()
@@ -47,7 +63,25 @@ const GetAllPayrollProcessing: React.FC = () => {
             </div>
 
             <div className="container">
-                <Link className="btn btn-primary" to="/postpayroll-processing">+ NEW</Link>
+                <div className="row">
+                    <div className="col">
+                        <Link className="btn btn-primary" to="/postpayroll-processing">+ NEW</Link>
+                    </div>
+                    <div className="col input-group justify-content-end">
+                        <input
+                            type="text"
+                            placeholder="Search Here"
+                            className="custom-input"
+                            style={{ width: '150px', height: "30px", border: "1 px solid grey" }}
+                            onChange={(event) => setSearch(event.target.value)}
+                        />
+                        <div className="input-group-append">
+                            <span className="input-group-text">
+                                <i className="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="container mt-4">
@@ -59,33 +93,47 @@ const GetAllPayrollProcessing: React.FC = () => {
                                     <th>Payroll Id</th>
                                     <th>User Id</th>
                                     <th>Payroll Date</th>
-                                    <th>GRoss Salary</th>
+                                    <th>Gross Salary</th>
                                     <th>Net Salary</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                    processingReduxState.processes.map((newprocess, index) => {
-                                        return (
-                                            <tr>
-                                                <td>{newprocess.payroll_id}</td>
-                                                <td>{newprocess.user_id}</td>
-                                                <td>{newprocess.payroll_date}</td>
-                                                <td>{newprocess.gross_salary}</td>
-                                                <td>{newprocess.net_salary}</td>
-                                                <td>
-                                                    <Link to={`/updatepayroll-processing/${newprocess.payroll_id}`} className="btn btn-primary">
-                                                        UPDATE
-                                                    </Link>
-                                                    <button className="btn btn-warning" onClick={() => deletePayrollProcessing(String(newprocess.payroll_id))}>DELETE</button>
-                                                </td>
-                                            </tr>
-                                        )
-                                    })
+                                {(searchItem.length > 0 ? searchItem : processingReduxState.processes).slice(startPageIndex, endPageIndex + 1).map((newprocess, index) => {
+                                    return (
+                                        <tr>
+                                            <td>{newprocess.payroll_id}</td>
+                                            <td>{newprocess.user_id}</td>
+                                            <td>{newprocess.payroll_date}</td>
+                                            <td>{newprocess.gross_salary}</td>
+                                            <td>{newprocess.net_salary}</td>
+                                            <td>
+                                                <Link to={`/updatepayroll-processing/${newprocess.payroll_id}`} className="btn btn-primary">
+                                                    UPDATE
+                                                </Link>
+                                                <button className="btn btn-warning" onClick={() => deletePayrollProcessing(String(newprocess.payroll_id))}>DELETE</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
                                 }
                             </tbody>
                         </table>
+                        <Pagination>
+                            <Pagination.First onClick={() => displayPage(1)} />
+                            <Pagination.Prev onClick={() => displayPage(currentPageIndex - 1)} disabled={currentPageIndex === 1} />
+                            {[...Array(totalPages)].map((_, index) => (
+                                <Pagination.Item
+                                    key={index + 1}
+                                    active={index + 1 === currentPageIndex}
+                                    onClick={() => displayPage(index + 1)}
+                                >
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                            <Pagination.Next onClick={() => displayPage(currentPageIndex + 1)} disabled={currentPageIndex === totalPages} />
+                            <Pagination.Last onClick={() => displayPage(totalPages)} />
+                        </Pagination>
                     </div>
                 </div>
             </div>

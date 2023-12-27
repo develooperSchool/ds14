@@ -53,8 +53,7 @@ const getUserByEmail = async (req, res) => {
 };
 
 const updateUserRoleById = async (req, res) => {
-  const values = [req.params.id, req.body.roleId];
-
+  const values = [req.body.roleId, req.params.id];
   try {
     let sqlQuery = "UPDATE user_master set role_id = ? where user_id = ?";
     const [result, fields] = await db.query(sqlQuery, values);

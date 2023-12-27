@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as AttendanceReducer from "../../../../Redux/AttendanceRedux/attendance.reducer"
 import * as AttendanceAction from "../../../../Redux/AttendanceRedux/attendance.action";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../Redux/store";
 import { Link } from "react-router-dom";
+import { usePagination } from "../../../Pagination";
+import Pagination from "react-bootstrap/esm/Pagination";
 
 const GetAllAttendance: React.FC = () => {
 
@@ -12,7 +14,22 @@ const GetAllAttendance: React.FC = () => {
         return state[AttendanceReducer.attendanceFeatureKey]
     })
 
-    const dispatch: AppDispatch = useDispatch()
+    const [search, setSearch] = useState("");
+
+    const searchItem = attendanceReduxState.attendances.filter((item) => {
+        if (search == "") {
+            return item;
+        } else if (
+            item.attendance_date.toLowerCase().includes(search.toLowerCase()) ||
+            String(item.attendance_id).includes(search)
+        ) {
+            return item;
+        }
+    });
+
+    const dispatch: AppDispatch = useDispatch();
+
+    const { totalPages, startPageIndex, endPageIndex, currentPageIndex, displayPage } = usePagination({ perPageRecords: 5, totalPageRecords: attendanceReduxState.attendances.length });
 
     useEffect(() => {
         dataFromServer()
@@ -47,13 +64,32 @@ const GetAllAttendance: React.FC = () => {
             </div>
 
             <div className="container">
-                <Link className="btn btn-primary" to="/postattendance">+ NEW</Link>
+                <div className="row">
+                    <div className="col">
+                        <Link className="btn btn-primary" to="/postattendance">+ NEW</Link>
+                    </div>
+                    <div className="col input-group justify-content-end">
+                        <input
+                            type="text"
+                            placeholder="Search Here"
+                            className="custom-input"
+                            style={{ width: '150px', height: "30px", border: "1 px solid grey" }}
+                            onChange={(event) => setSearch(event.target.value)}
+                        />
+                        <div className="input-group-append">
+                            <span className="input-group-text">
+                                <i className="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <table className="table table-stripped table-hover text-center">
+                        <table className="table table-secondary table-stripped table-hover text-center">
                             <thead>
                                 <tr>
                                     <th>Attendance Id</th>
@@ -66,7 +102,7 @@ const GetAllAttendance: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {attendanceReduxState.attendances.map((newattend, index) => {
+                                {(searchItem.length > 0 ? searchItem : attendanceReduxState.attendances).slice(startPageIndex, endPageIndex + 1).map((newattend, index) => {
                                     return (
                                         <tr key={index}>
                                             <td>{newattend.attendance_id}</td>
@@ -78,12 +114,12 @@ const GetAllAttendance: React.FC = () => {
                                             <td>
                                                 <Link
                                                     to={`/updateattendance/${newattend.attendance_id}`}
-                                                    className="btn btn-outline-success"
+                                                    className="btn btn-success"
                                                 >
                                                     Update
                                                 </Link>
                                                 <button
-                                                    className="btn btn-outline-danger"
+                                                    className="btn btn-danger"
                                                     onClick={() =>
                                                         deleteAttendance(
                                                             String(newattend.attendance_id)
@@ -98,6 +134,21 @@ const GetAllAttendance: React.FC = () => {
                                 })}
                             </tbody>
                         </table>
+                        <Pagination>
+                            <Pagination.First onClick={() => displayPage(1)} />
+                            <Pagination.Prev onClick={() => displayPage(currentPageIndex - 1)} disabled={currentPageIndex === 1} />
+                            {[...Array(totalPages)].map((_, index) => (
+                                <Pagination.Item
+                                    key={index + 1}
+                                    active={index + 1 === currentPageIndex}
+                                    onClick={() => displayPage(index + 1)}
+                                >
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                            <Pagination.Next onClick={() => displayPage(currentPageIndex + 1)} disabled={currentPageIndex === totalPages} />
+                            <Pagination.Last onClick={() => displayPage(totalPages)} />
+                        </Pagination>
                     </div>
                 </div>
             </div>

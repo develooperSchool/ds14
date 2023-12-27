@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as RevenueReducer from "../../../../Redux/RevenueRedux/revenue.reducer";
 import * as RevenueAction from "../../../../Redux/RevenueRedux/revenue.action";
 import { AppDispatch } from "../../../../Redux/store";
 import { useDispatch } from "react-redux";
 import { IAddIncome } from "../../Model/IRevenue";
 import { useNavigate } from "react-router-dom";
+import { ICOURSES } from "../../../Courses/Model/Icourses";
+import { IUser } from "../../../User/Model/Iuser";
+import { IUSERBYID } from "../../../Faculty/Model/Ifaculty";
+import * as EnrollmentAction from "../../../../Redux/EnrollmentRedux/Enrollment.actions";
+import { updateRoleIdAction } from "../../../../Redux/CoursesRedux/Courses.actions";
 
 const AddIncomeInfo = () => {
   const Navigate = useNavigate();
 
   const dispatch: AppDispatch = useDispatch();
+
+  const [validation, setValidation] = useState({
+    categoryError: "",
+  });
 
   const [addIncome, setAddIncome] = useState<IAddIncome>({
     totalFees: 0,
@@ -21,45 +30,96 @@ const AddIncomeInfo = () => {
     revenueCategoryId: 0,
   });
 
+  const [courseObject, setCourseObject] = useState<ICOURSES>({
+    course_duration: "",
+    course_fees: "",
+    course_name: "",
+  });
+
   const changeInputEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+
+    // Check if the input contains only letters
+    const isNumberOnly = /^[0-9]+$/.test(inputValue);
+    setValidation({
+      categoryError: isNumberOnly ? "" : "Please Enter Number Only",
+    });
     setAddIncome({
       ...addIncome,
       [event.target.name]: event.target.value,
     });
   };
 
+  useEffect(() => {
+    let localCourse: string | null = localStorage.getItem("courseData");
+    let localUser: string | null = localStorage.getItem("userData");
+    let userData: IUSERBYID = localUser ? JSON.parse(localUser) : {};
+    let courseData: ICOURSES = localCourse
+      ? JSON.parse(localCourse)
+      : courseObject;
+    setCourseObject(courseData);
+    // if (courseObject.course_fees !== "") {
+    //   console.log(courseObject);
+
+    setAddIncome({
+      ...addIncome,
+      totalFees: Number(courseObject.course_fees),
+      balanceFees: 0,
+      userId: userData.user_id,
+      revenueCategoryId: 1063,
+      transactionId: 454545,
+      paidFees: Number(courseObject.course_fees),
+      amount: Number(courseObject.course_fees),
+    });
+    console.log(addIncome);
+  }, [courseObject.course_fees]);
+
   const submitData = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     console.log("submit", addIncome);
 
     dispatch(RevenueAction.addIncomeInfoAction({ body: addIncome }))
       .then((res: any) => {
         if (res && !res.error) {
-          Navigate("/getIncome");
+          dispatch(
+            EnrollmentAction.createEnrollmentAction({
+              obj: {
+                user_id: addIncome.userId,
+                course_id: courseObject.course_id,
+              },
+            })
+          ).then((res: any) => {
+            if (res && !res.error) {
+              dispatch(
+                updateRoleIdAction({ id: addIncome.userId, roleId: "3" })
+              ).then((res: any) => {
+                if (res && !res.error) {
+                  let user: string | any = localStorage.getItem("userData");
+                  let currentUser: IUSERBYID = JSON.parse(user);
+                  currentUser.role_id = 3;
+                  console.log("userdata:", currentUser);
+                  localStorage.setItem("userData", JSON.stringify(currentUser));
+                }
+              });
+            }
+          });
+          Navigate("/courses");
+          localStorage.removeItem("courseData");
         }
       })
       .catch((err: any) => {
         console.log("err", err);
       });
   };
-  //code for dropdown
-  const [selectedValue, setSelectedValue] = useState("");
-
-  const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // Update the state with the selected value
-    setSelectedValue(e.target.value);
-    setAddIncome({
-      ...addIncome,
-      totalFees: Number(e.target.value),
-    });
-  };
 
   const calculateBalanceFees = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let balanceFee = Number(selectedValue) - Number(e.target.value);
-    if (balanceFee >= 0) {
+    let calculatedBalanceFee =
+      Number(addIncome.totalFees) - Number(addIncome.paidFees);
+    if (calculatedBalanceFee >= 0) {
       setAddIncome({
         ...addIncome,
-        balanceFees: balanceFee,
+        balanceFees: calculatedBalanceFee,
         amount: Number(e.target.value),
       });
     } else {
@@ -107,20 +167,12 @@ const AddIncomeInfo = () => {
                   <div className="col-lg-6 mb-2">
                     <div className="form-group">
                       <label className="form-label">Select Course</label>
-                      <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={selectedValue}
-                        onChange={(e) => handleDropdownChange(e)}
-                      >
-                        <option selected>Select Course Name</option>
-                        <option value="80000">Full Stack Develper</option>
-                        <option value="20000">HTML</option>
-                        <option value="25000">CSS</option>
-                        <option value="30000">Node JS</option>
-                        <option value="40000">React JS</option>
-                        <option value="10000">MY SQL</option>
-                      </select>
+                      <input
+                        className="form-control"
+                        name="course_name"
+                        value={courseObject.course_name}
+                        disabled
+                      />
                     </div>
                   </div>
                   <div className="col-lg-6 mb-2">
@@ -130,6 +182,7 @@ const AddIncomeInfo = () => {
                         <input
                           type="text"
                           name="totalFees"
+                          onChange={(e) => changeInputEvent(e)}
                           value={addIncome.totalFees}
                           className="form-control"
                           disabled
@@ -149,9 +202,16 @@ const AddIncomeInfo = () => {
                             changeInputEvent(e);
                           }}
                           onBlur={(e) => calculateBalanceFees(e)}
-                          className="form-control"
-                          placeholder="Enter Paid Fees"
+                          className={`form-control ${
+                            validation.categoryError && "is-invalid"
+                          }`}
+                          placeholder="Enter Fees which you want to pay"
                         />
+                        {validation.categoryError && (
+                          <div className="invalid-feedback">
+                            {validation.categoryError}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

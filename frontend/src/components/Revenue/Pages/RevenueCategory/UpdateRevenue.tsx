@@ -8,6 +8,9 @@ import { IAddRevenueCategory, IRevenueCategory } from "../../Model/IRevenue";
 
 const UpdateRevenue: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const [validation, setValidation] = useState({
+    categoryError: "",
+  });
 
   const revenueReduxState: RevenueReducer.InitialState = useSelector(
     (state: RootState) => {
@@ -46,6 +49,16 @@ const UpdateRevenue: React.FC = () => {
   const changeInputEvent = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
+    const inputValue = event.target.value;
+
+    // Check if the input contains only letters
+    const isLettersOnly = /^[a-zA-Z\s]+$/.test(inputValue);
+    setValidation({
+      categoryError: isLettersOnly
+        ? ""
+        : "Category name must contain only letters",
+    });
+
     setcreaterev({
       ...createrev,
       [event.target.name]: event.target.value,
@@ -113,9 +126,16 @@ const UpdateRevenue: React.FC = () => {
                     onChange={(e) => {
                       changeInputEvent(e);
                     }}
-                    className="form-control"
+                    className={`form-control ${
+                      validation.categoryError && "is-invalid"
+                    }`}
                     placeholder="Enter Revenue Category"
                   />
+                  {validation.categoryError && (
+                    <div className="invalid-feedback">
+                      {validation.categoryError}
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-3">
