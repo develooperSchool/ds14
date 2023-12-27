@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var controller = require("../controllers/timetable.controller");
-const validation = require("../middlewares/validations/timetable.validaton");
+const validation = require("../middlewares/validations/timetable.validation");
 
 router.get(`/get`, (req, res) => {
   controller.getTime(req, res);
