@@ -2,14 +2,14 @@ version: '3'
 
 services:
   backend:
-    image: ds-backend:1.0.0.RELEASE
+    image: professor99/ds-backend:1.0.0.RELEASE
     ports:
       - "4444:4444"
     volumes:
       - ./backend-data:/app/backend/data
 
   frontend:
-    image: ds-frontend:1.0.0.RELEASE
+    image: professor99/ds-frontend:1.0.0.RELEASE
     ports:
       - "3000:3000"
     volumes:
