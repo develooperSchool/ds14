@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "build": ""
+    "build": "npm install"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
