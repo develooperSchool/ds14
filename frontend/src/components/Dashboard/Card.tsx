@@ -1,95 +1,31 @@
 import React from "react";
+import "../../style/style.css";
 
-const Card = () => {
+interface ICardProps {
+  title: string;
+  icon: string;
+  count: number;
+  description: string;
+}
+
+const Card: React.FC<ICardProps> = ({ title, icon, count, description }) => {
   return (
     <>
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-lg-3">
-            <div className="card shadow">
-              <div className="card-body text-start">
-                <div className="cart d-flex justify-content-between">
-                  <p className="card-text">
-                    <b>Student</b>
-                  </p>
-                  <p>
-                    <i className="bi bi-cart-check"></i>
-                  </p>
-                </div>
-
-                <p className="card-text">
-                  <b>152</b>
-                </p>
-                <p className="card-text">
-                  <b>24 new </b>since lat visit
-                </p>
-              </div>
-            </div>
+      <div className="card card-shadow">
+        <div className="card-body text-start">
+          <div className="cart d-flex justify-content-between">
+            <p className="card-text">
+              <b>{title}</b>
+            </p>
+            <p>
+              <i className={icon}></i>
+            </p>
           </div>
 
-          <div className="col-lg-3">
-            <div className="card shadow">
-              <div className="card-body text-start">
-                <div className="cart d-flex justify-content-between">
-                  <p className="card-text">
-                    <b>Income</b>
-                  </p>
-                  <p>
-                    <i className="bi bi-cart-check"></i>
-                  </p>
-                </div>
-
-                <p className="card-text">
-                  <b>100000/-</b>
-                </p>
-                <p className="card-text">
-                  <b>24 new </b>since lat visit
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3">
-            <div className="card shadow">
-              <div className="card-body text-start">
-                <div className="cart d-flex justify-content-between">
-                  <p className="card-text">
-                    <b>Success</b>
-                  </p>
-                  <p>
-                    <i className="bi bi-cart-check"></i>
-                  </p>
-                </div>
-
-                <p className="card-text">
-                  <b>140</b>
-                </p>
-                <p className="card-text">
-                  <b>24 new </b> since lat visit
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3">
-            <div className="card shadow">
-              <div className="card-body text-start">
-                <div className="cart d-flex justify-content-between">
-                  <p className="card-text">
-                    <b>Progress</b>
-                  </p>
-                  <p>
-                    <i className="bi bi-cart-check"></i>
-                  </p>
-                </div>
-
-                <p className="card-text">
-                  <b>12</b>
-                </p>
-                <p className="card-text">
-                  <b>24 new</b> since lat visit
-                </p>
-              </div>
-            </div>
-          </div>
+          <p className="card-text">
+            <b>{count}</b>
+          </p>
+          <p className="card-text">{description}</p>
         </div>
       </div>
     </>

@@ -9,13 +9,16 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 import { Provider } from "react-redux";
 import store from "./Redux/store";
+import { AuthProvider } from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <Provider store={store}>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </Provider>
 );
 

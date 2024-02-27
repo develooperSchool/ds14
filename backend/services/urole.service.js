@@ -1,4 +1,5 @@
 const roleDao = require("../dao/urole.dao");
+const generateToken = require("../utils/generateToken");
 
 const getAllRoles = async (req, res) => {
   let rows = [];
@@ -79,17 +80,22 @@ const updateUserById = async (req, res) => {
   return rows;
 };
 const userLogin = async (req, res) => {
-  let message = "";
+  let response = "";
   await roleDao
     .userLogin(req, res)
     .then((result) => {
-      // console.log(result);
-      message = result;
+      if (typeof result === "string") {
+        response = result;
+      } else {
+        const token = generateToken(result);
+        response = { ...result, token };
+        console.log("response", response);
+      }
     })
     .catch((err) => {
-      message = err;
+      response = err;
     });
-  return message;
+  return response;
 };
 
 module.exports = {
