@@ -42,8 +42,8 @@ const Login: React.FC = () => {
     event.preventDefault();
 
     const result = await dispatch(UserAction.userLoginAction({ user: login }));
-    if (result && !result.error) {
-      console.log("login", result?.payload);
+    if (typeof result?.payload === "string") alert(result?.payload);
+    else {
       setAuth({
         user: result.payload,
         accessToken: result?.payload?.token,
