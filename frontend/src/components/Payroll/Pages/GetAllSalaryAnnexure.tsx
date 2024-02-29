@@ -329,7 +329,13 @@ const GetAllSalaryAnnexure: React.FC = () => {
           <div className="col">
             <h3 className="text-success mt-3">Salary Annexure Details</h3>
             <p className="fst-italic text-justify">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem, ipsum? Asperiores totam tenetur minus officia sint perferendis quidem accusamus, iusto reiciendis a quos laudantium. Repellat eius porro qui amet voluptates odit. Consequatur, aliquam similique libero dolor dolorem totam eligendi! Quod dignissimos commodi blanditiis deleniti, magnam hic placeat ut illum. Expedita.
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem,
+              ipsum? Asperiores totam tenetur minus officia sint perferendis
+              quidem accusamus, iusto reiciendis a quos laudantium. Repellat
+              eius porro qui amet voluptates odit. Consequatur, aliquam
+              similique libero dolor dolorem totam eligendi! Quod dignissimos
+              commodi blanditiis deleniti, magnam hic placeat ut illum.
+              Expedita.
             </p>
           </div>
         </div>
@@ -347,7 +353,11 @@ const GetAllSalaryAnnexure: React.FC = () => {
               type="text"
               placeholder="Search Here"
               className="custom-input"
-              style={{ width: '150px', height: "30px", border: "1 px solid grey" }}
+              style={{
+                width: "150px",
+                height: "30px",
+                border: "1 px solid grey",
+              }}
               onChange={(event) => setSearch(event.target.value)}
             />
             <div className="input-group-append">
@@ -365,7 +375,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
             <table className="table table-secondary table-stripped table-hover text-center">
               <thead>
                 <tr>
-                  <th>Annexure Id</th>
+                  <th>Id</th>
                   <th>User Id</th>
                   <th>Name</th>
                   <th>Designation</th>
@@ -374,7 +384,7 @@ const GetAllSalaryAnnexure: React.FC = () => {
                   <th>Basic Salary</th>
                   <th>HRA</th>
                   <th>Allowance</th>
-                  <th>P.Tax</th>
+                  <th>P. Tax</th>
                   <th>Total Deduction</th>
                   <th>Net Salary</th>
                   <th>Annexure Date</th>
@@ -382,8 +392,12 @@ const GetAllSalaryAnnexure: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {(searchItem.length > 0 ? searchItem : salaryAnnexureReduxState.salaries)
-                  .slice(startPageIndex, endPageIndex + 1).map((annexure, index) => (
+                {(searchItem.length > 0
+                  ? searchItem
+                  : salaryAnnexureReduxState.salaries
+                )
+                  .slice(startPageIndex, endPageIndex + 1)
+                  .map((annexure, index) => (
                     <tr key={index}>
                       <td>{annexure.annexure_id}</td>
                       <td>{annexure.user_id}</td>
@@ -399,18 +413,22 @@ const GetAllSalaryAnnexure: React.FC = () => {
                       <td>{annexure.net_salary}</td>
                       <td>{annexure.annexure_date}</td>
                       <td>
-                        <Link to={`/put/${annexure.annexure_id}`} className="btn btn-success">
+                        <Link
+                          to={`/put/${annexure.annexure_id}`}
+                          className="btn btn-success"
+                        >
                           Update
                         </Link>
                         <button
                           className="btn btn-danger"
-                          onClick={() => deleteSalaryAnnexure(annexure.annexure_id)}
+                          onClick={() =>
+                            deleteSalaryAnnexure(annexure.annexure_id)
+                          }
                         >
                           Delete
                         </button>
                         <button className="btn btn-warning">
                           <DownloadLink annexure={annexure} />
-
                         </button>
                       </td>
                     </tr>
@@ -420,7 +438,10 @@ const GetAllSalaryAnnexure: React.FC = () => {
 
             <Pagination>
               <Pagination.First onClick={() => displayPage(1)} />
-              <Pagination.Prev onClick={() => displayPage(currentPageIndex - 1)} disabled={currentPageIndex === 1} />
+              <Pagination.Prev
+                onClick={() => displayPage(currentPageIndex - 1)}
+                disabled={currentPageIndex === 1}
+              />
               {[...Array(totalPages)].map((_, index) => (
                 <Pagination.Item
                   key={index + 1}
@@ -430,10 +451,12 @@ const GetAllSalaryAnnexure: React.FC = () => {
                   {index + 1}
                 </Pagination.Item>
               ))}
-              <Pagination.Next onClick={() => displayPage(currentPageIndex + 1)} disabled={currentPageIndex === totalPages} />
+              <Pagination.Next
+                onClick={() => displayPage(currentPageIndex + 1)}
+                disabled={currentPageIndex === totalPages}
+              />
               <Pagination.Last onClick={() => displayPage(totalPages)} />
             </Pagination>
-
           </div>
         </div>
       </div>

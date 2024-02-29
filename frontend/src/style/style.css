@@ -1,16 +1,33 @@
 .navsidebar {
   min-height: 100vh;
-  text-align: justify;
-  background-color: lightgray;
+  max-height: 100%;
+  width: 100%;
+  text-align: left;
+  background-color: rgb(196, 196, 212);
+  /* background-color: #52545c; */
 }
+
 li {
   list-style: none;
 }
-.sidebarlist {
-  margin-left: 2rem;
-  padding: 5px;
+
+.sidebar-list {
+  margin-left: 1rem;
 }
+
 .Link {
   text-decoration: none;
   color: rgb(43, 37, 37);
+}
+
+.bg-dark-primary {
+  background-color: #0a1024;
+}
+
+.card-shadow {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  color: #0a1024
 }

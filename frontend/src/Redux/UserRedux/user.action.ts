@@ -9,7 +9,6 @@ import {
 } from "../../components/User/Model/Iuser";
 import { UserService } from "../../components/User/Services/userServices";
 import { IResponse } from "../../utils/Model/Response";
-import UpdateUser from "../../components/User/UpdateUser";
 
 export const getAllUserAction: any = createAsyncThunk(
   "UserRedux/getAllUserAction",
@@ -70,9 +69,6 @@ export const userLoginAction: any = createAsyncThunk(
     try {
       const { user } = payload;
       console.log(user);
-      await UserService.userLogin(user)
-        .then((res) => console.log("then", res))
-        .catch((err) => console.log("err", err.response.data));
       let res = await UserService.userLogin(user);
       return res.data;
     } catch (error: any) {

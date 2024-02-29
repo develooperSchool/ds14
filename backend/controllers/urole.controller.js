@@ -1,5 +1,6 @@
 const roleService = require("../services/urole.service");
 const HttpStatusCode = require("../utils/HttpStatusCode");
+const generateToken = require("../utils/generateToken");
 
 const getAllRoles = async (req, res) => {
   await roleService
@@ -66,8 +67,12 @@ const userLogin = async (req, res) => {
   const { email, password } = req.body;
   await roleService
     .userLogin(email, password)
-    .then((result) => res.status(200).json(result))
-    .catch((err) => res.status(500).send(err));
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 };
 module.exports = {
   getAllRoles,
