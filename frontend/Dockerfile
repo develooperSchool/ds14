@@ -1,6 +1,6 @@
 FROM node:18-alpine
-WORKDIR /react-docker/
-COPY . /react-docker/
+WORKDIR /code
+COPY . /code
 RUN npm install --legacy-peer-deps
 EXPOSE 3000
 CMD ["npm", "start"]

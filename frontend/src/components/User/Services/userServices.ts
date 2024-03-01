@@ -1,4 +1,5 @@
 import axios from "axios";
+import dotenv from "dotenv";
 import {
   IUser,
   IRegisterData,
@@ -9,9 +10,13 @@ import {
 } from "../Model/Iuser";
 import { IResponse } from "../../../utils/Model/Response";
 
+// dotenv.config();
+const backendUrl = process.env.BACKEND_URL || "http://localhost:4444";
+
+console.log(backendUrl);
 export class UserService {
-  private static serverUrl: string = "http://localhost:4444/api/v1/urole";
-  private static DataUrl: string = "http://localhost:4444/api/v1/users";
+  private static serverUrl: string = `${backendUrl}/api/v1/urole`;
+  private static DataUrl: string = `${backendUrl}/api/v1/users`;
 
   public static getAllUsers = async (): Promise<{ data: IRegisterData[] }> => {
     const data = `${this.DataUrl}/`;
@@ -56,9 +61,6 @@ export class UserService {
     localStorage.removeItem("userData");
   };
 
-  
-
-  
   public static updateUser(
     body: IUpdateRequest,
     id: string
