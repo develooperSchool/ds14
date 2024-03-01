@@ -9,7 +9,6 @@ interface IProtectedRoute {
 const ProtectedRoute = ({ allowedRoles }: IProtectedRoute) => {
   const location = useLocation();
   const { auth } = useAuth();
-  console.log("protected ", auth);
   return allowedRoles.includes(auth?.role) ? (
     <Outlet />
   ) : auth?.user ? (

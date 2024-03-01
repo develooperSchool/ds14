@@ -67,7 +67,7 @@ function App() {
                 />
               }
             >
-              <Route path="/" element={<DashboardCards />} />
+              {/* <Route path="/" element={<DashboardCards />} /> */}
               <Route path="/courses" element={<GetAllCourses />} />
               <Route path="/updateurole/:id" element={<UpdateRole />} />
               <Route path="/urole" element={<GetAllUrole />} />
