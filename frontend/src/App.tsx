@@ -52,13 +52,13 @@ import TableRow from "./components/Timetable/Pages/AddTableRow";
 import Enrollment from "./components/Enrollment/Pages/GetAllEnrollment";
 import { UserRoles } from "./utils/UserRoles";
 
-
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="registration" Component={Registration} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/forgot" element={<ForgotPwd />} />
           <Route path="/login" Component={Login} />
           <Route path="/" element={<AdminDashboard />}>
             <Route
@@ -74,9 +74,6 @@ function App() {
               <Route path="/urole" element={<GetAllUrole />} />
               <Route path="/addurole" element={<AddRole />} />
               <Route path="/UserProfile" element={<UserProfile />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot" element={<ForgotPwd />} />
-              <Route path="/register" element={<Registration />} />
               <Route path="/updateuser/:id" element={<UpdateUser />} />
               <Route path="/deactivate/:id" element={<DeactiveUser />} />
               <Route path="/users" element={<AllUsers />} />
