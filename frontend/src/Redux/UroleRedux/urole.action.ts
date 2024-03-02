@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Iaddurole, Iurole } from "../../components/Urole/Model/Iurole";
-import { UroleService } from "../../components/Urole/Services/uroleService";
+import * as UroleService from "../../components/Urole/Services/uroleService";
 
 export const getAllRolesAction: any = createAsyncThunk(
     "UroleRedux/getAllRolesAction",

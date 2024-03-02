@@ -3,8 +3,7 @@ import { IEnroll, IEnrollData } from "../Model/IEnroll";
 import { IResponse } from "../../../utils/Model/Response";
 
 export class UserEnrollService {
-  private static DataUrl: string =
-    "http://localhost:4444/api/v1/userEnrollment";
+  private static DataUrl: string = `https://developerschool-backend.onrender.com/api/v1/userEnrollment`;
 
   public static getAllEnrollUsers = async (): Promise<{
     data: IEnrollData[];

@@ -1,14 +1,13 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import { useEffect } from "react";
 
 interface IProtectedRoute {
   allowedRoles: number[];
 }
 
 const ProtectedRoute = ({ allowedRoles }: IProtectedRoute) => {
-  const location = useLocation();
   const { auth } = useAuth();
+  const location = useLocation();
   return allowedRoles.includes(auth?.role) ? (
     <Outlet />
   ) : auth?.user ? (

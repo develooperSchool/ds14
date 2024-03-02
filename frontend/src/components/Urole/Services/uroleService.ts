@@ -2,43 +2,37 @@ import { Iaddurole, Iurole } from "../Model/Iurole";
 import axios from "axios";
 
 
-export class UroleService{
-    private static serverUrl: string = "http://localhost:4444/api/v1/urole";
+export const getAllRoles = (): Promise<{
+  data: Iurole[];
+}> => {
+  const dataurl = `https://developerschool-backend.onrender.com/getAllRoles`;
 
-    public static getAllRoles = (): Promise<{
-        data: Iurole[];
-      }> => {
-        const dataurl = `${this.serverUrl}/getAllRoles`;
-    
-        return axios.get(dataurl);
-      };
+  return axios.get(dataurl);
+};
 
-      public static getRoleById = (
-        id: string
-      ): Promise<{ data: Iurole }> => {
-        const dataurl = `${this.serverUrl}/getRoleBy/${id}`;
-        return axios.get(dataurl);
-      };
-    
-      public static addNewRole = async (
-        body: Iaddurole
-      ): Promise<{ data: Iurole }> => {
-        const dataurl = `${this.serverUrl}/addrole`;
-    
-        return axios.post(dataurl, body);
-      };
-    
-      public static updateRole = (
-        updateData: Iaddurole,
-        id: string
-      ): Promise<{ data: Iaddurole[] }> => {
-        const dataurl = `${this.serverUrl}/updaterole/${id}`;
-        return axios.put(dataurl, updateData);
-      };
-    
-      public static deleteRole = (id: string): Promise<{ data: {} }> => {
-        const dataurl = `${this.serverUrl}/delete/${id}`;
-    
-        return axios.delete(dataurl);
-      };
-}
+export const getRoleById = (id: string): Promise<{ data: Iurole }> => {
+  const dataurl = `https://developerschool-backend.onrender.com/getRoleBy/${id}`;
+  return axios.get(dataurl);
+};
+
+export const addNewRole = async (
+  body: Iaddurole
+): Promise<{ data: Iurole }> => {
+  const dataurl = `https://developerschool-backend.onrender.com/addrole`;
+
+  return axios.post(dataurl, body);
+};
+
+export const updateRole = (
+  updateData: Iaddurole,
+  id: string
+): Promise<{ data: Iaddurole[] }> => {
+  const dataurl = `https://developerschool-backend.onrender.com/updaterole/${id}`;
+  return axios.put(dataurl, updateData);
+};
+
+export const deleteRole = (id: string): Promise<{ data: {} }> => {
+  const dataurl = `https://developerschool-backend.onrender.com/delete/${id}`;
+
+  return axios.delete(dataurl);
+};

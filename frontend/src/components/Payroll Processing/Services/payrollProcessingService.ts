@@ -2,8 +2,7 @@ import axios from "axios";
 import { IProcessing, IUpdateProcessing } from "../Model/IProcessing";
 
 export class Payrollprocessingservices {
-  private static serverUrl: string =
-    "http://localhost:4444/api/payroll-processing";
+  private static serverUrl: string = `https://developerschool-backend.onrender.com/api/payroll-processing`;
 
   public static getAllprocessing = (): Promise<{ data: IProcessing[] }> => {
     const data = `${this.serverUrl}/`;

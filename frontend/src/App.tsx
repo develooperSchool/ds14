@@ -52,6 +52,7 @@ import TableRow from "./components/Timetable/Pages/AddTableRow";
 import Enrollment from "./components/Enrollment/Pages/GetAllEnrollment";
 import { UserRoles } from "./utils/UserRoles";
 
+
 function App() {
   return (
     <div className="App">

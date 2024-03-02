@@ -4,9 +4,9 @@ import "../../style/style.css";
 import useAuth from "../../hooks/useAuth";
 const Sidebar: React.FC<{ collapsed: boolean }> = ({ collapsed }) => {
   const { auth } = useAuth();
-  useEffect(() => {
-    console.log("sidebar", auth);
-  }, [auth]);
+  // useEffect(() => {
+  //   console.log("sidebar", auth);
+  // }, [auth]);
 
   const classes = `navsidebar col-2 ${collapsed ? "d-lg-block" : "d-none"}`;
   return (

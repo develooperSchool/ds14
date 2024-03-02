@@ -3,12 +3,14 @@ import * as UserReducer from "../../Redux/UserRedux/user.reducer";
 import * as UserAction from "../../Redux/UserRedux/user.action";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./Redux/store";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IUser } from "./Model/Iuser";
-import useAuth from "../../hooks/useAuth";
 import FormWrapper from "../Forms/FormWrapper";
 import Form from "../Forms/Form";
 import AuthContext from "../../context/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { IUserLoginAction } from "../../utils/Model/BackendResponse";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -39,20 +41,31 @@ const Login: React.FC = () => {
   };
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    const loadingToast = toast.loading("Logging in...", {
+      position: "top-center",
+      closeButton: true,
+    });
+
     event.preventDefault();
 
-    const result = await dispatch(UserAction.userLoginAction({ user: login }));
-    if (typeof result?.payload === "string") alert(result?.payload);
-    else {
-      setAuth({
-        user: result.payload,
-        accessToken: result?.payload?.token,
-        role: result?.payload?.role_id,
-      });
-      localStorage.setItem("userData", JSON.stringify(result.payload));
-      navigate("/");
-    }
+    const loginPromise = dispatch(UserAction.userLoginAction({ user: login }));
+    toast.dismiss(loadingToast);
+    loginPromise.then((result: IUserLoginAction) => {
+      if (!result.payload.hasOwnProperty("user"))
+        toast.error("User Not Found", { position: "top-center" });
+      else if (typeof result?.payload === "string") alert(result?.payload);
+      else {
+        setAuth({
+          user: result.payload,
+          accessToken: result?.payload?.token,
+          role: result?.payload?.role_id,
+        });
+        localStorage.setItem("userData", JSON.stringify(result.payload));
+        navigate("/");
+      }
+    });
   };
+
   return (
     <>
       <FormWrapper>

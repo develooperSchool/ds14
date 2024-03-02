@@ -11,12 +11,11 @@ import {
 import { IResponse } from "../../../utils/Model/Response";
 
 // dotenv.config();
-const backendUrl = process.env.BACKEND_URL || "http://localhost:4444";
 
-console.log(backendUrl);
 export class UserService {
-  private static serverUrl: string = `${backendUrl}/api/v1/urole`;
-  private static DataUrl: string = `${backendUrl}/api/v1/users`;
+  // private static serverUrl: string = `https://developerschool-backend.onrender.com/api/v1/urole`;
+  private static serverUrl: string = `http://localhost:4444/api/v1/urole`;
+  private static DataUrl: string = `https://developerschool-backend.onrender.com/api/v1/users`;
 
   public static getAllUsers = async (): Promise<{ data: IRegisterData[] }> => {
     const data = `${this.DataUrl}/`;
@@ -29,6 +28,7 @@ export class UserService {
     data: IUser;
   }> => {
     const dataurl = `${this.serverUrl}/userlogin`;
+    console.log(dataurl, body);
     return axios.post(dataurl, body);
   };
 
