@@ -48,26 +48,25 @@ const Login: React.FC = () => {
 
     event.preventDefault();
 
-    const loginPromise = dispatch(UserAction.userLoginAction({ user: login }));
     toast.dismiss(loadingToast);
-    loginPromise.then((result: IUserLoginAction) => {
-      if (!result.payload.hasOwnProperty("user"))
-        toast.error("User Not Found", { position: "top-center" });
-      else if (typeof result?.payload === "string") alert(result?.payload);
-      else {
-        setAuth({
-          user: result.payload,
-          accessToken: result?.payload?.token,
-          role: result?.payload?.role_id,
-        });
-        localStorage.setItem("userData", JSON.stringify(result.payload));
-        navigate("/");
-      }
-    });
+    const result = await dispatch(UserAction.userLoginAction({ user: login }));
+    console.log(result);
+    if (typeof result?.payload === "string")
+      toast.error(result?.payload, { position: "top-center" });
+    else {
+      setAuth({
+        user: result.payload,
+        accessToken: result?.payload?.token,
+        role: result?.payload?.role_id,
+      });
+      localStorage.setItem("userData", JSON.stringify(result.payload));
+      navigate("/");
+    }
   };
 
   return (
     <>
+      <ToastContainer />
       <FormWrapper>
         <Form
           title={`Login`}
