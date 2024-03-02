@@ -48,12 +48,13 @@ const Login: React.FC = () => {
 
     event.preventDefault();
 
-    toast.dismiss(loadingToast);
     const result = await dispatch(UserAction.userLoginAction({ user: login }));
     console.log(result);
-    if (typeof result?.payload === "string")
+    if (typeof result?.payload === "string") {
+      toast.dismiss(loadingToast);
       toast.error(result?.payload, { position: "top-center" });
-    else {
+    } else {
+      toast.dismiss(loadingToast);
       setAuth({
         user: result.payload,
         accessToken: result?.payload?.token,
