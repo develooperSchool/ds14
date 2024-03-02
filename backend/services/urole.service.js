@@ -89,7 +89,6 @@ const userLogin = async (req, res) => {
       } else {
         const token = generateToken(result);
         response = { ...result, token };
-        console.log("response", response);
       }
     })
     .catch((err) => {
