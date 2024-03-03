@@ -2,7 +2,10 @@ import axios from "axios";
 import { IENROLMENT, IUSERENROLLMENT } from "../Model/IENROLLMENT";
 
 export class EnrollmentServices {
-  private static serverUrl: string = "http://localhost:4444/api/v1/enrollment";
+  private static backendUrl: string =
+    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+
+  private static serverUrl: string = `${this.backendUrl}/api/v1/enrollment`;
 
   public static getAllEnrollments = (): Promise<{
     data: IENROLMENT[] | any;

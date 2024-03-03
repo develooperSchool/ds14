@@ -1,9 +1,13 @@
 import axios from "axios";
 import { IEnroll, IEnrollData } from "../Model/IEnroll";
 import { IResponse } from "../../../utils/Model/Response";
+import useBackendUrl from "../../../hooks/useBackendUrl";
 
 export class UserEnrollService {
-  private static DataUrl: string = `https://developerschool-backend.onrender.com/api/v1/userEnrollment`;
+  private static backendUrl: string =
+    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+
+  private static DataUrl: string = `${this.backendUrl}/api/v1/userEnrollment`;
 
   public static getAllEnrollUsers = async (): Promise<{
     data: IEnrollData[];

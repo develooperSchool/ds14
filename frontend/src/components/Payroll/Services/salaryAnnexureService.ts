@@ -2,7 +2,9 @@ import axios from "axios";
 import { SalaryAnnexure, SalaryAnnexureUpdate } from "../Model/SalaryAnnexure";
 
 export class SalaryAnnexureService {
-  private static serverUrl: string = `https://developerschool-backend.onrender.com/api/salary`;
+  private static backendUrl: string =
+    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+  private static serverUrl: string = `${this.backendUrl}/api/salary`;
 
   public static fetchSalaryAnnexures = (): Promise<{
     data: SalaryAnnexure[];

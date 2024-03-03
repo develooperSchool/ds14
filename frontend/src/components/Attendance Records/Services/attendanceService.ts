@@ -2,8 +2,10 @@ import axios from "axios";
 import { IAttendance, IUpdateAttendance } from "../Model/IAttendance";
 
 export class AttendanceService {
-  private static serverUrl: string =
-    "http://localhost:4444/api/attendance-records";
+  private static backendUrl: string =
+    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+
+  private static serverUrl: string = `${this.backendUrl}/api/attendance-records`;
 
   public static getAllAttendance = (): Promise<{
     data: IAttendance[];
