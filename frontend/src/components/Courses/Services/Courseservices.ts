@@ -5,7 +5,8 @@ import { json } from "stream/consumers";
 
 export class Courseservices {
   private static backendUrl: string =
-    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+    process.env.REACT_APP_API_URL ||
+    `https://developerschool-backend.onrender.com`;
 
   private static serverUrl: string = `${this.backendUrl}/api/v1/course2`;
   public static getAllCourses = (): Promise<{ data: ICOURSES[] }> => {

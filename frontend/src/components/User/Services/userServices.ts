@@ -11,7 +11,8 @@ import { IResponse } from "../../../utils/Model/Response";
 
 export class UserService {
   private static backendUrl =
-    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+    process.env.REACT_APP_API_URL ||
+    `https://developerschool-backend.onrender.com`;
 
   private static serverUrl: string = `${this.backendUrl}/api/v1/urole`;
   // private static serverUrl: string = `http://localhost:4444/api/v1/urole`;
