@@ -1,5 +1,4 @@
 import axios from "axios";
-import dotenv from "dotenv";
 import {
   IUser,
   IRegisterData,
@@ -10,12 +9,13 @@ import {
 } from "../Model/Iuser";
 import { IResponse } from "../../../utils/Model/Response";
 
-// dotenv.config();
-
 export class UserService {
-  private static serverUrl: string = `https://developerschool-backend.onrender.com/api/v1/urole`;
+  private static backendUrl =
+    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+
+  private static serverUrl: string = `${this.backendUrl}/api/v1/urole`;
   // private static serverUrl: string = `http://localhost:4444/api/v1/urole`;
-  private static DataUrl: string = `https://developerschool-backend.onrender.com/api/v1/users`;
+  private static DataUrl: string = `${this.backendUrl}/api/v1/users`;
 
   public static getAllUsers = async (): Promise<{ data: IRegisterData[] }> => {
     const data = `${this.DataUrl}/`;

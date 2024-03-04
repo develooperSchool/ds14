@@ -10,6 +10,7 @@ import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 import { Provider } from "react-redux";
 import store from "./Redux/store";
 import { AuthProvider } from "./context/AuthContext";
+import { BackendProvider } from "./context/BackendContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,7 +18,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <AuthProvider>
-      <App />
+      <BackendProvider>
+        <App />
+      </BackendProvider>
     </AuthProvider>
   </Provider>
 );

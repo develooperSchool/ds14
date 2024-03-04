@@ -4,7 +4,10 @@ import { IUSERBYID } from "../../Faculty/Model/Ifaculty";
 import { json } from "stream/consumers";
 
 export class Courseservices {
-  private static serverUrl: string = "http://localhost:4444/api/v1/course2";
+  private static backendUrl: string =
+    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+
+  private static serverUrl: string = `${this.backendUrl}/api/v1/course2`;
   public static getAllCourses = (): Promise<{ data: ICOURSES[] }> => {
     const data = `${this.serverUrl}/get`;
     return axios.get(data);
@@ -18,7 +21,7 @@ export class Courseservices {
   public static getPurchasedCoursesById = (
     Id: string
   ): Promise<{ data: IPURCHASE[] }> => {
-    const data = `http://localhost:4444/api/v1/enrollment/getDataById/${Id}`;
+    const data = `${this.backendUrl}/enrollment/getDataById/${Id}`;
     return axios.get(data);
   };
 
@@ -28,7 +31,7 @@ export class Courseservices {
   ): Promise<{ data: IUSERBYID | any }> => {
     let body: {} = { roleId };
     console.log(body);
-    const url = `http://localhost:4444/api/v1/users/updateRole/${id}`;
+    const url = `${this.backendUrl}/api/v1/users/updateRole/${id}`;
     return axios.put(url, body);
   };
 

@@ -43,7 +43,6 @@ const Login: React.FC = () => {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     const loadingToast = toast.loading("Logging in...", {
       position: "top-center",
-      closeButton: true,
     });
 
     event.preventDefault();

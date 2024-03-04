@@ -8,7 +8,10 @@ import {
 } from "../Model/IRevenue";
 
 export class RevenueService {
-  private static serverUrl: string = "http://localhost:4444/api/v1/revenue";
+  private static backendUrl: string =
+    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+
+  private static serverUrl: string = `${this.backendUrl}/api/v1/revenue `;
 
   // =================Revenue Module Services Start ======================================
 

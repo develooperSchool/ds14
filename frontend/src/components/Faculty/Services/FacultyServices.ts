@@ -1,7 +1,10 @@
 import axios from "axios";
 import { IFACULTY, ISUBJECTS, IUSER, IUSERBYID } from "../Model/Ifaculty";
 export class facultyServices {
-  private static serverUrl: string = `https://developerschool-backend.onrender.com/api/v1/faculty2`;
+  private static backendUrl: string =
+    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+
+  private static serverUrl: string = `${this.backendUrl}/api/v1/faculty2`;
   public static getAllFacultyData = (): Promise<{ data: IUSER[] }> => {
     const data = `${this.serverUrl}/get`;
     return axios.get(data);
@@ -13,14 +16,14 @@ export class facultyServices {
   };
 
   public static getAllSubjects = (): Promise<{ data: ISUBJECTS[] }> => {
-    const data = `https://developerschool-backend.onrender.com/api/v1/subjects/get`;
+    const data = `${this.backendUrl}/api/v1/subjects/get`;
     return axios.get(data);
   };
 
   public static getFacultyDataById = (
     Id: string
   ): Promise<{ data: IUSERBYID[] | any }> => {
-    const data = `https://developerschool-backend.onrender.com/api/v1/users/${Id}`;
+    const data = `${this.backendUrl}/api/v1/users/${Id}`;
     return axios.get(data);
   };
 
