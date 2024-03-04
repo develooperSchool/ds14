@@ -2,7 +2,8 @@ import axios from "axios";
 import { IFACULTY, ISUBJECTS, IUSER, IUSERBYID } from "../Model/Ifaculty";
 export class facultyServices {
   private static backendUrl: string =
-    process.env.REACT_APP_API_URL || `http://localhost:4444`;
+    process.env.REACT_APP_API_URL ||
+    `https://developerschool-backend.onrender.com`;
 
   private static serverUrl: string = `${this.backendUrl}/api/v1/faculty2`;
   public static getAllFacultyData = (): Promise<{ data: IUSER[] }> => {
