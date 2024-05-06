@@ -12,7 +12,7 @@ export class RevenueService {
     process.env.REACT_APP_API_URL ||
     `https://developerschool-backend.onrender.com`;
 
-  private static serverUrl: string = `${this.backendUrl}/api/v1/revenue `;
+  private static serverUrl: string = `${this.backendUrl}/api/v1/revenue`;
 
   // =================Revenue Module Services Start ======================================
 
