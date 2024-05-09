@@ -8,7 +8,7 @@ router.get(`/get`, (req, res) => {
 });
 
 router.get(
-  "/getById/:Id",
+  "/getById/:id",
   validation.getCourseByIdValidation,
   controller.getCourseById
 );

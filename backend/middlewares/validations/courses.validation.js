@@ -9,32 +9,32 @@ const getCourseByIdValidation = (req, res, next) => {
 };
 
 const postCourseValidation = (req, res, next) => {
-  const { course_id, courseName, courseDuration, courseFees } = req.body;
+  const { course_name, course_duration, course_fees } = req.body;
 
-  if (utils.IsInvalidNameNum(courseName)) {
+  if (utils.isInvalidName(course_name)) {
     throw new err.InvalidCourseName("ENTER CORRECT COURSE NAME", res);
   }
-  if (utils.isInvalidId(courseDuration)) {
+  if (utils.isInvalidId(course_duration)) {
     throw new err.InvalidCourseDuration("ENTER CORRECT COURSE DURATION ", res);
   }
-  if (utils.isInvalidId(courseFees)) {
+  if (utils.isInvalidId(course_fees)) {
     throw new err.InvalidCourseFees("ENTER CORRECT COURSE_FEES", res);
   }
   next();
 };
 
 const putCourseValidation = (req, res, next) => {
-  const { courseName, courseDuration, courseFees } = req.body;
+  const { course_name, course_duration, course_fees } = req.body;
   if (utils.isInvalidId(req.params.id)) {
     throw new err.InvalidCourseId("ENTER CORRECT ID", res);
   }
-  if (utils.IsInvalidN(courseName)) {
+  if (utils.isInvalidName(course_name)) {
     throw new err.InvalidCourseName("ENTER CORRECT COURSE NAME", res);
   }
-  if (utils.isInvalidId(courseDuration)) {
+  if (utils.isInvalidId(course_duration)) {
     throw new err.InvalidCourseDuration("ENTER CORRECT COURSE DURATION ", res);
   }
-  if (utils.isInvalidId(courseFees)) {
+  if (utils.isInvalidId(course_fees)) {
     throw new err.InvalidCourseFees("ENTER CORRECT COURSE_FEES", res);
   }
   next();
