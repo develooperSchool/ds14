@@ -2,7 +2,7 @@ const utils = require("../../utils/app.utils");
 const err = require("../../errors/InvalidCoursesError");
 
 const getCourseByIdValidation = (req, res, next) => {
-  if (utils.isInvalidId(req.params.Id)) {
+  if (utils.isInvalidId(req.params.id)) {
     throw new err.InvalidCourseId("ENTER CORRECT ID", res);
   }
   next();
