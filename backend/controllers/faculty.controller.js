@@ -1,6 +1,7 @@
 const facultyService = require("../services/faculty.service");
-const httpStatusCode = require("../utils/HttpStatusCode")
-const {SUCCESS} = require("../utils/app.constants")
+const HttpStatusCode = require("../utils/HttpStatusCode");
+const { SUCCESS } = require("../utils/app.constants");
+const { respond } = require("../utils/app.utils");
 
 const getAllFaculties = async (req, res) => {
   await facultyService
