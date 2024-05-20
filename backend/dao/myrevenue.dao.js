@@ -16,7 +16,7 @@ const getAllRevenueCategory = async (req, res) => {
 };
 
 const addRevenueCategory = async (req, res) => {
-  let values = [req.body.revenueCategoryName];
+  let values = [req.body.revenue_category_name];
   let result = [];
   try {
     let sqlQuery =
@@ -57,7 +57,7 @@ const deleteRevenueCategory = async (req, res) => {
 };
 
 const updateRevenueCategory = async (req, res) => {
-  let values = [req.body.revenueCategoryName, req.params.id];
+  let values = [req.body.revenue_category_name, req.params.id];
   let result = [];
   try {
     let sqlQuery =
@@ -98,22 +98,22 @@ const getIncomeInfoById = async (req, res) => {
 
 const addIncomeInfo = async (req, res) => {
   const {
-    totalFees,
-    balanceFees,
-    paidFees,
-    transactionId,
+    total_fees,
+    balance_fees,
+    paid_fees,
+    transaction_id,
     amount,
-    userId,
-    revenueCategoryId,
+    user_id,
+    revenue_category_id,
   } = req.body;
   let values = [
-    totalFees,
-    balanceFees,
-    paidFees,
-    transactionId,
+    total_fees,
+    balance_fees,
+    paid_fees,
+    transaction_id,
     amount,
-    userId,
-    revenueCategoryId,
+    user_id,
+    revenue_category_id,
   ];
   let result = [];
   try {
@@ -140,8 +140,8 @@ const deleteIncomeInfoById = async (req, res) => {
   return result;
 };
 const updateIncomeInfoById = async (req, res) => {
-  const { paidFees, balanceFees, amount } = req.body;
-  let values = [paidFees, balanceFees, amount, req.params.id];
+  const { paid_fees, balance_fees, amount } = req.body;
+  let values = [paid_fees, balance_fees, amount, req.params.id];
   let result = [];
   try {
     sqlQuery =
@@ -181,8 +181,8 @@ const getExpenseInfoById = async (req, res) => {
 
 const addExpenseInfo = async (req, res) => {
   let result = [];
-  const { revenueCategoryId, amount, mentorId, remark } = req.body;
-  let values = [revenueCategoryId, amount, mentorId, remark];
+  const { revenue_category_id, amount, mentor_id, remark } = req.body;
+  let values = [revenue_category_id, amount, mentor_id, remark];
   try {
     sqlQuery =
       "insert into expense (revenue_category_id,amount,mentor_id,remark) values (?,?,?,?)";

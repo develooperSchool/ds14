@@ -38,13 +38,9 @@ let getEnrollmentData = async (req, res) => {
 
 let postEnrollment = async (req, res) => {
   try {
-    let T = new Date().getTime();
-    let S = new Date().getSeconds();
-    let unique_id = T + S;
-
-    let q = "insert into student_enrollment values (?,?,?)";
+    let q = "insert into student_enrollment (user_id, course_id) values (?,?)";
     let { user_id, course_id } = req.body;
-    let values = [unique_id, user_id, course_id];
+    let values = [user_id, course_id];
     let [rows, fields] = await db.query(q, values);
     return rows;
   } catch (err) {
