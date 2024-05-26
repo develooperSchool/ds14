@@ -44,14 +44,14 @@ const deactivateUserValidationByID = (req, res, next) => {
 };
 
 const createUserValidation = (req, res, next) => {
-  if (userUtil.isInvalidName(req.body.firstName))
+  if (userUtil.isInvalidName(req.body.first_name))
     throw new InvalidNameError(
       "FIRST NAME ENTERED FOR CREATING NEW USER IS INVALID",
       res
     );
   // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid First Name")
 
-  if (userUtil.isInvalidName(req.body.lastName))
+  if (userUtil.isInvalidName(req.body.last_name))
     throw new InvalidNameError(
       "LAST NAME ENTERED FOR CREATING NEW USER IS INVALID",
       res
@@ -79,7 +79,7 @@ const createUserValidation = (req, res, next) => {
     );
   // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid Contact")
 
-  if (userUtil.isInvalidYear(req.body.passingYear))
+  if (userUtil.isInvalidYear(req.body.passing_year))
     throw new InvalidYearError(
       "PASSING YEAR ENTERED FOR NEW USER IS INVALID",
       res
@@ -100,19 +100,19 @@ const createUserValidation = (req, res, next) => {
     );
   // res.status(httpStatusCode.BAD_REQUEST).send("gender cannot be null or undefined")
 
-  if (userUtil.isInvalidName(req.body.casteCategory))
+  if (userUtil.isInvalidName(req.body.caste_category))
     throw new InvalidCasteCategoryError(
       "CASTE CATEGORY ENTERED FOR CREATING NEW USER IS INVALID",
       res
     );
   // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid casteCategory")
 
-  // if (userUtil.isInvalidSubcaste(req.body.subcaste))
-  //   throw new InvalidSubcasteError(
-  //     "SUBCASTE ENTERED FOR CREATING NEW USER IS INVALID",
-  //     res
-  //   );
-  // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid subcaste")
+  if (userUtil.isInvalidName(req.body.sub_caste))
+    throw new InvalidSubcasteError(
+      "SUBCASTE ENTERED FOR CREATING NEW USER IS INVALID",
+      res
+    );
+  // res.status(httpStatusCode.BAD_REQUEST).send("Please Enter Valid subcaste");
 
   if (userUtil.isInvalidPassword(req.body.password))
     throw new InvalidPasswordError(

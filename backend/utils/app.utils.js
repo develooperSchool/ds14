@@ -4,8 +4,8 @@ const isInvalidId = (input) => {
 
 const isInvalidName = (input) => {
   return (
+    (input && input.trim().length == 0) ||
     !/^[a-zA-Z\s\ -']{2,30}$/.test(input) ||
-    input.trim().length == 0 ||
     /(.)\1\1+/.test(input)
   );
 };
@@ -20,8 +20,8 @@ const IsInvalidN = (input) => {
 
 const IsInvalidNameNum = (input) => {
   return (
+    (input && input.length == 0) ||
     /^[a-zA-Z!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{2,20}$/.test(input) ||
-    input.length == 0 ||
     /(.)\1\1+/.test(input)
   );
 };
@@ -38,7 +38,7 @@ const isInvalidDate = (input) => {
 
 const isInvalidPassword = (input) => {
   //  return !/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/.test(input);
-  return input.length < 8;
+  return input && input.length < 8;
 };
 
 const isInvalidYear = (input) => {
