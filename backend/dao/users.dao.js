@@ -82,49 +82,37 @@ const deactivateUserById = async (req, res) => {
 const createUser = async (req, res) => {
   let message = "";
   const {
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     email,
     contact,
     address,
     qualification,
-    passingYear,
+    passing_year,
     dob,
     gender,
-    casteCategory,
+    caste_category,
     subcaste,
-    creationTs,
-    updationTs,
-    createdBy,
-    updatedBy,
-    isActive,
-    roleId,
+    role_id,
     password,
   } = req.body;
 
   try {
     values = [
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       email,
       contact,
       address,
       qualification,
-      passingYear,
+      passing_year,
       dob,
       gender,
-      casteCategory,
+      caste_category,
       subcaste,
-      creationTs,
-      updationTs,
-      createdBy,
-      updatedBy,
-      isActive,
-      roleId,
       password,
     ];
-    query =
-      "INSERT INTO user_master(first_name, last_name,email,contact,address,qualification,passing_year,dob,gender,caste_category,subcaste,is_active,role_id, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    query = `INSERT INTO user_master(first_name, last_name,email,contact,address,qualification,passing_year,dob,gender,caste_category,subcaste,is_active,role_id, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,${true}, ${4},?)`;
     const [result, fields] = await db.query(query, values);
     if (result.affectedRows > 0) message = "New User Created successfully";
   } catch (error) {
