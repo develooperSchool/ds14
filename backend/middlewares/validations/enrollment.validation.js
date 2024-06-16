@@ -1,6 +1,13 @@
 const utils = require("../../utils/app.utils");
 const err = require("../../errors/InvalidEnrollmentError");
 
+const getEnrollmentDataById = (req, res, next) => {
+  if (utils.isInvalidId(req.params.id)) {
+    throw new err.InvalidUserId("ENTER CORRECT USER ID", res);
+  }
+  next();
+};
+
 const postEnrollmentValidation = (req, res, next) => {
   const { user_id, course_id } = req.body;
 
@@ -36,6 +43,7 @@ const deleteEnrollmentValidation = (req, res, next) => {
 };
 
 module.exports = {
+  getEnrollmentDataById,
   postEnrollmentValidation,
   putEnrollmentValidation,
   deleteEnrollmentValidation,
