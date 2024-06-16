@@ -2,8 +2,11 @@ const utils = require("../../utils/app.utils");
 const err = require("../../errors/InvalidEnrollmentError");
 
 const getEnrollmentDataById = (req, res, next) => {
-  if (utils.isInvalidId(req.params.id)) {
+  if (utils.isInvalidId(req.body.user_id)) {
     throw new err.InvalidUserId("ENTER CORRECT USER ID", res);
+  }
+  if (utils.isInvalidId(req.body.course_id)) {
+    throw new err.InvalidCourseId("ENTER CORRECT COURESE ID", res);
   }
   next();
 };

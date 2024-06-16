@@ -15,7 +15,7 @@ let getEnrollment = async (req, res) => {
 
 let getEnrollmentDataById = async (req, res) => {
   try {
-    let q = `select * from student_enrollment,courses where student_enrollment.user_id=${req.params.id} and student_enrollment.course_id=courses.course_id`;
+    let q = `select * from student_enrollment s where s.user_id=${req.body.user_id} and s.course_id=${req.body.course_id}`;
     let values = [];
     let [rows, fields] = await db.query(q, values);
     return rows;
