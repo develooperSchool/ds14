@@ -12,9 +12,15 @@ router.get(`/getData`, (req, res) => {
 });
 
 router.get(
-  `/studentEnrollment`,
+  `/hasStudentEnrolled`,
   validation.getEnrollmentDataById,
   controller.getEnrollmentDataById
+);
+
+router.get(
+  `/getEnrolledCoursesByStudentId/:id`,
+  validation.getEnrolledCoursesByStudentId,
+  controller.getEnrolledCoursesByStudentId
 );
 
 router.post(

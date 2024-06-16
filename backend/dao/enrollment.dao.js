@@ -30,6 +30,17 @@ let getEnrollmentDataById = async (req, res) => {
   }
 };
 
+let getEnrolledCoursesByStudentId = async (req, res) => {
+  try {
+    let q = `select * from student_enrollment s, courses c where s.user_id=${req.params.id} and s.course_id=c.course_id;`;
+    let values = [];
+    let [rows, fields] = await db.query(q, values);
+    return rows;
+  } catch (err) {
+    throw new sqlErr(String(err.sqlMessage).toUpperCase(), res);
+  }
+};
+
 let getEnrollmentData = async (req, res) => {
   try {
     let q =
@@ -85,4 +96,5 @@ module.exports = {
   postEnrollment,
   putEnrollment,
   deleteEnrollment,
+  getEnrolledCoursesByStudentId,
 };

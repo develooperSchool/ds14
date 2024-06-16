@@ -11,6 +11,13 @@ const getEnrollmentDataById = (req, res, next) => {
   next();
 };
 
+const getEnrolledCoursesByStudentId = (req, res, next) => {
+  if (utils.isInvalidId(req.params.id)) {
+    throw new err.InvalidUserId("ENTER CORRECT USER ID", res);
+  }
+  next();
+};
+
 const postEnrollmentValidation = (req, res, next) => {
   const { user_id, course_id } = req.body;
 
@@ -50,4 +57,5 @@ module.exports = {
   postEnrollmentValidation,
   putEnrollmentValidation,
   deleteEnrollmentValidation,
+  getEnrolledCoursesByStudentId,
 };

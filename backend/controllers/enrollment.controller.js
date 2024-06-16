@@ -35,6 +35,15 @@ let getEnrollmentDataById = (req, res) => {
     .catch((err) => console.log(err));
 };
 
+let getEnrolledCoursesByStudentId = (req, res) => {
+  services
+    .getEnrolledCoursesByStudentId(req, res)
+    .then((resp) => {
+      respond(SUCCESS, stCode.OK, resp, new Date(Date.now()), res);
+    })
+    .catch((err) => console.log(err));
+};
+
 let postEnrollment = (req, res) => {
   services
     .postEnrollment(req, res)
@@ -87,4 +96,5 @@ module.exports = {
   postEnrollment,
   putEnrollment,
   deleteEnrollment,
+  getEnrolledCoursesByStudentId,
 };

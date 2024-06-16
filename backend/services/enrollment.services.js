@@ -39,6 +39,19 @@ let getEnrollmentDataById = async (req, res) => {
   return rows;
 };
 
+let getEnrolledCoursesByStudentId = async (req, res) => {
+  let rows;
+  await dao
+    .getEnrolledCoursesByStudentId(req, res)
+    .then((resp) => {
+      rows = resp;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return rows;
+};
+
 let postEnrollment = async (req, res) => {
   let rows;
   await dao
@@ -85,4 +98,5 @@ module.exports = {
   postEnrollment,
   putEnrollment,
   deleteEnrollment,
+  getEnrolledCoursesByStudentId,
 };
