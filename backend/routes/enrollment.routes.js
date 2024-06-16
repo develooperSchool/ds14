@@ -11,7 +11,7 @@ router.get(`/getData`, (req, res) => {
   controller.getEnrollmentData(req, res);
 });
 
-router.get(`/getDataById/:Id`, (req, res) => {
+router.get(`/getDataById/:id`, (req, res) => {
   controller.getEnrollmentDataById(req, res);
 });
 
