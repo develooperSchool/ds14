@@ -1,5 +1,9 @@
 let db = require("../config/db-config");
 let sqlErr = require("../errors/SqlError");
+const {
+  USER_HAS_ALREADY_ENROLLED,
+  USER_HAS_NOT_ENROLLED_YET,
+} = require("../utils/app.constants");
 
 let getEnrollment = async (req, res) => {
   try {
@@ -15,10 +19,12 @@ let getEnrollment = async (req, res) => {
 
 let getEnrollmentDataById = async (req, res) => {
   try {
+    let message = USER_HAS_NOT_ENROLLED_YET;
     let q = `select * from student_enrollment s where s.user_id=${req.body.user_id} and s.course_id=${req.body.course_id}`;
     let values = [];
     let [rows, fields] = await db.query(q, values);
-    return rows;
+    if (rows.length > 0) message = USER_HAS_ALREADY_ENROLLED;
+    return message;
   } catch (err) {
     throw new sqlErr(String(err.sqlMessage).toUpperCase(), res);
   }

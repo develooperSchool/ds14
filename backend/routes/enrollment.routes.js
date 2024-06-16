@@ -12,7 +12,7 @@ router.get(`/getData`, (req, res) => {
 });
 
 router.get(
-  `/get/:id`,
+  `/studentEnrollment`,
   validation.getEnrollmentDataById,
   controller.getEnrollmentDataById
 );
