@@ -6,6 +6,7 @@ const {
   COURSE_UPDATED_SUCCESSFULLY,
   NEW_COURSE_CREATED_SUCCESSFULLY,
   COURSE_DELETED_SUCCESSFULLY,
+  NOT_FOUND,
 } = require("../utils/app.constants");
 
 let getCourses = (req, res) => {
@@ -21,7 +22,9 @@ let getCourseById = (req, res) => {
   services
     .getCourseById(req, res)
     .then((resp) => {
-      respond(SUCCESS, stCode.OK, resp, new Date(Date.now()), res);
+      typeof resp !== "string"
+        ? respond(SUCCESS, stCode.OK, resp, new Date(Date.now()), res)
+        : respond(NOT_FOUND, stCode.NOT_FOUND, resp, new Date(Date.now()), res);
     })
     .catch((err) => console.log(err));
 };

@@ -1,5 +1,6 @@
 let db = require("../config/db-config");
 let SqlError = require("../errors/SqlError");
+const { COURSE_NOT_FOUND } = require("../utils/app.constants");
 
 let getCourses = async (req, res) => {
   try {
@@ -17,7 +18,7 @@ let getCourseById = async (req, res) => {
     let q = `select * from courses where course_id = ${req.params.id}`;
     let values = [];
     let [rows, fields] = await db.query(q, values);
-    return rows[0];
+    return rows.length > 0 ? rows[0] : COURSE_NOT_FOUND;
   } catch (err) {
     throw new SqlError(String(err.sqlMessage).toUpperCase(), res);
   }
