@@ -69,7 +69,7 @@ let putEnrollment = async (req, res) => {
   try {
     let sql = `update student_enrollment set course_id=? where user_id=?`;
     let { user_id, course_id } = req.body;
-    let values = [user_id, course_id];
+    let values = [course_id, user_id];
     let [rows, fields] = await db.query(sql, values);
     return rows;
   } catch (err) {
