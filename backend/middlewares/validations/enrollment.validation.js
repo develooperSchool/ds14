@@ -44,7 +44,7 @@ const putEnrollmentValidation = (req, res, next) => {
 
 const deleteEnrollmentValidation = (req, res, next) => {
   if (utils.isInvalidId(req.params.id)) {
-    throw new err.InvalidUniqueId("ENTER CORRECT ID", res);
+    throw new err.InvalidUserId("ENTER CORRECT USER ID", res);
   }
   next();
 };

@@ -79,7 +79,7 @@ let putEnrollment = async (req, res) => {
 
 let deleteEnrollment = async (req, res) => {
   try {
-    let q = `delete from student_enrollment  where unique_id = ${req.params.id}`;
+    let q = `delete from student_enrollment where user_id = ${req.params.id}`;
     let values = [];
     let [rows, fields] = await db.query(q, values);
     return rows;
