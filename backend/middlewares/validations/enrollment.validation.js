@@ -33,9 +33,6 @@ const postEnrollmentValidation = (req, res, next) => {
 const putEnrollmentValidation = (req, res, next) => {
   const { user_id, course_id } = req.body;
 
-  if (utils.isInvalidId(req.params.id)) {
-    throw new err.InvalidUniqueId("ENTER CORRECT USER ID", res);
-  }
   if (utils.isInvalidId(user_id)) {
     throw new err.InvalidUserId("ENTER CORRECT USER ID", res);
   }

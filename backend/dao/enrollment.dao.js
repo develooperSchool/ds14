@@ -67,10 +67,10 @@ let postEnrollment = async (req, res) => {
 
 let putEnrollment = async (req, res) => {
   try {
-    let q = `update student_enrollment set user_id=?, course_id=?  where unique_id = ${req.params.id}`;
+    let sql = `update student_enrollment set course_id=? where user_id=?`;
     let { user_id, course_id } = req.body;
     let values = [user_id, course_id];
-    let [rows, fields] = await db.query(q, values);
+    let [rows, fields] = await db.query(sql, values);
     return rows;
   } catch (err) {
     throw new sqlErr(String(err.sqlMessage).toUpperCase(), res);
