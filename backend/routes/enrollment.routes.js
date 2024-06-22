@@ -30,7 +30,7 @@ router.post(
 );
 
 router.put(
-  `/update/:id`,
+  `/update`,
   validation.putEnrollmentValidation,
   controller.putEnrollment
 );
