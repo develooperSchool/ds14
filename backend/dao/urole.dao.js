@@ -3,6 +3,11 @@ const db = require("../config/db-config");
 const SqlError = require("../errors/SqlError");
 const values = require("@hapi/joi/lib/values");
 const Jwt = require("jsonwebtoken");
+const {
+  USER_UPDATED_SUCCESSFULLY,
+  NOT_FOUND,
+  USER_NOT_FOUND,
+} = require("../utils/app.constants");
 const jwtKey = "devschool";
 
 const getAllRoles = async (req, res) => {
@@ -58,44 +63,43 @@ const addNewRole = async (body) => {
   return message;
 };
 const updateUserById = async (req, res) => {
-  const userId = req.params.id;
+  const user_id = req.params.id;
   let result = [];
   let values = [];
 
   const {
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     email,
     contact,
     address,
     qualification,
-    passingYear,
+    passing_year,
     dob,
     gender,
-    casteCategory,
+    caste_category,
     subcaste,
   } = req.body;
   try {
     values = [
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       email,
       contact,
       address,
       qualification,
-      passingYear,
+      passing_year,
       dob,
       gender,
-      casteCategory,
+      caste_category,
       subcaste,
-      userId,
+      user_id,
     ];
 
     let sqlQuery =
       "UPDATE user_master set first_name = ?, last_name = ?, email = ?, contact = ?, address = ?, qualification = ?, passing_year = ?, dob = ?, gender = ?, caste_category = ?, subcaste = ? WHERE user_id = ? ";
     const [rows, field] = await db.query(sqlQuery, values);
-    result = rows;
-    console.log(result);
+    result = rows.affectedRows > 0 ? USER_UPDATED_SUCCESSFULLY : USER_NOT_FOUND;
   } catch (err) {
     console.log(err);
     throw new SqlError(String(err.sqlMessage).toUpperCase(), res);

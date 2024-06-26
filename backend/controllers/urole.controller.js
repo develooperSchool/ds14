@@ -1,5 +1,11 @@
 const roleService = require("../services/urole.service");
 const HttpStatusCode = require("../utils/HttpStatusCode");
+const {
+  USER_UPDATED_SUCCESSFULLY,
+  SUCCESS,
+  NOT_FOUND,
+} = require("../utils/app.constants");
+const { respond } = require("../utils/app.utils");
 const generateToken = require("../utils/generateToken");
 
 const getAllRoles = async (req, res) => {
@@ -57,8 +63,22 @@ const updateRoleById = async (req, res) => {
 const updateUserById = async (req, res) => {
   await roleService
     .updateUserById(req, res)
-    .then((rows) =>
-      res.status(HttpStatusCode.OK).json("username updated successfully")
+    .then((message) =>
+      message === USER_UPDATED_SUCCESSFULLY
+        ? respond(
+            SUCCESS,
+            HttpStatusCode.OK,
+            message,
+            new Date(Date.now()),
+            res
+          )
+        : respond(
+            NOT_FOUND,
+            HttpStatusCode.NOT_FOUND,
+            message,
+            new Date(Date.now()),
+            res
+          )
     )
     .catch((err) => res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send(err));
 };
